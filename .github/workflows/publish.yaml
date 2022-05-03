@@ -1,12 +1,14 @@
-name: Publish Hierarchy Access and Content
+name: Publish Hierarchy Access and Content (TEST)
 on:
   push:
     branches: [main]
+
 env:
   CLIENT_ID: ${{ secrets.TEST_CLIENT_ID }}
   CLIENT_SECRET: ${{ secrets.TEST_CLIENT_SECRET }}
   TOKEN_URL: ${{ secrets.TEST_TOKEN_URL }}
   PORTAL_URL: ${{ secrets.TEST_PORTAL_URL }}
+
 jobs:
   publish:
     runs-on: ubuntu-latest
