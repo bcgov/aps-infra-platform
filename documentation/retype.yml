@@ -1,6 +1,6 @@
 input: .
 output: .retype
-url: # Add your website address here
+url: bcgov.github.io/aps-infra-platform
 branding:
   title: BC Gov API Services
 links:
