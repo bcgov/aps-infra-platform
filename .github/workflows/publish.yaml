@@ -8,28 +8,49 @@ env:
   TOKEN_URL: ${{ secrets.TEST_TOKEN_URL }}
   PORTAL_URL: ${{ secrets.TEST_PORTAL_URL }}
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - run: |
+      - name: prerequisites
+        run: |
           sudo apt-get update
           sudo apt-get install -y python3 pip
           pip3 install pyyaml requests
 
+      - name: organization hierarchy
+        run: |
           export PATH=$PATH:./bin
 
           set -e
           y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml
 
+      - name: namespace assignments
+        run: |
+          export PATH=$PATH:./bin
+
+          set -e
+
           y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/sp42-test
 
+      - name: press releases
+        run: |
+          export PATH=$PATH:./bin
+
+          set -e
+
           y2j-put /ds/api/v2/namespaces/platform/contents \
-                  ./documentation/press-release.yaml \
-                  ./documentation/press-release.md
+                  ./press-releases/2021-jun.yaml \
+                  ./press-releases/2021-jun.md
+
+      - name: documentation
+        run: |
+          export PATH=$PATH:./bin
+
+          set -e
 
           y2j-put /ds/api/v2/namespaces/platform/contents \
                   ./documentation/user-journey.yaml \
