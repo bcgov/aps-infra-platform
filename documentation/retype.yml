@@ -1,0 +1,14 @@
+input: .
+output: .retype
+url: # Add your website address here
+branding:
+  title: BC Gov API Services
+links:
+  - text: API Services Portal
+    link: https://api.gov.bc.ca
+  - text: "Rocket.Chat #aps-ops"
+    link: https://chat.developer.gov.bc.ca/channel/aps-ops
+  - text: "Uptime.com"
+    link: https://uptime.com/s/bcgov-dss
+footer:
+  copyright: "&copy; Copyright {{ year }}. All rights reserved."

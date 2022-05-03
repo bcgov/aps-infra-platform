@@ -45,8 +45,8 @@ jobs:
           set -e
 
           y2j-put /ds/api/v2/namespaces/platform/contents \
-                  ./press-releases/2021-jun.yaml \
-                  ./press-releases/2021-jun.md
+                  ./documentation/releases/2021-jun.yaml \
+                  ./documentation/releases/2021-jun.md
 
       - name: documentation
         run: |
@@ -55,5 +55,25 @@ jobs:
           set -e
 
           y2j-put /ds/api/v2/namespaces/platform/contents \
-                  ./documentation/owner-journey.yaml \
-                  ./documentation/owner-journey.md
+                  ./documentation/guides/owner-journey.yaml \
+                  ./documentation/guides/owner-journey.md
+
+  retype:
+    name: Publish to the retype branch
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - uses: retypeapp/action-build@latest
+        with:
+          config: documentation
+      - uses: retypeapp/action-github-pages@latest
+        with:
+          branch: retype
+          update-branch: true

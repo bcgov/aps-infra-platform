@@ -1,4 +1,4 @@
-# API Owner Flow
+# API Owner User Journey
 
 The following steps walk an API Owner through setting up an API on the BC Gov API Gateway in our Test instance. If you are ready to deploy to our Production instance, use the links found at the bottom of this document ([here](#production-links)).
 
