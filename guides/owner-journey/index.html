@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-cache-control" content="no-cache">
+
+    <!-- See retype.com -->
+    <meta name="generator" content="Retype 2.2">
+
+    <!-- Primary Meta Tags -->
+    <title>API Owner User Journey</title>
+    <meta name="title" content="API Owner User Journey">
+    <meta name="description" content="Setup a new namespace for onboarding services on the BC Gov API Gateway." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="/guides/owner-journey/">
+    <meta property="og:title" content="API Owner User Journey">
+    <meta property="og:description" content="Setup a new namespace for onboarding services on the BC Gov API Gateway.">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="/guides/owner-journey/">
+    <meta property="twitter:title" content="API Owner User Journey">
+    <meta property="twitter:description" content="Setup a new namespace for onboarding services on the BC Gov API Gateway.">
+
+    <script>(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
+
+    <link href="/resources/css/retype.css?v=2.2.704934289257" rel="stylesheet" data-turbo-track="reload" />
+
+    <script type="text/javascript" src="/resources/js/config.js?v=2.2.704934289257" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/resources/js/retype.js?v=2.2" defer data-turbo-track="reload"></script>
+    <script id="lunr-js" type="text/javascript" src="/resources/js/lunr.js?v=2.2.704934289257" defer></script>
+    <script id="prism-js" type="text/javascript" src="/resources/js/prism.js?v=2.2.704934289257" defer></script>
+</head>
+<body>
+    <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
+        <div class="absolute bottom-0 left-0 bg-gray-100 dark:bg-dark-800" style="top: 5rem; right: 50%"></div>
+    
+        <header id="docs-site-header" class="sticky top-0 z-30 flex w-full h-16 bg-white border-b border-gray-200 md:h-20 dark:bg-dark-850 dark:border-dark-650">
+            <div class="container relative flex items-center justify-between grow pr-6 md:justify-start">
+                <!-- Mobile menu button skeleton -->
+                <button v-cloak class="skeleton docs-mobile-menu-button flex items-center justify-center shrink-0 overflow-hidden dark:text-white focus:outline-none rounded-full w-10 h-10 ml-3.5 md:hidden"><svg xmlns="http://www.w3.org/2000/svg" class="mb-px shrink-0" width="24" height="24" viewBox="0 0 24 24" role="presentation" style="margin-bottom: 0px;"><g fill="currentColor"><path d="M2 4h20v2H2zM2 11h20v2H2zM2 18h20v2H2z"></path></g></svg></button>
+                <div v-cloak id="docs-sidebar-toggle"></div>
+        
+                <!-- Logo -->
+                <div class="flex items-center justify-between h-full py-2 md:w-75">
+                    <div class="flex items-center px-2 md:px-6">
+                        <a id="docs-site-logo" href="/" class="flex items-center leading-snug text-xl">
+                            <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">BC Gov API Services</span>
+                        </a>
+                    </div>
+        
+                    <span class="hidden h-8 border-r md:inline-block dark:border-dark-650"></span>
+                </div>
+        
+                <div class="flex justify-between md:grow">
+                    <!-- Top Nav -->
+                    <nav class="hidden md:flex">
+                        <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+                            <li class="md:mr-6">
+                                <a class="block py-2 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 md:mb-0" href="https://api.gov.bc.ca">API Services Portal</a>
+                            </li>
+                            <li class="md:mr-6">
+                                <a class="block py-2 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 md:mb-0" href="https://chat.developer.gov.bc.ca/channel/aps-ops">Rocket.Chat #aps-ops</a>
+                            </li>
+                            <li class="md:mr-6">
+                                <a class="block py-2 text-sm text-gray-400 whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 md:mb-0" href="https://uptime.com/s/bcgov-dss">Uptime.com</a>
+                            </li>
+                        </ul>
+                    </nav>
+        
+                    <!-- Header Right Skeleton -->
+                    <div v-cloak class="flex justify-end grow skeleton">
+        
+                        <!-- Search input mock -->
+                        <div class="relative hidden w-40 lg:block lg:max-w-sm lg:ml-auto">
+                            <div class="absolute flex items-center justify-center h-full pl-3 dark:text-dark-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon-base" width="16" height="16" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 1px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                            </div>
+        
+                            <input class="w-full h-10 transition-colors duration-200 ease-in bg-gray-200 border border-transparent rounded md:text-sm hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:border-gray-500 dark:bg-dark-600 dark:border-dark-600 placeholder-gray-400 dark:placeholder-dark-400"
+                            style="padding: 0.625rem 0.75rem 0.625rem 2rem" type="text" placeholder="Search" />
+                        </div>
+        
+                        <!-- Mobile search button mock -->
+                        <div class="flex items-center justify-center w-10 h-10 lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="20" height="20" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><path d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0020 11c0-4.96-4.04-9-9-9s-9 4.04-9 9 4.04 9 9 9c2.12 0 4.07-.74 5.61-1.97l3.68 3.68c.2.19.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.03 0-1.42zM4 11c0-3.86 3.14-7 7-7s7 3.14 7 7c0 1.92-.78 3.66-2.04 4.93-.01.01-.02.01-.02.01-.01.01-.01.01-.01.02A6.98 6.98 0 0111 18c-3.86 0-7-3.14-7-7z" ></path></g></svg>
+                        </div>
+        
+                        <!-- Dark mode switch placehokder -->
+                        <div class="w-10 h-10 lg:ml-2"></div>
+        
+                        <!-- History button mock -->
+                        <div class="flex items-center justify-center w-10 h-10" style="margin-right: -0.625rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 icon-base" width="22" height="22" viewBox="0 0 24 24" aria-labelledby="icon" role="presentation"  style="margin-bottom: 0px;"><g fill="currentColor" ><g ><path d="M12.01 6.01c-.55 0-1 .45-1 1V12a1 1 0 00.4.8l3 2.22a.985.985 0 001.39-.2.996.996 0 00-.21-1.4l-2.6-1.92V7.01c.02-.55-.43-1-.98-1z"></path><path d="M12.01 1.91c-5.33 0-9.69 4.16-10.05 9.4l-.29-.26a.997.997 0 10-1.34 1.48l1.97 1.79c.19.17.43.26.67.26s.48-.09.67-.26l1.97-1.79a.997.997 0 10-1.34-1.48l-.31.28c.34-4.14 3.82-7.41 8.05-7.41 4.46 0 8.08 3.63 8.08 8.09s-3.63 8.08-8.08 8.08c-2.18 0-4.22-.85-5.75-2.4a.996.996 0 10-1.42 1.4 10.02 10.02 0 007.17 2.99c5.56 0 10.08-4.52 10.08-10.08.01-5.56-4.52-10.09-10.08-10.09z"></path></g></g></svg>
+                        </div>
+                    </div>
+        
+                    <div v-cloak class="flex justify-end grow">
+                        <div id="docs-mobile-search-button"></div>
+                        <doc-search-desktop></doc-search-desktop>
+        
+                        <doc-theme-switch class="lg:ml-2"></doc-theme-switch>
+                        <doc-history></doc-history>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <div class="container relative flex bg-white">
+            <!-- Sidebar Skeleton -->
+            <div v-cloak class="fixed flex flex-col shrink-0 duration-300 ease-in-out bg-gray-100 border-gray-200 sidebar top-20 w-75 border-r h-screen md:sticky transition-transform skeleton dark:bg-dark-800 dark:border-dark-650">
+            
+                <!-- Render this div, if config.showSidebarFilter is `true` -->
+                <div class="flex items-center h-16 px-6">
+                    <input class="w-full h-8 px-3 py-2 transition-colors duration-200 ease-linear bg-white border border-gray-200 rounded shadow-none text-sm focus:outline-none focus:border-gray-600 dark:bg-dark-600 dark:border-dark-600" type="text" placeholder="Filter" />
+                </div>
+            
+                <div class="pl-6 mb-4 mt-1">
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-32 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-48 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                    <div class="w-40 h-3 mb-4 bg-gray-200 rounded-full loading dark:bg-dark-600"></div>
+                </div>
+            
+                <div class="shrink-0 mt-auto bg-transparent dark:border-dark-650">
+                    <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                        <span class="text-xs whitespace-nowrap">Powered by</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Sidebar component -->
+            <doc-sidebar v-cloak>
+                <template #sidebar-footer>
+                    <div class="shrink-0 mt-auto border-t md:bg-transparent md:border-none dark:border-dark-650">
+            
+                        <div class="py-3 px-6 md:hidden border-b dark:border-dark-650">
+                            <nav>
+                                <ul class="flex flex-wrap justify-center items-center">
+                                    <li class="mr-6">
+                                        <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://api.gov.bc.ca">API Services Portal</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://chat.developer.gov.bc.ca/channel/aps-ops">Rocket.Chat #aps-ops</a>
+                                    </li>
+                                    <li class="mr-6">
+                                        <a class="block py-1 text-sm whitespace-nowrap transition-colors duration-200 ease-linear text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://uptime.com/s/bcgov-dss">Uptime.com</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+            
+                        <a class="flex items-center justify-center flex-nowrap h-16 text-gray-400 dark:text-dark-400 hover:text-gray-700 dark:hover:text-dark-300 transition-colors duration-150 ease-in docs-powered-by" target="_blank" href="https://retype.com/" rel="noopener">
+                            <span class="text-xs whitespace-nowrap">Powered by</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2" fill="currentColor" width="96" height="20" overflow="visible"><path d="M0 0v20h13.59V0H0zm11.15 17.54H2.44V2.46h8.71v15.08zM15.8 20h2.44V4.67L15.8 2.22zM20.45 6.89V20h2.44V9.34z"/><g><path d="M40.16 8.44c0 1.49-.59 2.45-1.75 2.88l2.34 3.32h-2.53l-2.04-2.96h-1.43v2.96h-2.06V5.36h3.5c1.43 0 2.46.24 3.07.73s.9 1.27.9 2.35zm-2.48 1.1c.26-.23.38-.59.38-1.09 0-.5-.13-.84-.4-1.03s-.73-.28-1.39-.28h-1.54v2.75h1.5c.72 0 1.2-.12 1.45-.35zM51.56 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92h4.74v1.83h-6.79V5.36h6.64zM60.09 7.15v7.48h-2.06V7.15h-2.61V5.36h7.28v1.79h-2.61zM70.81 14.64h-2.06v-3.66l-3.19-5.61h2.23l1.99 3.45 1.99-3.45H74l-3.19 5.61v3.66zM83.99 6.19c.65.55.97 1.4.97 2.55s-.33 1.98-1 2.51-1.68.8-3.04.8h-1.23v2.59h-2.06V5.36h3.26c1.42 0 2.45.28 3.1.83zm-1.51 3.65c.25-.28.37-.69.37-1.22s-.16-.92-.48-1.14c-.32-.23-.82-.34-1.5-.34H79.7v3.12h1.38c.68 0 1.15-.14 1.4-.42zM95.85 5.36V7.2h-4.59v1.91h4.13v1.76h-4.13v1.92H96v1.83h-6.79V5.36h6.64z"/></g></svg>
+                        </a>
+                    </div>
+                </template>
+            </doc-sidebar>
+    
+            <div class="grow min-w-0 dark:bg-dark-850">
+                <!-- Render "toolbar" template here on api pages --><!-- Render page content -->
+                <div class="flex">
+                    <div class="grow min-w-0 px-6 md:px-16">
+                        <main class="relative pt-6 pb-16">
+                            <div class="docs-markdown" id="docs-content">
+                                <!-- Rendered if sidebar right is enabled -->
+                                <div id="docs-sidebar-right-toggle"></div>
+                
+                                <!-- Page content  -->
+<doc-anchor-target id="api-owner-user-journey" class="break-words">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api-owner-user-journey">#</doc-anchor-trigger>
+        <span>API Owner User Journey</span>
+    </h1>
+</doc-anchor-target>
+<p>The following steps walk an API Owner through setting up an API on the BC Gov API Gateway in our Test instance. If you are ready to deploy to our Production instance, use the links found at the bottom of this document (<doc-anchor-trigger to="#production-links">here</doc-anchor-trigger>).</p>
+<doc-anchor-target id="1-register-a-new-namespace">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#1-register-a-new-namespace">#</doc-anchor-trigger>
+        <span>1. Register a new namespace</span>
+    </h2>
+</doc-anchor-target>
+<p>A <code v-pre>namespace</code> represents a collection of Kong Gateway Services and Routes that are managed independently.</p>
+<p>To create a new namespace, login to the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a>.</p>
+<p>After login, click the namespace dropdown in the top right next to your user name (it may show <code v-pre>No Active Namespace</code>), then click <code v-pre>Create New Namespace</code>.</p>
+<p>The namespace must be an alphanumeric string between 5 and 15 characters (RegExp reference: <code v-pre>^[a-z][a-z0-9-]{4,14}$</code>).</p>
+<p>You can select and manage namespaces by clicking the namespace dropdown in the top right next to your user name.</p>
+<doc-anchor-target id="2-generate-a-service-account">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#2-generate-a-service-account">#</doc-anchor-trigger>
+        <span>2. Generate a Service Account</span>
+    </h2>
+</doc-anchor-target>
+<p>Go to the <code v-pre>Namespaces</code> tab, click the <code v-pre>Service Accounts</code> link, and click the <code v-pre>New Service Account</code> and select the <code v-pre>GatewayConfig.Publish</code> permissions for the Service Account and click <code v-pre>Share</code>. A new credential will be created - make a note of the <code v-pre>ID</code> and <code v-pre>Secret</code>.</p>
+<p>The available Scopes are:
+| Scope | Permission |
+| ----- | ---------- |
+| <code v-pre>Namespace.Manage</code> | Permission to update the Access Control List for controlling access to viewing metrics, service configuration and service account management (effectively a superuser for the namespace) |
+| <code v-pre>Namespace.View</code> | Read-only access to the namespace |
+| <code v-pre>GatewayConfig.Publish</code> | Permission to publish gateway configuration to Kong and to view the status of the upstreams |
+| <code v-pre>Content.Publish</code> | Permission to update the documentation on the portal |
+| <code v-pre>CredentialIssuer.Admin</code> | Permission to create Authorization Profiles so that they are available to be used when configuring Product Environments |
+| <code v-pre>Access.Manage</code> | Permission to approve/reject access requests to your APIs that you make discoverable |</p>
+<doc-anchor-target id="3-prepare-configuration">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#3-prepare-configuration">#</doc-anchor-trigger>
+        <span>3. Prepare configuration</span>
+    </h2>
+</doc-anchor-target>
+<p>The gateway configuration can be hand-crafted or you can use a command line interface that we developed called <code v-pre>gwa</code> to convert your Openapi v3 spec to a Kong configuration.</p>
+<doc-anchor-target id="31-hand-crafted-recommended-if-you-dont-have-an-openapi-spec">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#31-hand-crafted-recommended-if-you-dont-have-an-openapi-spec">#</doc-anchor-trigger>
+        <span>3.1. Hand-crafted (recommended if you don&#x27;t have an Openapi spec)</span>
+    </h3>
+</doc-anchor-target>
+<p><strong>Simple Example</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">export NS=&quot;my_namespace&quot;
+export NAME=&quot;a-service-for-$NS&quot;
+echo &quot;
+services:
+- name: $NAME
+  host: httpbin.org
+  tags: [ ns.$NS ]
+  port: 443
+  protocol: https
+  retries: 0
+  routes:
+  - name: $NAME-route
+    tags: [ ns.$NS ]
+    hosts:
+    - $NAME.api.gov.bc.ca
+    paths:
+    - /
+    methods:
+    - GET
+    strip_path: false
+    https_redirect_status_code: 426
+    path_handling: v0
+&quot; &gt; sample.yaml</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>To view common plugin config go to <a href="https://github.com/bcgov/gwa-api/blob/dev/docs/COMMON-CONFIG.md">COMMON-CONFIG.md</a></p>
+</blockquote>
+<blockquote>
+<p>To view some other plugin examples go <a href="https://github.com/bcgov/gwa-api/blob/dev/docs/samples/service-plugins">here</a>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Declarative Config</strong> Behind the scenes, DecK is used to sync your configuration with Kong. For reference: <a href="https://docs.konghq.com/deck/overview/">https://docs.konghq.com/deck/overview/</a></p>
+</blockquote>
+<blockquote>
+<p><strong>Splitting Your Config:</strong> A namespace <code v-pre>tag</code> with the format <code v-pre>ns.$NS</code> is mandatory for each service/route/plugin. But if you have separate pipelines for your environments (i.e./ dev, test and prod), you can split your configuration and update the <code v-pre>tags</code> with the qualifier. So for example, you can use a tag <code v-pre>ns.$NS.dev</code> to sync Kong configuration for <code v-pre>dev</code> Service and Routes only.</p>
+</blockquote>
+<blockquote>
+<p><strong>Upstream Services on OCP4:</strong> If your service is running on OCP4, you should specify the Kubernetes Service in the <code v-pre>Service.host</code>. It must have the format: <code v-pre>&lt;name&gt;.&lt;ocp-namespace&gt;.svc</code>. Also make sure your <code v-pre>Service.port</code> matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
+The Aporeto Network Security Policies are being removed in favor of the Kubernetes Security Policies (KSP). You will need to create a KSP on your side looking something like this to allow the Gateway&#x27;s test and prod environments to route traffic to your API:</p>
+</blockquote>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: 264e6f
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: 264e6f</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p><strong>Migrating from OCP3 to OCP4?</strong> Please review the <a href="https://github.com/bcgov/gwa-api/blob/dev/docs/OCP4-MIGRATION.md">OCP4-Migration</a> instructions to help with transitioning to OCP4 and the new APS Gateway.</p>
+</blockquote>
+<blockquote>
+<p><strong>Require mTLS between the Gateway and your Upstream Service?</strong> To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the <code v-pre>ca_certificates</code> and <code v-pre>tls_verify</code> is required as well. An example:</p>
+</blockquote>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">services:
+  - name: my-upstream-service
+    host: my-upstream.site
+    tags: [_NS_]
+    port: 443
+    protocol: https
+    tls_verify: true
+    ca_certificates: [0a780ee0-626c-11eb-ae93-0242ac130012]
+    client_certificate: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
+    routes: [...]
+certificates:
+  - cert: &quot;&lt;PEM FORMAT&gt;&quot;
+    key: &quot;&lt;PEM FORMAT&gt;&quot;
+    tags: [_NS_]
+    id: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
+ca_certificates:
+  - cert: &quot;&lt;PEM FORMAT&gt;&quot;
+    tags: [_NS_]
+    id: 0a780ee0-626c-11eb-ae93-0242ac130012</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>NOTE: You must generate a UUID (<code v-pre>python -c 'import uuid; print(uuid.uuid4())'</code>) for each certificate and ca_certificate you create (set the <code v-pre>id</code>) and reference it in your <code v-pre>services</code> details.</p>
+</blockquote>
+<blockquote>
+<p>HELPER: Python command to get a PEM file on one line: <code v-pre>python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem</code></p>
+</blockquote>
+<doc-anchor-target id="32-gwa-command-line">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#32-gwa-command-line">#</doc-anchor-trigger>
+        <span>3.2. gwa Command Line</span>
+    </h3>
+</doc-anchor-target>
+<p>Run: <code v-pre>gwa new</code> and follow the prompts.</p>
+<p>Example:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">gwa new -o sample.yaml \
+  --route-host myapi.api.gov.bc.ca \
+  --service-url https://httpbin.org \
+  https://bcgov.github.io/gwa-api/openapi/simple.yaml</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>See below for the <code v-pre>gwa</code> CLI install instructions.</p>
+</blockquote>
+<doc-anchor-target id="4-apply-gateway-configuration">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#4-apply-gateway-configuration">#</doc-anchor-trigger>
+        <span>4. Apply gateway configuration</span>
+    </h2>
+</doc-anchor-target>
+<p>The Swagger console for the <code v-pre>gwa-api</code> can be used to publish Kong Gateway configuration, or the <code v-pre>gwa Command Line</code> can be used.</p>
+<doc-anchor-target id="41-gwa-command-line-recommended">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#41-gwa-command-line-recommended">#</doc-anchor-trigger>
+        <span>4.1. gwa Command Line (recommended)</span>
+    </h3>
+</doc-anchor-target>
+<p><strong>Install (for Linux)</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">GWA_CLI_VERSION=v1.2.0; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
+unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
+./gwa --version</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p><strong>Using MacOS or Windows?</strong> Download here: <a href="https://github.com/bcgov/gwa-cli/releases/tag/v1.2.0">https://github.com/bcgov/gwa-cli/releases/tag/v1.2.0</a></p>
+</blockquote>
+<blockquote>
+<p>NOTE: Version 1.2.0 introduces support for v2 of our api. To continue using v1 of the api, ensure that the API Version is set to 1 (see below)</p>
+</blockquote>
+<p><strong>Configure</strong></p>
+<p>Create a <code v-pre>.env</code> file and update the CLIENT_ID and CLIENT_SECRET with the new credentials that were generated in step #2:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">echo &quot;
+GWA_NAMESPACE=$NS
+CLIENT_ID=&lt;YOUR SERVICE ACCOUNT ID&gt;
+CLIENT_SECRET=&lt;YOUR SERVICE ACCOUNT SECRET&gt;
+GWA_ENV=test
+API_VERSION=2
+&quot; &gt; .env
+
+OR run:
+
+gwa init -T --api-version=2 --namespace=$NS --client-id=&lt;YOUR SERVICE ACCOUNT ID&gt; --client-secret=&lt;YOUR SERVICE ACCOUNT SECRET&gt;
+</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>NOTE: The <code v-pre>-T</code> indicates our Test environment. For production use <code v-pre>-P</code>.</p>
+</blockquote>
+<p><strong>Publish</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">gwa pg sample.yaml</code></pre>
+</doc-codeblock></div>
+<p>If you want to see the expected changes but not actually apply them, you can run:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">gwa pg --dry-run sample.yaml</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="42-swagger-console">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#42-swagger-console">#</doc-anchor-trigger>
+        <span>4.2. Swagger Console</span>
+    </h3>
+</doc-anchor-target>
+<p>Go to <a href="https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/">gwa-api Swagger Console</a>.</p>
+<p>Select the <code v-pre>PUT</code> <code v-pre>/namespaces/{namespace}/gateway</code> API.</p>
+<p>The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the <code v-pre>lock</code> link on the right and enter in the Service Account credentials that were generated in step #2.</p>
+<p>For the <code v-pre>Parameter namespace</code>, enter the namespace that you created in step #1.</p>
+<p>Select <code v-pre>dryRun</code> to <code v-pre>true</code>.</p>
+<p>Select a <code v-pre>configFile</code> file.</p>
+<p>Send the request.</p>
+<doc-anchor-target id="43-postman">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#43-postman">#</doc-anchor-trigger>
+        <span>4.3. Postman</span>
+    </h3>
+</doc-anchor-target>
+<p>From the Postman App, click the <code v-pre>Import</code> button and go to the <code v-pre>Link</code> tab.</p>
+<p>Enter a URL: <a href="https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml">https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml</a></p>
+<p>After creation, go to <code v-pre>Collections</code> and right-click on the <code v-pre>Gateway Administration (GWA) API</code> collection and select <code v-pre>edit</code>.</p>
+<p>Go to the <code v-pre>Authorization</code> tab, enter in your <code v-pre>Client ID</code> and <code v-pre>Client Secret</code> and click <code v-pre>Get New Access Token</code>.</p>
+<p>You should get a successful dialog to proceed. Click <code v-pre>Proceed</code> and <code v-pre>Use Token</code>.</p>
+<p>You can then verify that the token works by going to the Collection <code v-pre>Return key information about authenticated identity</code> and click <code v-pre>Send</code>.</p>
+<doc-anchor-target id="5-verify-routes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#5-verify-routes">#</doc-anchor-trigger>
+        <span>5. Verify routes</span>
+    </h2>
+</doc-anchor-target>
+<p>To verify that the Gateway can access the upstream services, run the command: <code v-pre>gwa status</code>.</p>
+<p>In our test environment, the hosts that you defined in the routes get altered; to see the actual hosts, log into the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a>, go to the <code v-pre>Namespaces</code> tab, go to <code v-pre>Gateway Services</code> and select your particular service to get the routing details.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
+
+ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
+</code></pre>
+</doc-codeblock></div>
+<p>To help with troubleshooting, you can use the GWA API to get a health check for each of the upstream services to verify the Gateway is connecting OK.</p>
+<p>Go to the <a href="https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/#/Service%20Status/get_namespaces__namespace__services">GWA API</a>, enter in the new credentials that were generated in step #2, click <code v-pre>Try it out</code>, enter your namespace and click <code v-pre>Execute</code>. The results are returned in a JSON object.</p>
+<doc-anchor-target id="6-view-metrics">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#6-view-metrics">#</doc-anchor-trigger>
+        <span>6. View metrics</span>
+    </h2>
+</doc-anchor-target>
+<p>The following metrics can be viewed in real-time for the Services that you configure on the Gateway:</p>
+<ul>
+<li>Request Rate : Requests / Second (by Service/Route, by HTTP Status)</li>
+<li>Latency : Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)</li>
+<li>Bandwidth : Ingress/egress bandwidth (by Service/Route)</li>
+<li>Total Requests : In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)</li>
+</ul>
+<p>All metrics can be viewed by an arbitrary time window - defaults to <code v-pre>Last 24 Hours</code>.</p>
+<p>Go to <a href="https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca">Grafana</a> to view metrics for your configured services.</p>
+<p>You can also access summarized metrics from the <code v-pre>API Services Portal</code> by going to the <code v-pre>Namespaces</code> tab and clicking the <code v-pre>Gateway Services</code> link.</p>
+<doc-anchor-target id="7-grant-access-to-others">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#7-grant-access-to-others">#</doc-anchor-trigger>
+        <span>7. Grant access to others</span>
+    </h2>
+</doc-anchor-target>
+<p>To grant access to others, you need to grant them the appropriate Scopes. This can be done from the <code v-pre>API Services Portal</code>, selecting the relevant <code v-pre>Namespace</code> and going to the Namespaces <code v-pre>Namespace Access</code> page. From here, you are able to grant Users access to the Namespace.</p>
+<doc-anchor-target id="8-add-to-your-cicd-pipeline">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#8-add-to-your-cicd-pipeline">#</doc-anchor-trigger>
+        <span>8. Add to your CI/CD Pipeline</span>
+    </h2>
+</doc-anchor-target>
+<p>Update your CI/CD pipelines to run the <code v-pre>gwa-cli</code> to keep your services updated on the gateway.</p>
+<doc-anchor-target id="81-github-actions-example">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#81-github-actions-example">#</doc-anchor-trigger>
+        <span>8.1. Github Actions Example</span>
+    </h3>
+</doc-anchor-target>
+<p>In the repository that you maintain your CI/CD Pipeline configuration, use the Service Account details from <code v-pre>Step 2</code> to set up two <code v-pre>Secrets</code>:</p>
+<ul>
+<li><p>GWA_ACCT_ID</p>
+</li>
+<li><p>GWA_ACCT_SECRET</p>
+</li>
+</ul>
+<p>Add a <code v-pre>.gwa</code> folder (can be called anything) that will be used to hold your gateway configuration.</p>
+<p>An example Github Workflow:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">env:
+  NS: &quot;&lt;your namespace&gt;&quot;
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+          TOKEN: ${{ ERROR }}
+
+      - name: Get GWA Command Line
+        run: |
+          curl -L -O https://github.com/bcgov/gwa-cli/releases/download/v1.2.0/gwa_v1.2.0_linux_x64.zip
+          unzip gwa_v1.2.0_linux_x64.zip
+          export PATH=`pwd`:$PATH
+
+      - name: Apply Namespace Configuration
+        run: |
+          export PATH=`pwd`:$PATH
+          cd .gwa/$NS
+
+          gwa init -T \
+            --namespace=$NS \
+            --client-id=${{ ERROR }} \
+            --client-secret=${{ ERROR }}
+
+          gwa pg</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="9-share-your-api-for-discovery">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#9-share-your-api-for-discovery">#</doc-anchor-trigger>
+        <span>9. Share your API for Discovery</span>
+    </h2>
+</doc-anchor-target>
+<p>Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalog.</p>
+<p>The <code v-pre>API Services Portal</code> Directory organizes your APIs by Products and Environments. You can manage them via an API or through the UI.</p>
+<p>To use the Directory API, the following scopes are required:</p>
+<ul>
+<li>For <code v-pre>contents</code> (documentation), the service account must have the <code v-pre>Content.Publish</code> scope</li>
+<li>For <code v-pre>datasets</code> and <code v-pre>products</code>, the service account must have the <code v-pre>Namespace.Manage</code> scope</li>
+<li>For <code v-pre>issuers</code>, the service account must have the <code v-pre>CredentialIssuer.Admin</code> scope</li>
+</ul>
+<p>View the Directory API in the <a href="https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/openapi.yaml">Swagger Console</a></p>
+<blockquote>
+<p>NOTE: The steps below use <code v-pre>restish</code>, but we will be working on upgrading the <code v-pre>gwa</code> command line interface to support these APIs</p>
+</blockquote>
+<blockquote>
+<p>Can use <code v-pre>y2j</code> to convert from YAML to JSON</p>
+<p><code v-pre>echo -e &quot;#&quot;'!'&quot;/usr/bin/env python\nimport sys,yaml,json\nprint(json.dumps(yaml.safe_load(open(sys.argv[1]).read())))&quot; &gt; /usr/local/bin/y2j</code></p>
+<p><code v-pre>chmod +x /usr/local/bin/y2j</code></p>
+</blockquote>
+<p><strong>Restish Setup</strong></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">restish api configure my_api</code></pre>
+</doc-codeblock></div>
+<p>Base URI : <a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api</a></p>
+<p><code v-pre>Edit Profile default</code></p>
+<p>Select <code v-pre>Setup Auth</code> &gt; <code v-pre>oauth-client-credentials</code></p>
+<p>Enter the <code v-pre>client_id</code> and <code v-pre>client_secret</code> for your Service Account.</p>
+<p><code v-pre>token_url</code> : Provided to you when you created the Service Account</p>
+<p><code v-pre>scopes</code> : openid</p>
+<p>Select <code v-pre>Finished with profile</code> and then <code v-pre>Save and exit</code></p>
+<p>To verify that restish is working, run:</p>
+<p><code v-pre>restish my_api list</code> or <code v-pre>restish my_api get-new-id product</code></p>
+<p>The below example works with the service created above, so we will want to reference the NS environment variable.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">export NS=&quot;&quot;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="91-setup-authorization-profiles">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#91-setup-authorization-profiles">#</doc-anchor-trigger>
+        <span>9.1 Setup Authorization Profiles</span>
+    </h3>
+</doc-anchor-target>
+<p>If your APIS are protected with one of the OAuth2 grant types, then an Authorization profile must be created with the appropriate credentials for accessing the corresponding Identity Provider/Broker and Authorization Server.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: CredentialIssuer
+name: Resource Server Example
+namespace: $NS
+description: Authorization Profile for protecting Ministry of XYZ
+flow: client-credentials
+mode: auto
+authPlugin: jwt-keycloak
+clientAuthenticator: client-secret
+clientRoles: []
+availableScopes: [Function1/read, Function2/*, Function3/write, Function3/read]
+owner: &lt;your-username&gt;
+environmentDetails:
+  - environment: prod
+    issuerUrl: https://auth-issuer
+    clientId: testapp-client
+    clientRegistration: managed
+    clientSecret: &quot;&quot;</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">y2j issuer.yaml | restish my_api put-issuer $NS</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="92-setup-your-product-environments-and-link-your-services">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#92-setup-your-product-environments-and-link-your-services">#</doc-anchor-trigger>
+        <span>9.2 Setup your Product, Environments and link your Services</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: DraftDataset
+name: my-draft-dataset
+organization: ministry-of-health
+organizationUnit: planning-and-innovation-division
+title: My API
+notes: Some information about this API
+tags: [health, standards, openapi]
+sector: Service
+license_title: Access Only
+view_audience: Government
+security_class: LOW-PUBLIC
+record_publish_date: &quot;2021-05-27&quot;</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">y2j dataset.yaml | restish my_api put-dataset $NS</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: Product
+appId: 2B04C28E08AW
+name: My API
+dataset: my-draft-dataset
+environments:
+  - id: 1F7CA929
+    name: dev
+    active: false
+    approval: false
+    legal: terms-of-use-for-api-gateway-1
+    flow: kong-api-key-acl
+    additionalDetailsToRequest: Please provide a bit more of this
+    services: []
+  - id: 2F7CA929
+    name: test
+    active: false
+    approval: true
+    legal: terms-of-use-for-api-gateway-1
+    flow: kong-api-key-acl
+    additionalDetailsToRequest: Asking for test environment? Please provide some more info
+    services: [a-service-for-$NS]
+  - id: 3F7CA929
+    name: prod
+    active: false
+    approval: true
+    legal: terms-of-use-for-api-gateway-1
+    flow: client-credentials
+    credentialIssuer: Resource Server $NS
+    additionalDetailsToRequest: Production? Great, please provide X, Y and Z
+    services: []</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">y2j prod.yaml | restish my_api put-product $NS</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="93-update-gateway-configuration-based-on-flow">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#93-update-gateway-configuration-based-on-flow">#</doc-anchor-trigger>
+        <span>9.3 Update Gateway Configuration based on Flow</span>
+    </h3>
+</doc-anchor-target>
+<p>In the previous section our example defines an environment that is protected using Kong&#x27;s API Key and ACL plugins. To activate an environment, the corresponding plugins need to exist on the Gateway for that service or routes. The ACL <code v-pre>allow</code> corresponds to the unique <code v-pre>Environment ID</code> defined in section 9.2.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">  plugins:
+  - name: key-auth
+    tags: [ ns.$NS ]
+    protocols: [ http, https ]
+    config:
+      key_names: [&quot;X-API-KEY&quot;]
+      run_on_preflight: true
+      hide_credentials: true
+      key_in_body: false
+  - name: acl
+    tags: [ ns.$NS ]
+    config:
+      hide_groups_header: true
+      allow: [ &lt;SEE ENVIRONMENT DETAIL&gt; ]</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="94-publish-environments">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#94-publish-environments">#</doc-anchor-trigger>
+        <span>9.4 Publish Environments</span>
+    </h3>
+</doc-anchor-target>
+<p>Your products will not appear on the Directory until you mark the relevant environments as Active. You can do this by either updating the Product Environment configuration above to <code v-pre>active: true</code>, or going to the API Services Portal UI and editing the Environment details.</p>
+<doc-anchor-target id="95-publish-documentation">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#95-publish-documentation">#</doc-anchor-trigger>
+        <span>9.5 Publish Documentation</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: Content
+title: Getting Started with Example API
+description: Getting Started with Example API
+externalLink: https://github.com/bcgov/$NS/getting_started.md
+order: 1
+tags: [ns.$NS]
+isComplete: true
+isPublic: true
+publishDate: &quot;2021-06-02T08:00:00.000-08:00&quot;</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">y2j content.yaml | restish my_api put-content $NS
+
+echo &quot;# here is some markdown and more!&quot; &gt; doc.md
+
+restish my_api put-content $NS \
+  externalLink: &quot;https://github.com/bcgov/$NS/getting_started.md&quot;, \
+  content: @doc.md</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="96-view-your-product-in-the-api-directory">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#96-view-your-product-in-the-api-directory">#</doc-anchor-trigger>
+        <span>9.6 View your product in the API Directory</span>
+    </h3>
+</doc-anchor-target>
+<p>Find your API in the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-discovery">API Services Portal Directory</a></p>
+<p>It is now ready to receive access requests from the community!</p>
+<doc-anchor-target id="production-links">
+    <h1>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#production-links">#</doc-anchor-trigger>
+        <span>Production Links</span>
+    </h1>
+</doc-anchor-target>
+<ul>
+<li><a href="https://api.gov.bc.ca">API Services Portal</a></li>
+<li><a href="https://gwa.api.gov.bc.ca/docs/">gwa-api Swagger Console</a></li>
+<li><a href="https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml">gwa-api Postman Collection</a></li>
+<li><a href="https://grafana.apps.gov.bc.ca">Gateway Metrics - Grafana</a></li>
+</ul>
+
+                                <div class="flex items-center mt-6 mb-6 clear-both">
+                                    <span>
+                                        <a href="/tags/">
+                                            <svg class="inline-block -mb-px mr-1.5 text-blue-500 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" overflow="visible" fill="currentColor"><g><path d="M21.3 9.88l-8.59-8.59C12.52 1.11 12.27 1 12 1H2c-.55 0-1 .45-1 1v10c0 .27.11.52.29.71l8.59 8.58c.57.57 1.32.88 2.12.88s1.55-.31 2.12-.88l7.17-7.17a3.009 3.009 0 00.01-4.24zm-1.42 2.82l-7.17 7.17c-.39.39-1.02.39-1.42 0L3 11.59V3h8.59l8.29 8.29c.39.39.39 1.03 0 1.41z" /><path d="M7.01 6C6.45 6 6 6.45 6 7s.45 1 1 1 1-.45 1-1-.44-1-.99-1z" /></g></svg>
+                                        </a>
+                                        <span class="mr-2"><a href="/tags/ns.platform/" class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-blue-500 dark:text-blue-400 border border-blue-500 dark:border-blue-400 hover:bg-blue-100 dark:hover:bg-transparent dark:hover:border-blue-200 dark:hover:text-blue-200 transition-colors duration-200 ease-out h-6 px-2 text-xs rounded-md">
+                                    <span>ns.platform</span>
+                                </a></span>
+                                    </span>
+                                </div>
+                
+                                <!-- Required only on API pages -->
+                                <doc-toolbar-member-filter-no-results />
+                            </div>
+                            <footer class="clear-both">
+                            
+                                <nav class="flex mt-14">
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/gateway-plugins/available-plugins/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Supported Plugins</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/guides/intro-signed-jwt/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">Getting Started with Signed JWT</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </footer>
+                        </main>
+                
+                        <div class="border-t dark:border-dark-650 pt-6 mb-8">
+                            <footer class="flex flex-wrap items-center justify-between">
+                                <div>
+                                    <ul class="flex flex-wrap items-center text-sm">
+                                    </ul>
+                                </div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022. All rights reserved.</p></div>
+                            </footer>
+                        </div>
+                    </div>
+                
+                    <!-- Rendered if sidebar right is enabled -->
+                    <!-- Sidebar right skeleton-->
+                    <div v-cloak class="fixed top-0 bottom-0 right-0 translate-x-full bg-white border-gray-200 lg:sticky lg:border-l lg:shrink-0 lg:pt-6 lg:transform-none sm:w-1/2 lg:w-64 lg:z-0 md:w-104 sidebar-right skeleton dark:bg-dark-850 dark:border-dark-650">
+                        <div class="pl-5">
+                            <div class="w-32 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-48 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                            <div class="w-40 h-3 mb-4 bg-gray-200 dark:bg-dark-600 rounded-full loading"></div>
+                        </div>
+                    </div>
+                
+                    <!-- User should be able to hide sidebar right -->
+                    <doc-sidebar-right v-cloak></doc-sidebar-right>
+                </div>
+
+            </div>
+        </div>
+    
+        <doc-search-mobile></doc-search-mobile>
+        <doc-back-to-top></doc-back-to-top>
+    </div>
+
+
+    <div id="docs-overlay-target"></div>
+
+    <script>window.__DOCS__ = { "title": "API Owner User Journey", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+</body>
+</html>
