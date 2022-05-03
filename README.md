@@ -2,11 +2,11 @@
 
 This repository performs two functions:
 
-1. Publishes documentation to the API Services Portal
+1. Publishes documentation (inc. press releases) to the API Services Portal
 
 2. Updates the Organization Hierarchy and Namespace assignment (until the UI is complete)
 
-## Publishing Documentation
+## Publishing
 
 ```
 docker run -ti --rm -v `pwd`:/work ubuntu:latest
@@ -23,7 +23,10 @@ export PORTAL_URL=""
 
 /work/bin/y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/sp42-test
 
-/work/bin/y2j-put /ds/api/v2/namespaces/platform/contents /work/documentation/press-release.yaml
-/work/bin/y2j-put /ds/api/v2/namespaces/platform/contents /work/documentation/user-journey.yaml /work/documentation/USER-JOURNEY.md
+/work/bin/y2j-put /ds/api/v2/namespaces/platform/contents \
+  /work/documentation/user-journey.yaml \
+  /work/documentation/USER-JOURNEY.md
+
+/work/bin/y2j-put /ds/api/v2/namespaces/platform/contents /work/press-releases/2021-jun.yaml
 
 ```
