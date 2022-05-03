@@ -1,0 +1,35 @@
+name: Publish Hierarchy Access and Content
+on:
+  push:
+    branches: [main]
+env:
+  CLIENT_ID: ${{ secrets.TEST_CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.TEST_CLIENT_SECRET }}
+  TOKEN_URL: ${{ secrets.TEST_TOKEN_URL }}
+  PORTAL_URL: ${{ secrets.TEST_PORTAL_URL }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get GWA Command Line
+        run: |
+          GWA_CLI_VERSION=v1.3.1; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
+          unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
+
+      - name: Publish
+        run: |
+          apt-get update
+          apt-get install -y python3 pip
+          pip3 install pyyaml requests
+
+          ls
+          ./bin/y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml

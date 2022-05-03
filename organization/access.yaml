@@ -1,0 +1,16 @@
+- name: ca.bc.gov
+  members:
+    - member:
+        username: jbrammal@idir
+      roles: [organization-admin]
+    - member:
+        username: acope@idir
+      roles: [organization-admin]
+
+- name: ministry-of-citizens-services
+  parent: /ca.bc.gov
+  members: []
+
+- name: databc
+  parent: /ca.bc.gov/ministry-of-citizens-services
+  members: []
