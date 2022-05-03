@@ -15,21 +15,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get GWA Command Line
-        run: |
-          GWA_CLI_VERSION=v1.3.1; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
-          unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
-
-      - name: Publish
-        run: |
+      - run: |
           sudo apt-get update
           sudo apt-get install -y python3 pip
           pip3 install pyyaml requests
 
-          ls
-          ./bin/y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml
+          export PATH=$PATH:./bin
+
+          set -e
+          y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml
+
+          y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/sp42-test
+
+          y2j-put /ds/api/v2/namespaces/platform/contents \
+                  ./documentation/press-release.yaml \
+                  ./documentation/press-release.md
+
+          y2j-put /ds/api/v2/namespaces/platform/contents \
+                  ./documentation/user-journey.yaml \
+                  ./documentation/USER-JOURNEY.md
