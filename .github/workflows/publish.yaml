@@ -55,5 +55,5 @@ jobs:
           set -e
 
           y2j-put /ds/api/v2/namespaces/platform/contents \
-                  ./documentation/user-journey.yaml \
-                  ./documentation/USER-JOURNEY.md
+                  ./documentation/owner-journey.yaml \
+                  ./documentation/owner-journey.md
