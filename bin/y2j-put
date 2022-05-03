@@ -24,6 +24,7 @@ def put(path, data):
     "Content-Type": "application/json",
     "Authorization": "Bearer %s" % get_token()
   }
+  print(": %s" % path)
   r = requests.put(path, 
                   data=data, 
                   headers=headers)
