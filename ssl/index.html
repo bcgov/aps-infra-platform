@@ -28,11 +28,11 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.704934980506" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.704935246733" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.704934980506" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.704935246733" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/aps-infra-platform/resources/js/retype.js?v=2.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.704934980506" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.704935246733" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -183,7 +183,8 @@
 <p>If you would like to verify the SSL endpoint, you can run the following two commands and compare the fingerprint and serial no.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">export A_HOST=httpbin-regression.api.gov.bc.ca
-openssl s_client -showcerts -verify 5 -connect 142.34.194.118:443 -servername ${A_HOST} &lt; /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; print}' &gt; gw.crt
+openssl s_client -showcerts -verify 5 -connect 142.34.194.118:443 \
+  -servername ${A_HOST} &lt; /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; print}' &gt; gw.crt
 
 openssl x509 -in gw.crt -fingerprint -serial -dates -noout
 </code></pre>
