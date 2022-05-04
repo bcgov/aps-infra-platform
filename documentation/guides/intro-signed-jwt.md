@@ -42,13 +42,15 @@ jose.JWK.asKeyStore(ks.toString()).then(keyStore =>
 
 Place the JWKS JSON file somewhere that it can be reached publically.
 
+For testing, an easy option is to use Github Pages and publish the JWKS JSON file in order to make a public URL. For example:
+
 ```
 https://ikethecoder.github.io/temp-place/certs.json
 ```
 
 ## 3. Request Access to an API
 
-https://api-gov-bc-ca.test.api.gov.bc.ca/
+Go to the API Services Portal (https://api-gov-bc-ca.test.api.gov.bc.ca/) and request access to an API that is configured with the Signed JWT protection. After requesting access, you will be provided with some secrets.
 
 Make a note of the `Client ID`, `Issuer` and `Token Endpoint`.
 

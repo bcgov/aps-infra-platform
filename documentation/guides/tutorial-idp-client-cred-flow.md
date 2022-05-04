@@ -180,4 +180,4 @@ The Authorization Profile `clientAuthenticator` was set to `client-secret` in th
 
 - `client-jwt-jwks-url` (Signed JWT with JWKS URL)
 
-In this scenario, when a Client is requesting access, they will be required to enter a public URL that holds the public key information for a key pair that will be used in step 5 when retrieving the Bearer Token. For further details, you can see the specific example `intro-signed-jwt.md`.
+In this scenario, when a Client is requesting access, they will be required to enter a public URL that holds the public key information for a key pair that will be used in step 5 when retrieving the Bearer Token. For further details, you can see the specific example [Variation - Signed JWT](./intro-signed-jwt.md).

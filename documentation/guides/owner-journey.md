@@ -1,4 +1,4 @@
-# API Owner User Journey
+# API Provider User Journey
 
 The following steps walk an API Owner through setting up an API on the BC Gov API Gateway in our Test instance. If you are ready to deploy to our Production instance, use the links found at the bottom of this document ([here](#production-links)).
 
@@ -19,14 +19,15 @@ You can select and manage namespaces by clicking the namespace dropdown in the t
 Go to the `Namespaces` tab, click the `Service Accounts` link, and click the `New Service Account` and select the `GatewayConfig.Publish` permissions for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
 
 The available Scopes are:
-| Scope | Permission |
-| ----- | ---------- |
-| `Namespace.Manage` | Permission to update the Access Control List for controlling access to viewing metrics, service configuration and service account management (effectively a superuser for the namespace) |
-| `Namespace.View` | Read-only access to the namespace |
-| `GatewayConfig.Publish` | Permission to publish gateway configuration to Kong and to view the status of the upstreams |
-| `Content.Publish` | Permission to update the documentation on the portal |
-| `CredentialIssuer.Admin` | Permission to create Authorization Profiles so that they are available to be used when configuring Product Environments |
-| `Access.Manage` | Permission to approve/reject access requests to your APIs that you make discoverable |
+
+| Scope                    | Permission                                                                                                                                                                               |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Namespace.Manage`       | Permission to update the Access Control List for controlling access to viewing metrics, service configuration and service account management (effectively a superuser for the namespace) |
+| `Namespace.View`         | Read-only access to the namespace                                                                                                                                                        |
+| `GatewayConfig.Publish`  | Permission to publish gateway configuration to Kong and to view the status of the upstreams                                                                                              |
+| `Content.Publish`        | Permission to update the documentation on the portal                                                                                                                                     |
+| `CredentialIssuer.Admin` | Permission to create Authorization Profiles so that they are available to be used when configuring Product Environments                                                                  |
+| `Access.Manage`          | Permission to approve/reject access requests to your APIs that you make discoverable                                                                                                     |
 
 ## 3. Prepare configuration
 
@@ -62,7 +63,7 @@ services:
 " > sample.yaml
 ```
 
-> To view common plugin config go to [COMMON-CONFIG.md](https://github.com/bcgov/gwa-api/blob/dev/docs/COMMON-CONFIG.md)
+> To view common plugin config go to [Common Controls](../gateway-plugins/COMMON-CONFIG.md)
 
 > To view some other plugin examples go [here](https://github.com/bcgov/gwa-api/blob/dev/docs/samples/service-plugins).
 
@@ -149,14 +150,14 @@ The Swagger console for the `gwa-api` can be used to publish Kong Gateway config
 **Install (for Linux)**
 
 ```bash
-GWA_CLI_VERSION=v1.2.0; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
+GWA_CLI_VERSION=v1.3.1; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
 unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 ./gwa --version
 ```
 
-> **Using MacOS or Windows?** Download here: [https://github.com/bcgov/gwa-cli/releases/tag/v1.2.0](https://github.com/bcgov/gwa-cli/releases/tag/v1.2.0)
+> **Using MacOS or Windows?** Download here: [https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1](https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1)
 
-> NOTE: Version 1.2.0 introduces support for v2 of our api. To continue using v1 of the api, ensure that the API Version is set to 1 (see below)
+> NOTE: As of version 1.2+ there is support for v2 of our api. To continue using v1 of the api, ensure that the API Version is set to 1 (see below)
 
 **Configure**
 
@@ -242,10 +243,10 @@ Go to the [GWA API](https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/#/Service%
 
 The following metrics can be viewed in real-time for the Services that you configure on the Gateway:
 
-- Request Rate : Requests / Second (by Service/Route, by HTTP Status)
-- Latency : Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)
-- Bandwidth : Ingress/egress bandwidth (by Service/Route)
-- Total Requests : In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)
+- **Request Rate** : Requests / Second (by Service/Route, by HTTP Status)
+- **Latency** : Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)
+- **Bandwidth** : Ingress/egress bandwidth (by Service/Route)
+- **Total Requests** : In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)
 
 All metrics can be viewed by an arbitrary time window - defaults to `Last 24 Hours`.
 
@@ -292,8 +293,8 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          curl -L -O https://github.com/bcgov/gwa-cli/releases/download/v1.2.0/gwa_v1.2.0_linux_x64.zip
-          unzip gwa_v1.2.0_linux_x64.zip
+          curl -L -O https://github.com/bcgov/gwa-cli/releases/download/v1.3.1/gwa_v1.3.1_linux_x64.zip
+          unzip gwa_v1.3.1_linux_x64.zip
           export PATH=`pwd`:$PATH
 
       - name: Apply Namespace Configuration
@@ -321,7 +322,10 @@ To use the Directory API, the following scopes are required:
 - For `datasets` and `products`, the service account must have the `Namespace.Manage` scope
 - For `issuers`, the service account must have the `CredentialIssuer.Admin` scope
 
-View the Directory API in the [Swagger Console](https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/openapi.yaml)
+View the Directory API:
+
+- **V1:** [V1 Directory API Console](https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/openapi.yaml)
+- **V2:** [V2 Directory API Console](https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/openapi.yaml)
 
 > NOTE: The steps below use `restish`, but we will be working on upgrading the `gwa` command line interface to support these APIs
 
