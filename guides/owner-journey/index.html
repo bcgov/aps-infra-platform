@@ -10,30 +10,30 @@
     <meta name="generator" content="Retype 2.2">
 
     <!-- Primary Meta Tags -->
-    <title>API Owner User Journey</title>
-    <meta name="title" content="API Owner User Journey">
+    <title>API Provider User Journey</title>
+    <meta name="title" content="API Provider User Journey">
     <meta name="description" content="Setup a new namespace for onboarding services on the BC Gov API Gateway." />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/guides/owner-journey/">
-    <meta property="og:title" content="API Owner User Journey">
+    <meta property="og:title" content="API Provider User Journey">
     <meta property="og:description" content="Setup a new namespace for onboarding services on the BC Gov API Gateway.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/guides/owner-journey/">
-    <meta property="twitter:title" content="API Owner User Journey">
+    <meta property="twitter:title" content="API Provider User Journey">
     <meta property="twitter:description" content="Setup a new namespace for onboarding services on the BC Gov API Gateway.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.704935907049" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.704955997859" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.704935907049" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.704955997859" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/aps-infra-platform/resources/js/retype.js?v=2.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.704935907049" defer></script>
-    <script id="prism-js" type="text/javascript" src="/aps-infra-platform/resources/js/prism.js?v=2.2.704935907049" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.704955997859" defer></script>
+    <script id="prism-js" type="text/javascript" src="/aps-infra-platform/resources/js/prism.js?v=2.2.704955997859" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -175,10 +175,10 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="api-owner-user-journey" class="break-words">
+<doc-anchor-target id="api-provider-user-journey" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api-owner-user-journey">#</doc-anchor-trigger>
-        <span>API Owner User Journey</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api-provider-user-journey">#</doc-anchor-trigger>
+        <span>API Provider User Journey</span>
     </h1>
 </doc-anchor-target>
 <p>The following steps walk an API Owner through setting up an API on the BC Gov API Gateway in our Test instance. If you are ready to deploy to our Production instance, use the links found at the bottom of this document (<doc-anchor-trigger to="#production-links">here</doc-anchor-trigger>).</p>
@@ -200,15 +200,43 @@
     </h2>
 </doc-anchor-target>
 <p>Go to the <code v-pre>Namespaces</code> tab, click the <code v-pre>Service Accounts</code> link, and click the <code v-pre>New Service Account</code> and select the <code v-pre>GatewayConfig.Publish</code> permissions for the Service Account and click <code v-pre>Share</code>. A new credential will be created - make a note of the <code v-pre>ID</code> and <code v-pre>Secret</code>.</p>
-<p>The available Scopes are:
-| Scope | Permission |
-| ----- | ---------- |
-| <code v-pre>Namespace.Manage</code> | Permission to update the Access Control List for controlling access to viewing metrics, service configuration and service account management (effectively a superuser for the namespace) |
-| <code v-pre>Namespace.View</code> | Read-only access to the namespace |
-| <code v-pre>GatewayConfig.Publish</code> | Permission to publish gateway configuration to Kong and to view the status of the upstreams |
-| <code v-pre>Content.Publish</code> | Permission to update the documentation on the portal |
-| <code v-pre>CredentialIssuer.Admin</code> | Permission to create Authorization Profiles so that they are available to be used when configuring Product Environments |
-| <code v-pre>Access.Manage</code> | Permission to approve/reject access requests to your APIs that you make discoverable |</p>
+<p>The available Scopes are:</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Scope</th>
+<th>Permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code v-pre>Namespace.Manage</code></td>
+<td>Permission to update the Access Control List for controlling access to viewing metrics, service configuration and service account management (effectively a superuser for the namespace)</td>
+</tr>
+<tr>
+<td><code v-pre>Namespace.View</code></td>
+<td>Read-only access to the namespace</td>
+</tr>
+<tr>
+<td><code v-pre>GatewayConfig.Publish</code></td>
+<td>Permission to publish gateway configuration to Kong and to view the status of the upstreams</td>
+</tr>
+<tr>
+<td><code v-pre>Content.Publish</code></td>
+<td>Permission to update the documentation on the portal</td>
+</tr>
+<tr>
+<td><code v-pre>CredentialIssuer.Admin</code></td>
+<td>Permission to create Authorization Profiles so that they are available to be used when configuring Product Environments</td>
+</tr>
+<tr>
+<td><code v-pre>Access.Manage</code></td>
+<td>Permission to approve/reject access requests to your APIs that you make discoverable</td>
+</tr>
+</tbody>
+</table>
+</div>
 <doc-anchor-target id="3-prepare-configuration">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#3-prepare-configuration">#</doc-anchor-trigger>
@@ -249,7 +277,7 @@ services:
 &quot; &gt; sample.yaml</code></pre>
 </doc-codeblock></div>
 <blockquote>
-<p>To view common plugin config go to <a href="https://github.com/bcgov/gwa-api/blob/dev/docs/COMMON-CONFIG.md">COMMON-CONFIG.md</a></p>
+<p>To view common plugin config go to <a href="../../gateway-plugins/common-config/">Common Controls</a></p>
 </blockquote>
 <blockquote>
 <p>To view some other plugin examples go <a href="https://github.com/bcgov/gwa-api/blob/dev/docs/samples/service-plugins">here</a>.</p>
@@ -350,15 +378,15 @@ ca_certificates:
 </doc-anchor-target>
 <p><strong>Install (for Linux)</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">GWA_CLI_VERSION=v1.2.0; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
+<pre class="language-bash"><code v-pre class="language-bash">GWA_CLI_VERSION=v1.3.1; curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_${GWA_CLI_VERSION}_linux_x64.zip
 unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 ./gwa --version</code></pre>
 </doc-codeblock></div>
 <blockquote>
-<p><strong>Using MacOS or Windows?</strong> Download here: <a href="https://github.com/bcgov/gwa-cli/releases/tag/v1.2.0">https://github.com/bcgov/gwa-cli/releases/tag/v1.2.0</a></p>
+<p><strong>Using MacOS or Windows?</strong> Download here: <a href="https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1">https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1</a></p>
 </blockquote>
 <blockquote>
-<p>NOTE: Version 1.2.0 introduces support for v2 of our api. To continue using v1 of the api, ensure that the API Version is set to 1 (see below)</p>
+<p>NOTE: As of version 1.2+ there is support for v2 of our api. To continue using v1 of the api, ensure that the API Version is set to 1 (see below)</p>
 </blockquote>
 <p><strong>Configure</strong></p>
 <p>Create a <code v-pre>.env</code> file and update the CLIENT_ID and CLIENT_SECRET with the new credentials that were generated in step #2:</p>
@@ -436,10 +464,10 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 </doc-anchor-target>
 <p>The following metrics can be viewed in real-time for the Services that you configure on the Gateway:</p>
 <ul>
-<li>Request Rate : Requests / Second (by Service/Route, by HTTP Status)</li>
-<li>Latency : Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)</li>
-<li>Bandwidth : Ingress/egress bandwidth (by Service/Route)</li>
-<li>Total Requests : In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)</li>
+<li><strong>Request Rate</strong> : Requests / Second (by Service/Route, by HTTP Status)</li>
+<li><strong>Latency</strong> : Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)</li>
+<li><strong>Bandwidth</strong> : Ingress/egress bandwidth (by Service/Route)</li>
+<li><strong>Total Requests</strong> : In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)</li>
 </ul>
 <p>All metrics can be viewed by an arbitrary time window - defaults to <code v-pre>Last 24 Hours</code>.</p>
 <p>Go to <a href="https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca">Grafana</a> to view metrics for your configured services.</p>
@@ -492,8 +520,8 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          curl -L -O https://github.com/bcgov/gwa-cli/releases/download/v1.2.0/gwa_v1.2.0_linux_x64.zip
-          unzip gwa_v1.2.0_linux_x64.zip
+          curl -L -O https://github.com/bcgov/gwa-cli/releases/download/v1.3.1/gwa_v1.3.1_linux_x64.zip
+          unzip gwa_v1.3.1_linux_x64.zip
           export PATH=`pwd`:$PATH
 
       - name: Apply Namespace Configuration
@@ -522,7 +550,11 @@ jobs:
 <li>For <code v-pre>datasets</code> and <code v-pre>products</code>, the service account must have the <code v-pre>Namespace.Manage</code> scope</li>
 <li>For <code v-pre>issuers</code>, the service account must have the <code v-pre>CredentialIssuer.Admin</code> scope</li>
 </ul>
-<p>View the Directory API in the <a href="https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/openapi.yaml">Swagger Console</a></p>
+<p>View the Directory API:</p>
+<ul>
+<li><strong>V1:</strong> <a href="https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/openapi.yaml">V1 Directory API Console</a></li>
+<li><strong>V2:</strong> <a href="https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/openapi.yaml">V2 Directory API Console</a></li>
+</ul>
 <blockquote>
 <p>NOTE: The steps below use <code v-pre>restish</code>, but we will be working on upgrading the <code v-pre>gwa</code> command line interface to support these APIs</p>
 </blockquote>
@@ -740,10 +772,10 @@ restish my_api put-content $NS \
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/aps-infra-platform/guides/intro-signed-jwt/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/aps-infra-platform/guides/tutorial-idp-client-cred-flow/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Getting Started with Signed JWT</span>
+                                                <span class="block mt-1">Client Credential Protection</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -787,6 +819,6 @@ restish my_api put-content $NS \
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "API Owner User Journey", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "API Provider User Journey", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
