@@ -1,0 +1,84 @@
+name: Publish Hierarchy Access and Content (TEST)
+on:
+  push:
+    branches: [test]
+
+env:
+  CLIENT_ID: ${{ secrets.TEST_CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.TEST_CLIENT_SECRET }}
+  TOKEN_URL: ${{ secrets.TEST_TOKEN_URL }}
+  PORTAL_URL: ${{ secrets.TEST_PORTAL_URL }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3 pip
+          pip3 install pyyaml requests
+
+      - name: organization hierarchy
+        run: |
+          export PATH=$PATH:./bin
+
+          set -e
+          y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml
+
+      - name: namespace assignments
+        run: |
+          export PATH=$PATH:./bin
+
+          set -e
+
+          y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/sp42-test
+
+      - name: press releases
+        run: |
+          export PATH=$PATH:./bin
+
+          set -e
+
+          y2j-put /ds/api/v2/namespaces/platform/contents \
+                  ./documentation/releases/2021-jun.yaml \
+                  ./documentation/releases/2021-jun.md
+
+          y2j-put /ds/api/v2/namespaces/platform/contents \
+                  ./documentation/releases/2022-may.yaml \
+                  ./documentation/releases/2021-may.md
+
+      - name: documentation
+        run: |
+          export PATH=$PATH:./bin
+
+          set -e
+
+          y2j-put /ds/api/v2/namespaces/platform/contents \
+                  ./documentation/guides/owner-journey.yaml \
+                  ./documentation/guides/owner-journey.md
+
+  retype:
+    name: Publish to the retype branch
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - uses: retypeapp/action-build@latest
+        with:
+          config: documentation
+      - uses: retypeapp/action-github-pages@latest
+        with:
+          branch: retype
+          directory:
+          update-branch: true
