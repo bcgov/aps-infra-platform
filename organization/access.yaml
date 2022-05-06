@@ -22,3 +22,7 @@
 - name: pharmaceutical-services-division
   parent: /ca.bc.gov/ministry-of-health
   members: []
+
+- name: planning-and-innovation-division
+  parent: /ca.bc.gov/ministry-of-health
+  members: []
