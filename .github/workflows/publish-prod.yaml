@@ -1,13 +1,13 @@
-name: Publish Hierarchy Access and Content (TEST)
+name: Publish Hierarchy Access and Content (PROD)
 on:
   push:
     branches: [main]
 
 env:
-  CLIENT_ID: ${{ secrets.TEST_CLIENT_ID }}
-  CLIENT_SECRET: ${{ secrets.TEST_CLIENT_SECRET }}
-  TOKEN_URL: ${{ secrets.TEST_TOKEN_URL }}
-  PORTAL_URL: ${{ secrets.TEST_PORTAL_URL }}
+  CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  TOKEN_URL: ${{ secrets.TOKEN_URL }}
+  PORTAL_URL: ${{ secrets.PORTAL_URL }}
 
 jobs:
   publish:
@@ -76,4 +76,5 @@ jobs:
       - uses: retypeapp/action-github-pages@latest
         with:
           branch: retype
+          directory:
           update-branch: true
