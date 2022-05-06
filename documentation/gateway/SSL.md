@@ -1,3 +1,7 @@
+---
+order: -10000
+---
+
 # SSL Termination
 
 If you would like to verify the SSL endpoint for `*.api.gov.bc.ca`, you can run the following two commands and compare the fingerprint and serial no.
