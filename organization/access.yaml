@@ -14,3 +14,11 @@
 - name: databc
   parent: /ca.bc.gov/ministry-of-citizens-services
   members: []
+
+- name: ministry-of-health
+  parent: /ca.bc.gov
+  members: []
+
+- name: pharmaceutical-services-division
+  parent: /ca.bc.gov/ministry-of-health
+  members: []
