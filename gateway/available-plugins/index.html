@@ -10,29 +10,30 @@
     <meta name="generator" content="Retype 2.2">
 
     <!-- Primary Meta Tags -->
-    <title>SSL Termination</title>
-    <meta name="title" content="SSL Termination">
-    <meta name="description" content="If you would like to verify the SSL endpoint for *.api.gov.bc.ca, you can run the following two commands and compare the fingerprint and serial no." />
+    <title>Supported Plugins</title>
+    <meta name="title" content="Supported Plugins">
+    <meta name="description" content="Current list of plugins available on the API Gateway." />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/ssl/">
-    <meta property="og:title" content="SSL Termination">
-    <meta property="og:description" content="If you would like to verify the SSL endpoint for *.api.gov.bc.ca, you can run the following two commands and compare the fingerprint and serial no.">
+    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/gateway/available-plugins/">
+    <meta property="og:title" content="Supported Plugins">
+    <meta property="og:description" content="Current list of plugins available on the API Gateway.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/ssl/">
-    <meta property="twitter:title" content="SSL Termination">
-    <meta property="twitter:description" content="If you would like to verify the SSL endpoint for *.api.gov.bc.ca, you can run the following two commands and compare the fingerprint and serial no.">
+    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/gateway/available-plugins/">
+    <meta property="twitter:title" content="Supported Plugins">
+    <meta property="twitter:description" content="Current list of plugins available on the API Gateway.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.705178352703" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.705182982908" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.705178352703" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.705182982908" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/aps-infra-platform/resources/js/retype.js?v=2.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.705178352703" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.705182982908" defer></script>
+    <script id="prism-js" type="text/javascript" src="/aps-infra-platform/resources/js/prism.js?v=2.2.705182982908" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -174,82 +175,64 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="ssl-termination" class="break-words">
+<doc-anchor-target id="supported-plugins" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#ssl-termination">#</doc-anchor-trigger>
-        <span>SSL Termination</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#supported-plugins">#</doc-anchor-trigger>
+        <span>Supported Plugins</span>
     </h1>
 </doc-anchor-target>
-<p>If you would like to verify the SSL endpoint for <code v-pre>*.api.gov.bc.ca</code>, you can run the following two commands and compare the fingerprint and serial no.</p>
+<p>Current list of plugins available on the API Gateway.</p>
+<blockquote>
+<p>NOTE: The <code v-pre>httplog</code> is not available for individual teams to use as it is used at a global level to feed logs to other systems for audit/monitoring/etc.</p>
+</blockquote>
+<blockquote>
+<p>If there are other plugins that you would like to have added to the Gateway, please reach out to us at our Rocket.Chat channel <code v-pre>#aps-ops</code>.</p>
+</blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">export A_HOST=httpbin-regression.api.gov.bc.ca
-openssl s_client -showcerts -verify 5 -connect 142.34.194.118:443 \
-  -servername ${A_HOST} &lt; /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; print}' &gt; gw.crt
-
-openssl x509 -in gw.crt -fingerprint -serial -dates -noout
-</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="apigovbcca">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#apigovbcca">#</doc-anchor-trigger>
-        <span>*.api.gov.bc.ca</span>
-    </h2>
-</doc-anchor-target>
-<div class="table-wrapper scrollbar overflow-hidden">
-<table class="comfortable">
-<thead>
-<tr>
-<th>Issue Date</th>
-<th>Expires</th>
-<th>Deployed</th>
-<th>SHA1 Fingerprint</th>
-<th>Serial No.</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Oct 6 2020</td>
-<td>Oct 16 2021</td>
-<td>Oct 6 2020</td>
-<td>20:7D:15:9D:42:BE:CC:BC:FD:EF:DF:13:77:C7:25:A3:A4:72:45:05</td>
-<td>7876EB597E14</td>
-</tr>
-<tr>
-<td>Feb 16 2021</td>
-<td>Oct 16 2021</td>
-<td>Feb 25 2021</td>
-<td>4D:EA:CE:C4:0A:73:67:D3:B4:03:F6:63:C4:E1:67:2C:47:9D:EA:82</td>
-<td>3B5849D8A670</td>
-</tr>
-<tr>
-<td>Sep 27 2021</td>
-<td>Oct 16 2022</td>
-<td>Oct 6 2021</td>
-<td>E3:DF:EC:89:BC:03:9B:E9:7D:57:91:EB:52:18:59:46:AA:A9:3A:15</td>
-<td>1B588948FBB2</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>You can run the above as one line:</p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">A_HOST=httpbin-regression.api.gov.bc.ca; openssl s_client -showcerts -verify 5 -connect ${A_HOST}:443 -servername ${A_HOST} &lt; /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; print}' | openssl x509 -fingerprint -serial -dates -noout</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="internal-notes">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#internal-notes">#</doc-anchor-trigger>
-        <span>Internal Notes</span>
-    </h2>
-</doc-anchor-target>
-<p><strong>Individual File Verification</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">openssl x509 -in data-api-wildcard-2020.crt -fingerprint -serial -dates -noout
-openssl x509 -in data-api-wildcard-2021.crt -fingerprint -serial -dates -noout</code></pre>
-</doc-codeblock></div>
-<p><strong>Cert/Key Verification</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">openssl x509 -noout -modulus -in data-api-wildcard.crt | openssl md5
-openssl rsa -noout -modulus -in data-api-wildcard.key | openssl md5</code></pre>
+<pre class="language-json"><code v-pre class="language-json">    &quot;available_on_server&quot;: {
+      &quot;basic-auth&quot;: true,
+      &quot;ip-restriction&quot;: true,
+      &quot;request-transformer&quot;: true,
+      &quot;response-transformer&quot;: true,
+      &quot;request-size-limiting&quot;: true,
+      &quot;rate-limiting&quot;: true,
+      &quot;response-ratelimiting&quot;: true,
+      &quot;syslog&quot;: true,
+      &quot;loggly&quot;: true,
+      &quot;datadog&quot;: true,
+      &quot;ldap-auth&quot;: true,
+      &quot;statsd&quot;: true,
+      &quot;bot-detection&quot;: true,
+      &quot;aws-lambda&quot;: true,
+      &quot;request-termination&quot;: true,
+      &quot;azure-functions&quot;: true,
+      &quot;zipkin&quot;: true,
+      &quot;pre-function&quot;: true,
+      &quot;post-function&quot;: true,
+      &quot;prometheus&quot;: true,
+      &quot;proxy-cache&quot;: true,
+      &quot;session&quot;: true,
+      &quot;acme&quot;: true,
+      &quot;grpc-web&quot;: true,
+      &quot;grpc-gateway&quot;: true,
+      &quot;kong-spec-expose&quot;: true,
+      &quot;jwt-keycloak&quot;: true,
+      &quot;referer&quot;: true,
+      &quot;bcgov-gwa-endpoint&quot;: true,
+      &quot;gwa-ip-anonymity&quot;: true,
+      &quot;oidc&quot;: true,
+      &quot;jwt&quot;: true,
+      &quot;acl&quot;: true,
+      &quot;correlation-id&quot;: true,
+      &quot;cors&quot;: true,
+      &quot;oauth2&quot;: true,
+      &quot;tcp-log&quot;: true,
+      &quot;udp-log&quot;: true,
+      &quot;file-log&quot;: true,
+      &quot;http-log&quot;: true,
+      &quot;key-auth&quot;: true,
+      &quot;hmac-auth&quot;: true
+    }</code></pre>
 </doc-codeblock></div>
 
                                 
@@ -260,16 +243,23 @@ openssl rsa -noout -modulus -in data-api-wildcard.key | openssl md5</code></pre>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/aps-infra-platform/releases/2022-may/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="/aps-infra-platform/guides/intro-signed-jwt/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">2022-​MAY Release 1.​1</span>
+                                                <span class="block mt-1">Variation - Signed JWT</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="/aps-infra-platform/gateway/common-config/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">Common Controls</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
                                     </div>
                                 </nav>
                             </footer>
@@ -310,6 +300,6 @@ openssl rsa -noout -modulus -in data-api-wildcard.key | openssl md5</code></pre>
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "SSL Termination", icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Supported Plugins", icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
