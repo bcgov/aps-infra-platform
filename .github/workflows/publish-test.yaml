@@ -50,7 +50,7 @@ jobs:
 
           y2j-put /ds/api/v2/namespaces/platform/contents \
                   ./documentation/releases/2022-may.yaml \
-                  ./documentation/releases/2021-may.md
+                  ./documentation/releases/2022-may.md
 
       - name: documentation
         run: |
