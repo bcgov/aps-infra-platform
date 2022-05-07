@@ -30,3 +30,10 @@ export PORTAL_URL=""
 /work/bin/y2j-put /ds/api/v2/namespaces/platform/contents /work/press-releases/2021-jun.yaml
 
 ```
+
+## Development
+
+```
+cd documentation
+npx retypeapp watch
+```
