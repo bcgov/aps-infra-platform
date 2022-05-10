@@ -10,6 +10,8 @@ Current list of plugins available on the API Gateway.
 
 > If there are other plugins that you would like to have added to the Gateway, please reach out to us at our Rocket.Chat channel `#aps-ops`.
 
+For information about execution order, see: https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order
+
 ```json
     "available_on_server": {
       "basic-auth": true,
