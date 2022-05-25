@@ -4,6 +4,7 @@ Reference: https://docs.konghq.com/hub/kong-inc/rate-limiting/
 
 - **policy**: `local` | `redis`
 - **limit_by**: `consumer` | `credential` | `ip` | `service` | `header` | `path`
+- **fault_tolerant**: Applies when Kong is connecting to Redis - if Redis is down, do you want to block traffic, or allow it through without limiting
 
 ## Example
 
