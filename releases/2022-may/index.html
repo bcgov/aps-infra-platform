@@ -28,11 +28,11 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.705182982908" rel="stylesheet" data-turbo-track="reload" />
+    <link href="/aps-infra-platform/resources/css/retype.css?v=2.2.706821251869" rel="stylesheet" data-turbo-track="reload" />
 
-    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.705182982908" defer data-turbo-track="reload"></script>
+    <script type="text/javascript" src="/aps-infra-platform/resources/js/config.js?v=2.2.706821251869" defer data-turbo-track="reload"></script>
     <script type="text/javascript" src="/aps-infra-platform/resources/js/retype.js?v=2.2" defer data-turbo-track="reload"></script>
-    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.705182982908" defer></script>
+    <script id="lunr-js" type="text/javascript" src="/aps-infra-platform/resources/js/lunr.js?v=2.2.706821251869" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -197,39 +197,65 @@
         </div>
     </div>
 </div>
-<p><strong>UX Upgrades</strong></p>
+<p>The API Services Portal has been updated with changes that include user experience improvements, new features, and enhancements to existing features.</p>
+<p><strong>User Experience (UX) Upgrades</strong></p>
+<p>The following aspects of the APS Portal user experience have been modernized:</p>
 <ul>
-<li>API Directory Request Access</li>
-<li>My Access</li>
-<li>Applications</li>
-<li>Namespace Authorization Profiles</li>
-<li>My Profile</li>
+<li>API Directory → Request Access:
+<ul>
+<li>Changed the request access flow for easier navigation</li>
+<li>Modified the user interface to promote consistency and meet accessibility standards</li>
+<li>Improved the look and feel</li>
 </ul>
-<p><strong>New/Enhanced Features</strong></p>
+</li>
+<li>My Access and Applications pages:
 <ul>
-<li>Improved validation for Environment activation:
+<li>Modified the user interface to promote consistency and meet accessibility standards</li>
+</ul>
+</li>
+<li>Namespaces → Authorization Profiles:
+<ul>
+<li>Changed the editing and creating of authorization profiles for easier navigation</li>
+<li>Modified the user interface to promote consistency and meet accessibility standards</li>
+<li>Improved the look and feel</li>
+</ul>
+</li>
+<li>My Profile page:
+<ul>
+<li>Added a new user interface to display user profile information</li>
+</ul>
+</li>
+</ul>
+<p><strong>New Features</strong></p>
+<p>Organization access management (including membership and namespace assignment):</p>
+<ul>
+<li>Improved validation of Environment activation:
 <ul>
 <li>Namespace must be assigned to an Organization</li>
-<li>Product&#x27;s Dataset must belong to the same organization</li>
+<li>Product dataset must belong to the same Organization</li>
 </ul>
 </li>
-<li>Organization Group access displayed on the Namespace Access page</li>
-<li>Directory API V2 released:
+<li>Organization Group access displays on the Namespace Access page</li>
+</ul>
+<p><strong>Enhancements</strong></p>
 <ul>
-<li>Organization access management (including membership, and namespace assignment)</li>
-<li>Get Namespace Dataset, Product, Content, Issuer details</li>
-<li>Activity at Organization and Namespace level</li>
-<li>Get Gateway Services configuration</li>
-<li>Delete Environment and Namespace with &quot;force&quot; verification</li>
+<li><em>Directory API</em> V2 is released with the following features:
+<ul>
+<li>Information details for each of Get Namespace Dataset, Product, Content, and Issuer</li>
+<li>Activity details at the Organization and Namespace levels</li>
+<li>Configuration for Get Gateway Services</li>
+<li>Delete option for Environment and Namespace with required (force) verification</li>
 </ul>
 </li>
-<li>Directory API V1 end of life Aug 31, 2022</li>
-<li>Cascade deletion of namespace and/or environment:
+</ul>
+<p><strong>Note:</strong> <em>Directory API</em> V1 will reach end of life and be deprecated on October 31, 2022; at this time <em>Directory API</em> V1 will be unavailable and no longer supported.</p>
+<ul>
+<li>Cascade deletion of Namespace and/or Environment that includes:
 <ul>
 <li>Revoking of all related consumer access</li>
-<li>Revoking Service Accounts</li>
-<li>Verify no Gateway Services still exist</li>
-<li>Log activity for deleted namespace</li>
+<li>Revoking of Service Accounts</li>
+<li>Verifying no Gateway Services still exist</li>
+<li>Logging any activity for the deleted namespace</li>
 </ul>
 </li>
 </ul>
