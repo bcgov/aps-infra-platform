@@ -26,3 +26,23 @@
 - name: planning-and-innovation-division
   parent: /ca.bc.gov/ministry-of-health
   members: []
+
+- name: healthlinkbc
+  parent: /ca.bc.gov/ministry-of-health
+  members: []
+
+- name: ministry-of-forests-lands-natural-resource-operations-and-rural-development
+  parent: /ca.bc.gov
+  members: []
+
+- name: heritage
+  parent: /ca.bc.gov/ministry-of-forests-lands-natural-resource-operations-and-rural-development
+  members: []
+
+- name: ministry-of-transportation-and-infrastructure
+  parent: /ca.bc.gov
+  members: []
+
+- name: information-management-tran
+  parent: /ca.bc.gov/ministry-of-transportation-and-infrastructure
+  members: []
