@@ -39,6 +39,8 @@ jobs:
           y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/dss-loc
           y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/regresmay22
 
+          y2j-put /ds/api/v2/organizations/ministry-of-health/healthlinkbc/namespaces/hnsesb
+
       - name: press releases
         run: |
           export PATH=$PATH:./bin
