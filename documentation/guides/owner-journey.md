@@ -8,15 +8,15 @@ A `namespace` represents a collection of Kong Gateway Services and Routes that a
 
 To create a new namespace, login to the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca).
 
-After login, click the namespace dropdown in the top right next to your user name (it may show `No Active Namespace`), then click `Create New Namespace`.
+After login with your IDIR, click the namespace dropdown in the top right next to your user name (it may show `No Active Namespace`), then click `Create New Namespace`.
 
-The namespace must be an alphanumeric string between 5 and 15 characters (RegExp reference: `^[a-z][a-z0-9-]{4,14}$`).
+The namespace must be an lowercase alphanumeric string between 5 and 15 characters (RegExp reference: `^[a-z][a-z0-9-]{4,14}$`).
 
 You can select and manage namespaces by clicking the namespace dropdown in the top right next to your user name.
 
 ## 2. Generate a Service Account
 
-Go to the `Namespaces` tab, click the `Service Accounts` link, and click the `New Service Account` and select the `GatewayConfig.Publish` permissions for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
+Go to the `Namespaces` tab, click the `Service Accounts` action link, and click the `New Service Account` button. Select the `GatewayConfig.Publish` permissions for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
 
 The available Scopes are:
 
@@ -33,9 +33,7 @@ The available Scopes are:
 
 The gateway configuration can be hand-crafted or you can use a command line interface that we developed called `gwa` to convert your Openapi v3 spec to a Kong configuration.
 
-### 3.1. Hand-crafted (recommended if you don't have an Openapi spec)
-
-**Simple Example**
+**Basic configuration of a single service and route:**
 
 ```bash
 export NS="my_namespace"
@@ -63,9 +61,11 @@ services:
 " > sample.yaml
 ```
 
+Review the `sample.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
+
 > To view common plugin config go to [Common Controls](../gateway-plugins/COMMON-CONFIG.md)
 
-> To view some other plugin examples go [here](https://github.com/bcgov/gwa-api/blob/dev/docs/samples/service-plugins).
+> To view some other plugin navigation to `Gateway > Plugins`.
 
 > **Declarative Config** Behind the scenes, DecK is used to sync your configuration with Kong. For reference: https://docs.konghq.com/deck/overview/
 
@@ -126,7 +126,7 @@ ca_certificates:
 
 > HELPER: Python command to get a PEM file on one line: `python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem`
 
-### 3.2. gwa Command Line
+#### Using an OpenAPI Spec Document (optional)
 
 Run: `gwa new` and follow the prompts.
 
@@ -163,22 +163,17 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 
 Create a `.env` file and update the CLIENT_ID and CLIENT_SECRET with the new credentials that were generated in step #2:
 
-```bash
-echo "
-GWA_NAMESPACE=$NS
-CLIENT_ID=<YOUR SERVICE ACCOUNT ID>
-CLIENT_SECRET=<YOUR SERVICE ACCOUNT SECRET>
-GWA_ENV=test
-API_VERSION=2
-" > .env
+Run the following to configure the `.env` file:
 
-OR run:
-
-gwa init -T --api-version=2 --namespace=$NS --client-id=<YOUR SERVICE ACCOUNT ID> --client-secret=<YOUR SERVICE ACCOUNT SECRET>
-
+```
+gwa init -T --api-version=2 --namespace=$NS \
+  --client-id=<YOUR SERVICE ACCOUNT ID> \
+  --client-secret=<YOUR SERVICE ACCOUNT SECRET>`
 ```
 
 > NOTE: The `-T` indicates our Test environment. For production use `-P`.
+
+Run `gwa status` to confirm that access to the Gateway is working.
 
 **Publish**
 
@@ -192,7 +187,7 @@ If you want to see the expected changes but not actually apply them, you can run
 gwa pg --dry-run sample.yaml
 ```
 
-### 4.2. Swagger Console
+### 4.2. Swagger Console (optional)
 
 Go to [gwa-api Swagger Console](https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/).
 
@@ -208,7 +203,7 @@ Select a `configFile` file.
 
 Send the request.
 
-### 4.3. Postman
+### 4.3. Postman (optional)
 
 From the Postman App, click the `Import` button and go to the `Link` tab.
 
@@ -226,7 +221,7 @@ You can then verify that the token works by going to the Collection `Return key 
 
 To verify that the Gateway can access the upstream services, run the command: `gwa status`.
 
-In our test environment, the hosts that you defined in the routes get altered; to see the actual hosts, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the `Namespaces` tab, go to `Gateway Services` and select your particular service to get the routing details.
+In our `test` environment, the hosts that you defined in the routes get altered; to see the actual hosts, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the `Namespaces` tab, go to `Gateway Services` and select your particular service to get the routing details.
 
 ```bash
 curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
@@ -236,8 +231,6 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 ```
 
 To help with troubleshooting, you can use the GWA API to get a health check for each of the upstream services to verify the Gateway is connecting OK.
-
-Go to the [GWA API](https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/#/Service%20Status/get_namespaces__namespace__services), enter in the new credentials that were generated in step #2, click `Try it out`, enter your namespace and click `Execute`. The results are returned in a JSON object.
 
 ## 6. View metrics
 
@@ -314,93 +307,36 @@ jobs:
 
 Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalog.
 
-The `API Services Portal` Directory organizes your APIs by Products and Environments. You can manage them via an API or through the UI.
+The `API Services Portal` Directory organizes your APIs by Datasets, Products and Environments. You can manage them via an API or through the UI.
 
 To use the Directory API, the following scopes are required:
 
 - For `contents` (documentation), the service account must have the `Content.Publish` scope
-- For `datasets` and `products`, the service account must have the `Namespace.Manage` scope
-- For `issuers`, the service account must have the `CredentialIssuer.Admin` scope
+- For `datasets`, `products` and `environments`, the service account must have the `Namespace.Manage` scope
+- For `credential issuers`, the service account must have the `CredentialIssuer.Admin` scope
 
 View the Directory API:
 
 - **V1:** [V1 Directory API Console](https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/openapi.yaml)
 - **V2:** [V2 Directory API Console](https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/openapi.yaml)
 
-> NOTE: The steps below use `restish`, but we will be working on upgrading the `gwa` command line interface to support these APIs
+### 9.1 Setup your Draft Dataset
 
-> Can use `y2j` to convert from YAML to JSON
+If you do not have a Dataset already defined in the BC Data Catalog, then you can create a draft in the API Services Portal.
+
+> Find the list of organizations here:
 >
-> `echo -e "#"'!'"/usr/bin/env python\nimport sys,yaml,json\nprint(json.dumps(yaml.safe_load(open(sys.argv[1]).read())))" > /usr/local/bin/y2j`
+> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations
+
+> Use the following to get the `organizationUnit`:
 >
-> `chmod +x /usr/local/bin/y2j`
-
-**Restish Setup**
-
-```
-restish api configure my_api
-```
-
-Base URI : https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api
-
-`Edit Profile default`
-
-Select `Setup Auth` > `oauth-client-credentials`
-
-Enter the `client_id` and `client_secret` for your Service Account.
-
-`token_url` : Provided to you when you created the Service Account
-
-`scopes` : openid
-
-Select `Finished with profile` and then `Save and exit`
-
-To verify that restish is working, run:
-
-`restish my_api list` or `restish my_api get-new-id product`
-
-The below example works with the service created above, so we will want to reference the NS environment variable.
-
-```
-export NS=""
-```
-
-### 9.1 Setup Authorization Profiles
-
-If your APIS are protected with one of the OAuth2 grant types, then an Authorization profile must be created with the appropriate credentials for accessing the corresponding Identity Provider/Broker and Authorization Server.
-
-```yaml
-kind: CredentialIssuer
-name: Resource Server Example
-namespace: $NS
-description: Authorization Profile for protecting Ministry of XYZ
-flow: client-credentials
-mode: auto
-authPlugin: jwt-keycloak
-clientAuthenticator: client-secret
-clientRoles: []
-availableScopes: [Function1/read, Function2/*, Function3/write, Function3/read]
-owner: <your-username>
-environmentDetails:
-  - environment: prod
-    issuerUrl: https://auth-issuer
-    clientId: testapp-client
-    clientRegistration: managed
-    clientSecret: ""
-```
-
-```
-y2j issuer.yaml | restish my_api put-issuer $NS
-```
-
-### 9.2 Setup your Product, Environments and link your Services
+> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations/ORG_KEY
 
 ```yaml
 kind: DraftDataset
 name: my-draft-dataset
-organization: ministry-of-health
-organizationUnit: planning-and-innovation-division
-title: My API
+organization: ministry-of-citizens-services
+organizationUnit: databc
 notes: Some information about this API
 tags: [health, standards, openapi]
 sector: Service
@@ -410,9 +346,9 @@ security_class: LOW-PUBLIC
 record_publish_date: "2021-05-27"
 ```
 
-```
-y2j dataset.yaml | restish my_api put-dataset $NS
-```
+### 9.2 Setup your Product
+
+> There are various patterns for protecting an API that the Kong API Gateway supports. In this example, we will be protecting the API with Kong's API Key and ACL plugins (`kong-api-key-acl` flow).
 
 ```yaml
 kind: Product
@@ -447,13 +383,9 @@ environments:
     services: []
 ```
 
-```
-y2j prod.yaml | restish my_api put-product $NS
-```
+### 9.3 Update Gateway Configuration
 
-### 9.3 Update Gateway Configuration based on Flow
-
-In the previous section our example defines an environment that is protected using Kong's API Key and ACL plugins. To activate an environment, the corresponding plugins need to exist on the Gateway for that service or routes. The ACL `allow` corresponds to the unique `Environment ID` defined in section 9.2.
+In the previous section our example defines an environment that is protected using Kong's API Key and ACL plugins. To protect the Service, the corresponding plugins need to exist on the Gateway for that service or route. The ACL `allow` corresponds to the unique `Environment ID` defined in section 9.2.
 
 ```
   plugins:
@@ -472,17 +404,105 @@ In the previous section our example defines an environment that is protected usi
       allow: [ <SEE ENVIRONMENT DETAIL> ]
 ```
 
-### 9.4 Publish Environments
+Add the plugin configuration to the service `a-service-for-$NS` in `sample.yaml` file that you created in section 3.
 
-Your products will not appear on the Directory until you mark the relevant environments as Active. You can do this by either updating the Product Environment configuration above to `active: true`, or going to the API Services Portal UI and editing the Environment details.
+Re-run the publish command: `gwa pg`. This will protect the upstream service with an API Key.
 
-### 9.5 Publish Documentation
+### 9.4 Check Access
+
+```
+curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
+```
+
+You should get an error: "No API key found in request".
+
+### 9.5 Get an API Key
+
+Go to the `Namespaces` tab in the `API Services Portal`. Click the `Preview in Directory` link that is in the `Products` panel.
+
+You should see a card with the title of your Dataset that you created earlier in step 9.1.
+
+Click on the title and click the `Request Access` button.
+
+Choose or create an `Application`, select the `Dev` environment and click the "Request Access & Continue" button.
+
+The `Generate Secrets` button will generate your API Key. Make a note of it.
+
+> NOTE: An Environment can be configured be auto-approved. For our sample `Dev`, auto-approval is enabled so the Access Manager does not need to approve the request before getting access.
+
+Now, when you run the command:
+
+```
+curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers -H "X-API-KEY: $KEY"
+```
+
+It should return header information looking something like:
+
+```
+{
+  "headers": {
+    "Accept": "*/*",
+    "User-Agent": "curl/7.64.1",
+    "X-Consumer-Custom-Id": "8ED11248-072EBB2791974533",
+    "X-Consumer-Id": "db3a0658-c049-430e-b143-ce46685d8e20",
+    "X-Consumer-Username": "8ED11248-072EBB2791974533",
+    "X-Credential-Identifier": "a91bb07c-41a9-49b6-9481-155e9fd68dba"
+  }
+}
+```
+
+### 9.6 Manage Access
+
+> Note: To manage access to your APIs, you must have the `Access.Manage` role for the Namespace.
+
+As an API Provider, you can manage this new Consumer by going to the `Namespaces` tab, and selecting `Consumers`.
+
+Here you should see the newly created Consumer. Click on the `name`.
+
+Administer Controls, such as rate limiting and ip restrictions.
+
+Administer Authorization, by toggling access to the particular Product and Environment.
+
+### 9.7 Enabling for Discovery
+
+Once you are happy with the content and have applied the appropriate controls to your API, you can do the following to publish to the API Directory.
+
+Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118
+
+Once approved, you just need to make an Environment `active` for the corresponding Product and Dataset to appear on the API Directory. You can do this by either updating the Product Environment configuration above to `active: true`, or going to the API Services Portal UI and editing the Environment details.
+
+### 9.8 View your product in the API Directory
+
+Find your API in the [API Services Portal Directory](https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory)
+
+It is now ready to receive access requests from the community!
+
+## 10 What to try next?
+
+### 10.1 Connect with the BC Government API community
+
+Message us on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops).
+
+### 10.2 Read our other guides
+
+Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.
+
+### 10.3 Protect your API using an external Identity Provider
+
+Use the `client-credentials` flow to protect your API (see [Client Credential Protection](tutorial-idp-client-cred-flow/))
+
+### 10.4 Use the access approval process
+
+Enable `approval` for an Environment and then go through the access request process by requesting access, and then as an Access Manager, reviewing the request and approving or rejecting it.
+
+### 10.5 Publish your documentation on the Portal
 
 ```yaml
 kind: Content
 title: Getting Started with Example API
 description: Getting Started with Example API
 externalLink: https://github.com/bcgov/$NS/getting_started.md
+content: "all markdown content"
 order: 1
 tags: [ns.$NS]
 isComplete: true
@@ -490,23 +510,7 @@ isPublic: true
 publishDate: "2021-06-02T08:00:00.000-08:00"
 ```
 
-```
-y2j content.yaml | restish my_api put-content $NS
-
-echo "# here is some markdown and more!" > doc.md
-
-restish my_api put-content $NS \
-  externalLink: "https://github.com/bcgov/$NS/getting_started.md", \
-  content: @doc.md
-```
-
-### 9.6 View your product in the API Directory
-
-Find your API in the [API Services Portal Directory](https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-discovery)
-
-It is now ready to receive access requests from the community!
-
-# Production Links
+## Production Links
 
 - [API Services Portal](https://api.gov.bc.ca)
 - [gwa-api Swagger Console](https://gwa.api.gov.bc.ca/docs/)
