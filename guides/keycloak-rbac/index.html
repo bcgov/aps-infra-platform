@@ -10,21 +10,26 @@
     <meta name="generator" content="Retype 2.3.0">
 
     <!-- Primary Meta Tags -->
-    <title>tutorial</title>
-    <meta name="title" content="tutorial">
+    <title>OIDC and RBAC Protection</title>
+    <meta name="title" content="OIDC and RBAC Protection">
+    <meta name="description" content="This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway." />
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/tags/tutorial/" />
+    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/guides/keycloak-rbac/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/tags/tutorial/">
-    <meta property="og:title" content="tutorial">
+    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/guides/keycloak-rbac/">
+    <meta property="og:title" content="OIDC and RBAC Protection">
+    <meta property="og:description" content="This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway.">
+    <meta property="og:image" content="https://bcgov.github.io/aps-infra-platform/guides/assets/keycloak-rbac.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/tags/tutorial/">
-    <meta property="twitter:title" content="tutorial">
+    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/guides/keycloak-rbac/">
+    <meta property="twitter:title" content="OIDC and RBAC Protection">
+    <meta property="twitter:description" content="This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway.">
+    <meta property="twitter:image" content="https://bcgov.github.io/aps-infra-platform/guides/assets/keycloak-rbac.png">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -176,30 +181,143 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="tag-tutorial" class="break-words">
+<doc-anchor-target id="oidc-and-rbac-protection" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#tag-tutorial">#</doc-anchor-trigger>
-        <span>Tag: tutorial</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#oidc-and-rbac-protection">#</doc-anchor-trigger>
+        <span>OIDC and RBAC Protection</span>
     </h1>
 </doc-anchor-target>
-<p>See all <a href="../">tags</a>.</p>
-<a class="no-link mb-6 overflow-hidden border border-gray-200 rounded-lg md:flex dark:border-dark-700 hover:border-gray-400 dark:hover:border-dark-450" href="../../guides/tutorial-idp-client-cred-flow/">
-    <div class="relative shrink-0 bg-gray-300 md:w-5/12 pb-9/16 md:pb-0 dark:bg-dark-450">
-        <img class="absolute object-cover w-full h-full" src="../../guides/assets/oauth2.png" />
-    </div>
-    <div class="p-6">
-        <div class="text-xs font-semibold text-blue-500 uppercase dark:text-blue-400">Guides</div>
-        <div class="mt-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white md:text-xl">Client Credential Protection</div>
-        <div class="line-clamp-3"><p class="hidden mt-2 md:block">Configuration the Gateway with an Identity Provider and Client Credential Grant</p></div>
-    </div>
-</a>
-<a class="no-link mb-6 overflow-hidden border border-gray-200 rounded-lg md:flex dark:border-dark-700 hover:border-gray-400 dark:hover:border-dark-450" href="../../guides/intro-signed-jwt/">
-    <div class="p-6">
-        <div class="text-xs font-semibold text-blue-500 uppercase dark:text-blue-400">Guides</div>
-        <div class="mt-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white md:text-xl">Variation - Signed JWT</div>
-        <div class="line-clamp-3"><p class="hidden mt-2 md:block">Accessing an API with Signed JWT and Client Credential Grant</p></div>
-    </div>
-</a>
+<p>This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway.</p>
+<p><figure class="content-center">
+    <img src="../assets/keycloak-rbac.png" alt="alt text" title="Keycloak RBAC" />
+    <figcaption class="caption">alt text</figcaption>
+</figure>
+</p>
+<doc-anchor-target id="1-configure-a-confidential-client">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#1-configure-a-confidential-client">#</doc-anchor-trigger>
+        <span>1. Configure a confidential client</span>
+    </h2>
+</doc-anchor-target>
+<p>Go to the Common Hosted SSO (CSS) site (<a href="https://bcgov.github.io/sso-requests">https://bcgov.github.io/sso-requests</a>) and request a new confidential client.</p>
+<p>After the client has been provisioned, you can go to the Role Management tab to configure the Roles you want to use to protect resources in your Application.</p>
+<p>The <code v-pre>Assign Users to Roles</code> can be used to administer User permissions.</p>
+<doc-anchor-target id="2-configure-the-aps-kong-gateway">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#2-configure-the-aps-kong-gateway">#</doc-anchor-trigger>
+        <span>2. Configure the APS Kong Gateway</span>
+    </h2>
+</doc-anchor-target>
+<p><strong>Pre-requisites:</strong></p>
+<ul>
+<li>You have your application deployed in the Openshift Silver cluster</li>
+<li>You have created a namespace in the <code v-pre>API Services Portal</code></li>
+<li>You have a Service Account created with the <code v-pre>GatewayConfig.Publish</code> permission</li>
+<li>Your Network Policy has been configured to allow traffic from the APS project space</li>
+<li>You have completed your minimal service/route configuration and published it to the APS Kong Gateway</li>
+</ul>
+<p>To protect your application, there are two plugins that need to be configured: <code v-pre>oidc</code> and <code v-pre>acl</code>.</p>
+<p><strong>oidc</strong></p>
+<blockquote>
+<p>Update <code v-pre>discovery</code> if you are using SSO other than <code v-pre>dev</code> or if using a non-standard realm</p>
+</blockquote>
+<blockquote>
+<p>The <code v-pre>groups_claim</code> must be <code v-pre>client_roles</code> as that is what the SSO service uses for the roles that the user has assigned to it.</p>
+</blockquote>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    plugins:
+      - enabled: true
+        name: oidc
+        tags: [ ns.$NS ]
+        config:
+          access_token_as_bearer: &quot;no&quot;
+          access_token_header_name: Authorization
+          bearer_jwt_auth_allowed_auds:
+            - YOUR_CLIENT_ID
+          bearer_jwt_auth_enable: &quot;no&quot;
+          bearer_jwt_auth_signing_algs:
+            - RS256
+          bearer_only: &quot;no&quot;
+          client_id: YOUR_CLIENT_ID
+          client_secret: YOUR_CLIENT_SECRET
+          disable_access_token_header: &quot;yes&quot;
+          disable_id_token_header: &quot;yes&quot;
+          disable_userinfo_header: &quot;yes&quot;
+          discovery: https://dev.loginproxy.gov.bc.ca/auth/realms/standard/.well-known/openid-configuration
+          filters: null
+          groups_claim: client_roles
+          header_claims: []
+          header_names: []
+          id_token_header_name: X-ID-Token
+          ignore_auth_filters: &quot;&quot;
+          introspection_cache_ignore: &quot;no&quot;
+          introspection_endpoint: null
+          introspection_endpoint_auth_method: null
+          logout_path: /logout
+          realm: kong
+          recovery_page_path: null
+          redirect_after_logout_uri: /
+          redirect_uri: null
+          response_type: code
+          revoke_tokens_on_logout: &quot;yes&quot;
+          scope: openid
+          session_secret: null
+          skip_already_auth_requests: &quot;no&quot;
+          ssl_verify: &quot;no&quot;
+          timeout: null
+          token_endpoint_auth_method: client_secret_post
+          unauth_action: auth
+          use_jwks: &quot;yes&quot;
+          userinfo_header_name: X-USERINFO
+          validate_scope: &quot;yes&quot;</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>If your upstream service needs specific attributes, the <code v-pre>header_claims</code> and <code v-pre>header_names</code> config can be used to pass claims as request headers to the upstream service. A subset of the claims available:</p>
+</blockquote>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">  &quot;idir_user_guid&quot;: &quot;220469E030000000000000000A607C5&quot;,
+  &quot;identity_provider&quot;: &quot;idir&quot;,
+  &quot;idir_username&quot;: &quot;FLAST&quot;,
+  &quot;email_verified&quot;: false,
+  &quot;name&quot;: &quot;First Last&quot;,
+  &quot;preferred_username&quot;: &quot;220469e030000000000000a607c5@idir&quot;,
+  &quot;display_name&quot;: &quot;XT:Last, First CITZ:IN&quot;,
+  &quot;given_name&quot;: &quot;Last&quot;,
+  &quot;family_name&quot;: &quot;First&quot;,
+  &quot;email&quot;: &quot;last.first@email&quot;</code></pre>
+</doc-codeblock></div>
+<p>An example to get <code v-pre>idir_username</code> and <code v-pre>email</code> passed, would be:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">  header_claims: [ idir_username, email ]
+  header_names: [ X-Idir-Username, X-User-Email ]</code></pre>
+</doc-codeblock></div>
+<p><strong>acl</strong></p>
+<p>The <code v-pre>acl</code> plugin will enforce that the user&#x27;s <code v-pre>client_roles</code> includes the roles defined in the <code v-pre>allow</code> list.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">    plugins:
+      - enabled: true
+        name: acl
+        tags: [ ns.$NS ]
+        config:
+          allow:
+            - ROLE_FOR_ACCESS
+          deny: null
+          hide_groups_header: false</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>If <code v-pre>hide_groups_headers</code> is <code v-pre>false</code> then <code v-pre>X-Authenticated-Groups</code> will be a request header with a comma-delimited list of roles that the user belongs to.</p>
+</blockquote>
+<p><strong>request-transformer (optional)</strong></p>
+<p>If your upstream service is stateless, then you can remove the cookie before the request is forwarded to it.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">      - name: request-transformer
+        protocols: [http]
+        tags: [ ns.$NS ]
+        config:
+          remove:
+            headers:
+              - Cookie</code></pre>
+</doc-codeblock></div>
 
                                 
                                 <!-- Required only on API pages -->
@@ -207,6 +325,27 @@
                             </div>
                             <footer class="clear-both">
                             
+                                <nav class="flex mt-14">
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../guides/intro-signed-jwt/">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Variation - Signed JWT</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                            
+                                    <div class="w-1/2">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../gateway/available-plugins/">
+                                            <span>
+                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
+                                                <span class="block mt-1">Supported Plugins</span>
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                        </a>
+                                    </div>
+                                </nav>
                             </footer>
                         </main>
                 
@@ -245,6 +384,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "tutorial", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "OIDC and RBAC Protection", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
