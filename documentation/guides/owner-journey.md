@@ -1,6 +1,6 @@
 # API Provider User Journey
 
-The following steps walk an API Owner through setting up an API on the BC Gov API Gateway in our Test instance. If you are ready to deploy to our Production instance, use the links found at the bottom of this document ([here](#production-links)).
+The following steps walk an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links found at the bottom of this document ([here](#production-links)).
 
 ## 1. Register a new namespace
 
@@ -16,9 +16,9 @@ You can select and manage namespaces by clicking the namespace dropdown in the t
 
 ## 2. Generate a Service Account
 
-Go to the `Namespaces` tab, click the `Service Accounts` action link, and click the `New Service Account` button. Select the `GatewayConfig.Publish` permissions for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
+Go to the `Namespaces` tab, click the `Service Accounts` action link, and click the `New Service Account` button. Select the `GatewayConfig.Publish` permission for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
 
-The available Scopes are:
+The full list of permissions are:
 
 | Scope                    | Permission                                                                                                                                                                               |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -26,8 +26,8 @@ The available Scopes are:
 | `Namespace.View`         | Read-only access to the namespace                                                                                                                                                        |
 | `GatewayConfig.Publish`  | Permission to publish gateway configuration to Kong and to view the status of the upstreams                                                                                              |
 | `Content.Publish`        | Permission to update the documentation on the portal                                                                                                                                     |
-| `CredentialIssuer.Admin` | Permission to create Authorization Profiles so that they are available to be used when configuring Product Environments                                                                  |
-| `Access.Manage`          | Permission to approve/reject access requests to your APIs that you make discoverable                                                                                                     |
+| `CredentialIssuer.Admin` | Permission to create Authorization Profiles for integrating with 3rd party Identity Providers. The profiles are available to be used when configuring Product Environments.              |
+| `Access.Manage`          | Permission to approve/reject access requests to your APIs                                                                                                                                |
 
 ## 3. Prepare configuration
 
@@ -63,16 +63,17 @@ services:
 
 Review the `sample.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
 
-> To view common plugin config go to [Common Controls](../gateway-plugins/COMMON-CONFIG.md)
+> To view common plugin configuration go to [Common Controls](../gateway-plugins/COMMON-CONFIG.md)
 
-> To view some other plugin navigation to `Gateway > Plugins`.
+> To learn about other available plugins, navigate to `Gateway > Plugins`.
 
 > **Declarative Config** Behind the scenes, DecK is used to sync your configuration with Kong. For reference: https://docs.konghq.com/deck/overview/
 
 > **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But if you have separate pipelines for your environments (i.e./ dev, test and prod), you can split your configuration and update the `tags` with the qualifier. So for example, you can use a tag `ns.$NS.dev` to sync Kong configuration for `dev` Service and Routes only.
 
-> **Upstream Services on OCP4:** If your service is running on OCP4, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
-> The Aporeto Network Security Policies are being removed in favor of the Kubernetes Security Policies (KSP). You will need to create a KSP on your side looking something like this to allow the Gateway's test and prod environments to route traffic to your API:
+> **Upstream Services on OCP Silver Cluster:** If your service is running on OCP4, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
+>
+> You will need to create a Network Policy on your side looking something like this to allow the Gateway's test and prod environments to route traffic to your API:
 
 ```yaml
 kind: NetworkPolicy
@@ -96,7 +97,29 @@ spec:
               name: 264e6f
 ```
 
-> **Migrating from OCP3 to OCP4?** Please review the [OCP4-Migration](https://github.com/bcgov/gwa-api/blob/dev/docs/OCP4-MIGRATION.md) instructions to help with transitioning to OCP4 and the new APS Gateway.
+> **Upstream services on OCP Gold Cluster:** If your service is running on Gold, you will need to contact our team so that we can properly provision the `namespace` on the correct Kong Data Plane and the correct DNS is setup for your routes. The Network Policy on Gold is:
+
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: b8840c
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: b8840c
+```
 
 > **Require mTLS between the Gateway and your Upstream Service?** To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the `ca_certificates` and `tls_verify` is required as well. An example:
 
@@ -161,9 +184,7 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 
 **Configure**
 
-Create a `.env` file and update the CLIENT_ID and CLIENT_SECRET with the new credentials that were generated in step #2:
-
-Run the following to configure the `.env` file:
+Run the following to configure a `.env` file that will hold all the env vars for running `gwa`:
 
 ```
 gwa init -T --api-version=2 --namespace=$NS \
@@ -230,7 +251,7 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 
 ```
 
-To help with troubleshooting, you can use the GWA API to get a health check for each of the upstream services to verify the Gateway is connecting OK.
+.
 
 ## 6. View metrics
 
@@ -282,7 +303,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${ secrets.GITHUB_TOKEN }
 
       - name: Get GWA Command Line
         run: |
@@ -297,8 +318,8 @@ jobs:
 
           gwa init -T \
             --namespace=$NS \
-            --client-id=${{ secrets.TEST_GWA_ACCT_ID }} \
-            --client-secret=${{ secrets.TEST_GWA_ACCT_SECRET }}
+            --client-id=${ secrets.TEST_GWA_ACCT_ID } \
+            --client-secret=${ secrets.TEST_GWA_ACCT_SECRET }
 
           gwa pg
 ```
@@ -324,14 +345,6 @@ View the Directory API:
 
 If you do not have a Dataset already defined in the BC Data Catalog, then you can create a draft in the API Services Portal.
 
-> Find the list of organizations here:
->
-> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations
-
-> Use the following to get the `organizationUnit`:
->
-> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations/ORG_KEY
-
 ```yaml
 kind: DraftDataset
 name: my-draft-dataset
@@ -345,6 +358,14 @@ view_audience: Government
 security_class: LOW-PUBLIC
 record_publish_date: "2021-05-27"
 ```
+
+> Find the list of organizations here:
+>
+> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations
+
+> Use the following to get the `organizationUnit`:
+>
+> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations/ORG_KEY
 
 ### 9.2 Setup your Product
 
@@ -414,21 +435,21 @@ Re-run the publish command: `gwa pg`. This will protect the upstream service wit
 curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 ```
 
-You should get an error: "No API key found in request".
+You will get an error: `No API key found in request`.
 
 ### 9.5 Get an API Key
 
 Go to the `Namespaces` tab in the `API Services Portal`. Click the `Preview in Directory` link that is in the `Products` panel.
 
-You should see a card with the title of your Dataset that you created earlier in step 9.1.
+You will see a card with the title of your Dataset that you created earlier in step 9.1.
 
 Click on the title and click the `Request Access` button.
 
-Choose or create an `Application`, select the `Dev` environment and click the "Request Access & Continue" button.
+Choose or create an `Application`, select the `Dev` environment and click the `Request Access & Continue` button.
 
 The `Generate Secrets` button will generate your API Key. Make a note of it.
 
-> NOTE: An Environment can be configured be auto-approved. For our sample `Dev`, auto-approval is enabled so the Access Manager does not need to approve the request before getting access.
+> NOTE: An Environment can be configured for auto-approval. For our sample `Dev`, auto-approval is enabled so the Access Manager does not need to approve the request before getting access.
 
 Now, when you run the command:
 
@@ -453,9 +474,9 @@ It should return header information looking something like:
 
 ### 9.6 Manage Access
 
-> Note: To manage access to your APIs, you must have the `Access.Manage` role for the Namespace.
+> Note: To manage access to your APIs, you must have the `Access.Manage` permission for the Namespace.
 
-As an API Provider, you can manage this new Consumer by going to the `Namespaces` tab, and selecting `Consumers`.
+As an Access Manager, you can manage this new Consumer by going to the `Namespaces` tab, and selecting `Consumers`.
 
 Here you should see the newly created Consumer. Click on the `name`.
 
@@ -465,11 +486,11 @@ Administer Authorization, by toggling access to the particular Product and Envir
 
 ### 9.7 Enabling for Discovery
 
-Once you are happy with the content and have applied the appropriate controls to your API, you can do the following to publish to the API Directory.
+Once you are happy with the content and have applied the appropriate controls to your API, you are ready to make it available on the API Directory.
 
-Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118
+**Prerequisite:** Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118
 
-Once approved, you just need to make an Environment `active` for the corresponding Product and Dataset to appear on the API Directory. You can do this by either updating the Product Environment configuration above to `active: true`, or going to the API Services Portal UI and editing the Environment details.
+Once approved, you just need to make an Environment `active` for the corresponding Product Environment to appear on the API Directory. You can do this by either updating the Product Environment configuration above to `active: true`, or going to the API Services Portal UI and editing the Environment details.
 
 ### 9.8 View your product in the API Directory
 
@@ -481,7 +502,7 @@ It is now ready to receive access requests from the community!
 
 ### 10.1 Connect with the BC Government API community
 
-Message us on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops).
+Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops).
 
 ### 10.2 Read our other guides
 
@@ -493,7 +514,7 @@ Use the `client-credentials` flow to protect your API (see [Client Credential Pr
 
 ### 10.4 Use the access approval process
 
-Enable `approval` for an Environment and then go through the access request process by requesting access, and then as an Access Manager, reviewing the request and approving or rejecting it.
+Enable `approval` for an Environment and then go through the access request process by requesting access, playing the role of Access Manager to review the request and approve access.
 
 ### 10.5 Publish your documentation on the Portal
 
