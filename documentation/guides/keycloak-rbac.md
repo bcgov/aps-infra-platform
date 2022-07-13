@@ -131,3 +131,9 @@ If your upstream service is stateless, then you can remove the cookie before the
             headers:
               - Cookie
 ```
+
+## Outcome
+
+- Vanity url: `my-application.apps.gov.bc.ca`
+- Protected by SSL `*.apps.gov.bc.ca` certificate
+- Separation of concerns for authentication and authorization
