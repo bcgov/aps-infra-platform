@@ -9,7 +9,7 @@ Using a service account generated within your namespace, you can send Prometheus
 - Namespace in the API Gateway
 - Service Account associated with the namespace
   - Service Account should have at least `Namespace.View` permissions
-- Ideally (but not necessary) an active service experiencing some traffic
+- Ideally an active service experiencing some traffic
 
 ## TL;DR
 
@@ -64,7 +64,7 @@ You can get a range of data between two points in time as well. This can be done
 ```sh
 export END=$(date +'%s') # End of time range. Example uses current UNIX time.
 export START=$(($END - (60 * 60 * 5))) # Start of time range. Example subtracts 5h from END time.
-export STEP=300 # Number of seconds the query steps before evaluating. Eg: evaluate at t0s, then t300s, then t600s, etc.
+export STEP=300 # Number of seconds the query steps before evaluating. Eg: evaluate at START + 0s, then START + 300s, etc.
 ```
 
 ### Rate per Second per route/service by Status Code
