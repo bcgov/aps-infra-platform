@@ -1,8 +1,8 @@
-# Query Prometheus Using Service Account
+# Query Kong Metrics Using Service Account
 
 ## Overview
 
-Using a service account generated within your namespace, you can send Prometheus queries to get metrics about the namespace in the API Gateway. Some examples examples will be provided, but any [PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/) query can be sent.
+Using a service account generated within your namespace, you can send Prometheus queries to retrieve Kong metrics. Some examples will be provided, but any [PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/) query can be sent.
 
 ## Prerequisites
 
