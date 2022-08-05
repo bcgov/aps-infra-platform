@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.713047418046">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.713047672038">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.713047418046" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.713047672038" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.713047418046" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.713047672038" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.713047418046" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.713047418046" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.713047672038" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.713047672038" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -186,26 +186,32 @@
         <span>API Provider User Journey</span>
     </h1>
 </doc-anchor-target>
-<p>The following steps walk an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links found at the bottom of this document (<doc-anchor-trigger to="#production-links">here</doc-anchor-trigger>).</p>
+<p>The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links available at the end of this document (<doc-anchor-trigger to="#production-links">here</doc-anchor-trigger>).</p>
 <doc-anchor-target id="1-register-a-new-namespace">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#1-register-a-new-namespace">#</doc-anchor-trigger>
-        <span>1. Register a new namespace</span>
+        <span>1. Register a New Namespace</span>
     </h2>
 </doc-anchor-target>
 <p>A <code v-pre>namespace</code> represents a collection of Kong Gateway Services and Routes that are managed independently.</p>
-<p>To create a new namespace, login to the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a>.</p>
-<p>After login with your IDIR, click the namespace dropdown in the top right next to your user name (it may show <code v-pre>No Active Namespace</code>), then click <code v-pre>Create New Namespace</code>.</p>
-<p>The namespace must be an lowercase alphanumeric string between 5 and 15 characters (RegExp reference: <code v-pre>^[a-z][a-z0-9-]{4,14}$</code>).</p>
-<p>You can select and manage namespaces by clicking the namespace dropdown in the top right next to your user name.</p>
+<p>Create a new namespace.</p>
+<p>Log in to the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a> using your IDIR.</p>
+<p>Click the namespace drop-down menu (top right next to your user name - it may show <code v-pre>No Active Namespace</code>).</p>
+<p>Click <code v-pre>Create New Namespace</code>.</p>
+<p>Enter the Namespace name.</p>
+<p>Click Create.</p>
+<p>NOTE: The name must be a lowercase alphanumeric string between 5 and 15 characters (RegExp reference: <code v-pre>^[a-z][a-z0-9-]{4,14}$</code>).</p>
+<p>You can manage namespaces by clicking the namespace drop-down menu and selecting the required namespace.</p>
 <doc-anchor-target id="2-generate-a-service-account">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#2-generate-a-service-account">#</doc-anchor-trigger>
         <span>2. Generate a Service Account</span>
     </h2>
 </doc-anchor-target>
-<p>Go to the <code v-pre>Namespaces</code> tab, click the <code v-pre>Service Accounts</code> action link, and click the <code v-pre>New Service Account</code> button. Select the <code v-pre>GatewayConfig.Publish</code> permission for the Service Account and click <code v-pre>Share</code>. A new credential will be created - make a note of the <code v-pre>ID</code> and <code v-pre>Secret</code>.</p>
-<p>The full list of permissions are:</p>
+<p>Go to the <code v-pre>Namespaces</code> tab.</p>
+<p>Click <code v-pre>Service Accounts</code>, then Cick <code v-pre>New Service Account</code>.</p>
+<p>Select the <code v-pre>GatewayConfig.Publish</code> permission for the Service Account and click <code v-pre>Share</code>. A new credential will be created - make a note of the <code v-pre>ID</code> and <code v-pre>Secret</code>.</p>
+<p>The following list describes the permissions:</p>
 <div class="table-wrapper scrollbar overflow-hidden">
 <table class="comfortable">
 <thead>
@@ -225,7 +231,7 @@
 </tr>
 <tr>
 <td><code v-pre>GatewayConfig.Publish</code></td>
-<td>Permission to publish gateway configuration to Kong and to view the status of the upstreams</td>
+<td>Permission to publish gateway configuration to Kong and view the status of the upstreams</td>
 </tr>
 <tr>
 <td><code v-pre>Content.Publish</code></td>
@@ -233,7 +239,7 @@
 </tr>
 <tr>
 <td><code v-pre>CredentialIssuer.Admin</code></td>
-<td>Permission to create Authorization Profiles for integrating with 3rd party Identity Providers. The profiles are available to be used when configuring Product Environments.</td>
+<td>Permission to create Authorization Profiles for integrating with third-party Identity Providers; yhe profiles are available to be used when configuring Product Environments</td>
 </tr>
 <tr>
 <td><code v-pre>Access.Manage</code></td>
@@ -245,10 +251,10 @@
 <doc-anchor-target id="3-prepare-configuration">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#3-prepare-configuration">#</doc-anchor-trigger>
-        <span>3. Prepare configuration</span>
+        <span>3. Prepare Configuration</span>
     </h2>
 </doc-anchor-target>
-<p>The gateway configuration can be hand-crafted or you can use a command line interface that we developed called <code v-pre>gwa</code> to convert your Openapi v3 spec to a Kong configuration.</p>
+<p>The gateway configuration can be hand-crafted or you can use a command line interface that APS developed called <code v-pre>gwa</code> to convert your OpenAPI v3 spec to a Kong configuration.</p>
 <p><strong>Basic configuration of a single service and route:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">export NS=&quot;my_namespace&quot;
@@ -283,14 +289,14 @@ services:
 <p>To learn about other available plugins, navigate to <code v-pre>Gateway &gt; Plugins</code>.</p>
 </blockquote>
 <blockquote>
-<p><strong>Declarative Config</strong> Behind the scenes, DecK is used to sync your configuration with Kong. For reference: <a href="https://docs.konghq.com/deck/overview/">https://docs.konghq.com/deck/overview/</a></p>
+<p><strong>Declarative Config:</strong> DecK is used to sync your configuration with Kong; see <a href="https://docs.konghq.com/deck/overview/">https://docs.konghq.com/deck/overview/</a> for more information.</p>
 </blockquote>
 <blockquote>
-<p><strong>Splitting Your Config:</strong> A namespace <code v-pre>tag</code> with the format <code v-pre>ns.$NS</code> is mandatory for each service/route/plugin. But if you have separate pipelines for your environments (i.e./ dev, test and prod), you can split your configuration and update the <code v-pre>tags</code> with the qualifier. So for example, you can use a tag <code v-pre>ns.$NS.dev</code> to sync Kong configuration for <code v-pre>dev</code> Service and Routes only.</p>
+<p><strong>Splitting Your Config:</strong> A namespace <code v-pre>tag</code> with the format <code v-pre>ns.$NS</code> is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the <code v-pre>tags</code> with the qualifier. For example, you can use a tag <code v-pre>ns.$NS.dev</code> to sync the Kong configuration for <code v-pre>dev</code> Service and Routes only.</p>
 </blockquote>
 <blockquote>
-<p><strong>Upstream Services on OCP Silver Cluster:</strong> If your service is running on OCP4, you should specify the Kubernetes Service in the <code v-pre>Service.host</code>. It must have the format: <code v-pre>&lt;name&gt;.&lt;ocp-namespace&gt;.svc</code>. Also make sure your <code v-pre>Service.port</code> matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.</p>
-<p>You will need to create a Network Policy on your side looking something like this to allow the Gateway&#x27;s test and prod environments to route traffic to your API:</p>
+<p><strong>Upstream Services on OCP Silver Cluster:</strong> If your service is running on OCP4, you should specify the Kubernetes Service in the <code v-pre>Service.host</code>. It must have the format: <code v-pre>&lt;name&gt;.&lt;ocp-namespace&gt;.svc</code>. Also, make sure your <code v-pre>Service.port</code> matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.</p>
+<p>You will need to create a Network Policy on your side similar to the following to allow the Gateway&#x27;s test and prod environments to route traffic to your API:</p>
 </blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">kind: NetworkPolicy
@@ -314,7 +320,7 @@ spec:
               name: 264e6f</code></pre>
 </doc-codeblock></div>
 <blockquote>
-<p><strong>Upstream services on OCP Gold Cluster:</strong> If your service is running on Gold, you will need to contact our team so that we can properly provision the <code v-pre>namespace</code> on the correct Kong Data Plane and the correct DNS is setup for your routes. The Network Policy on Gold is:</p>
+<p><strong>Upstream services on OCP Gold Cluster:</strong> If your service is running on Gold, you will need to contact the APS team so that we can properly provision the <code v-pre>namespace</code> on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.</p>
 </blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">kind: NetworkPolicy
@@ -338,7 +344,7 @@ spec:
               name: b8840c</code></pre>
 </doc-codeblock></div>
 <blockquote>
-<p><strong>Require mTLS between the Gateway and your Upstream Service?</strong> To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the <code v-pre>ca_certificates</code> and <code v-pre>tls_verify</code> is required as well. An example:</p>
+<p><strong>Require mTLS between the Gateway and your Upstream Service?</strong> To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the <code v-pre>ca_certificates</code> and <code v-pre>tls_verify</code> is required as well. Example:</p>
 </blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">services:
@@ -387,10 +393,10 @@ ca_certificates:
 <doc-anchor-target id="4-apply-gateway-configuration">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#4-apply-gateway-configuration">#</doc-anchor-trigger>
-        <span>4. Apply gateway configuration</span>
+        <span>4. Apply Gateway Configuration</span>
     </h2>
 </doc-anchor-target>
-<p>The Swagger console for the <code v-pre>gwa-api</code> can be used to publish Kong Gateway configuration, or the <code v-pre>gwa Command Line</code> can be used.</p>
+<p>The Swagger console for the <code v-pre>gwa-api</code> can be used to publish the Kong Gateway configuration, or you can use the <code v-pre>gwa Command Line</code>.</p>
 <doc-anchor-target id="41-gwa-command-line-recommended">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#41-gwa-command-line-recommended">#</doc-anchor-trigger>
@@ -407,7 +413,7 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 <p><strong>Using MacOS or Windows?</strong> Download here: <a href="https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1">https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1</a></p>
 </blockquote>
 <blockquote>
-<p>NOTE: As of version 1.2+ there is support for v2 of our api. To continue using v1 of the api, ensure that the API Version is set to 1 (see below)</p>
+<p>NOTE: As of version 1.2+ there is support for v2 of the APS API. To continue using v1 of the API, ensure that the API Version is set to 1.</p>
 </blockquote>
 <p><strong>Configure</strong></p>
 <p>Run the following to configure a <code v-pre>.env</code> file that will hold all the env vars for running <code v-pre>gwa</code>:</p>
@@ -417,14 +423,14 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
   --client-secret=&lt;YOUR SERVICE ACCOUNT SECRET&gt;`</code></pre>
 </doc-codeblock></div>
 <blockquote>
-<p>NOTE: The <code v-pre>-T</code> indicates our Test environment. For production use <code v-pre>-P</code>.</p>
+<p>NOTE: The <code v-pre>-T</code> indicates the APS Test environment. For production use <code v-pre>-P</code>.</p>
 </blockquote>
 <p>Run <code v-pre>gwa status</code> to confirm that access to the Gateway is working.</p>
 <p><strong>Publish</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">gwa pg sample.yaml</code></pre>
 </doc-codeblock></div>
-<p>If you want to see the expected changes but not actually apply them, you can run:</p>
+<p>If you want to see the expected changes, but not actually apply them, you can run:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">gwa pg --dry-run sample.yaml</code></pre>
 </doc-codeblock></div>
@@ -436,9 +442,9 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 </doc-anchor-target>
 <p>Go to <a href="https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/">gwa-api Swagger Console</a>.</p>
 <p>Select the <code v-pre>PUT</code> <code v-pre>/namespaces/{namespace}/gateway</code> API.</p>
-<p>The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the <code v-pre>lock</code> link on the right and enter in the Service Account credentials that were generated in step #2.</p>
-<p>For the <code v-pre>Parameter namespace</code>, enter the namespace that you created in step #1.</p>
-<p>Select <code v-pre>dryRun</code> to <code v-pre>true</code>.</p>
+<p>The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the <code v-pre>lock</code> link (on the right) and enter the Service Account credentials generated in Section 2.</p>
+<p>For the <code v-pre>Parameter namespace</code>, enter the namespace you created in Section 1.</p>
+<p>Set <code v-pre>dryRun</code> to <code v-pre>true</code>.</p>
 <p>Select a <code v-pre>configFile</code> file.</p>
 <p>Send the request.</p>
 <doc-anchor-target id="43-postman-optional">
@@ -447,50 +453,49 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
         <span>4.3. Postman (optional)</span>
     </h3>
 </doc-anchor-target>
-<p>From the Postman App, click the <code v-pre>Import</code> button and go to the <code v-pre>Link</code> tab.</p>
-<p>Enter a URL: <a href="https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml">https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml</a></p>
+<p>From the Postman App, click <code v-pre>Import</code> and go to the <code v-pre>Link</code> tab.</p>
+<p>Enter the URL: <a href="https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml">https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml</a></p>
 <p>After creation, go to <code v-pre>Collections</code> and right-click on the <code v-pre>Gateway Administration (GWA) API</code> collection and select <code v-pre>edit</code>.</p>
-<p>Go to the <code v-pre>Authorization</code> tab, enter in your <code v-pre>Client ID</code> and <code v-pre>Client Secret</code> and click <code v-pre>Get New Access Token</code>.</p>
+<p>Go to the <code v-pre>Authorization</code> tab, enter your <code v-pre>Client ID</code> and <code v-pre>Client Secret</code>, and click <code v-pre>Get New Access Token</code>.</p>
 <p>You should get a successful dialog to proceed. Click <code v-pre>Proceed</code> and <code v-pre>Use Token</code>.</p>
-<p>You can then verify that the token works by going to the Collection <code v-pre>Return key information about authenticated identity</code> and click <code v-pre>Send</code>.</p>
+<p>You can verify that the token works by going to the Collection <code v-pre>Return key information about authenticated identity</code> and clicking <code v-pre>Send</code>.</p>
 <doc-anchor-target id="5-verify-routes">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#5-verify-routes">#</doc-anchor-trigger>
-        <span>5. Verify routes</span>
+        <span>5. Verify Routes</span>
     </h2>
 </doc-anchor-target>
 <p>To verify that the Gateway can access the upstream services, run the command: <code v-pre>gwa status</code>.</p>
-<p>In our <code v-pre>test</code> environment, the hosts that you defined in the routes get altered; to see the actual hosts, log into the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a>, go to the <code v-pre>Namespaces</code> tab, go to <code v-pre>Gateway Services</code> and select your particular service to get the routing details.</p>
+<p>In the APS <code v-pre>test</code> environment, the hosts that you defined in the routes are altered. To see the actual hosts, log into the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a>, go to the <code v-pre>Namespaces</code> tab, go to <code v-pre>Gateway Services</code>, and select your particular service to get the routing details.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 
 ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 </code></pre>
 </doc-codeblock></div>
-<p>.</p>
 <doc-anchor-target id="6-view-metrics">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#6-view-metrics">#</doc-anchor-trigger>
-        <span>6. View metrics</span>
+        <span>6. View Metrics</span>
     </h2>
 </doc-anchor-target>
-<p>The following metrics can be viewed in real-time for the Services that you configure on the Gateway:</p>
+<p>You can view the following metrics in real-time for the Services that you configure on the Gateway:</p>
 <ul>
-<li><strong>Request Rate</strong> : Requests / Second (by Service/Route, by HTTP Status)</li>
-<li><strong>Latency</strong> : Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)</li>
-<li><strong>Bandwidth</strong> : Ingress/egress bandwidth (by Service/Route)</li>
-<li><strong>Total Requests</strong> : In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)</li>
+<li><strong>Request Rate</strong>: Requests / Second (by Service/Route, by HTTP Status)</li>
+<li><strong>Latency</strong>: Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)</li>
+<li><strong>Bandwidth</strong>: Ingress/egress bandwidth (by Service/Route)</li>
+<li><strong>Total Requests</strong>: In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)</li>
 </ul>
-<p>All metrics can be viewed by an arbitrary time window - defaults to <code v-pre>Last 24 Hours</code>.</p>
+<p>All metrics can be viewed by an arbitrary time window; default is <code v-pre>Last 24 Hours</code>.</p>
 <p>Go to <a href="https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca">Grafana</a> to view metrics for your configured services.</p>
 <p>You can also access summarized metrics from the <code v-pre>API Services Portal</code> by going to the <code v-pre>Namespaces</code> tab and clicking the <code v-pre>Gateway Services</code> link.</p>
-<doc-anchor-target id="7-grant-access-to-others">
+<doc-anchor-target id="7-grant-access-to-other-userss">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#7-grant-access-to-others">#</doc-anchor-trigger>
-        <span>7. Grant access to others</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#7-grant-access-to-other-userss">#</doc-anchor-trigger>
+        <span>7. Grant Access to Other Userss</span>
     </h2>
 </doc-anchor-target>
-<p>To grant access to others, you need to grant them the appropriate Scopes. This can be done from the <code v-pre>API Services Portal</code>, selecting the relevant <code v-pre>Namespace</code> and going to the Namespaces <code v-pre>Namespace Access</code> page. From here, you are able to grant Users access to the Namespace.</p>
+<p>To grant access to other users, you need to grant them the appropriate Scopes. You can do this from the <code v-pre>API Services Portal</code> by selecting the relevant <code v-pre>Namespace</code> and going to the Namespaces <code v-pre>Namespace Access</code> page. From there, you can grant users access to the Namespace.</p>
 <doc-anchor-target id="8-add-to-your-cicd-pipeline">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#8-add-to-your-cicd-pipeline">#</doc-anchor-trigger>
@@ -504,7 +509,7 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
         <span>8.1. Github Actions Example</span>
     </h3>
 </doc-anchor-target>
-<p>In the repository that you maintain your CI/CD Pipeline configuration, use the Service Account details from <code v-pre>Step 2</code> to set up two <code v-pre>Secrets</code>:</p>
+<p>In the repository where you maintain your CI/CD Pipeline configuration, use the Service Account details from <code v-pre>Section 2</code> to set up two <code v-pre>Secrets</code>:</p>
 <ul>
 <li><p>GWA_ACCT_ID</p>
 </li>
@@ -512,7 +517,7 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 </li>
 </ul>
 <p>Add a <code v-pre>.gwa</code> folder (can be called anything) that will be used to hold your gateway configuration.</p>
-<p>An example Github Workflow:</p>
+<p>Github Workflow example:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">env:
   NS: &quot;&lt;your namespace&gt;&quot;
@@ -554,7 +559,7 @@ jobs:
         <span>9. Share your API for Discovery</span>
     </h2>
 </doc-anchor-target>
-<p>Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalog.</p>
+<p>Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.</p>
 <p>The <code v-pre>API Services Portal</code> Directory organizes your APIs by Datasets, Products and Environments. You can manage them via an API or through the UI.</p>
 <p>To use the Directory API, the following scopes are required:</p>
 <ul>
@@ -573,7 +578,7 @@ jobs:
         <span>9.1 Setup your Draft Dataset</span>
     </h3>
 </doc-anchor-target>
-<p>If you do not have a Dataset already defined in the BC Data Catalog, then you can create a draft in the API Services Portal.</p>
+<p>If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">kind: DraftDataset
 name: my-draft-dataset
@@ -588,7 +593,7 @@ security_class: LOW-PUBLIC
 record_publish_date: &quot;2021-05-27&quot;</code></pre>
 </doc-codeblock></div>
 <blockquote>
-<p>Find the list of organizations here:</p>
+<p>List of available organizations:</p>
 <p><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations</a></p>
 </blockquote>
 <blockquote>
@@ -602,7 +607,7 @@ record_publish_date: &quot;2021-05-27&quot;</code></pre>
     </h3>
 </doc-anchor-target>
 <blockquote>
-<p>There are various patterns for protecting an API that the Kong API Gateway supports. In this example, we will be protecting the API with Kong&#x27;s API Key and ACL plugins (<code v-pre>kong-api-key-acl</code> flow).</p>
+<p>There are various patterns for protecting an API that the Kong API Gateway supports. In the following example, the API is protected with Kong&#x27;s API Key and ACL plugins (<code v-pre>kong-api-key-acl</code> flow).</p>
 </blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">kind: Product
@@ -642,7 +647,7 @@ environments:
         <span>9.3 Update Gateway Configuration</span>
     </h3>
 </doc-anchor-target>
-<p>In the previous section our example defines an environment that is protected using Kong&#x27;s API Key and ACL plugins. To protect the Service, the corresponding plugins need to exist on the Gateway for that service or route. The ACL <code v-pre>allow</code> corresponds to the unique <code v-pre>Environment ID</code> defined in section 9.2.</p>
+<p>In the previous section the example defined an environment that is protected using Kong&#x27;s API Key and ACL plugins. To protect the Service, the corresponding plugins need to exist on the Gateway for that service or route. The ACL <code v-pre>allow</code> corresponds to the unique <code v-pre>Environment ID</code> defined in Section 9.2.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">  plugins:
   - name: key-auth
@@ -659,7 +664,7 @@ environments:
       hide_groups_header: true
       allow: [ &lt;SEE ENVIRONMENT DETAIL&gt; ]</code></pre>
 </doc-codeblock></div>
-<p>Add the plugin configuration to the service <code v-pre>a-service-for-$NS</code> in <code v-pre>sample.yaml</code> file that you created in section 3.</p>
+<p>Add the plugin configuration to the service <code v-pre>a-service-for-$NS</code> in the <code v-pre>sample.yaml</code> file you created in Section 3.</p>
 <p>Re-run the publish command: <code v-pre>gwa pg</code>. This will protect the upstream service with an API Key.</p>
 <doc-anchor-target id="94-check-access">
     <h3>
@@ -677,19 +682,19 @@ environments:
         <span>9.5 Get an API Key</span>
     </h3>
 </doc-anchor-target>
-<p>Go to the <code v-pre>Namespaces</code> tab in the <code v-pre>API Services Portal</code>. Click the <code v-pre>Preview in Directory</code> link that is in the <code v-pre>Products</code> panel.</p>
-<p>You will see a card with the title of your Dataset that you created earlier in step 9.1.</p>
-<p>Click on the title and click the <code v-pre>Request Access</code> button.</p>
-<p>Choose or create an <code v-pre>Application</code>, select the <code v-pre>Dev</code> environment and click the <code v-pre>Request Access &amp; Continue</code> button.</p>
-<p>The <code v-pre>Generate Secrets</code> button will generate your API Key. Make a note of it.</p>
+<p>Go to the <code v-pre>Namespaces</code> tab in the <code v-pre>API Services Portal</code>. Click the <code v-pre>Preview in Directory</code> link in the <code v-pre>Products</code> panel.</p>
+<p>You will see a card with the title of the Dataset that you created in Section 9.1.</p>
+<p>Click the title, then click <code v-pre>Request Access</code>.</p>
+<p>Choose or create an <code v-pre>Application</code>, select the <code v-pre>Dev</code> environment, and click <code v-pre>Request Access &amp; Continue</code>.</p>
+<p>Clicking <code v-pre>Generate Secrets</code> will generate your API Key. Make a note of the Key.</p>
 <blockquote>
-<p>NOTE: An Environment can be configured for auto-approval. For our sample <code v-pre>Dev</code>, auto-approval is enabled so the Access Manager does not need to approve the request before getting access.</p>
+<p>NOTE: An Environment can be configured for auto-approval. For the sample, <code v-pre>Dev</code> auto-approval is enabled so the Access Manager does not need to approve the request before getting access.</p>
 </blockquote>
-<p>Now, when you run the command:</p>
+<p>When you run the command:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers -H &quot;X-API-KEY: $KEY&quot;</code></pre>
 </doc-codeblock></div>
-<p>It should return header information looking something like:</p>
+<p>It should return header information similar to the following:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">{
   &quot;headers&quot;: {
@@ -709,28 +714,28 @@ environments:
     </h3>
 </doc-anchor-target>
 <blockquote>
-<p>Note: To manage access to your APIs, you must have the <code v-pre>Access.Manage</code> permission for the Namespace.</p>
+<p>NOTE: To manage access to your APIs, you must have the <code v-pre>Access.Manage</code> permission for the Namespace.</p>
 </blockquote>
-<p>As an Access Manager, you can manage this new Consumer by going to the <code v-pre>Namespaces</code> tab, and selecting <code v-pre>Consumers</code>.</p>
+<p>As an Access Manager, you can manage the new Consumer by going to the <code v-pre>Namespaces</code> tab, and selecting <code v-pre>Consumers</code>.</p>
 <p>Here you should see the newly created Consumer. Click on the <code v-pre>name</code>.</p>
-<p>Administer Controls, such as rate limiting and ip restrictions.</p>
-<p>Administer Authorization, by toggling access to the particular Product and Environment.</p>
+<p>You can administer Controls such as rate limiting and IP restrictions.</p>
+<p>You can administer Authorization by toggling access to the particular Product and Environment.</p>
 <doc-anchor-target id="97-enabling-for-discovery">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#97-enabling-for-discovery">#</doc-anchor-trigger>
         <span>9.7 Enabling for Discovery</span>
     </h3>
 </doc-anchor-target>
-<p>Once you are happy with the content and have applied the appropriate controls to your API, you are ready to make it available on the API Directory.</p>
+<p>Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.</p>
 <p><strong>Prerequisite:</strong> Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: <a href="https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118">https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118</a></p>
-<p>Once approved, you just need to make an Environment <code v-pre>active</code> for the corresponding Product Environment to appear on the API Directory. You can do this by either updating the Product Environment configuration above to <code v-pre>active: true</code>, or going to the API Services Portal UI and editing the Environment details.</p>
+<p>Once approved, you must make an Environment <code v-pre>active</code> for the corresponding Product Environment to appear in the API Directory. You can do this by either updating the Product Environment configuration above to <code v-pre>active: true</code>, or going to the API Services Portal UI and editing the Environment details.</p>
 <doc-anchor-target id="98-view-your-product-in-the-api-directory">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#98-view-your-product-in-the-api-directory">#</doc-anchor-trigger>
-        <span>9.8 View your product in the API Directory</span>
+        <span>9.8 View Your Product in the API Directory</span>
     </h3>
 </doc-anchor-target>
-<p>Find your API in the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory">API Services Portal Directory</a></p>
+<p>Find your API in the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory">API Services Portal Directory</a>.</p>
 <p>It is now ready to receive access requests from the community!</p>
 <doc-anchor-target id="10-what-to-try-next">
     <h2>
@@ -741,35 +746,35 @@ environments:
 <doc-anchor-target id="101-connect-with-the-bc-government-api-community">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#101-connect-with-the-bc-government-api-community">#</doc-anchor-trigger>
-        <span>10.1 Connect with the BC Government API community</span>
+        <span>10.1 Connect with the BC Government API Community</span>
     </h3>
 </doc-anchor-target>
 <p>Post a message on <a href="https://chat.developer.gov.bc.ca/channel/aps-ops">Rocket.Chat #aps-ops</a>.</p>
 <doc-anchor-target id="102-read-our-other-guides">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#102-read-our-other-guides">#</doc-anchor-trigger>
-        <span>10.2 Read our other guides</span>
+        <span>10.2 Read Our Other Guides</span>
     </h3>
 </doc-anchor-target>
 <p>Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.</p>
 <doc-anchor-target id="103-protect-your-api-using-an-external-identity-provider">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#103-protect-your-api-using-an-external-identity-provider">#</doc-anchor-trigger>
-        <span>10.3 Protect your API using an external Identity Provider</span>
+        <span>10.3 Protect Your API using an External Identity Provider</span>
     </h3>
 </doc-anchor-target>
-<p>Use the <code v-pre>client-credentials</code> flow to protect your API (see <a href="../tutorial-idp-client-cred-flow/">Client Credential Protection</a>)</p>
+<p>Use the <code v-pre>client-credentials</code> flow to protect your API (see <a href="../tutorial-idp-client-cred-flow/">Client Credential Protection</a>).</p>
 <doc-anchor-target id="104-use-the-access-approval-process">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#104-use-the-access-approval-process">#</doc-anchor-trigger>
-        <span>10.4 Use the access approval process</span>
+        <span>10.4 Use the Access Approval Process</span>
     </h3>
 </doc-anchor-target>
-<p>Enable <code v-pre>approval</code> for an Environment and then go through the access request process by requesting access, playing the role of Access Manager to review the request and approve access.</p>
+<p>Enable <code v-pre>approval</code> for an Environment and go through the access request process by requesting access, and playing the role of Access Manager to review the request and approve access.</p>
 <doc-anchor-target id="105-publish-your-documentation-on-the-portal">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#105-publish-your-documentation-on-the-portal">#</doc-anchor-trigger>
-        <span>10.5 Publish your documentation on the Portal</span>
+        <span>10.5 Publish Your Documentation on the Portal</span>
     </h3>
 </doc-anchor-target>
 <div class="codeblock-wrapper"><doc-codeblock>
