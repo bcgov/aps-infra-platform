@@ -1,37 +1,49 @@
 # API Provider User Journey
 
-The following steps walk an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links found at the bottom of this document ([here](#production-links)).
+The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links available at the end of this document ([here](#production-links)).
 
-## 1. Register a new namespace
+## 1. Register a New Namespace
 
 A `namespace` represents a collection of Kong Gateway Services and Routes that are managed independently.
 
-To create a new namespace, login to the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca).
+Create a new namespace.
 
-After login with your IDIR, click the namespace dropdown in the top right next to your user name (it may show `No Active Namespace`), then click `Create New Namespace`.
+Log in to the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca) using your IDIR.
 
-The namespace must be an lowercase alphanumeric string between 5 and 15 characters (RegExp reference: `^[a-z][a-z0-9-]{4,14}$`).
+Click the namespace drop-down menu (top right next to your user name - it may show `No Active Namespace`).
 
-You can select and manage namespaces by clicking the namespace dropdown in the top right next to your user name.
+Click `Create New Namespace`.
+
+Enter the Namespace name.
+
+Click Create.
+
+NOTE: The name must be a lowercase alphanumeric string between 5 and 15 characters (RegExp reference: `^[a-z][a-z0-9-]{4,14}$`).
+
+You can manage namespaces by clicking the namespace drop-down menu and selecting the required namespace.
 
 ## 2. Generate a Service Account
 
-Go to the `Namespaces` tab, click the `Service Accounts` action link, and click the `New Service Account` button. Select the `GatewayConfig.Publish` permission for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
+Go to the `Namespaces` tab.
 
-The full list of permissions are:
+Click `Service Accounts`, then Cick `New Service Account`.
+
+Select the `GatewayConfig.Publish` permission for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
+
+The following list describes the permissions:
 
 | Scope                    | Permission                                                                                                                                                                               |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Namespace.Manage`       | Permission to update the Access Control List for controlling access to viewing metrics, service configuration and service account management (effectively a superuser for the namespace) |
 | `Namespace.View`         | Read-only access to the namespace                                                                                                                                                        |
-| `GatewayConfig.Publish`  | Permission to publish gateway configuration to Kong and to view the status of the upstreams                                                                                              |
+| `GatewayConfig.Publish`  | Permission to publish gateway configuration to Kong and view the status of the upstreams                                                                                              |
 | `Content.Publish`        | Permission to update the documentation on the portal                                                                                                                                     |
-| `CredentialIssuer.Admin` | Permission to create Authorization Profiles for integrating with 3rd party Identity Providers. The profiles are available to be used when configuring Product Environments.              |
+| `CredentialIssuer.Admin` | Permission to create Authorization Profiles for integrating with third-party Identity Providers; yhe profiles are available to be used when configuring Product Environments              |
 | `Access.Manage`          | Permission to approve/reject access requests to your APIs                                                                                                                                |
 
-## 3. Prepare configuration
+## 3. Prepare Configuration
 
-The gateway configuration can be hand-crafted or you can use a command line interface that we developed called `gwa` to convert your Openapi v3 spec to a Kong configuration.
+The gateway configuration can be hand-crafted or you can use a command line interface that APS developed called `gwa` to convert your OpenAPI v3 spec to a Kong configuration.
 
 **Basic configuration of a single service and route:**
 
@@ -67,13 +79,13 @@ Review the `sample.yaml` file to see what it is doing. There is a single upstrea
 
 > To learn about other available plugins, navigate to `Gateway > Plugins`.
 
-> **Declarative Config** Behind the scenes, DecK is used to sync your configuration with Kong. For reference: https://docs.konghq.com/deck/overview/
+> **Declarative Config:** DecK is used to sync your configuration with Kong; see https://docs.konghq.com/deck/overview/ for more information.
 
-> **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But if you have separate pipelines for your environments (i.e./ dev, test and prod), you can split your configuration and update the `tags` with the qualifier. So for example, you can use a tag `ns.$NS.dev` to sync Kong configuration for `dev` Service and Routes only.
+> **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the `tags` with the qualifier. For example, you can use a tag `ns.$NS.dev` to sync the Kong configuration for `dev` Service and Routes only.
 
-> **Upstream Services on OCP Silver Cluster:** If your service is running on OCP4, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
+> **Upstream Services on OCP Silver Cluster:** If your service is running on OCP4, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
 >
-> You will need to create a Network Policy on your side looking something like this to allow the Gateway's test and prod environments to route traffic to your API:
+> You will need to create a Network Policy on your side similar to the following to allow the Gateway's test and prod environments to route traffic to your API:
 
 ```yaml
 kind: NetworkPolicy
@@ -97,7 +109,8 @@ spec:
               name: 264e6f
 ```
 
-> **Upstream services on OCP Gold Cluster:** If your service is running on Gold, you will need to contact our team so that we can properly provision the `namespace` on the correct Kong Data Plane and the correct DNS is setup for your routes. The Network Policy on Gold is:
+
+> **Upstream services on OCP Gold Cluster:** If your service is running on Gold, you will need to contact the APS team so that we can properly provision the `namespace` on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
 
 ```yaml
 kind: NetworkPolicy
@@ -121,7 +134,8 @@ spec:
               name: b8840c
 ```
 
-> **Require mTLS between the Gateway and your Upstream Service?** To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the `ca_certificates` and `tls_verify` is required as well. An example:
+
+> **Require mTLS between the Gateway and your Upstream Service?** To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the `ca_certificates` and `tls_verify` is required as well. Example:
 
 ```yaml
 services:
@@ -164,9 +178,9 @@ gwa new -o sample.yaml \
 
 > See below for the `gwa` CLI install instructions.
 
-## 4. Apply gateway configuration
+## 4. Apply Gateway Configuration
 
-The Swagger console for the `gwa-api` can be used to publish Kong Gateway configuration, or the `gwa Command Line` can be used.
+The Swagger console for the `gwa-api` can be used to publish the Kong Gateway configuration, or you can use the `gwa Command Line`.
 
 ### 4.1. gwa Command Line (recommended)
 
@@ -180,7 +194,7 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 
 > **Using MacOS or Windows?** Download here: [https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1](https://github.com/bcgov/gwa-cli/releases/tag/v1.3.1)
 
-> NOTE: As of version 1.2+ there is support for v2 of our api. To continue using v1 of the api, ensure that the API Version is set to 1 (see below)
+> NOTE: As of version 1.2+ there is support for v2 of the APS API. To continue using v1 of the API, ensure that the API Version is set to 1.
 
 **Configure**
 
@@ -192,7 +206,7 @@ gwa init -T --api-version=2 --namespace=$NS \
   --client-secret=<YOUR SERVICE ACCOUNT SECRET>`
 ```
 
-> NOTE: The `-T` indicates our Test environment. For production use `-P`.
+> NOTE: The `-T` indicates the APS Test environment. For production use `-P`.
 
 Run `gwa status` to confirm that access to the Gateway is working.
 
@@ -202,7 +216,7 @@ Run `gwa status` to confirm that access to the Gateway is working.
 gwa pg sample.yaml
 ```
 
-If you want to see the expected changes but not actually apply them, you can run:
+If you want to see the expected changes, but not actually apply them, you can run:
 
 ```bash
 gwa pg --dry-run sample.yaml
@@ -214,11 +228,11 @@ Go to [gwa-api Swagger Console](https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/doc
 
 Select the `PUT` `/namespaces/{namespace}/gateway` API.
 
-The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the `lock` link on the right and enter in the Service Account credentials that were generated in step #2.
+The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the `lock` link (on the right) and enter the Service Account credentials generated in Section 2.
 
-For the `Parameter namespace`, enter the namespace that you created in step #1.
+For the `Parameter namespace`, enter the namespace you created in Section 1.
 
-Select `dryRun` to `true`.
+Set `dryRun` to `true`.
 
 Select a `configFile` file.
 
@@ -226,23 +240,23 @@ Send the request.
 
 ### 4.3. Postman (optional)
 
-From the Postman App, click the `Import` button and go to the `Link` tab.
+From the Postman App, click `Import` and go to the `Link` tab.
 
-Enter a URL: https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml
+Enter the URL: https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml
 
 After creation, go to `Collections` and right-click on the `Gateway Administration (GWA) API` collection and select `edit`.
 
-Go to the `Authorization` tab, enter in your `Client ID` and `Client Secret` and click `Get New Access Token`.
+Go to the `Authorization` tab, enter your `Client ID` and `Client Secret`, and click `Get New Access Token`.
 
 You should get a successful dialog to proceed. Click `Proceed` and `Use Token`.
 
-You can then verify that the token works by going to the Collection `Return key information about authenticated identity` and click `Send`.
+You can verify that the token works by going to the Collection `Return key information about authenticated identity` and clicking `Send`.
 
-## 5. Verify routes
+## 5. Verify Routes
 
 To verify that the Gateway can access the upstream services, run the command: `gwa status`.
 
-In our `test` environment, the hosts that you defined in the routes get altered; to see the actual hosts, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the `Namespaces` tab, go to `Gateway Services` and select your particular service to get the routing details.
+In the APS `test` environment, the hosts that you defined in the routes are altered. To see the actual hosts, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the `Namespaces` tab, go to `Gateway Services`, and select your particular service to get the routing details.
 
 ```bash
 curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
@@ -251,26 +265,24 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 
 ```
 
-.
+## 6. View Metrics
 
-## 6. View metrics
+You can view the following metrics in real-time for the Services that you configure on the Gateway:
 
-The following metrics can be viewed in real-time for the Services that you configure on the Gateway:
+- **Request Rate**: Requests / Second (by Service/Route, by HTTP Status)
+- **Latency**: Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)
+- **Bandwidth**: Ingress/egress bandwidth (by Service/Route)
+- **Total Requests**: In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)
 
-- **Request Rate** : Requests / Second (by Service/Route, by HTTP Status)
-- **Latency** : Standard deviations measured for latency inside Kong and on the Upstream Service (by Service/Route)
-- **Bandwidth** : Ingress/egress bandwidth (by Service/Route)
-- **Total Requests** : In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)
-
-All metrics can be viewed by an arbitrary time window - defaults to `Last 24 Hours`.
+All metrics can be viewed by an arbitrary time window; default is `Last 24 Hours`.
 
 Go to [Grafana](https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca) to view metrics for your configured services.
 
 You can also access summarized metrics from the `API Services Portal` by going to the `Namespaces` tab and clicking the `Gateway Services` link.
 
-## 7. Grant access to others
+## 7. Grant Access to Other Userss
 
-To grant access to others, you need to grant them the appropriate Scopes. This can be done from the `API Services Portal`, selecting the relevant `Namespace` and going to the Namespaces `Namespace Access` page. From here, you are able to grant Users access to the Namespace.
+To grant access to other users, you need to grant them the appropriate Scopes. You can do this from the `API Services Portal` by selecting the relevant `Namespace` and going to the Namespaces `Namespace Access` page. From there, you can grant users access to the Namespace.
 
 ## 8. Add to your CI/CD Pipeline
 
@@ -278,7 +290,7 @@ Update your CI/CD pipelines to run the `gwa-cli` to keep your services updated o
 
 ### 8.1. Github Actions Example
 
-In the repository that you maintain your CI/CD Pipeline configuration, use the Service Account details from `Step 2` to set up two `Secrets`:
+In the repository where you maintain your CI/CD Pipeline configuration, use the Service Account details from `Section 2` to set up two `Secrets`:
 
 - GWA_ACCT_ID
 
@@ -286,7 +298,7 @@ In the repository that you maintain your CI/CD Pipeline configuration, use the S
 
 Add a `.gwa` folder (can be called anything) that will be used to hold your gateway configuration.
 
-An example Github Workflow:
+Github Workflow example:
 
 ```yaml
 env:
@@ -326,7 +338,7 @@ jobs:
 
 ## 9. Share your API for Discovery
 
-Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalog.
+Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.
 
 The `API Services Portal` Directory organizes your APIs by Datasets, Products and Environments. You can manage them via an API or through the UI.
 
@@ -343,7 +355,7 @@ View the Directory API:
 
 ### 9.1 Setup your Draft Dataset
 
-If you do not have a Dataset already defined in the BC Data Catalog, then you can create a draft in the API Services Portal.
+If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal.
 
 ```yaml
 kind: DraftDataset
@@ -359,7 +371,7 @@ security_class: LOW-PUBLIC
 record_publish_date: "2021-05-27"
 ```
 
-> Find the list of organizations here:
+> List of available organizations:
 >
 > https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations
 
@@ -369,7 +381,7 @@ record_publish_date: "2021-05-27"
 
 ### 9.2 Setup your Product
 
-> There are various patterns for protecting an API that the Kong API Gateway supports. In this example, we will be protecting the API with Kong's API Key and ACL plugins (`kong-api-key-acl` flow).
+> There are various patterns for protecting an API that the Kong API Gateway supports. In the following example, the API is protected with Kong's API Key and ACL plugins (`kong-api-key-acl` flow).
 
 ```yaml
 kind: Product
@@ -406,7 +418,7 @@ environments:
 
 ### 9.3 Update Gateway Configuration
 
-In the previous section our example defines an environment that is protected using Kong's API Key and ACL plugins. To protect the Service, the corresponding plugins need to exist on the Gateway for that service or route. The ACL `allow` corresponds to the unique `Environment ID` defined in section 9.2.
+In the previous section the example defined an environment that is protected using Kong's API Key and ACL plugins. To protect the Service, the corresponding plugins need to exist on the Gateway for that service or route. The ACL `allow` corresponds to the unique `Environment ID` defined in Section 9.2.
 
 ```
   plugins:
@@ -425,7 +437,7 @@ In the previous section our example defines an environment that is protected usi
       allow: [ <SEE ENVIRONMENT DETAIL> ]
 ```
 
-Add the plugin configuration to the service `a-service-for-$NS` in `sample.yaml` file that you created in section 3.
+Add the plugin configuration to the service `a-service-for-$NS` in the `sample.yaml` file you created in Section 3.
 
 Re-run the publish command: `gwa pg`. This will protect the upstream service with an API Key.
 
@@ -439,25 +451,25 @@ You will get an error: `No API key found in request`.
 
 ### 9.5 Get an API Key
 
-Go to the `Namespaces` tab in the `API Services Portal`. Click the `Preview in Directory` link that is in the `Products` panel.
+Go to the `Namespaces` tab in the `API Services Portal`. Click the `Preview in Directory` link in the `Products` panel.
 
-You will see a card with the title of your Dataset that you created earlier in step 9.1.
+You will see a card with the title of the Dataset that you created in Section 9.1.
 
-Click on the title and click the `Request Access` button.
+Click the title, then click `Request Access`.
 
-Choose or create an `Application`, select the `Dev` environment and click the `Request Access & Continue` button.
+Choose or create an `Application`, select the `Dev` environment, and click `Request Access & Continue`.
 
-The `Generate Secrets` button will generate your API Key. Make a note of it.
+Clicking `Generate Secrets` will generate your API Key. Make a note of the Key.
 
-> NOTE: An Environment can be configured for auto-approval. For our sample `Dev`, auto-approval is enabled so the Access Manager does not need to approve the request before getting access.
+> NOTE: An Environment can be configured for auto-approval. For the sample, `Dev` auto-approval is enabled so the Access Manager does not need to approve the request before getting access.
 
-Now, when you run the command:
+When you run the command:
 
 ```
 curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers -H "X-API-KEY: $KEY"
 ```
 
-It should return header information looking something like:
+It should return header information similar to the following:
 
 ```
 {
@@ -474,49 +486,49 @@ It should return header information looking something like:
 
 ### 9.6 Manage Access
 
-> Note: To manage access to your APIs, you must have the `Access.Manage` permission for the Namespace.
+> NOTE: To manage access to your APIs, you must have the `Access.Manage` permission for the Namespace.
 
-As an Access Manager, you can manage this new Consumer by going to the `Namespaces` tab, and selecting `Consumers`.
+As an Access Manager, you can manage the new Consumer by going to the `Namespaces` tab, and selecting `Consumers`.
 
 Here you should see the newly created Consumer. Click on the `name`.
 
-Administer Controls, such as rate limiting and ip restrictions.
+You can administer Controls such as rate limiting and IP restrictions.
 
-Administer Authorization, by toggling access to the particular Product and Environment.
+You can administer Authorization by toggling access to the particular Product and Environment.
 
 ### 9.7 Enabling for Discovery
 
-Once you are happy with the content and have applied the appropriate controls to your API, you are ready to make it available on the API Directory.
+Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.
 
 **Prerequisite:** Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118
 
-Once approved, you just need to make an Environment `active` for the corresponding Product Environment to appear on the API Directory. You can do this by either updating the Product Environment configuration above to `active: true`, or going to the API Services Portal UI and editing the Environment details.
+Once approved, you must make an Environment `active` for the corresponding Product Environment to appear in the API Directory. You can do this by either updating the Product Environment configuration above to `active: true`, or going to the API Services Portal UI and editing the Environment details.
 
-### 9.8 View your product in the API Directory
+### 9.8 View Your Product in the API Directory
 
-Find your API in the [API Services Portal Directory](https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory)
+Find your API in the [API Services Portal Directory](https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory).
 
 It is now ready to receive access requests from the community!
 
 ## 10 What to try next?
 
-### 10.1 Connect with the BC Government API community
+### 10.1 Connect with the BC Government API Community
 
 Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops).
 
-### 10.2 Read our other guides
+### 10.2 Read Our Other Guides
 
 Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.
 
-### 10.3 Protect your API using an external Identity Provider
+### 10.3 Protect Your API using an External Identity Provider
 
-Use the `client-credentials` flow to protect your API (see [Client Credential Protection](tutorial-idp-client-cred-flow/))
+Use the `client-credentials` flow to protect your API (see [Client Credential Protection](tutorial-idp-client-cred-flow/)).
 
-### 10.4 Use the access approval process
+### 10.4 Use the Access Approval Process
 
-Enable `approval` for an Environment and then go through the access request process by requesting access, playing the role of Access Manager to review the request and approve access.
+Enable `approval` for an Environment and go through the access request process by requesting access, and playing the role of Access Manager to review the request and approve access.
 
-### 10.5 Publish your documentation on the Portal
+### 10.5 Publish Your Documentation on the Portal
 
 ```yaml
 kind: Content
