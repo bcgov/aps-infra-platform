@@ -56,7 +56,7 @@ Reminder that if you wish to modify the PromQL queries, it should be URL encoded
 Run the following before running the example queries below:
 
 ```sh
-# For test, change replace `dev` with `test`
+# For test, replace `dev` with `test` in PQ_URL
 # For prod, use:
 # export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
 export PQ_URL=https://gw-pql-api-gov-bc-ca.dev.api.gov.bc.ca/api/v1
