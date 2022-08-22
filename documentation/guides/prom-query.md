@@ -16,7 +16,7 @@ Using a service account generated within your namespace, you can send Prometheus
 Generate an access token with your Service Account. Use the token to send PromQL queries with the following command. Note that queries should be URL encoded.
 
 ```sh
-curl -v -H "Authorization: Bearer <access-token>" "https://gw-pql-api-gov-bc-ca.<env>.api.gov.bc.ca/api/v1/<query>"
+curl -v -H "Authorization: Bearer <access-token>" "<prom-query-url>/api/v1/<query>"
 ```
 
 ## Detailed Instructions
@@ -46,7 +46,7 @@ export TOK=my-copied-access-token
 Once you have an access token, you can run queries using:
 
 ```sh
-curl -v -H "Authorization: Bearer $TOK" "https://gw-pql-api-gov-bc-ca.<env>.api.gov.bc.ca/api/v1/<query>"
+curl -v -H "Authorization: Bearer $TOK" "<prom-query-url>/api/v1/<query>"
 ```
 
 ## Example Queries
@@ -56,9 +56,10 @@ Reminder that if you wish to modify the PromQL queries, it should be URL encoded
 Run the following before running the example queries below:
 
 ```sh
-# Currently available in dev and test
-export ENV=dev
-export PQ_URL=https://gw-pql-api-gov-bc-ca.$ENV.api.gov.bc.ca/api/v1
+# For test, change replace `dev` with `test`
+# For prod, use:
+# export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
+export PQ_URL=https://gw-pql-api-gov-bc-ca.dev.api.gov.bc.ca/api/v1
 ```
 
 You can get a range of data between two points in time as well. This can be done by sending a request to: `/query_range?query=<query>&start=$START&end=$END&step=$STEP` instead of: `/query?query=<query>`. Below is some sample data if you wish to use `/query_range`.
