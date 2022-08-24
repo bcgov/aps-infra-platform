@@ -56,10 +56,9 @@ Reminder that if you wish to modify the PromQL queries, it should be URL encoded
 Run the following before running the example queries below:
 
 ```sh
-# For test, replace `dev` with `test` in PQ_URL
-# For prod, use:
-# export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
-export PQ_URL=https://gw-pql-api-gov-bc-ca.dev.api.gov.bc.ca/api/v1
+export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
+# Can also query dev and test environments. Replace <env> with either dev or test:
+# export PQ_URL=https://gw-pql-api-gov-bc-ca.<env>.api.gov.bc.ca/api/v1
 ```
 
 You can get a range of data between two points in time as well. This can be done by sending a request to: `/query_range?query=<query>&start=$START&end=$END&step=$STEP` instead of: `/query?query=<query>`. Below is some sample data if you wish to use `/query_range`.
