@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.714520583626">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.714675992534">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.714520583626" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.714675992534" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.714520583626" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.714675992534" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.714520583626" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.714520583626" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.714675992534" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.714675992534" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -263,10 +263,9 @@ curl $TOKEN_URL -X POST -H &quot;Content-Type: application/x-www-form-urlencoded
 <p>Reminder that if you wish to modify the PromQL queries, it should be URL encoded before sending the request.</p>
 <p>Run the following before running the example queries below:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash"># For test, replace `dev` with `test` in PQ_URL
-# For prod, use:
-# export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
-export PQ_URL=https://gw-pql-api-gov-bc-ca.dev.api.gov.bc.ca/api/v1</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
+# Can also query dev and test environments. Replace &lt;env&gt; with either dev or test:
+# export PQ_URL=https://gw-pql-api-gov-bc-ca.&lt;env&gt;.api.gov.bc.ca/api/v1</code></pre>
 </doc-codeblock></div>
 <p>You can get a range of data between two points in time as well. This can be done by sending a request to: <code v-pre>/query_range?query=&lt;query&gt;&amp;start=$START&amp;end=$END&amp;step=$STEP</code> instead of: <code v-pre>/query?query=&lt;query&gt;</code>. Below is some sample data if you wish to use <code v-pre>/query_range</code>.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
