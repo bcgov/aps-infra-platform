@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.714675992534">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.715394615147">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.714675992534" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.715394615147" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.714675992534" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.715394615147" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.714675992534" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.714675992534" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.715394615147" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.715394615147" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -267,11 +267,30 @@ curl $TOKEN_URL -X POST -H &quot;Content-Type: application/x-www-form-urlencoded
 # Can also query dev and test environments. Replace &lt;env&gt; with either dev or test:
 # export PQ_URL=https://gw-pql-api-gov-bc-ca.&lt;env&gt;.api.gov.bc.ca/api/v1</code></pre>
 </doc-codeblock></div>
-<p>You can get a range of data between two points in time as well. This can be done by sending a request to: <code v-pre>/query_range?query=&lt;query&gt;&amp;start=$START&amp;end=$END&amp;step=$STEP</code> instead of: <code v-pre>/query?query=&lt;query&gt;</code>. Below is some sample data if you wish to use <code v-pre>/query_range</code>.</p>
+<doc-anchor-target id="to-execute-queries">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#to-execute-queries">#</doc-anchor-trigger>
+        <span>To execute queries</span>
+    </h3>
+</doc-anchor-target>
+<p>Run one of the <code v-pre>export QUERY=...</code> example blocks, then run one of the <code v-pre>Execute ...</code> blocks below to execute that query:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">export END=$(date +'%s') # End of time range. Example uses current UNIX time.
+<pre class="language-bash"><code v-pre class="language-bash"># Execute at current server timestamp:
+curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUERY&quot;</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash"># Execute at specific time, eg 5 days ago:
+export FIVE_DAYS_AGO=$(($(date +'%s') - (60 * 60 * 24 * 5)))
+
+curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUERY&amp;time=$FIVE_DAYS_AGO&quot;</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash"># Execute using /query_range:
+export END=$(date +'%s') # End of time range. Example uses current UNIX time.
 export START=$(($END - (60 * 60 * 5))) # Start of time range. Example subtracts 5h from END time.
-export STEP=300 # Number of seconds the query steps before evaluating. Eg: evaluate at START + 0s, then START + 300s, etc.</code></pre>
+export STEP=300 # Number of seconds the query steps before evaluating. Eg: evaluate at START + 0s, then START + 300s, etc.
+
+curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query_range?query=$QUERY&amp;start=$START&amp;end=$END&amp;step=$STEP&quot;</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="rate-per-second-per-routeservice-by-status-code">
     <h3>
@@ -279,18 +298,11 @@ export STEP=300 # Number of seconds the query steps before evaluating. Eg: evalu
         <span>Rate per Second per route/service by Status Code</span>
     </h3>
 </doc-anchor-target>
-<p><strong>Raw PromQL Query:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">sum(rate(kong_http_status{service=~&quot;.*&quot;, route=~&quot;.*&quot;, instance=~&quot;.*&quot;}[1m])) by (service,code)</code></pre>
-</doc-codeblock></div>
-<p><strong>Example Command:</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">export QUERY=sum%28rate%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%2C%20instance%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Ccode%29
+<pre class="language-bash"><code v-pre class="language-bash"># Raw PromQL Query:
+# sum(rate(kong_http_status{service=~&quot;.*&quot;, route=~&quot;.*&quot;}[1m])) by (service,code)
 
-curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUERY&quot;
-
-# # Using /query_range
-# curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query_range?query=$QUERY&amp;start=$START&amp;end=$END&amp;step=$STEP&quot;</code></pre>
+export QUERY=sum%28rate%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Ccode%29</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="req5m-per-routeservice">
     <h3>
@@ -298,18 +310,11 @@ curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUE
         <span>Req/5m per route/service</span>
     </h3>
 </doc-anchor-target>
-<p><strong>Raw PromQL Query:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">sum(increase(kong_http_status{service=~&quot;.*&quot;, route=~&quot;.*&quot;, instance=~&quot;.*&quot;}[5m])) by (service,code) != 0</code></pre>
-</doc-codeblock></div>
-<p><strong>Example Command:</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">export QUERY=sum%28increase%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%2C%20instance%3D~%22.%2A%22%7D%5B5m%5D%29%29%20by%20%28service%2Ccode%29%20%21%3D%200
+<pre class="language-bash"><code v-pre class="language-bash"># Raw PromQL Query:
+# sum(increase(kong_http_status{service=~&quot;.*&quot;, route=~&quot;.*&quot;}[5m])) by (service,code) != 0
 
-curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUERY&quot;
-
-# # Using /query_range
-# curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query_range?query=$QUERY&amp;start=$START&amp;end=$END&amp;step=$STEP&quot;</code></pre>
+export QUERY=sum%28increase%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%7D%5B5m%5D%29%29%20by%20%28service%2Ccode%29%20%21%3D%200</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="request-time-per-service">
     <h3>
@@ -319,37 +324,11 @@ curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUE
 </doc-anchor-target>
 <p><strong>Raw PromQL Query:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">histogram_quantile(0.95, sum(rate(kong_latency_bucket{type=&quot;request&quot;, service =~ &quot;.*&quot;,route=~&quot;.*&quot;,instance=~&quot;.*&quot;}[1m])) by (service,le))</code></pre>
-</doc-codeblock></div>
-<p><strong>Example Command:</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">export QUANTILE=0.95
-export QUERY=histogram_quantile%28$QUANTILE%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%2Cinstance%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Cle%29%29
+<pre class="language-bash"><code v-pre class="language-bash"># Raw PromQL Query:
+# histogram_quantile(0.95, sum(rate(kong_latency_bucket{type=&quot;request&quot;, service =~ &quot;.*&quot;,route=~&quot;.*&quot;}[1m])) by (service,le))
 
-curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUERY&quot;
-
-# # Using /query_range
-# curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query_range?query=$QUERY&amp;start=$START&amp;end=$END&amp;step=$STEP&quot;</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="request-time-per-route">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#request-time-per-route">#</doc-anchor-trigger>
-        <span>Request time per Route</span>
-    </h3>
-</doc-anchor-target>
-<p><strong>Raw PromQL Query:</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">histogram_quantile(0.90, sum(rate(kong_latency_bucket{type=&quot;request&quot;, service =~ &quot;.*&quot;,route=~&quot;.*&quot;,instance=~&quot;.*&quot;}[1m])) by (route,le))</code></pre>
-</doc-codeblock></div>
-<p><strong>Example Command:</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">export QUANTILE=0.90
-export QUERY=histogram_quantile%280$QUANTILE%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%2Cinstance%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28route%2Cle%29%29
-
-curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUERY&quot;
-
-# # Using /query_range
-# curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query_range?query=$QUERY&amp;start=$START&amp;end=$END&amp;step=$STEP&quot;</code></pre>
+export QUANTILE=0.95
+export QUERY=histogram_quantile%280.95%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Cle%29%29</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="total-non-200-requests-per-second-by-route-code">
     <h3>
@@ -357,18 +336,11 @@ curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUE
         <span>Total Non-200 requests per second by route, code</span>
     </h3>
 </doc-anchor-target>
-<p><strong>Raw PromQL Query:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">sum(rate(kong_http_status{instance=~&quot;.*&quot;,code!=&quot;200&quot;,code!=&quot;204&quot;,code!=&quot;201&quot;}[5m])) by (route,code) != 0</code></pre>
-</doc-codeblock></div>
-<p><strong>Example Command:</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">export QUERY=sum%28rate%28kong_http_status%7Binstance%3D~%22.%2A%22%2Ccode%21%3D%22200%22%2Ccode%21%3D%22204%22%2Ccode%21%3D%22201%22%7D%5B5m%5D%29%29%20by%20%28route%2Ccode%29%20%21%3D%200
+<pre class="language-bash"><code v-pre class="language-bash"># Raw PromQL Query:
+# sum(rate(kong_http_status{code!=&quot;200&quot;,code!=&quot;204&quot;,code!=&quot;201&quot;}[5m])) by (route,code) != 0
 
-curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUERY&quot;
-
-# # Using /query_range
-# curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query_range?query=$QUERY&amp;start=$START&amp;end=$END&amp;step=$STEP&quot;</code></pre>
+export QUERY=sum%28rate%28kong_http_status%7Bcode%21%3D%22200%22%2Ccode%21%3D%22204%22%2Ccode%21%3D%22201%22%7D%5B5m%5D%29%29%20by%20%28route%2Ccode%29%20%21%3D%200</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="help">
     <h2>
@@ -418,12 +390,12 @@ curl -v -H &quot;Authorization: Bearer $TOK&quot; &quot;$PQ_URL/query?query=$QUE
 </li>
 <li>Kong Proxy Latency per Service
 <ul>
-<li>histogram_quantile(0.90, sum(rate(kong_latency_bucket{type=&quot;kong&quot;, service =~ &quot;.<em>&quot;,route=~&quot;.</em>&quot;,instance=~&quot;.*&quot;}[1m])) by (service,le))</li>
+<li>histogram_quantile(0.90, sum(rate(kong_latency_bucket{type=&quot;kong&quot;, service =~ &quot;.<em>&quot;,route=~&quot;.</em>&quot;,1m])) by (service,le))</li>
 </ul>
 </li>
 <li>Upstream Time per Service
 <ul>
-<li>histogram_quantile(0.90, sum(rate(kong_latency_bucket{type=&quot;upstream&quot;, service =~ &quot;.<em>&quot;,route=~&quot;.</em>&quot;,instance=~&quot;.*&quot;}[1m])) by (service,le))</li>
+<li>histogram_quantile(0.90, sum(rate(kong_latency_bucket{type=&quot;upstream&quot;, service =~ &quot;.<em>&quot;,route=~&quot;.</em>&quot;,}[1m])) by (service,le))</li>
 </ul>
 </li>
 <li>Total Requests (5m) by Consumer
