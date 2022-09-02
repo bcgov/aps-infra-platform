@@ -61,109 +61,68 @@ export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
 # export PQ_URL=https://gw-pql-api-gov-bc-ca.<env>.api.gov.bc.ca/api/v1
 ```
 
-You can get a range of data between two points in time as well. This can be done by sending a request to: `/query_range?query=<query>&start=$START&end=$END&step=$STEP` instead of: `/query?query=<query>`. Below is some sample data if you wish to use `/query_range`.
+### To execute queries
+
+Run one of the `export QUERY=...` example blocks, then run one of the `Execute ...` blocks below to execute that query:
 
 ```sh
+# Execute at current server timestamp:
+curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query?query=$QUERY"
+```
+
+```sh
+# Execute at specific time, eg 5 days ago:
+export FIVE_DAYS_AGO=$(($(date +'%s') - (60 * 60 * 24 * 5)))
+
+curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query?query=$QUERY&time=$FIVE_DAYS_AGO"
+```
+
+```sh
+# Execute using /query_range:
 export END=$(date +'%s') # End of time range. Example uses current UNIX time.
 export START=$(($END - (60 * 60 * 5))) # Start of time range. Example subtracts 5h from END time.
 export STEP=300 # Number of seconds the query steps before evaluating. Eg: evaluate at START + 0s, then START + 300s, etc.
+
+curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
 ```
 
 ### Rate per Second per route/service by Status Code
 
-**Raw PromQL Query:**
-
-```
-sum(rate(kong_http_status{service=~".*", route=~".*", instance=~".*"}[1m])) by (service,code)
-```
-
-**Example Command:**
-
 ```sh
-export QUERY=sum%28rate%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%2C%20instance%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Ccode%29
+# Raw PromQL Query:
+# sum(rate(kong_http_status{service=~".*", route=~".*"}[1m])) by (service,code)
 
-curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query?query=$QUERY"
-
-# # Using /query_range
-# curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
+export QUERY=sum%28rate%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Ccode%29
 ```
 
 ### Req/5m per route/service
 
-**Raw PromQL Query:**
-
-```
-sum(increase(kong_http_status{service=~".*", route=~".*", instance=~".*"}[5m])) by (service,code) != 0
-```
-
-**Example Command:**
-
 ```sh
-export QUERY=sum%28increase%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%2C%20instance%3D~%22.%2A%22%7D%5B5m%5D%29%29%20by%20%28service%2Ccode%29%20%21%3D%200
+# Raw PromQL Query:
+# sum(increase(kong_http_status{service=~".*", route=~".*"}[5m])) by (service,code) != 0
 
-curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query?query=$QUERY"
-
-# # Using /query_range
-# curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
+export QUERY=sum%28increase%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%7D%5B5m%5D%29%29%20by%20%28service%2Ccode%29%20%21%3D%200
 ```
 
 ### Request time per Service
 
 **Raw PromQL Query:**
 
-```
-histogram_quantile(0.95, sum(rate(kong_latency_bucket{type="request", service =~ ".*",route=~".*",instance=~".*"}[1m])) by (service,le))
-```
-
-**Example Command:**
-
 ```sh
+# Raw PromQL Query:
+# histogram_quantile(0.95, sum(rate(kong_latency_bucket{type="request", service =~ ".*",route=~".*"}[1m])) by (service,le))
+
 export QUANTILE=0.95
-export QUERY=histogram_quantile%28$QUANTILE%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%2Cinstance%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Cle%29%29
-
-curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query?query=$QUERY"
-
-# # Using /query_range
-# curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
-```
-
-### Request time per Route
-
-**Raw PromQL Query:**
-
-```
-histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="request", service =~ ".*",route=~".*",instance=~".*"}[1m])) by (route,le))
-```
-
-**Example Command:**
-
-```sh
-export QUANTILE=0.90
-export QUERY=histogram_quantile%280$QUANTILE%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%2Cinstance%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28route%2Cle%29%29
-
-curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query?query=$QUERY"
-
-# # Using /query_range
-# curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
+export QUERY=histogram_quantile%280.95%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Cle%29%29
 ```
 
 ### Total Non-200 requests per second by route, code
 
-**Raw PromQL Query:**
-
-```
-sum(rate(kong_http_status{instance=~".*",code!="200",code!="204",code!="201"}[5m])) by (route,code) != 0
-```
-
-**Example Command:**
-
 ```sh
-export QUERY=sum%28rate%28kong_http_status%7Binstance%3D~%22.%2A%22%2Ccode%21%3D%22200%22%2Ccode%21%3D%22204%22%2Ccode%21%3D%22201%22%7D%5B5m%5D%29%29%20by%20%28route%2Ccode%29%20%21%3D%200
+# Raw PromQL Query:
+# sum(rate(kong_http_status{code!="200",code!="204",code!="201"}[5m])) by (route,code) != 0
 
-curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query?query=$QUERY"
-
-# # Using /query_range
-# curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
+export QUERY=sum%28rate%28kong_http_status%7Bcode%21%3D%22200%22%2Ccode%21%3D%22204%22%2Ccode%21%3D%22201%22%7D%5B5m%5D%29%29%20by%20%28route%2Ccode%29%20%21%3D%200
 ```
 
 ## Help
@@ -192,11 +151,11 @@ I also felt [this video](https://youtu.be/hvACEDjHQZE) was useful for learning P
 We have a number of panels in our Grafana dashboards showcasing a number of queries. Here some examples of on our dashboard, along with the associated PromQL queries:
 
 - Total Requests per second
-  - sum(rate(kong_http_status{instance=~".*"}[1m]))
+  - sum(rate(kong_http_status[1m]))
 - Kong Proxy Latency per Service
-  - histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="kong", service =~ ".*",route=~".*",instance=~".*"}[1m])) by (service,le))
+  - histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="kong", service =~ ".*",route=~".*",1m])) by (service,le))
 - Upstream Time per Service
-  - histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="upstream", service =~ ".*",route=~".*",instance=~".*"}[1m])) by (service,le))
+  - histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="upstream", service =~ ".*",route=~".*",}[1m])) by (service,le))
 - Total Requests (5m) by Consumer
   - sum(increase(konglog_service_consumer_counter{service=~".*",consumer!=""}[5m])) by (consumer, service, status) != 0
 - 400 and 500 Errors
