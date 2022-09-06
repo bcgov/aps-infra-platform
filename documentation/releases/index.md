@@ -5,3 +5,5 @@
 | 2021 Jun     | [1.0 Beta Release](2021-jun.md)  |
 | 2022 May     | [1.1 Major Release](2022-may.md) |
 | 2022 Aug     | [1.2 Major Release](2022-aug.md) |
+| 2022 Sept     | [1.2.3 Minor Release](2022-sept.md)  |
+
