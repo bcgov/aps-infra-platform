@@ -40,6 +40,7 @@ jobs:
           y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/regresmay22
 
           y2j-put /ds/api/v2/organizations/ministry-of-health/healthlinkbc/namespaces/hnsesb
+          y2j-put /ds/api/v2/organizations/ministry-of-transportation-and-infrastructure/information-management-tran/namespaces/moti-weather
 
       - name: press releases
         run: |
