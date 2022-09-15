@@ -41,8 +41,14 @@
 
 - name: ministry-of-transportation-and-infrastructure
   parent: /ca.bc.gov
-  members: []
+  members: 
+    - member:
+        username: ***REMOVED*** 
+      roles: [organization-admin]
 
 - name: information-management-tran
   parent: /ca.bc.gov/ministry-of-transportation-and-infrastructure
-  members: []
+  members: 
+    - member:
+        username: ***REMOVED*** 
+      roles: [organization-admin]
