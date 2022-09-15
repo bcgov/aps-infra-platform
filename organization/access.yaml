@@ -13,7 +13,10 @@
 
 - name: databc
   parent: /ca.bc.gov/ministry-of-citizens-services
-  members: []
+  members:
+    - member:
+        username: ***REMOVED***
+      roles: [organization-admin]
 
 - name: ministry-of-health
   parent: /ca.bc.gov
