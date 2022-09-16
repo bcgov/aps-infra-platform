@@ -1,11 +1,5 @@
 - name: ca.bc.gov
-  members:
-    - member:
-        username: ''
-      roles: [organization-admin]
-    - member:
-        username: ''
-      roles: [organization-admin]
+  members: []
 
 - name: ministry-of-citizens-services
   parent: /ca.bc.gov
@@ -41,14 +35,8 @@
 
 - name: ministry-of-transportation-and-infrastructure
   parent: /ca.bc.gov
-  members: 
-    - member:
-        username: ''
-      roles: [organization-admin]
+  members: []
 
 - name: information-management-tran
   parent: /ca.bc.gov/ministry-of-transportation-and-infrastructure
-  members: 
-    - member:
-        username: ''
-      roles: [organization-admin]
+  members: []
