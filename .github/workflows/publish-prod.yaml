@@ -24,12 +24,12 @@ jobs:
           sudo apt-get install -y python3 pip
           pip3 install pyyaml requests
 
-      - name: organization hierarchy
-        run: |
-          export PATH=$PATH:./bin
+      # - name: organization hierarchy
+      #   run: |
+      #     export PATH=$PATH:./bin
 
-          set -e
-          y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml
+      #     set -e
+      #     y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml
 
       - name: namespace assignments
         run: |
