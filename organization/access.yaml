@@ -1,10 +1,10 @@
 - name: ca.bc.gov
   members:
     - member:
-        username: ***REMOVED***
+        username: ''
       roles: [organization-admin]
     - member:
-        username: ***REMOVED***
+        username: ''
       roles: [organization-admin]
 
 - name: ministry-of-citizens-services
@@ -13,7 +13,10 @@
 
 - name: databc
   parent: /ca.bc.gov/ministry-of-citizens-services
-  members: []
+  members:
+    - member:
+        username: ''
+      roles: [organization-admin]
 
 - name: ministry-of-health
   parent: /ca.bc.gov
