@@ -38,7 +38,6 @@ jobs:
 
           y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/sp42-test
           y2j-put /ds/api/v2/organizations/ministry-of-health/planning-and-innovation-division/namespaces/moh-proto
-
           y2j-put /ds/api/v2/organizations/ministry-of-health/healthlinkbc/namespaces/hnsesb-gold
 
       - name: press releases
