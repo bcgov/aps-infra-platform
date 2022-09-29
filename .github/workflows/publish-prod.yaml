@@ -1,66 +1,9 @@
-name: Publish Hierarchy Access and Content (PROD)
+name: Publish Content (PROD)
 on:
   push:
     branches: [main]
 
-env:
-  CLIENT_ID: ${{ secrets.CLIENT_ID }}
-  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-  TOKEN_URL: ${{ secrets.TOKEN_URL }}
-  PORTAL_URL: ${{ secrets.PORTAL_URL }}
-
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: prerequisites
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3 pip
-          pip3 install pyyaml requests
-
-      # - name: organization hierarchy
-      #   run: |
-      #     export PATH=$PATH:./bin
-
-      #     set -e
-      #     y2j-put /ds/api/v2/organizations/ca.bc.gov/access ./organization/access.yaml
-
-      - name: namespace assignments
-        run: |
-          export PATH=$PATH:./bin
-
-          set -e
-
-          y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/dss-loc
-          y2j-put /ds/api/v2/organizations/ministry-of-citizens-services/databc/namespaces/regresmay22
-
-          y2j-put /ds/api/v2/organizations/ministry-of-health/healthlinkbc/namespaces/hnsesb
-
-      - name: press releases
-        run: |
-          export PATH=$PATH:./bin
-
-          set -e
-
-          y2j-put /ds/api/v2/namespaces/platform/contents \
-                  ./documentation/releases/2021-jun.yaml \
-                  ./documentation/releases/2021-jun.md
-
-      - name: documentation
-        run: |
-          export PATH=$PATH:./bin
-
-          set -e
-
-          y2j-put /ds/api/v2/namespaces/platform/contents \
-                  ./documentation/guides/owner-journey.yaml \
-                  ./documentation/guides/owner-journey.md
-
   retype:
     name: Publish to the retype branch
 
