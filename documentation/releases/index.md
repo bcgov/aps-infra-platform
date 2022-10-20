@@ -4,6 +4,7 @@
 
 | Release Date | Release                                   |
 | ------------ | ----------------------------------------- |
+| 2022 Oct 26  | [1.2.5 Minor Release](2022-oct-1.2.5.md) |
 | 2022 Sept 29 | [1.2.4 Minor Release](2022-sept-1.2.4.md) |
 | 2022 Sept    | [1.2.3 Minor Release](2022-sept.md)       |
 | 2022 Aug     | [1.2 Major Release](2022-aug.md)          |
