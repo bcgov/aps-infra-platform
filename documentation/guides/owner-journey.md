@@ -377,7 +377,7 @@ record_publish_date: "2021-05-27"
 
 > Use the following to get the `organizationUnit`:
 >
-> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations/ORG_KEY
+> https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/console/#/Organizations/organization-units
 
 ### 9.2 Setup your Product
 
