@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.720118553181">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.721514159494">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.720118553181" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.721514159494" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.720118553181" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.721514159494" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.720118553181" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.720118553181" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.721514159494" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.721514159494" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -279,9 +279,11 @@ services:
     strip_path: false
     https_redirect_status_code: 426
     path_handling: v0
-&quot; &gt; sample.yaml</code></pre>
+    request_buffering: true
+    response_buffering: true
+&quot; &gt; gwconfig.yaml</code></pre>
 </doc-codeblock></div>
-<p>Review the <code v-pre>sample.yaml</code> file to see what it is doing. There is a single upstream service defined to be <code v-pre>httpbin.org</code>, and a single route <code v-pre>$NAME.api.gov.bc.ca</code> that passes all <code v-pre>GET</code> requests to the upstream service.</p>
+<p>Review the <code v-pre>gwconfig.yaml</code> file to see what it is doing. There is a single upstream service defined to be <code v-pre>httpbin.org</code>, and a single route <code v-pre>$NAME.api.gov.bc.ca</code> that passes all <code v-pre>GET</code> requests to the upstream service.</p>
 <blockquote>
 <p>To view common plugin configuration go to <a href="../gateway-plugins/common-config.md">Common Controls</a></p>
 </blockquote>
@@ -428,11 +430,11 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 <p>Run <code v-pre>gwa status</code> to confirm that access to the Gateway is working.</p>
 <p><strong>Publish</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">gwa pg sample.yaml</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">gwa pg gwconfig.yaml</code></pre>
 </doc-codeblock></div>
 <p>If you want to see the expected changes, but not actually apply them, you can run:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">gwa pg --dry-run sample.yaml</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">gwa pg --dry-run gwconfig.yaml</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="42-swagger-console-optional">
     <h3>
@@ -459,6 +461,65 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 <p>Go to the <code v-pre>Authorization</code> tab, enter your <code v-pre>Client ID</code> and <code v-pre>Client Secret</code>, and click <code v-pre>Get New Access Token</code>.</p>
 <p>You should get a successful dialog to proceed. Click <code v-pre>Proceed</code> and <code v-pre>Use Token</code>.</p>
 <p>You can verify that the token works by going to the Collection <code v-pre>Return key information about authenticated identity</code> and clicking <code v-pre>Send</code>.</p>
+<doc-anchor-target id="44-helm-chart">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#44-helm-chart">#</doc-anchor-trigger>
+        <span>4.4. Helm Chart</span>
+    </h3>
+</doc-anchor-target>
+<p>There is a helm chart available that provisions resources on the API Gateway, API Services Portal and OCP (Network Policy).</p>
+<p>The helm chart is located at: <a href="https://github.com/bcgov/helm-charts/tree/master/charts/aps-gateway-ns">https://github.com/bcgov/helm-charts/tree/master/charts/aps-gateway-ns</a></p>
+<p>The chart creates Jobs to provision the resources, and it expects secrets to be setup in the common Hashicorp Vault <a href="https://vault.developer.gov.bc.ca">https://vault.developer.gov.bc.ca</a> instance.</p>
+<p>Prepare a <code v-pre>config.yaml</code> file:</p>
+<ul>
+<li>update the security context for the particular OCP project</li>
+<li>the license plate <code v-pre>af9xxx</code> can be replaced with your own OCP license plate</li>
+<li>the secret <code v-pre>example-dev</code> should be the name of the secret that has the following keys defined (information from a APS Portal namespace Service Account):
+<ul>
+<li>GWA_ACCT_ID</li>
+<li>GWA_ACCT_SECRET</li>
+<li>NAMESPACE</li>
+<li>TOKEN_URL</li>
+<li>GWA_INIT_FLAG : Set to either <code v-pre>-T</code> or <code v-pre>-P</code> representing the API Gateway environment</li>
+</ul>
+</li>
+<li>update the Pod matching <code v-pre>networkPolicy.matchLabels</code> for the Network Policy for Ingress traffic from the API Gateway</li>
+</ul>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">podSecurityContext:
+  fsGroup: 1013540000
+
+securityContext:
+  runAsUser: 1013540000
+
+serviceAccount:
+  create: false
+  name: af9xxx-vault
+
+vault:
+  authPath: auth/k8s-silver
+  namespace: platform-services
+  role: af9xxx-nonprod
+  secret: af9xxx-nonprod/example-dev
+
+networkPolicy:
+  create: false
+  # matchLabels:
+  #   app.kubernetes.io/name: callweb
+
+services: []
+
+directoryConfig:
+  products: []
+  issuers: []
+  datasets: []</code></pre>
+</doc-codeblock></div>
+<p>The yaml created earlier for the API Gateway (<code v-pre>gwconfig.yaml</code>) can be used as part of the helm configuration.</p>
+<p>Run Helm to install the Jobs:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">helm repo add bcgov https://bcgov.github.io/helm-charts
+helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway-ns</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="5-verify-routes">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#5-verify-routes">#</doc-anchor-trigger>
@@ -553,6 +614,16 @@ jobs:
 
           gwa pg</code></pre>
 </doc-codeblock></div>
+<doc-anchor-target id="82-helm-chart">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#82-helm-chart">#</doc-anchor-trigger>
+        <span>8.2. Helm Chart</span>
+    </h3>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">helm repo add bcgov https://bcgov.github.io/helm-charts
+helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway-ns</code></pre>
+</doc-codeblock></div>
 <doc-anchor-target id="9-share-your-api-for-discovery">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#9-share-your-api-for-discovery">#</doc-anchor-trigger>
@@ -598,7 +669,7 @@ record_publish_date: &quot;2021-05-27&quot;</code></pre>
 </blockquote>
 <blockquote>
 <p>Use the following to get the <code v-pre>organizationUnit</code>:</p>
-<p><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations/ORG_KEY">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations/ORG_KEY</a></p>
+<p><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/console/#/Organizations/organization-units">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/console/#/Organizations/organization-units</a></p>
 </blockquote>
 <doc-anchor-target id="92-setup-your-product">
     <h3>
