@@ -36,9 +36,9 @@ The following list describes the permissions:
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Namespace.Manage`       | Permission to update the Access Control List for controlling access to viewing metrics, service configuration and service account management (effectively a superuser for the namespace) |
 | `Namespace.View`         | Read-only access to the namespace                                                                                                                                                        |
-| `GatewayConfig.Publish`  | Permission to publish gateway configuration to Kong and view the status of the upstreams                                                                                              |
+| `GatewayConfig.Publish`  | Permission to publish gateway configuration to Kong and view the status of the upstreams                                                                                                 |
 | `Content.Publish`        | Permission to update the documentation on the portal                                                                                                                                     |
-| `CredentialIssuer.Admin` | Permission to create Authorization Profiles for integrating with third-party Identity Providers; yhe profiles are available to be used when configuring Product Environments              |
+| `CredentialIssuer.Admin` | Permission to create Authorization Profiles for integrating with third-party Identity Providers; yhe profiles are available to be used when configuring Product Environments             |
 | `Access.Manage`          | Permission to approve/reject access requests to your APIs                                                                                                                                |
 
 ## 3. Prepare Configuration
@@ -70,10 +70,12 @@ services:
     strip_path: false
     https_redirect_status_code: 426
     path_handling: v0
-" > sample.yaml
+    request_buffering: true
+    response_buffering: true
+" > gwconfig.yaml
 ```
 
-Review the `sample.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
+Review the `gwconfig.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
 
 > To view common plugin configuration go to [Common Controls](../gateway-plugins/COMMON-CONFIG.md)
 
@@ -109,7 +111,6 @@ spec:
               name: 264e6f
 ```
 
-
 > **Upstream services on OCP Gold Cluster:** If your service is running on Gold, you will need to contact the APS team so that we can properly provision the `namespace` on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
 
 ```yaml
@@ -133,7 +134,6 @@ spec:
               environment: prod
               name: b8840c
 ```
-
 
 > **Require mTLS between the Gateway and your Upstream Service?** To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the `ca_certificates` and `tls_verify` is required as well. Example:
 
@@ -213,13 +213,13 @@ Run `gwa status` to confirm that access to the Gateway is working.
 **Publish**
 
 ```bash
-gwa pg sample.yaml
+gwa pg gwconfig.yaml
 ```
 
 If you want to see the expected changes, but not actually apply them, you can run:
 
 ```bash
-gwa pg --dry-run sample.yaml
+gwa pg --dry-run gwconfig.yaml
 ```
 
 ### 4.2. Swagger Console (optional)
@@ -251,6 +251,65 @@ Go to the `Authorization` tab, enter your `Client ID` and `Client Secret`, and c
 You should get a successful dialog to proceed. Click `Proceed` and `Use Token`.
 
 You can verify that the token works by going to the Collection `Return key information about authenticated identity` and clicking `Send`.
+
+### 4.4. Helm Chart
+
+There is a helm chart available that provisions resources on the API Gateway, API Services Portal and OCP (Network Policy).
+
+The helm chart is located at: https://github.com/bcgov/helm-charts/tree/master/charts/aps-gateway-ns
+
+The chart creates Jobs to provision the resources, and it expects secrets to be setup in the common Hashicorp Vault https://vault.developer.gov.bc.ca instance.
+
+Prepare a `config.yaml` file:
+
+- update the security context for the particular OCP project
+- the license plate `af9xxx` can be replaced with your own OCP license plate
+- the secret `example-dev` should be the name of the secret that has the following keys defined (information from a APS Portal namespace Service Account):
+  - GWA_ACCT_ID
+  - GWA_ACCT_SECRET
+  - NAMESPACE
+  - TOKEN_URL
+  - GWA_INIT_FLAG : Set to either `-T` or `-P` representing the API Gateway environment
+- update the Pod matching `networkPolicy.matchLabels` for the Network Policy for Ingress traffic from the API Gateway
+
+```yaml
+podSecurityContext:
+  fsGroup: 1013540000
+
+securityContext:
+  runAsUser: 1013540000
+
+serviceAccount:
+  create: false
+  name: af9xxx-vault
+
+vault:
+  authPath: auth/k8s-silver
+  namespace: platform-services
+  role: af9xxx-nonprod
+  secret: af9xxx-nonprod/example-dev
+
+networkPolicy:
+  create: false
+  # matchLabels:
+  #   app.kubernetes.io/name: callweb
+
+services: []
+
+directoryConfig:
+  products: []
+  issuers: []
+  datasets: []
+```
+
+The yaml created earlier for the API Gateway (`gwconfig.yaml`) can be used as part of the helm configuration.
+
+Run Helm to install the Jobs:
+
+```
+helm repo add bcgov https://bcgov.github.io/helm-charts
+helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway-ns
+```
 
 ## 5. Verify Routes
 
@@ -334,6 +393,13 @@ jobs:
             --client-secret=${ secrets.TEST_GWA_ACCT_SECRET }
 
           gwa pg
+```
+
+### 8.2. Helm Chart
+
+```
+helm repo add bcgov https://bcgov.github.io/helm-charts
+helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway-ns
 ```
 
 ## 9. Share your API for Discovery
