@@ -374,7 +374,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
-          TOKEN: ${ secrets.GITHUB_TOKEN }
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get GWA Command Line
         run: |
@@ -389,8 +389,8 @@ jobs:
 
           gwa init -T \
             --namespace=$NS \
-            --client-id=${ secrets.TEST_GWA_ACCT_ID } \
-            --client-secret=${ secrets.TEST_GWA_ACCT_SECRET }
+            --client-id=${{ secrets.TEST_GWA_ACCT_ID }} \
+            --client-secret=${{ secrets.TEST_GWA_ACCT_SECRET }}
 
           gwa pg
 ```
