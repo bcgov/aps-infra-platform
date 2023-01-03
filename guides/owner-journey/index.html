@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.722130903776">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726098156080">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.722130903776" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.726098156080" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.722130903776" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.726098156080" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.722130903776" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.722130903776" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.726098156080" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.726098156080" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -296,10 +296,18 @@ services:
 <blockquote>
 <p><strong>Splitting Your Config:</strong> A namespace <code v-pre>tag</code> with the format <code v-pre>ns.$NS</code> is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the <code v-pre>tags</code> with the qualifier. For example, you can use a tag <code v-pre>ns.$NS.dev</code> to sync the Kong configuration for <code v-pre>dev</code> Service and Routes only.</p>
 </blockquote>
+<doc-anchor-target id="network-policies">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#network-policies">#</doc-anchor-trigger>
+        <span>Network Policies</span>
+    </h3>
+</doc-anchor-target>
 <blockquote>
-<p><strong>Upstream Services on OCP Silver Cluster:</strong> If your service is running on OCP4, you should specify the Kubernetes Service in the <code v-pre>Service.host</code>. It must have the format: <code v-pre>&lt;name&gt;.&lt;ocp-namespace&gt;.svc</code>. Also, make sure your <code v-pre>Service.port</code> matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.</p>
-<p>You will need to create a Network Policy on your side similar to the following to allow the Gateway&#x27;s test and prod environments to route traffic to your API:</p>
+<p>If your service is running on the Openshift platform, you should specify the Kubernetes Service in the <code v-pre>Service.host</code>. It must have the format: <code v-pre>&lt;name&gt;.&lt;ocp-namespace&gt;.svc</code>. Also, make sure your <code v-pre>Service.port</code> matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.</p>
 </blockquote>
+<p>The Kong Gateway runs Data Planes in both Silver and Gold clusters.</p>
+<p><strong>Silver Cluster</strong></p>
+<p>You will need to create a Network Policy on your side similar to the following to allow the Gateway&#x27;s test and prod environments to route traffic to your API:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -321,9 +329,8 @@ spec:
               environment: prod
               name: 264e6f</code></pre>
 </doc-codeblock></div>
-<blockquote>
-<p><strong>Upstream services on OCP Gold Cluster:</strong> If your service is running on Gold, you will need to contact the APS team so that we can properly provision the <code v-pre>namespace</code> on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.</p>
-</blockquote>
+<p><strong>Gold Cluster</strong></p>
+<p>If your service is running on Gold, you will need to contact the APS team so that we can properly provision the <code v-pre>namespace</code> on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -345,6 +352,89 @@ spec:
               environment: prod
               name: b8840c</code></pre>
 </doc-codeblock></div>
+<doc-anchor-target id="internal-routes">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#internal-routes">#</doc-anchor-trigger>
+        <span>Internal Routes</span>
+    </h3>
+</doc-anchor-target>
+<p>By default, publically available endpoints are created based on Kong Routes where the hosts must end with <code v-pre>*.api.gov.bc.ca</code> or <code v-pre>*.apps.gov.bc.ca</code>.</p>
+<p>There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to.  In this case, there is a security benefit of not making the API endpoints publically available.</p>
+<p>To support this, the route <code v-pre>hosts</code> can be updated with a host that follows the format: <code v-pre>&lt;api-name&gt;.cluster.local</code>.  When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.</p>
+<p>An example Gateway configuration for an upstream API deployed in the Silver cluster would be:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">services:
+- name: my-service
+  host: httpbin.org
+  tags: [ ns.$NS ]
+  port: 443
+  protocol: https
+  retries: 0
+  routes:
+  - name: my-service-route
+    tags: [ ns.$NS ]
+    hosts:
+    - my-service.cluster.local</code></pre>
+</doc-codeblock></div>
+<p>A new endpoint is then created in our Silver Test environment as: <a href="https://gw-my-service.264e6f-test.svc.cluster.local">https://gw-my-service.264e6f-test.svc.cluster.local</a> (if it was configured in our Prod environment, it would be: <a href="https://gw-my-service.264e6f-prod.svc.cluster.local">https://gw-my-service.264e6f-prod.svc.cluster.local</a>)</p>
+<p>To verify that the endpoint is callable, you can deploy a simple pod that mounts the <code v-pre>service-ca</code> to be used for verifying the SSC.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tmp-ca
+  annotations:
+    service.beta.openshift.io/inject-cabundle: &quot;true&quot;
+data: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tmp-deployment
+  labels:
+    app: sleeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sleeper
+  template:
+    metadata:
+      labels:
+        app: sleeper
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: tmp-ca
+
+      containers:
+        - name: idle
+          image: docker.io/curlimages/curl:latest
+          command: [&quot;sh&quot;]
+          args:
+            - -c
+            - |
+              sleep Infinite
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config
+              mountPath: &quot;/config&quot;
+              readOnly: true</code></pre>
+</doc-codeblock></div>
+<p>From the Pod&#x27;s Terminal, you can then run:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">curl -v --cacert /config/service-ca.crt \
+  https://gw-my-service.264e6f-prod.svc.cluster.local/uuid</code></pre>
+</doc-codeblock></div>
+<p>You should see a 200 response with a valid UUID.</p>
+<doc-anchor-target id="upstream-mtls">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#upstream-mtls">#</doc-anchor-trigger>
+        <span>Upstream mTLS</span>
+    </h3>
+</doc-anchor-target>
 <blockquote>
 <p><strong>Require mTLS between the Gateway and your Upstream Service?</strong> To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the <code v-pre>ca_certificates</code> and <code v-pre>tls_verify</code> is required as well. Example:</p>
 </blockquote>
@@ -375,11 +465,11 @@ ca_certificates:
 <blockquote>
 <p>HELPER: Python command to get a PEM file on one line: <code v-pre>python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem</code></p>
 </blockquote>
-<doc-anchor-target id="using-an-openapi-spec-document-optional">
-    <h4>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#using-an-openapi-spec-document-optional">#</doc-anchor-trigger>
-        <span>Using an OpenAPI Spec Document (optional)</span>
-    </h4>
+<doc-anchor-target id="using-an-openapi-spec">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#using-an-openapi-spec">#</doc-anchor-trigger>
+        <span>Using an OpenAPI Spec</span>
+    </h3>
 </doc-anchor-target>
 <p>Run: <code v-pre>gwa new</code> and follow the prompts.</p>
 <p>Example:</p>
@@ -499,13 +589,14 @@ serviceAccount:
 vault:
   authPath: auth/k8s-silver
   namespace: platform-services
-  role: af9xxx-nonprod
-  secret: af9xxx-nonprod/example-dev
+  role: xxxxxx-nonprod
+  secret: xxxxxx-nonprod/aps-gateway-creds
 
 networkPolicy:
-  create: false
-  # matchLabels:
-  #   app.kubernetes.io/name: callweb
+  create: true
+  namespaces: [ xxxxxx-dev, xxxxxx-test, xxxxxx-prod ]
+  matchLabels:
+    app.kubernetes.io/name: my-api
 
 services: []
 
@@ -919,7 +1010,7 @@ publishDate: &quot;2021-06-02T08:00:00.000-08:00&quot;</code></pre>
                                     <ul class="flex flex-wrap items-center text-sm">
                                     </ul>
                                 </div>
-                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022. All rights reserved.</p></div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2023. All rights reserved.</p></div>
                             </footer>
                         </div>
                     </div>

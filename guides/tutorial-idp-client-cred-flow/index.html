@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.722130903776">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726098156080">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -33,11 +33,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.722130903776" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.726098156080" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.722130903776" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.726098156080" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.722130903776" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.726098156080" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.726098156080" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -216,11 +217,17 @@
         <span>2. Granting Access to the IdP</span>
     </h2>
 </doc-anchor-target>
-<doc-anchor-target id="a-prerequisites">
+<doc-anchor-target id="custom-idp">
     <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#custom-idp">#</doc-anchor-trigger>
+        <span>Custom IdP</span>
+    </h3>
+</doc-anchor-target>
+<doc-anchor-target id="a-prerequisites">
+    <h4>
         <doc-anchor-trigger class="header-anchor-trigger" to="#a-prerequisites">#</doc-anchor-trigger>
         <span>a) Prerequisites</span>
-    </h3>
+    </h4>
 </doc-anchor-target>
 <p>Before the Portal can be configured, a new set of credentials must be created on the IdP. For this tutorial, we will include the steps when Keycloak is the IdP.</p>
 <p><strong>Create a new Client on the IdP</strong></p>
@@ -229,16 +236,16 @@
 <p>The <code v-pre>Full Scope Allowed</code> can be turned off and the <code v-pre>realm-management</code> client roles for <code v-pre>manage-clients</code> and <code v-pre>manage-users</code> should be added.</p>
 <p>Add the <code v-pre>manage-clients</code> and <code v-pre>manage-users</code> client roles to the <code v-pre>Service Account Roles</code>.</p>
 <doc-anchor-target id="b-setup-the-authorization-profile">
-    <h3>
+    <h4>
         <doc-anchor-trigger class="header-anchor-trigger" to="#b-setup-the-authorization-profile">#</doc-anchor-trigger>
         <span>b) Setup the Authorization Profile</span>
-    </h3>
+    </h4>
 </doc-anchor-target>
 <p>A credential with <code v-pre>CredentialIssuer.Admin</code> is required to update Authorization Profiles (<code v-pre>CredentialIssuer</code>).</p>
 <p>Authorization Profiles can be setup either via the Portal or by using a Service Account with the Portal Directory API.</p>
 <p>Update the below <code v-pre>CredentialIssuer</code> to include the environment details and the Scopes and Roles setup for authorization.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">kind: CredentialIssuer
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: CredentialIssuer
 name: Resource Server Example
 namespace: $NS
 description: Authorization Profile for protecting Ministry of XYZ
@@ -260,17 +267,17 @@ environmentDetails:
     clientSecret: &quot;&quot;</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="c-link-the-authorization-profile-to-the-product">
-    <h3>
+    <h4>
         <doc-anchor-trigger class="header-anchor-trigger" to="#c-link-the-authorization-profile-to-the-product">#</doc-anchor-trigger>
         <span>c) Link the Authorization Profile to the Product</span>
-    </h3>
+    </h4>
 </doc-anchor-target>
 <p>Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select <code v-pre>Oauth2 Client Credential Flow</code> and the newly created Authorization Profile.</p>
 <doc-anchor-target id="d-update-your-gateway-configuration-with-the-plugin">
-    <h3>
+    <h4>
         <doc-anchor-trigger class="header-anchor-trigger" to="#d-update-your-gateway-configuration-with-the-plugin">#</doc-anchor-trigger>
         <span>d) Update your Gateway Configuration with the Plugin</span>
-    </h3>
+    </h4>
 </doc-anchor-target>
 <p>Update your Gateway Configuration to include the <code v-pre>jwt-keycloak</code> plugin.</p>
 <blockquote>
@@ -278,10 +285,10 @@ environmentDetails:
 </blockquote>
 <p>Finally, from the Portal, <code v-pre>enable</code> the Environment to make it available on the API Directory.</p>
 <doc-anchor-target id="e-optional-configuration">
-    <h3>
+    <h4>
         <doc-anchor-trigger class="header-anchor-trigger" to="#e-optional-configuration">#</doc-anchor-trigger>
         <span>e) Optional Configuration</span>
-    </h3>
+    </h4>
 </doc-anchor-target>
 <p><strong>Scopes</strong></p>
 <p>If you have Client Scopes that you want to have controlled by the Portal, add them to the Realm&#x27;s <code v-pre>Client Scopes</code> and <code v-pre>Default Client Scopes</code> on the IdP.</p>
@@ -310,6 +317,63 @@ environmentDetails:
 <blockquote>
 <p><code v-pre>resourceAccessScope</code> - The API Services Portal has not completed the implementation for the scenario where the User is the Resource Owner (<code v-pre>resourceAccessScope</code> is left blank). It uses the <code v-pre>Token Exchange</code> capability but it&#x27;s an optional service available on Keycloak and has numerous caveats around it. Please contact the APS team if interested to know more.</p>
 </blockquote>
+<doc-anchor-target id="shared-idp">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#shared-idp">#</doc-anchor-trigger>
+        <span>Shared IdP</span>
+    </h3>
+</doc-anchor-target>
+<p>Shared IdP is a new feature that allows you, as an API Provider, to leverage the SSO Gold-tier Keycloak cluster for managing Client Credentials, without having to deal with it directly.
+The APS team have a custom realm on this Keycloak called <code v-pre>apigw</code> which the API Services Portal administers.
+To use it, perform the following steps:</p>
+<doc-anchor-target id="a-setup-the-authorization-profile">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#a-setup-the-authorization-profile">#</doc-anchor-trigger>
+        <span>a) Setup the Authorization Profile</span>
+    </h4>
+</doc-anchor-target>
+<p>A credential with <code v-pre>CredentialIssuer.Admin</code> is required to update Authorization Profiles (<code v-pre>CredentialIssuer</code>).</p>
+<p>Authorization Profiles can be setup either via the Portal or by using a Service Account with the Portal Directory API.</p>
+<p>Update the below <code v-pre>CredentialIssuer</code> with the <code v-pre>name</code> and <code v-pre>description</code> that makes sense to you, and include the desired Roles setup for authorization.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: CredentialIssuer
+name: Resource Server Example
+namespace: $NS
+description: Authorization Profile for protecting Ministry of XYZ
+flow: client-credentials
+mode: auto
+authPlugin: jwt-keycloak
+clientAuthenticator: client-secret
+clientRoles: []
+inheritFrom: Gold SSO Shared IdP</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="b-link-the-authorization-profile-to-the-product">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#b-link-the-authorization-profile-to-the-product">#</doc-anchor-trigger>
+        <span>b) Link the Authorization Profile to the Product</span>
+    </h4>
+</doc-anchor-target>
+<p>Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select <code v-pre>Oauth2 Client Credential Flow</code> and the newly created Authorization Profile.</p>
+<doc-anchor-target id="c-update-your-gateway-configuration-with-the-plugin">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#c-update-your-gateway-configuration-with-the-plugin">#</doc-anchor-trigger>
+        <span>c) Update your Gateway Configuration with the Plugin</span>
+    </h4>
+</doc-anchor-target>
+<p>Update your Gateway Configuration to include the <code v-pre>jwt-keycloak</code> plugin.</p>
+<blockquote>
+<p>HINT: When you configure the Product Environment, a <code v-pre>Plugin Template</code> will be displayed - this can be a starting point for protecting your API on the Gateway.</p>
+</blockquote>
+<p>Finally, from the Portal, <code v-pre>enable</code> the Environment to make it available on the API Directory.</p>
+<doc-anchor-target id="d-optional-configuration">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#d-optional-configuration">#</doc-anchor-trigger>
+        <span>d) Optional Configuration</span>
+    </h4>
+</doc-anchor-target>
+<p><strong>Roles</strong></p>
+<p>If you have Roles that you want to have controlled by the Portal, add them to the Client&#x27;s <code v-pre>Roles</code>.</p>
+<p>Update the <code v-pre>CredentialIssuer</code> record above with the <code v-pre>clientRoles</code> you want to manage.</p>
 <doc-anchor-target id="3-client-requesting-access">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#3-client-requesting-access">#</doc-anchor-trigger>
@@ -441,7 +505,7 @@ curl $URL \
                                     <ul class="flex flex-wrap items-center text-sm">
                                     </ul>
                                 </div>
-                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2022. All rights reserved.</p></div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2023. All rights reserved.</p></div>
                             </footer>
                         </div>
                     </div>
@@ -470,6 +534,6 @@ curl $URL \
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "Client Credential Protection", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Client Credential Protection", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
