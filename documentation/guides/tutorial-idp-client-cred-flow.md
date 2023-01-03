@@ -20,7 +20,9 @@ Once the API is working on the Gateway, you can then define a Product, which can
 
 ## 2. Granting Access to the IdP
 
-### a) Prerequisites
+### Custom IdP
+
+#### a) Prerequisites
 
 Before the Portal can be configured, a new set of credentials must be created on the IdP. For this tutorial, we will include the steps when Keycloak is the IdP.
 
@@ -34,7 +36,7 @@ The `Full Scope Allowed` can be turned off and the `realm-management` client rol
 
 Add the `manage-clients` and `manage-users` client roles to the `Service Account Roles`.
 
-### b) Setup the Authorization Profile
+#### b) Setup the Authorization Profile
 
 A credential with `CredentialIssuer.Admin` is required to update Authorization Profiles (`CredentialIssuer`).
 
@@ -42,7 +44,7 @@ Authorization Profiles can be setup either via the Portal or by using a Service 
 
 Update the below `CredentialIssuer` to include the environment details and the Scopes and Roles setup for authorization.
 
-```
+```yaml
 kind: CredentialIssuer
 name: Resource Server Example
 namespace: $NS
@@ -65,11 +67,11 @@ environmentDetails:
     clientSecret: ""
 ```
 
-### c) Link the Authorization Profile to the Product
+#### c) Link the Authorization Profile to the Product
 
 Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select `Oauth2 Client Credential Flow` and the newly created Authorization Profile.
 
-### d) Update your Gateway Configuration with the Plugin
+#### d) Update your Gateway Configuration with the Plugin
 
 Update your Gateway Configuration to include the `jwt-keycloak` plugin.
 
@@ -77,7 +79,7 @@ Update your Gateway Configuration to include the `jwt-keycloak` plugin.
 
 Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
 
-### e) Optional Configuration
+#### e) Optional Configuration
 
 **Scopes**
 
@@ -118,6 +120,56 @@ Update the following `CredentialIssuer` attributes:
 - `resourceAccessScope`: Used in the case where the Resource Server owns all the resources, a user must have the `resourceAccessScope` assigned in order to be allowed to manage the access. If it is not set, then the user has to be the resource owner in order to manage access.
 
 > `resourceAccessScope` - The API Services Portal has not completed the implementation for the scenario where the User is the Resource Owner (`resourceAccessScope` is left blank). It uses the `Token Exchange` capability but it's an optional service available on Keycloak and has numerous caveats around it. Please contact the APS team if interested to know more.
+
+### Shared IdP
+
+Shared IdP is a new feature that allows you, as an API Provider, to leverage the SSO Gold-tier Keycloak cluster for managing Client Credentials, without having to deal with it directly.
+The APS team have a custom realm on this Keycloak called `apigw` which the API Services Portal administers.
+To use it, perform the following steps:
+
+#### a) Setup the Authorization Profile
+
+A credential with `CredentialIssuer.Admin` is required to update Authorization Profiles (`CredentialIssuer`).
+
+Authorization Profiles can be setup either via the Portal or by using a Service Account with the Portal Directory API.
+
+Update the below `CredentialIssuer` with the `name` and `description` that makes sense to you, and include the desired Roles setup for authorization.
+
+```yaml
+kind: CredentialIssuer
+name: Resource Server Example
+namespace: $NS
+description: Authorization Profile for protecting Ministry of XYZ
+flow: client-credentials
+mode: auto
+authPlugin: jwt-keycloak
+clientAuthenticator: client-secret
+clientRoles: []
+inheritFrom: Gold SSO Shared IdP
+```
+
+#### b) Link the Authorization Profile to the Product
+
+Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select `Oauth2 Client Credential Flow` and the newly created Authorization Profile.
+
+#### c) Update your Gateway Configuration with the Plugin
+
+Update your Gateway Configuration to include the `jwt-keycloak` plugin.
+
+> HINT: When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
+
+Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
+
+#### d) Optional Configuration
+
+**Roles**
+
+If you have Roles that you want to have controlled by the Portal, add them to the Client's `Roles`.
+
+Update the `CredentialIssuer` record above with the `clientRoles` you want to manage.
+
+
+
 
 ## 3. Client Requesting Access
 
