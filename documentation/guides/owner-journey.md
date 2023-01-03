@@ -85,9 +85,17 @@ Review the `gwconfig.yaml` file to see what it is doing. There is a single upstr
 
 > **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the `tags` with the qualifier. For example, you can use a tag `ns.$NS.dev` to sync the Kong configuration for `dev` Service and Routes only.
 
-> **Upstream Services on OCP Silver Cluster:** If your service is running on OCP4, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
->
-> You will need to create a Network Policy on your side similar to the following to allow the Gateway's test and prod environments to route traffic to your API:
+
+
+### Network Policies
+
+> If your service is running on the Openshift platform, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
+
+The Kong Gateway runs Data Planes in both Silver and Gold clusters.
+
+**Silver Cluster**
+
+You will need to create a Network Policy on your side similar to the following to allow the Gateway's test and prod environments to route traffic to your API:
 
 ```yaml
 kind: NetworkPolicy
@@ -111,7 +119,9 @@ spec:
               name: 264e6f
 ```
 
-> **Upstream services on OCP Gold Cluster:** If your service is running on Gold, you will need to contact the APS team so that we can properly provision the `namespace` on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
+**Gold Cluster**
+
+If your service is running on Gold, you will need to contact the APS team so that we can properly provision the `namespace` on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
 
 ```yaml
 kind: NetworkPolicy
@@ -134,6 +144,96 @@ spec:
               environment: prod
               name: b8840c
 ```
+
+### Internal Routes
+
+By default, publically available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
+
+There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to.  In this case, there is a security benefit of not making the API endpoints publically available.
+
+To support this, the route `hosts` can be updated with a host that follows the format: `<api-name>.cluster.local`.  When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.
+
+An example Gateway configuration for an upstream API deployed in the Silver cluster would be:
+
+```yaml
+services:
+- name: my-service
+  host: httpbin.org
+  tags: [ ns.$NS ]
+  port: 443
+  protocol: https
+  retries: 0
+  routes:
+  - name: my-service-route
+    tags: [ ns.$NS ]
+    hosts:
+    - my-service.cluster.local
+```
+
+
+
+A new endpoint is then created in our Silver Test environment as: https://gw-my-service.264e6f-test.svc.cluster.local (if it was configured in our Prod environment, it would be: https://gw-my-service.264e6f-prod.svc.cluster.local)
+
+To verify that the endpoint is callable, you can deploy a simple pod that mounts the `service-ca` to be used for verifying the SSC.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tmp-ca
+  annotations:
+    service.beta.openshift.io/inject-cabundle: "true"
+data: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tmp-deployment
+  labels:
+    app: sleeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sleeper
+  template:
+    metadata:
+      labels:
+        app: sleeper
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: tmp-ca
+
+      containers:
+        - name: idle
+          image: docker.io/curlimages/curl:latest
+          command: ["sh"]
+          args:
+            - -c
+            - |
+              sleep Infinite
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+              readOnly: true
+```
+
+From the Pod's Terminal, you can then run:
+
+```bash
+curl -v --cacert /config/service-ca.crt \
+  https://gw-my-service.264e6f-prod.svc.cluster.local/uuid
+```
+
+You should see a 200 response with a valid UUID.
+
+
+
+### Upstream mTLS
 
 > **Require mTLS between the Gateway and your Upstream Service?** To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the `ca_certificates` and `tls_verify` is required as well. Example:
 
@@ -163,7 +263,7 @@ ca_certificates:
 
 > HELPER: Python command to get a PEM file on one line: `python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem`
 
-#### Using an OpenAPI Spec Document (optional)
+### Using an OpenAPI Spec
 
 Run: `gwa new` and follow the prompts.
 
@@ -286,13 +386,14 @@ serviceAccount:
 vault:
   authPath: auth/k8s-silver
   namespace: platform-services
-  role: af9xxx-nonprod
-  secret: af9xxx-nonprod/example-dev
+  role: xxxxxx-nonprod
+  secret: xxxxxx-nonprod/aps-gateway-creds
 
 networkPolicy:
-  create: false
-  # matchLabels:
-  #   app.kubernetes.io/name: callweb
+  create: true
+  namespaces: [ xxxxxx-dev, xxxxxx-test, xxxxxx-prod ]
+  matchLabels:
+    app.kubernetes.io/name: my-api
 
 services: []
 
