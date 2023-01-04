@@ -1,4 +1,8 @@
-# JWT Keycloak
+# Waiting Queue
+
+This uses the cloned plugin: `jwt-keycloak_1010`.
+
+It is to support Waiting Queue solutions, such as https://github.com/bcgov/WaitingQueue
 
 ## Example
 
@@ -7,33 +11,31 @@ services:
   - name: MY_REST_API
     tags: [_NS_]
     plugins:
-      - name: jwt-keycloak
+      - name: jwt-keycloak_1010
         tags: [_NS_]
         enabled: true
         config:
           allowed_iss:
-            - https://keycloak/auth/realms/REALM
+            - https://auth.service.issuer
           allowed_aud: an-audience-ref
-          #access_token_header: Authorization
-          #realm: kong
-          #disable_access_token_header: false
+          access_token_header: AUTH-WAITING-QUEUE
+          realm: "waitingqueue"
+          disable_access_token_header: true
+          #algorithm: RS256
           #run_on_preflight: true
           #iss_key_grace_period: 10
           #maximum_expiration: 0
           #claims_to_verify:
           #- exp
-          #algorithm: RS256
           #well_known_template: %s/.well-known/openid-configuration
           #cookie_names: []
+          #uri_param_names: []
           #scope: null
+          #roles: null
+          #client_roles: null
+          #anonymous: null
           #realm_roles: null
-          uri_param_names: []
-          client_roles: null
-          anonymous: null
-          consumer_match: true
-          #consumer_match_claim: azp
-          #consumer_match_ignore_not_found: false
-          #consumer_match_claim_custom_id: false
+          #consumer_match: false
 ```
 
 ## Key Fields
