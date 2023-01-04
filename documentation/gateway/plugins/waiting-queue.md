@@ -1,4 +1,6 @@
-# JWT Keycloak
+# Waiting Queue
+
+This uses the cloned plugin: `jwt-keycloak_1010`.
 
 ## Example
 
@@ -7,13 +9,16 @@ services:
 - name: MY_REST_API
   tags: [ _NS_ ]
   plugins:
-  - name: jwt-keycloak
+  - name: jwt-keycloak_1010
     tags: [ _NS_ ]
     enabled: true
     config:
+      algorithm: RS256
       well_known_template: https://keycloak/auth/realms/REALM/.well-known/openid-configuration
       allowed_iss:
       - https://keycloak/auth/realms/REALM
+      allowed_aud: an-audience-ref
+      bearer_header: AUTH-WAITING-QUEUE
       run_on_preflight: true
       iss_key_grace_period: 60
       maximum_expiration: 0
@@ -22,13 +27,10 @@ services:
       cookie_names: []
       uri_param_names: []
       scope: null
-      realm_roles: null
+      roles: null
       client_roles: null
       anonymous: null
-      algorithm: RS256
-      consumer_match: true
-      consumer_match_claim: azp
-      consumer_match_ignore_not_found: false
-      consumer_match_claim_custom_id: false
+      realm_roles: null
+      consumer_match: false
 
 ```
