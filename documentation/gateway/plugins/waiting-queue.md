@@ -19,7 +19,7 @@ services:
             - https://auth.service.issuer
           allowed_aud: an-audience-ref
           access_token_header: AUTH-WAITING-QUEUE
-          realm: "waitingqueue"
+          realm: waitingqueue
           disable_access_token_header: true
           #algorithm: RS256
           #run_on_preflight: true
