@@ -58,3 +58,7 @@ For information about execution order, see: https://docs.konghq.com/gateway/late
       "hmac-auth": true
     }
 ```
+
+# Plugin Priorities
+
+https://docs.konghq.com/gateway/2.8.x/plugin-development/custom-logic/#plugins-execution-order
