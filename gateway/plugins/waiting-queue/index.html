@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726181544786">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726206160170">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=2.4.0.726181544786" rel="stylesheet" />
+    <link href="../../../resources/css/retype.css?v=2.4.0.726206160170" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../../resources/js/config.js?v=2.4.0.726181544786" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../../resources/js/config.js?v=2.4.0.726206160170" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../../resources/js/lunr.js?v=2.4.0.726181544786" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../../resources/js/prism.js?v=2.4.0.726181544786" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../../resources/js/lunr.js?v=2.4.0.726206160170" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../../resources/js/prism.js?v=2.4.0.726206160170" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -207,7 +207,7 @@
             - https://auth.service.issuer
           allowed_aud: an-audience-ref
           access_token_header: AUTH-WAITING-QUEUE
-          realm: &quot;waitingqueue&quot;
+          realm: waitingqueue
           disable_access_token_header: true
           #algorithm: RS256
           #run_on_preflight: true
@@ -275,6 +275,46 @@
 </tbody>
 </table>
 </div>
+<doc-anchor-target id="waiting-queue--user-credentials">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#waiting-queue--user-credentials">#</doc-anchor-trigger>
+        <span>Waiting Queue + User Credentials</span>
+    </h2>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">plugins:
+  - name: jwt-keycloak_1010
+    tags: [ns.NS]
+    enabled: true
+    config:
+      allowed_iss:
+        - https://waitingqueue.issuer/auth
+      allowed_aud: ap-reg-auth-profile-test
+      access_token_header: AUTH-WAITING-QUEUE
+      realm: waitingqueue
+  - name: jwt-keycloak
+    tags: [ns.NS]
+    enabled: true
+    config:
+      allowed_iss:
+        - https://test.loginproxy.gov.bc.ca/auth/realms/apigw
+      realm: apigw
+      consumer_match: true
+      consumer_match_claim: azp
+      consumer_match_claim_custom_id: true
+      consumer_match_ignore_not_found: false</code></pre>
+</doc-codeblock></div>
+<p>If the Waiting Queue token is invalid, then the response will be:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm=&quot;waitingqueue&quot;</code></pre>
+</doc-codeblock></div>
+<p>If the User&#x27;s token is invalid, then the response will be:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm=&quot;apigw&quot;</code></pre>
+</doc-codeblock></div>
+<p>The Waiting Queue plugin (<code v-pre>jwt-keycloak_1010</code>) will be evaluated first.</p>
 
                                 
                                 <!-- Required only on API pages -->
