@@ -47,3 +47,45 @@ services:
 | access_token_header         | string   | nil     | An alternate header to use instead of "Authorization"                                                                                               |
 | realm                       | string   | nil     | In the event of a 401, this value gets populated in the "WWW-Authenticate" response header as `Bearer realm="<realm>"`                              |
 | disable_access_token_header | boolean  | false   | If set to 'true', the access token will not be sent to the upstream service                                                                         |
+
+## Waiting Queue + User Credentials
+
+```yaml
+plugins:
+  - name: jwt-keycloak_1010
+    tags: [ns.NS]
+    enabled: true
+    config:
+      allowed_iss:
+        - https://waitingqueue.issuer/auth
+      allowed_aud: ap-reg-auth-profile-test
+      access_token_header: AUTH-WAITING-QUEUE
+      realm: waitingqueue
+  - name: jwt-keycloak
+    tags: [ns.NS]
+    enabled: true
+    config:
+      allowed_iss:
+        - https://test.loginproxy.gov.bc.ca/auth/realms/apigw
+      realm: apigw
+      consumer_match: true
+      consumer_match_claim: azp
+      consumer_match_claim_custom_id: true
+      consumer_match_ignore_not_found: false
+```
+
+If the Waiting Queue token is invalid, then the response will be:
+
+```
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm="waitingqueue"
+```
+
+If the User's token is invalid, then the response will be:
+
+```
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm="apigw"
+```
+
+The Waiting Queue plugin (`jwt-keycloak_1010`) will be evaluated first.
