@@ -85,9 +85,7 @@ Review the `gwconfig.yaml` file to see what it is doing. There is a single upstr
 
 > **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the `tags` with the qualifier. For example, you can use a tag `ns.$NS.dev` to sync the Kong configuration for `dev` Service and Routes only.
 
-
-
-### Network Policies
+### OCP Network Policies
 
 > If your service is running on the Openshift platform, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
 
@@ -145,32 +143,30 @@ spec:
               name: b8840c
 ```
 
-### Internal Routes
+### Private Routing
 
 By default, publically available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
 
-There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to.  In this case, there is a security benefit of not making the API endpoints publically available.
+There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publically available.
 
-To support this, the route `hosts` can be updated with a host that follows the format: `<api-name>.cluster.local`.  When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.
+To support this, the route `hosts` can be updated with a host that follows the format: `<api-name>.cluster.local`. When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.
 
 An example Gateway configuration for an upstream API deployed in the Silver cluster would be:
 
 ```yaml
 services:
-- name: my-service
-  host: httpbin.org
-  tags: [ ns.$NS ]
-  port: 443
-  protocol: https
-  retries: 0
-  routes:
-  - name: my-service-route
-    tags: [ ns.$NS ]
-    hosts:
-    - my-service.cluster.local
+  - name: my-service
+    host: httpbin.org
+    tags: [ns.$NS]
+    port: 443
+    protocol: https
+    retries: 0
+    routes:
+      - name: my-service-route
+        tags: [ns.$NS]
+        hosts:
+          - my-service.cluster.local
 ```
-
-
 
 A new endpoint is then created in our Silver Test environment as: https://gw-my-service.264e6f-test.svc.cluster.local (if it was configured in our Prod environment, it would be: https://gw-my-service.264e6f-prod.svc.cluster.local)
 
@@ -230,8 +226,6 @@ curl -v --cacert /config/service-ca.crt \
 ```
 
 You should see a 200 response with a valid UUID.
-
-
 
 ### Upstream mTLS
 
@@ -391,7 +385,7 @@ vault:
 
 networkPolicy:
   create: true
-  namespaces: [ xxxxxx-dev, xxxxxx-test, xxxxxx-prod ]
+  namespaces: [xxxxxx-dev, xxxxxx-test, xxxxxx-prod]
   matchLabels:
     app.kubernetes.io/name: my-api
 
