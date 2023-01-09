@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726206160170">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726610116272">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.726206160170" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.726610116272" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.726206160170" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.726610116272" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.726206160170" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.726206160170" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.726610116272" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.726610116272" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -296,10 +296,10 @@ services:
 <blockquote>
 <p><strong>Splitting Your Config:</strong> A namespace <code v-pre>tag</code> with the format <code v-pre>ns.$NS</code> is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the <code v-pre>tags</code> with the qualifier. For example, you can use a tag <code v-pre>ns.$NS.dev</code> to sync the Kong configuration for <code v-pre>dev</code> Service and Routes only.</p>
 </blockquote>
-<doc-anchor-target id="network-policies">
+<doc-anchor-target id="ocp-network-policies">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#network-policies">#</doc-anchor-trigger>
-        <span>Network Policies</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#ocp-network-policies">#</doc-anchor-trigger>
+        <span>OCP Network Policies</span>
     </h3>
 </doc-anchor-target>
 <blockquote>
@@ -352,29 +352,29 @@ spec:
               environment: prod
               name: b8840c</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="internal-routes">
+<doc-anchor-target id="private-routing">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#internal-routes">#</doc-anchor-trigger>
-        <span>Internal Routes</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#private-routing">#</doc-anchor-trigger>
+        <span>Private Routing</span>
     </h3>
 </doc-anchor-target>
 <p>By default, publically available endpoints are created based on Kong Routes where the hosts must end with <code v-pre>*.api.gov.bc.ca</code> or <code v-pre>*.apps.gov.bc.ca</code>.</p>
-<p>There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to.  In this case, there is a security benefit of not making the API endpoints publically available.</p>
-<p>To support this, the route <code v-pre>hosts</code> can be updated with a host that follows the format: <code v-pre>&lt;api-name&gt;.cluster.local</code>.  When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.</p>
+<p>There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publically available.</p>
+<p>To support this, the route <code v-pre>hosts</code> can be updated with a host that follows the format: <code v-pre>&lt;api-name&gt;.cluster.local</code>. When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.</p>
 <p>An example Gateway configuration for an upstream API deployed in the Silver cluster would be:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">services:
-- name: my-service
-  host: httpbin.org
-  tags: [ ns.$NS ]
-  port: 443
-  protocol: https
-  retries: 0
-  routes:
-  - name: my-service-route
-    tags: [ ns.$NS ]
-    hosts:
-    - my-service.cluster.local</code></pre>
+  - name: my-service
+    host: httpbin.org
+    tags: [ns.$NS]
+    port: 443
+    protocol: https
+    retries: 0
+    routes:
+      - name: my-service-route
+        tags: [ns.$NS]
+        hosts:
+          - my-service.cluster.local</code></pre>
 </doc-codeblock></div>
 <p>A new endpoint is then created in our Silver Test environment as: <a href="https://gw-my-service.264e6f-test.svc.cluster.local">https://gw-my-service.264e6f-test.svc.cluster.local</a> (if it was configured in our Prod environment, it would be: <a href="https://gw-my-service.264e6f-prod.svc.cluster.local">https://gw-my-service.264e6f-prod.svc.cluster.local</a>)</p>
 <p>To verify that the endpoint is callable, you can deploy a simple pod that mounts the <code v-pre>service-ca</code> to be used for verifying the SSC.</p>
@@ -594,7 +594,7 @@ vault:
 
 networkPolicy:
   create: true
-  namespaces: [ xxxxxx-dev, xxxxxx-test, xxxxxx-prod ]
+  namespaces: [xxxxxx-dev, xxxxxx-test, xxxxxx-prod]
   matchLabels:
     app.kubernetes.io/name: my-api
 
