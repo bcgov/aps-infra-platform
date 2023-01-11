@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726610116272">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.726775567097">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -33,12 +33,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.726610116272" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.726775567097" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.726610116272" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.726775567097" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.726610116272" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.726610116272" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.726775567097" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.726775567097" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -256,7 +256,7 @@ clientAuthenticator: client-secret
 clientRoles: []
 clientMappers:
   - name: audience
-    defaultValue: ''
+    defaultValue: &quot;&quot;
 availableScopes: [Function1/read, Function2/*, Function3/write, Function3/read]
 owner: &lt;your-username&gt;
 environmentDetails:
@@ -324,8 +324,14 @@ environmentDetails:
     </h3>
 </doc-anchor-target>
 <p>Shared IdP is a new feature that allows you, as an API Provider, to leverage the SSO Gold-tier Keycloak cluster for managing Client Credentials, without having to deal with it directly.
-The APS team have a custom realm on this Keycloak called <code v-pre>apigw</code> which the API Services Portal administers.
-To use it, perform the following steps:</p>
+The APS team have a custom realm on this Keycloak called <code v-pre>apigw</code> which the API Services Portal administers.</p>
+<p>Token Issuers:</p>
+<ul>
+<li><a href="https://dev.loginproxy.gov.bc.ca/auth/realms/apigw">https://dev.loginproxy.gov.bc.ca/auth/realms/apigw</a></li>
+<li><a href="https://test.loginproxy.gov.bc.ca/auth/realms/apigw">https://test.loginproxy.gov.bc.ca/auth/realms/apigw</a></li>
+<li><a href="https://loginproxy.gov.bc.ca/auth/realms/apigw">https://loginproxy.gov.bc.ca/auth/realms/apigw</a></li>
+</ul>
+<p>To use it, perform the following steps:</p>
 <doc-anchor-target id="a-setup-the-authorization-profile">
     <h4>
         <doc-anchor-trigger class="header-anchor-trigger" to="#a-setup-the-authorization-profile">#</doc-anchor-trigger>
