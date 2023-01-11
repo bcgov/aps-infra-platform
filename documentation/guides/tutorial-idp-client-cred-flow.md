@@ -56,7 +56,7 @@ clientAuthenticator: client-secret
 clientRoles: []
 clientMappers:
   - name: audience
-    defaultValue: ''
+    defaultValue: ""
 availableScopes: [Function1/read, Function2/*, Function3/write, Function3/read]
 owner: <your-username>
 environmentDetails:
@@ -125,6 +125,13 @@ Update the following `CredentialIssuer` attributes:
 
 Shared IdP is a new feature that allows you, as an API Provider, to leverage the SSO Gold-tier Keycloak cluster for managing Client Credentials, without having to deal with it directly.
 The APS team have a custom realm on this Keycloak called `apigw` which the API Services Portal administers.
+
+Token Issuers:
+
+- https://dev.loginproxy.gov.bc.ca/auth/realms/apigw
+- https://test.loginproxy.gov.bc.ca/auth/realms/apigw
+- https://loginproxy.gov.bc.ca/auth/realms/apigw
+
 To use it, perform the following steps:
 
 #### a) Setup the Authorization Profile
@@ -167,9 +174,6 @@ Finally, from the Portal, `enable` the Environment to make it available on the A
 If you have Roles that you want to have controlled by the Portal, add them to the Client's `Roles`.
 
 Update the `CredentialIssuer` record above with the `clientRoles` you want to manage.
-
-
-
 
 ## 3. Client Requesting Access
 
