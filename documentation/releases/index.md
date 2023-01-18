@@ -1,5 +1,11 @@
 # Releases
 
+## 2023
+
+| Release Date | Release                                   |
+| ------------ | ----------------------------------------- |
+| 2023 Jan 17  | [1.2.6 Minor Release](2023-jan-1.2.6.md) |
+
 ## 2022
 
 | Release Date | Release                                   |
