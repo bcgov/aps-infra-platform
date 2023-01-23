@@ -152,7 +152,7 @@ mode: auto
 authPlugin: jwt-keycloak
 clientAuthenticator: client-secret
 clientRoles: []
-inheritFrom: Gold SSO Shared IdP
+inheritFrom: Gold Shared IdP
 ```
 
 #### b) Link the Authorization Profile to the Product
