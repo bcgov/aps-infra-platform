@@ -45,6 +45,8 @@ services:
 | access_token_header         | string   | nil     | An alternate header to use instead of "Authorization"                                                                                               |
 | realm                       | string   | nil     | In the event of a 401, this value gets populated in the "WWW-Authenticate" response header as `Bearer realm="<realm>"`                              |
 | disable_access_token_header | boolean  | false   | If set to 'true', the access token will not be sent to the upstream service                                                                         |
+| client_roles | string[] | nil | List of Client/Roles in the format `<CLIENT_NAME>:<ROLE_NAME>` where there has to be at least one match. |
+
 
 ## Multiple Issuers
 
