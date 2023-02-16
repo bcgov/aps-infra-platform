@@ -1,7 +1,7 @@
 ---
 title: Resources
 order: 380
-icon: book
+icon: note
 ---
 
 # Resources
