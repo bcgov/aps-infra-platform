@@ -10,32 +10,32 @@
     <meta name="generator" content="Retype 2.4.0">
 
     <!-- Primary Meta Tags -->
-    <title>OIDC Consumer</title>
-    <meta name="title" content="OIDC Consumer">
-    <meta name="description" content="Description: This plugin is used in conjunction with the oidc plugin to map the JWT Token to a Kong Consumer." />
+    <title>Resources</title>
+    <meta name="title" content="Resources">
+    <meta name="description" content="The following resources are offered for guidance on APIs with the purpose of providing information on how to design APIs, follow good patterns, and..." />
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/gateway/plugins/oidc-consumer/" />
+    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/resources/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/gateway/plugins/oidc-consumer/">
-    <meta property="og:title" content="OIDC Consumer">
-    <meta property="og:description" content="Description: This plugin is used in conjunction with the oidc plugin to map the JWT Token to a Kong Consumer.">
+    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/resources/">
+    <meta property="og:title" content="Resources">
+    <meta property="og:description" content="The following resources are offered for guidance on APIs with the purpose of providing information on how to design APIs, follow good patterns, and...">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/gateway/plugins/oidc-consumer/">
-    <meta property="twitter:title" content="OIDC Consumer">
-    <meta property="twitter:description" content="Description: This plugin is used in conjunction with the oidc plugin to map the JWT Token to a Kong Consumer.">
+    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/resources/">
+    <meta property="twitter:title" content="Resources">
+    <meta property="twitter:description" content="The following resources are offered for guidance on APIs with the purpose of providing information on how to design APIs, follow good patterns, and...">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=2.4.0.729888905144" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.729888905144" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../../resources/js/config.js?v=2.4.0.729888905144" data-turbo-eval="false" defer></script>
-    <script type="text/javascript" src="../../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../../resources/js/lunr.js?v=2.4.0.729888905144" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729888905144" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729888905144" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,7 +50,7 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="../../../" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">BC Gov API Services</span>
                         </a>
                     </div>
@@ -179,31 +179,65 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="oidc-consumer" class="break-words">
+<doc-anchor-target id="resources" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#oidc-consumer">#</doc-anchor-trigger>
-        <span>OIDC Consumer</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#resources">#</doc-anchor-trigger>
+        <span>Resources</span>
     </h1>
 </doc-anchor-target>
-<p><strong>Description:</strong> This plugin is used in conjunction with the <code v-pre>oidc</code> plugin to map the JWT Token to a Kong Consumer.</p>
-<doc-anchor-target id="example">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#example">#</doc-anchor-trigger>
-        <span>Example</span>
-    </h2>
-</doc-anchor-target>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">services:
-- name: MY_REST_API
-  tags: [ _NS_ ]
-  plugins:
-  - name: oidc-consumer
-    enabled: true
-    tags: [ _NS_ ]
-    config:
-      username_field: preferred_username
-      create_consumer: false</code></pre>
-</doc-codeblock></div>
+<p>The following resources are offered for guidance on APIs with the purpose of providing information on how to design APIs, follow good patterns, and ensure consistency and structure.</p>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">Government of Canada API Store</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>https://api.canada.ca/</span>
+    </div>
+    <a href="https://api.canada.ca/" target="_blank" class="absolute block inset-0"></a>
+</div>
+</p>
+<blockquote>
+<p>The API store for the Government of Canada is a one-stop shop for APIs to build applications and services using government data and information. The API Store is the central repository of Federal government department APIs. The API Store enables discovery of APIs, ensures consistent security, provides performance and analytics information, and offers guidance on API life cycle management.</p>
+</blockquote>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">BC Government API Guidelines (DevHub)</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>https://developer.gov.bc.ca/Data-and-APIs/BC-Government-API-Guidelines</span>
+    </div>
+    <a href="https://developer.gov.bc.ca/Data-and-APIs/BC-Government-API-Guidelines" target="_blank" class="absolute block inset-0"></a>
+</div>
+</p>
+<blockquote>
+<p>The purpose of these guidelines is to promote consistency and provide guidance around the use of Application Programming Interfaces (APIs) across the BC government, and to enable exchange and integration of data between systems, agencies, businesses and citizens.</p>
+</blockquote>
+<p>
+<div class="mb-6 px-5 py-4 flex justify-between relative border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded transition-colors duration-150">
+    <div class="flex items-center text-blue-500 dark:text-blue-400">
+        <span class="inline-block mb-px">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" role="presentation" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z"/></svg>
+        </span>
+        <span class="inline-block font-medium ml-2">OpenAPI Initiative</span>
+    </div>
+    <div class="flex items-center text-xs text-gray-400 dark:text-dark-400">
+        <span>https://oai.github.io/Documentation/</span>
+    </div>
+    <a href="https://oai.github.io/Documentation/" target="_blank" class="absolute block inset-0"></a>
+</div>
+</p>
+<blockquote>
+<p>The OpenAPI Initiative guide’s focus is on HTTP-based API designers and writers who want to have their API formalized in an OpenAPI Description document. The description document is a standard, programming language-agnostic interface description for HTTP APIs based on the OpenAPI Specification (OAS).</p>
+</blockquote>
+<p>If you have comments or feedback on any of these resources, please submit a <a href="https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/1/create/18?summary=APS%20Glossary%20Feedback.&amp;customfield_10402=10423">Data Systems &amp; Services ticket</a>.</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -213,23 +247,16 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../../gateway/plugins/oidc/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../glossary/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">OIDC</span>
+                                                <span class="block mt-1">Glossary</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../../gateway/plugins/rate-limiting/">
-                                            <span>
-                                                <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Rate Limiting</span>
-                                            </span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
-                                        </a>
                                     </div>
                                 </nav>
                             </footer>
@@ -270,6 +297,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "OIDC Consumer", level: 3, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Resources", level: 1, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>
