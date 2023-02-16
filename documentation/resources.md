@@ -6,7 +6,7 @@ icon: note
 
 # Resources
 
-The following resources are provided as references and for guidance on APIs with the purpose of providing information on how to design APIs, follow good patterns, and ensure consistency and structure.
+The following resources are offered for guidance on APIs with the purpose of providing information on how to design APIs, follow good patterns, and ensure consistency and structure.
 
 - [Government of Canada API Store](https://api.canada.ca/): The API store for the Government of Canada is a one-stop shop for APIs to build applications and services using government data and information. The API Store is the central repository of Federal government department APIs. The API Store enables discovery of APIs, ensures consistent security, provides performance and analytics information, and offers guidance on API life cycle management.
 
