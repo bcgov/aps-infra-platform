@@ -6,6 +6,8 @@ icon: book
 
 # Glossary
 
+<a href="http://example.com/" target="_blank">Testing HTML link</a>
+
 | Term | Definition |
 | --------------- | --------------- |
 | Access Control | Access control is a set of security measures that regulate who can access a system, services, data, or resource. Access control policies use authentication and authorization to verify users and enable access. |
