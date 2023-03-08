@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.729911873432">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.731613897945">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,11 +31,11 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../resources/css/retype.css?v=2.4.0.729911873432" rel="stylesheet" />
+    <link href="../resources/css/retype.css?v=2.4.0.731613897945" rel="stylesheet" />
 
-    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.729911873432" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../resources/js/config.js?v=2.4.0.731613897945" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.729911873432" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../resources/js/lunr.js?v=2.4.0.731613897945" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -268,6 +268,10 @@
 <td>An organization is any ministry, crown corporation, or agency within the B.C. Government.</td>
 </tr>
 <tr>
+<td>Organization Administrator</td>
+<td>An Organization Administrator (Org Admin) is the user responsible for monitoring and managing all APIs for a specific organization (ministry, crown corporation, or agency) on the APS portal. The Org Admins primary responsibility is to approve namespaces and enable publishing on the namespace to allow an API provider to publish an API to the APS directory.</td>
+</tr>
+<tr>
 <td>Publish</td>
 <td>Publishing APIs is the process by which an API Provider makes their API publicly available in the API Directory for discovery by API Consumers.</td>
 </tr>
@@ -286,6 +290,10 @@
 <tr>
 <td>Scope</td>
 <td>Scope is a method used to specify authorization, or a set of permissions that grant access to specified systems and actions. Scopes can be applied to both users and service accounts. For example, the API Gateway <em>Namespace.View</em> scope allows read-only access to a namespace; therefore, a user with <em>Namespace.View</em> cannot approve API access requests. To approve an API access request, the user requires the <em>Access.Manage</em> scope, which gives permission to approve or reject access requests.</td>
+</tr>
+<tr>
+<td>Shared IdP</td>
+<td>An Identity Provider (IdP) is a service that stores, maintains, and manages digital identities to authenticate users logging into an application. APS uses a Shared IdP, which is a centralized BC Government IdP (SSO Gold-tier Keycloak cluster) that manages client credentials and user access. The Shared IdP enables entities (APIs, applications, websites, and services) to access secured digital identities in order to control authentication and authorization. By using a Shared IdP, APS enables API providers to delegate the responsibility of authentication and authorization to the Shared IdP while still retaining a high level of security.</td>
 </tr>
 </tbody>
 </table>
