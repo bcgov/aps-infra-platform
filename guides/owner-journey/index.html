@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.732146131876">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.732176243011">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.732146131876" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.732176243011" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.732146131876" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.732176243011" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.732146131876" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.732146131876" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.732176243011" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.732176243011" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -532,7 +532,7 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
         <span>4.2. Swagger Console (optional)</span>
     </h3>
 </doc-anchor-target>
-<p>Go to <a href="https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/">gwa-api Swagger Console</a>.</p>
+<p>Go to <a href="https://openapi.apps.gov.bc.ca?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v1/openapi.yaml">gwa-api Swagger Console</a>.</p>
 <p>Select the <code v-pre>PUT</code> <code v-pre>/namespaces/{namespace}/gateway</code> API.</p>
 <p>The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the <code v-pre>lock</code> link (on the right) and enter the Service Account credentials generated in Section 2.</p>
 <p>For the <code v-pre>Parameter namespace</code>, enter the namespace you created in Section 1.</p>
@@ -546,7 +546,7 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
     </h3>
 </doc-anchor-target>
 <p>From the Postman App, click <code v-pre>Import</code> and go to the <code v-pre>Link</code> tab.</p>
-<p>Enter the URL: <a href="https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml">https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml</a></p>
+<p>Enter the URL: <a href="https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml">https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml</a></p>
 <p>After creation, go to <code v-pre>Collections</code> and right-click on the <code v-pre>Gateway Administration (GWA) API</code> collection and select <code v-pre>edit</code>.</p>
 <p>Go to the <code v-pre>Authorization</code> tab, enter your <code v-pre>Client ID</code> and <code v-pre>Client Secret</code>, and click <code v-pre>Get New Access Token</code>.</p>
 <p>You should get a successful dialog to proceed. Click <code v-pre>Proceed</code> and <code v-pre>Use Token</code>.</p>
@@ -959,7 +959,7 @@ publishDate: &quot;2021-06-02T08:00:00.000-08:00&quot;</code></pre>
 </doc-anchor-target>
 <ul>
 <li><a href="https://api.gov.bc.ca">API Services Portal</a></li>
-<li><a href="https://gwa.api.gov.bc.ca/docs/">gwa-api Swagger Console</a></li>
+<li><a href="https://openapi.apps.gov.bc.ca?url=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml">gwa-api Swagger Console</a></li>
 <li><a href="https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml">gwa-api Postman Collection</a></li>
 <li><a href="https://grafana.apps.gov.bc.ca">Gateway Metrics - Grafana</a></li>
 </ul>
