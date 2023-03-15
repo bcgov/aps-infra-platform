@@ -318,7 +318,7 @@ gwa pg --dry-run gwconfig.yaml
 
 ### 4.2. Swagger Console (optional)
 
-Go to [gwa-api Swagger Console](https://openapi.apps.gov.bc.ca?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v1/openapi.yaml).
+Go to [gwa-api Swagger Console](https://openapi.apps.gov.bc.ca?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml).
 
 Select the `PUT` `/namespaces/{namespace}/gateway` API.
 
