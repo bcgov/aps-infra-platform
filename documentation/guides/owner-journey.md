@@ -318,7 +318,7 @@ gwa pg --dry-run gwconfig.yaml
 
 ### 4.2. Swagger Console (optional)
 
-Go to [gwa-api Swagger Console](https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/).
+Go to [gwa-api Swagger Console](https://openapi.apps.gov.bc.ca?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v1/openapi.yaml).
 
 Select the `PUT` `/namespaces/{namespace}/gateway` API.
 
@@ -336,7 +336,7 @@ Send the request.
 
 From the Postman App, click `Import` and go to the `Link` tab.
 
-Enter the URL: https://openapi-to-postman-api-gov-bc-ca.test.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml
+Enter the URL: https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml
 
 After creation, go to `Collections` and right-click on the `Gateway Administration (GWA) API` collection and select `edit`.
 
@@ -707,6 +707,6 @@ publishDate: "2021-06-02T08:00:00.000-08:00"
 ## Production Links
 
 - [API Services Portal](https://api.gov.bc.ca)
-- [gwa-api Swagger Console](https://gwa.api.gov.bc.ca/docs/)
+- [gwa-api Swagger Console](https://openapi.apps.gov.bc.ca?url=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml)
 - [gwa-api Postman Collection](https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml)
 - [Gateway Metrics - Grafana](https://grafana.apps.gov.bc.ca)
