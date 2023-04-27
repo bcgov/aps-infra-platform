@@ -6,17 +6,17 @@ The following steps guide an API Provider through setting up an API on the BC Go
 
 A `namespace` represents a collection of Kong Gateway Services and Routes that are managed independently.
 
-Create a new namespace.
+Create a new namespace:
 
-Log in to the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca) using your IDIR.
+1. Log in to the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca) as an `API Provider` using your IDIR.
 
-Click the namespace drop-down menu (top right next to your user name - it may show `No Active Namespace`).
+2. Click the namespace drop-down menu (top right next to your user name - it may show `No Active Namespace`).
 
-Click `Create New Namespace`.
+3. Click `Create New Namespace`.
 
-Enter the Namespace name.
+4. Enter the Namespace name.
 
-Click Create.
+5. Click Create.
 
 NOTE: The name must be a lowercase alphanumeric string between 5 and 15 characters (RegExp reference: `^[a-z][a-z0-9-]{4,14}$`).
 
@@ -434,7 +434,7 @@ Go to [Grafana](https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca) to view metri
 
 You can also access summarized metrics from the `API Services Portal` by going to the `Namespaces` tab and clicking the `Gateway Services` link.
 
-## 7. Grant Access to Other Userss
+## 7. Grant Access to Other Users
 
 To grant access to other users, you need to grant them the appropriate Scopes. You can do this from the `API Services Portal` by selecting the relevant `Namespace` and going to the Namespaces `Namespace Access` page. From there, you can grant users access to the Namespace.
 
