@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.732176588840">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.735953557132">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.732176588840" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.735953557132" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.732176588840" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.735953557132" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.732176588840" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.732176588840" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.735953557132" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.735953557132" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -194,12 +194,19 @@
     </h2>
 </doc-anchor-target>
 <p>A <code v-pre>namespace</code> represents a collection of Kong Gateway Services and Routes that are managed independently.</p>
-<p>Create a new namespace.</p>
-<p>Log in to the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a> using your IDIR.</p>
-<p>Click the namespace drop-down menu (top right next to your user name - it may show <code v-pre>No Active Namespace</code>).</p>
-<p>Click <code v-pre>Create New Namespace</code>.</p>
-<p>Enter the Namespace name.</p>
-<p>Click Create.</p>
+<p>Create a new namespace:</p>
+<ol>
+<li><p>Log in to the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a> as an <code v-pre>API Provider</code> using your IDIR.</p>
+</li>
+<li><p>Click the namespace drop-down menu (top right next to your user name - it may show <code v-pre>No Active Namespace</code>).</p>
+</li>
+<li><p>Click <code v-pre>Create New Namespace</code>.</p>
+</li>
+<li><p>Enter the Namespace name.</p>
+</li>
+<li><p>Click Create.</p>
+</li>
+</ol>
 <p>NOTE: The name must be a lowercase alphanumeric string between 5 and 15 characters (RegExp reference: <code v-pre>^[a-z][a-z0-9-]{4,14}$</code>).</p>
 <p>You can manage namespaces by clicking the namespace drop-down menu and selecting the required namespace.</p>
 <doc-anchor-target id="2-generate-a-service-account">
@@ -641,10 +648,10 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 <p>All metrics can be viewed by an arbitrary time window; default is <code v-pre>Last 24 Hours</code>.</p>
 <p>Go to <a href="https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca">Grafana</a> to view metrics for your configured services.</p>
 <p>You can also access summarized metrics from the <code v-pre>API Services Portal</code> by going to the <code v-pre>Namespaces</code> tab and clicking the <code v-pre>Gateway Services</code> link.</p>
-<doc-anchor-target id="7-grant-access-to-other-userss">
+<doc-anchor-target id="7-grant-access-to-other-users">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#7-grant-access-to-other-userss">#</doc-anchor-trigger>
-        <span>7. Grant Access to Other Userss</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#7-grant-access-to-other-users">#</doc-anchor-trigger>
+        <span>7. Grant Access to Other Users</span>
     </h2>
 </doc-anchor-target>
 <p>To grant access to other users, you need to grant them the appropriate Scopes. You can do this from the <code v-pre>API Services Portal</code> by selecting the relevant <code v-pre>Namespace</code> and going to the Namespaces <code v-pre>Namespace Access</code> page. From there, you can grant users access to the Namespace.</p>
