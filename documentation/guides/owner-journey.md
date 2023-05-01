@@ -24,11 +24,11 @@ You can manage namespaces by clicking the namespace drop-down menu and selecting
 
 ## 2. Generate a Service Account
 
-Go to the `Namespaces` tab.
+1. Go to the `Namespaces` tab.
 
-Click `Service Accounts`, then Cick `New Service Account`.
+2. Click `Service Accounts`, then Cick `New Service Account`.
 
-Select the `GatewayConfig.Publish` permission for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
+3. Select the `GatewayConfig.Publish` permission for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
 
 The following list describes the permissions:
 
@@ -259,12 +259,12 @@ ca_certificates:
 
 ### Using an OpenAPI Spec
 
-Run: `gwa new` and follow the prompts.
+Run: `./gwa new` and follow the prompts.
 
 Example:
 
 ```bash
-gwa new -o sample.yaml \
+./gwa new -o sample.yaml \
   --route-host myapi.api.gov.bc.ca \
   --service-url https://httpbin.org \
   https://bcgov.github.io/gwa-api/openapi/simple.yaml
@@ -295,25 +295,25 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 Run the following to configure a `.env` file that will hold all the env vars for running `gwa`:
 
 ```
-gwa init -T --api-version=2 --namespace=$NS \
+./gwa init -T --api-version=2 --namespace=<YOUR NAMESPACE> \
   --client-id=<YOUR SERVICE ACCOUNT ID> \
   --client-secret=<YOUR SERVICE ACCOUNT SECRET>`
 ```
 
 > NOTE: The `-T` indicates the APS Test environment. For production use `-P`.
 
-Run `gwa status` to confirm that access to the Gateway is working.
+Run `./gwa status` to confirm that access to the Gateway is working.
 
 **Publish**
 
 ```bash
-gwa pg gwconfig.yaml
+./gwa pg gwconfig.yaml
 ```
 
 If you want to see the expected changes, but not actually apply them, you can run:
 
 ```bash
-gwa pg --dry-run gwconfig.yaml
+./gwa pg --dry-run gwconfig.yaml
 ```
 
 ### 4.2. Swagger Console (optional)
@@ -408,7 +408,7 @@ helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway
 
 ## 5. Verify Routes
 
-To verify that the Gateway can access the upstream services, run the command: `gwa status`.
+To verify that the Gateway can access the upstream services, run the command: `./gwa status`.
 
 In the APS `test` environment, the hosts that you defined in the routes are altered. To see the actual hosts, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the `Namespaces` tab, go to `Gateway Services`, and select your particular service to get the routing details.
 
@@ -600,7 +600,7 @@ In the previous section the example defined an environment that is protected usi
 
 Add the plugin configuration to the service `a-service-for-$NS` in the `sample.yaml` file you created in Section 3.
 
-Re-run the publish command: `gwa pg`. This will protect the upstream service with an API Key.
+Re-run the publish command: `./gwa pg`. This will protect the upstream service with an API Key.
 
 ### 9.4 Check Access
 
