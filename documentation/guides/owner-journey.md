@@ -18,7 +18,7 @@ Create a new namespace:
 
 5. Click Create.
 
-NOTE: The name must be a lowercase alphanumeric string between 5 and 15 characters (RegExp reference: `^[a-z][a-z0-9-]{4,14}$`).
+> NOTE: The name must be a lowercase alphanumeric string between 5 and 15 characters (RegExp reference: `^[a-z][a-z0-9-]{4,14}$`).
 
 You can manage namespaces by clicking the namespace drop-down menu and selecting the required namespace.
 
@@ -29,6 +29,8 @@ You can manage namespaces by clicking the namespace drop-down menu and selecting
 2. Click `Service Accounts`, then Cick `New Service Account`.
 
 3. Select the `GatewayConfig.Publish` permission for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
+
+> NOTE: Make sure to save the generated Client ID and Secret.
 
 The following list describes the permissions:
 
@@ -45,10 +47,10 @@ The following list describes the permissions:
 
 The gateway configuration can be hand-crafted or you can use a command line interface that APS developed called `gwa` to convert your OpenAPI v3 spec to a Kong configuration.
 
-**Basic configuration of a single service and route:**
+**Run the following commands to create a basic configuration of a single service and route:**
 
 ```bash
-export NS="my_namespace"
+export NS="<YOUR NAMESPACE>"
 export NAME="a-service-for-$NS"
 echo "
 services:
@@ -300,6 +302,8 @@ Run the following to configure a `.env` file that will hold all the env vars for
   --client-secret=<YOUR SERVICE ACCOUNT SECRET>`
 ```
 
+> NOTE: Use the Client ID and Secret obtained from step 2.
+
 > NOTE: The `-T` indicates the APS Test environment. For production use `-P`.
 
 Run `./gwa status` to confirm that access to the Gateway is working.
@@ -434,6 +438,8 @@ Go to [Grafana](https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca) to view metri
 
 You can also access summarized metrics from the `API Services Portal` by going to the `Namespaces` tab and clicking the `Gateway Services` link.
 
+> NOTE: A shortcut to Grafana is provided from the `Gateway Services` page by clicking `View metrics in real-time`.
+
 ## 7. Grant Access to Other Users
 
 To grant access to other users, you need to grant them the appropriate Scopes. You can do this from the `API Services Portal` by selecting the relevant `Namespace` and going to the Namespaces `Namespace Access` page. From there, you can grant users access to the Namespace.
@@ -508,6 +514,12 @@ To use the Directory API, the following scopes are required:
 - For `contents` (documentation), the service account must have the `Content.Publish` scope
 - For `datasets`, `products` and `environments`, the service account must have the `Namespace.Manage` scope
 - For `credential issuers`, the service account must have the `CredentialIssuer.Admin` scope
+
+How to update scopes:
+
+1. Click `Namespaces` in the navigation bar
+2. Click `Namespace Access`, and then `Service accounts with access`
+3. Click the ellipses to the right of the appropriate service account and select `Edit Access`
 
 View the Directory API:
 
