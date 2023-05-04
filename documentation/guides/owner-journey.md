@@ -266,7 +266,7 @@ Run: `./gwa new` and follow the prompts.
 Example:
 
 ```bash
-./gwa new -o sample.yaml \
+./gwa new -o gwconfig.yaml \
   --route-host myapi.api.gov.bc.ca \
   --service-url https://httpbin.org \
   https://bcgov.github.io/gwa-api/openapi/simple.yaml
@@ -554,6 +554,16 @@ record_publish_date: "2021-05-27"
 
 ### 9.2 Setup your Product
 
+How to add a Product:
+
+1. Navigate to Namespaces -> Products
+2. Click `New Product` in the top right
+
+How to associate Product with a Dataset:
+
+1. Click the ellipses next to Add Env
+2. Find your newly created dataset and click Update
+
 > There are various patterns for protecting an API that the Kong API Gateway supports. In the following example, the API is protected with Kong's API Key and ACL plugins (`kong-api-key-acl` flow).
 
 ```yaml
@@ -610,15 +620,24 @@ In the previous section the example defined an environment that is protected usi
       allow: [ <SEE ENVIRONMENT DETAIL> ]
 ```
 
-Add the plugin configuration to the service `a-service-for-$NS` in the `sample.yaml` file you created in Section 3.
+How to Update Gateway Configuration:
 
-Re-run the publish command: `./gwa pg`. This will protect the upstream service with an API Key.
+1. In Namespaces -> Products, click edit next to product environment
+2. For Authorization, choose Kong API Key with ACL Flow. Assign Terms of Use if desired.
+3. Check Require Approval
+4. Click View Plugin Template, and add the plugin configuration to the service `a-service-for-$NS` in the `gwconfig.yaml` file you created in Section 3.
+5. Re-run the publish command: `./gwa pg gwconfig.yaml`. This will protect the upstream service with an API Key.
+6. Back in the portal, click Continue
+7. Drag and drop the available service to Active Services
+8. Click Save
 
 ### 9.4 Check Access
 
 ```
 curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 ```
+
+You can also get the URL by going to Namespaces -> Gateway Services and clicking the drop down arrow on the right.
 
 You will get an error: `No API key found in request`.
 
