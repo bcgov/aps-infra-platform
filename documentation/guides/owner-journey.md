@@ -81,7 +81,7 @@ Review the `gwconfig.yaml` file to see what it is doing. There is a single upstr
 
 > To view common plugin configuration go to [Common Controls](../gateway-plugins/COMMON-CONFIG.md)
 
-> To learn about other available plugins, navigate to `Gateway > Plugins`.
+> To learn about other available plugins, navigate to `Gateway > Plugins` on the sidebar of this page.
 
 > **Declarative Config:** DecK is used to sync your configuration with Kong; see https://docs.konghq.com/deck/overview/ for more information.
 
@@ -528,7 +528,13 @@ View the Directory API:
 
 ### 9.1 Setup your Draft Dataset
 
-If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal.
+If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal:
+
+1. Click `Help` in the top right, then `API Docs`
+2. Click the green `Authorize` button, then enter your Client ID and Secret
+3. Click the `PUT /namespaces/{ns}/datasets` accordion item
+4. Click `Try it out`, enter your namespace, personalize any fields in the Request body, remove the lines pertaining to organization, and click `Execute`
+5. Scroll down and ensure a 200 Response was received
 
 ```yaml
 kind: DraftDataset
@@ -651,7 +657,9 @@ Click the title, then click `Request Access`.
 
 Choose or create an `Application`, select the `Dev` environment, and click `Request Access & Continue`.
 
-Clicking `Generate Secrets` will generate your API Key. Make a note of the Key.
+Clicking `Generate Secrets` will generate your API Key. Make a note of the API Key and Client ID.
+
+If Require Approval was selected in section 9.3, navigate to Namespaces -> Consumers and accept the request.
 
 > NOTE: An Environment can be configured for auto-approval. For the sample, `Dev` auto-approval is enabled so the Access Manager does not need to approve the request before getting access.
 
