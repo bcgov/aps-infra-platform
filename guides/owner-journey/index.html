@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.735953557132">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="2.4.0.737660728929">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 2.4.0">
@@ -31,12 +31,12 @@
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/aps-infra-platform/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=2.4.0.735953557132" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.737660728929" rel="stylesheet" />
 
-    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.735953557132" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.737660728929" data-turbo-eval="false" defer></script>
     <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.735953557132" data-turbo-eval="false" defer></script>
-    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.735953557132" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.737660728929" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.737660728929" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -207,7 +207,9 @@
 <li><p>Click Create.</p>
 </li>
 </ol>
+<blockquote>
 <p>NOTE: The name must be a lowercase alphanumeric string between 5 and 15 characters (RegExp reference: <code v-pre>^[a-z][a-z0-9-]{4,14}$</code>).</p>
+</blockquote>
 <p>You can manage namespaces by clicking the namespace drop-down menu and selecting the required namespace.</p>
 <doc-anchor-target id="2-generate-a-service-account">
     <h2>
@@ -215,9 +217,17 @@
         <span>2. Generate a Service Account</span>
     </h2>
 </doc-anchor-target>
-<p>Go to the <code v-pre>Namespaces</code> tab.</p>
-<p>Click <code v-pre>Service Accounts</code>, then Cick <code v-pre>New Service Account</code>.</p>
-<p>Select the <code v-pre>GatewayConfig.Publish</code> permission for the Service Account and click <code v-pre>Share</code>. A new credential will be created - make a note of the <code v-pre>ID</code> and <code v-pre>Secret</code>.</p>
+<ol>
+<li><p>Go to the <code v-pre>Namespaces</code> tab.</p>
+</li>
+<li><p>Click <code v-pre>Service Accounts</code>, then Cick <code v-pre>New Service Account</code>.</p>
+</li>
+<li><p>Select the <code v-pre>GatewayConfig.Publish</code> permission for the Service Account and click <code v-pre>Share</code>. A new credential will be created - make a note of the <code v-pre>ID</code> and <code v-pre>Secret</code>.</p>
+</li>
+</ol>
+<blockquote>
+<p>NOTE: Make sure to save the generated Client ID and Secret.</p>
+</blockquote>
 <p>The following list describes the permissions:</p>
 <div class="table-wrapper scrollbar overflow-hidden">
 <table class="comfortable">
@@ -262,9 +272,9 @@
     </h2>
 </doc-anchor-target>
 <p>The gateway configuration can be hand-crafted or you can use a command line interface that APS developed called <code v-pre>gwa</code> to convert your OpenAPI v3 spec to a Kong configuration.</p>
-<p><strong>Basic configuration of a single service and route:</strong></p>
+<p><strong>Run the following commands to create a basic configuration of a single service and route:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">export NS=&quot;my_namespace&quot;
+<pre class="language-bash"><code v-pre class="language-bash">export NS=&quot;&lt;YOUR NAMESPACE&gt;&quot;
 export NAME=&quot;a-service-for-$NS&quot;
 echo &quot;
 services:
@@ -295,7 +305,7 @@ services:
 <p>To view common plugin configuration go to <a href="../gateway-plugins/common-config.md">Common Controls</a></p>
 </blockquote>
 <blockquote>
-<p>To learn about other available plugins, navigate to <code v-pre>Gateway &gt; Plugins</code>.</p>
+<p>To learn about other available plugins, navigate to <code v-pre>Gateway &gt; Plugins</code> on the sidebar of this page.</p>
 </blockquote>
 <blockquote>
 <p><strong>Declarative Config:</strong> DecK is used to sync your configuration with Kong; see <a href="https://docs.konghq.com/deck/overview/">https://docs.konghq.com/deck/overview/</a> for more information.</p>
@@ -478,10 +488,10 @@ ca_certificates:
         <span>Using an OpenAPI Spec</span>
     </h3>
 </doc-anchor-target>
-<p>Run: <code v-pre>gwa new</code> and follow the prompts.</p>
+<p>Run: <code v-pre>./gwa new</code> and follow the prompts.</p>
 <p>Example:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">gwa new -o sample.yaml \
+<pre class="language-bash"><code v-pre class="language-bash">./gwa new -o gwconfig.yaml \
   --route-host myapi.api.gov.bc.ca \
   --service-url https://httpbin.org \
   https://bcgov.github.io/gwa-api/openapi/simple.yaml</code></pre>
@@ -517,21 +527,24 @@ unzip gwa_${GWA_CLI_VERSION}_linux_x64.zip
 <p><strong>Configure</strong></p>
 <p>Run the following to configure a <code v-pre>.env</code> file that will hold all the env vars for running <code v-pre>gwa</code>:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">gwa init -T --api-version=2 --namespace=$NS \
+<pre class="language-none"><code v-pre class="language-none">./gwa init -T --api-version=2 --namespace=&lt;YOUR NAMESPACE&gt; \
   --client-id=&lt;YOUR SERVICE ACCOUNT ID&gt; \
   --client-secret=&lt;YOUR SERVICE ACCOUNT SECRET&gt;`</code></pre>
 </doc-codeblock></div>
 <blockquote>
+<p>NOTE: Use the Client ID and Secret obtained from step 2.</p>
+</blockquote>
+<blockquote>
 <p>NOTE: The <code v-pre>-T</code> indicates the APS Test environment. For production use <code v-pre>-P</code>.</p>
 </blockquote>
-<p>Run <code v-pre>gwa status</code> to confirm that access to the Gateway is working.</p>
+<p>Run <code v-pre>./gwa status</code> to confirm that access to the Gateway is working.</p>
 <p><strong>Publish</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">gwa pg gwconfig.yaml</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">./gwa pg gwconfig.yaml</code></pre>
 </doc-codeblock></div>
 <p>If you want to see the expected changes, but not actually apply them, you can run:</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">gwa pg --dry-run gwconfig.yaml</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">./gwa pg --dry-run gwconfig.yaml</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="42-swagger-console-optional">
     <h3>
@@ -624,7 +637,7 @@ helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway
         <span>5. Verify Routes</span>
     </h2>
 </doc-anchor-target>
-<p>To verify that the Gateway can access the upstream services, run the command: <code v-pre>gwa status</code>.</p>
+<p>To verify that the Gateway can access the upstream services, run the command: <code v-pre>./gwa status</code>.</p>
 <p>In the APS <code v-pre>test</code> environment, the hosts that you defined in the routes are altered. To see the actual hosts, log into the <a href="https://api-gov-bc-ca.test.api.gov.bc.ca">API Services Portal</a>, go to the <code v-pre>Namespaces</code> tab, go to <code v-pre>Gateway Services</code>, and select your particular service to get the routing details.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-bash"><code v-pre class="language-bash">curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
@@ -648,6 +661,9 @@ ab -n 20 -c 2 https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers
 <p>All metrics can be viewed by an arbitrary time window; default is <code v-pre>Last 24 Hours</code>.</p>
 <p>Go to <a href="https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca">Grafana</a> to view metrics for your configured services.</p>
 <p>You can also access summarized metrics from the <code v-pre>API Services Portal</code> by going to the <code v-pre>Namespaces</code> tab and clicking the <code v-pre>Gateway Services</code> link.</p>
+<blockquote>
+<p>NOTE: A shortcut to Grafana is provided from the <code v-pre>Gateway Services</code> page by clicking <code v-pre>View metrics in real-time</code>.</p>
+</blockquote>
 <doc-anchor-target id="7-grant-access-to-other-users">
     <h2>
         <doc-anchor-trigger class="header-anchor-trigger" to="#7-grant-access-to-other-users">#</doc-anchor-trigger>
@@ -736,6 +752,12 @@ helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway
 <li>For <code v-pre>datasets</code>, <code v-pre>products</code> and <code v-pre>environments</code>, the service account must have the <code v-pre>Namespace.Manage</code> scope</li>
 <li>For <code v-pre>credential issuers</code>, the service account must have the <code v-pre>CredentialIssuer.Admin</code> scope</li>
 </ul>
+<p>How to update scopes:</p>
+<ol>
+<li>Click <code v-pre>Namespaces</code> in the navigation bar</li>
+<li>Click <code v-pre>Namespace Access</code>, and then <code v-pre>Service accounts with access</code></li>
+<li>Click the ellipses to the right of the appropriate service account and select <code v-pre>Edit Access</code></li>
+</ol>
 <p>View the Directory API:</p>
 <ul>
 <li><strong>V1:</strong> <a href="https://openapi-apps-gov-bc-ca.test.api.gov.bc.ca/?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/openapi.yaml">V1 Directory API Console</a></li>
@@ -747,7 +769,14 @@ helm upgrade --install example -f config.yaml -f gwconfig.yaml bcgov/aps-gateway
         <span>9.1 Setup your Draft Dataset</span>
     </h3>
 </doc-anchor-target>
-<p>If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal.</p>
+<p>If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal:</p>
+<ol>
+<li>Click <code v-pre>Help</code> in the top right, then <code v-pre>API Docs</code></li>
+<li>Click the green <code v-pre>Authorize</code> button, then enter your Client ID and Secret</li>
+<li>Click the <code v-pre>PUT /namespaces/{ns}/datasets</code> accordion item</li>
+<li>Click <code v-pre>Try it out</code>, enter your namespace, personalize any fields in the Request body, remove the lines pertaining to organization, and click <code v-pre>Execute</code></li>
+<li>Scroll down and ensure a 200 Response was received</li>
+</ol>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">kind: DraftDataset
 name: my-draft-dataset
@@ -775,6 +804,16 @@ record_publish_date: &quot;2021-05-27&quot;</code></pre>
         <span>9.2 Setup your Product</span>
     </h3>
 </doc-anchor-target>
+<p>How to add a Product:</p>
+<ol>
+<li>Navigate to Namespaces -&gt; Products</li>
+<li>Click <code v-pre>New Product</code> in the top right</li>
+</ol>
+<p>How to associate Product with a Dataset:</p>
+<ol>
+<li>Click the ellipses next to Add Env</li>
+<li>Find your newly created dataset and click Update</li>
+</ol>
 <blockquote>
 <p>There are various patterns for protecting an API that the Kong API Gateway supports. In the following example, the API is protected with Kong&#x27;s API Key and ACL plugins (<code v-pre>kong-api-key-acl</code> flow).</p>
 </blockquote>
@@ -833,8 +872,17 @@ environments:
       hide_groups_header: true
       allow: [ &lt;SEE ENVIRONMENT DETAIL&gt; ]</code></pre>
 </doc-codeblock></div>
-<p>Add the plugin configuration to the service <code v-pre>a-service-for-$NS</code> in the <code v-pre>sample.yaml</code> file you created in Section 3.</p>
-<p>Re-run the publish command: <code v-pre>gwa pg</code>. This will protect the upstream service with an API Key.</p>
+<p>How to Update Gateway Configuration:</p>
+<ol>
+<li>In Namespaces -&gt; Products, click edit next to product environment</li>
+<li>For Authorization, choose Kong API Key with ACL Flow. Assign Terms of Use if desired.</li>
+<li>Check Require Approval</li>
+<li>Click View Plugin Template, and add the plugin configuration to the service <code v-pre>a-service-for-$NS</code> in the <code v-pre>gwconfig.yaml</code> file you created in Section 3.</li>
+<li>Re-run the publish command: <code v-pre>./gwa pg gwconfig.yaml</code>. This will protect the upstream service with an API Key.</li>
+<li>Back in the portal, click Continue</li>
+<li>Drag and drop the available service to Active Services</li>
+<li>Click Save</li>
+</ol>
 <doc-anchor-target id="94-check-access">
     <h3>
         <doc-anchor-trigger class="header-anchor-trigger" to="#94-check-access">#</doc-anchor-trigger>
@@ -844,6 +892,7 @@ environments:
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-none"><code v-pre class="language-none">curl https://${NAME}-api-gov-bc-ca.test.api.gov.bc.ca/headers</code></pre>
 </doc-codeblock></div>
+<p>You can also get the URL by going to Namespaces -&gt; Gateway Services and clicking the drop down arrow on the right.</p>
 <p>You will get an error: <code v-pre>No API key found in request</code>.</p>
 <doc-anchor-target id="95-get-an-api-key">
     <h3>
@@ -855,7 +904,8 @@ environments:
 <p>You will see a card with the title of the Dataset that you created in Section 9.1.</p>
 <p>Click the title, then click <code v-pre>Request Access</code>.</p>
 <p>Choose or create an <code v-pre>Application</code>, select the <code v-pre>Dev</code> environment, and click <code v-pre>Request Access &amp; Continue</code>.</p>
-<p>Clicking <code v-pre>Generate Secrets</code> will generate your API Key. Make a note of the Key.</p>
+<p>Clicking <code v-pre>Generate Secrets</code> will generate your API Key. Make a note of the API Key and Client ID.</p>
+<p>If Require Approval was selected in section 9.3, navigate to Namespaces -&gt; Consumers and accept the request.</p>
 <blockquote>
 <p>NOTE: An Environment can be configured for auto-approval. For the sample, <code v-pre>Dev</code> auto-approval is enabled so the Access Manager does not need to approve the request before getting access.</p>
 </blockquote>
