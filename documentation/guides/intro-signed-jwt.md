@@ -1,4 +1,4 @@
-# Signed JWT Authentication
+# Signed JWT with Hosted JWKS
 
 The following example uses NodeJS code to show how to prepare for signed JWT authentication to an API on the BC Government API Gateway.
 
@@ -50,7 +50,7 @@ https://ikethecoder.github.io/temp-place/certs.json
 
 ## 3. Request Access to an API
 
-Go to the API Services Portal (https://api-gov-bc-ca.test.api.gov.bc.ca/) and request access to an API that is configured with the Signed JWT protection. After requesting access, you will be provided with some secrets.
+Go to the API Services Portal and request access to an API that is configured with the Signed JWT protection. After selecting the environment, you will be prompted to provide a "JWKS URL", which will be the URL of the JWKS file that you published in step 2. After requesting access, you will be provided with some secrets.
 
 Make a note of the `Client ID`, `Issuer` and `Token Endpoint`.
 

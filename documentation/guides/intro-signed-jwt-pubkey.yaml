@@ -1,5 +1,5 @@
 externalLink: https://github.com/bcgov/gwa-api/blob/dev/intro-signed-jwt.md
-title: "Signed JWT w/ Hosted JWKS"
+title: "Signed JWT w/ Certificate"
 description: "Accessing an API with Signed JWT and Client Credential Grant"
 order: 1
 tags: ["ns.platform", "tutorial"]

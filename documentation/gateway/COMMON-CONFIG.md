@@ -17,6 +17,17 @@ plugins:
       - "kong.response.exit(307, 'site moved - redirecting...', {['Location'] = 'https://my-new-url.site'})"
 ```
 
+## Request Termination
+
+```
+plugins:
+- name: request-termination
+  tags: [ _NS_ ]
+  config:
+    status_code: 400
+    message: API not implemented yet!
+```
+
 ## Adding Headers For Best Security Practices
 
 ```

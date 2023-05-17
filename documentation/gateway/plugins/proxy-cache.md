@@ -22,13 +22,13 @@ services:
             - text/css
             - application/javascript
           cache_ttl: 30
-          # strategy: memory
-          # memory:
-          #   dictionary_name: proxy_content_cache
           # vary_headers:
           #   - header_1
           # vary_query_params:
           #   - param_1
+          # strategy: memory
+          # memory:
+          #   dictionary_name: proxy_content_cache
 ```
 
 > `cache_ttl` : We only allow this value to be between 15 and 60 seconds
