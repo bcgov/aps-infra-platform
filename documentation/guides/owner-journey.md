@@ -79,7 +79,7 @@ services:
 
 Review the `gwconfig.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
 
-> To view common plugin configuration go to [Common Controls](../gateway-plugins/COMMON-CONFIG.md)
+> To view common plugin configuration go to [Common Controls](../gateway/COMMON-CONFIG.md)
 
 > To learn about other available plugins, navigate to `Gateway > Plugins` on the sidebar of this page.
 
@@ -722,7 +722,7 @@ Find information about authentication and authorization patterns, reference impl
 
 ### 10.3 Protect Your API using an External Identity Provider
 
-Use the `client-credentials` flow to protect your API (see [Client Credential Protection](tutorial-idp-client-cred-flow/)).
+Use the `client-credentials` flow to protect your API (see [Client Credential Protection](../guides/tutorial-idp-client-cred-flow.md)).
 
 ### 10.4 Use the Access Approval Process
 
