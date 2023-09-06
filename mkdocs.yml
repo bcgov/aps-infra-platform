@@ -51,6 +51,5 @@ nav:
   - 'resources.md'
   - 'presentations.md'
 
-
-
-plugins: ['techdocs-core']
+plugins: 
+- techdocs-core
