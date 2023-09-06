@@ -6,9 +6,7 @@ icon: note
 
 # Presentations
 
-<a href="../artifacts/ARD-and-Waiting-Room.pdf">ARD and Waiting Room</a>
-
-[ARD and Waiting Room](../artifacts/ARD-and-Waiting-Room.pdf)
+<a href="../artifacts/ARD-and-Waiting-Room.pdf" download>ARD and Waiting Room</a>
 
 > May 2023 : Presented a Waiting Room solution in our Sprint Review.
 
