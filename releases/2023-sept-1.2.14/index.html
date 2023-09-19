@@ -10,24 +10,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>Supported Plugins</title>
-    <meta name="title" content="Supported Plugins">
-    <meta name="description" content="Current list of plugins available on the API Gateway.">
+    <title>2023-SEPT Release 1.2.14</title>
+    <meta name="title" content="2023-SEPT Release 1.2.14">
+    <meta name="description" content="The API Services Portal has been updated with a new feature and some bug fixes.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/gateway/available-plugins/">
+    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/releases/2023-sept-1.2.14/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/gateway/available-plugins/">
-    <meta property="og:title" content="Supported Plugins">
-    <meta property="og:description" content="Current list of plugins available on the API Gateway.">
+    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-sept-1.2.14/">
+    <meta property="og:title" content="2023-SEPT Release 1.2.14">
+    <meta property="og:description" content="The API Services Portal has been updated with a new feature and some bug fixes.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/gateway/available-plugins/">
-    <meta property="twitter:title" content="Supported Plugins">
-    <meta property="twitter:description" content="Current list of plugins available on the API Gateway.">
+    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-sept-1.2.14/">
+    <meta property="twitter:title" content="2023-SEPT Release 1.2.14">
+    <meta property="twitter:description" content="The API Services Portal has been updated with a new feature and some bug fixes.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -36,7 +36,6 @@
     <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.748460169366" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
     <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.748460169366" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.748460169366" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -177,73 +176,39 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="supported-plugins" class="break-words">
+<doc-anchor-target id="api-services-portal-release-1214" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#supported-plugins">#</doc-anchor-trigger>
-        <span>Supported Plugins</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api-services-portal-release-1214">#</doc-anchor-trigger>
+        <span>API Services Portal Release 1.2.14</span>
     </h1>
 </doc-anchor-target>
-<p>Current list of plugins available on the API Gateway.</p>
-<blockquote>
-<p>NOTE: The <code v-pre>httplog</code> is not available for individual teams to use as it is used at a global level to feed logs to other systems for audit/monitoring/etc.</p>
-</blockquote>
-<blockquote>
-<p>If there are other plugins that you would like to have added to the Gateway, please reach out to us at our Rocket.Chat channel <code v-pre>#aps-ops</code>.</p>
-</blockquote>
-<p>For information about execution order, see: <a href="https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order">https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order</a></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-json"><code v-pre class="language-json">    &quot;available_on_server&quot;: {
-      &quot;basic-auth&quot;: true,
-      &quot;ip-restriction&quot;: true,
-      &quot;request-transformer&quot;: true,
-      &quot;response-transformer&quot;: true,
-      &quot;request-size-limiting&quot;: true,
-      &quot;rate-limiting&quot;: true,
-      &quot;response-ratelimiting&quot;: true,
-      &quot;syslog&quot;: true,
-      &quot;loggly&quot;: true,
-      &quot;datadog&quot;: true,
-      &quot;ldap-auth&quot;: true,
-      &quot;statsd&quot;: true,
-      &quot;bot-detection&quot;: true,
-      &quot;aws-lambda&quot;: true,
-      &quot;request-termination&quot;: true,
-      &quot;azure-functions&quot;: true,
-      &quot;zipkin&quot;: true,
-      &quot;pre-function&quot;: true,
-      &quot;post-function&quot;: true,
-      &quot;prometheus&quot;: true,
-      &quot;proxy-cache&quot;: true,
-      &quot;session&quot;: true,
-      &quot;acme&quot;: true,
-      &quot;grpc-web&quot;: true,
-      &quot;grpc-gateway&quot;: true,
-      &quot;kong-spec-expose&quot;: true,
-      &quot;jwt-keycloak&quot;: true,
-      &quot;referer&quot;: true,
-      &quot;bcgov-gwa-endpoint&quot;: true,
-      &quot;gwa-ip-anonymity&quot;: true,
-      &quot;oidc&quot;: true,
-      &quot;jwt&quot;: true,
-      &quot;acl&quot;: true,
-      &quot;correlation-id&quot;: true,
-      &quot;cors&quot;: true,
-      &quot;oauth2&quot;: true,
-      &quot;tcp-log&quot;: true,
-      &quot;udp-log&quot;: true,
-      &quot;file-log&quot;: true,
-      &quot;http-log&quot;: true,
-      &quot;key-auth&quot;: true,
-      &quot;hmac-auth&quot;: true
-    }</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="plugin-priorities">
-    <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#plugin-priorities">#</doc-anchor-trigger>
-        <span>Plugin Priorities</span>
-    </h1>
+<p>The API Services Portal has been updated with a new feature and some bug fixes.</p>
+<doc-anchor-target id="features">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#features">#</doc-anchor-trigger>
+        <span>Features</span>
+    </h2>
 </doc-anchor-target>
-<p><a href="https://docs.konghq.com/gateway/2.8.x/plugin-development/custom-logic/#plugins-execution-order">https://docs.konghq.com/gateway/2.8.x/plugin-development/custom-logic/#plugins-execution-order</a></p>
+<p><strong>GWA-CLI V2</strong></p>
+<ul>
+<li>Gateway Command Line Interface Version 2 (GWA-CLI V2) is a new and improved command line interface to use when configuring your API Gateway settings. Improvements include:
+<ul>
+<li>Improved onboarding experience</li>
+<li>Ability to create a namespace from the command line</li>
+<li>Templates for using common authorization patterns on the API Gateway</li>
+</ul>
+</li>
+</ul>
+<doc-anchor-target id="fixes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixes">#</doc-anchor-trigger>
+        <span>Fixes</span>
+    </h2>
+</doc-anchor-target>
+<ul>
+<li>There was a bug that displayed inactive environments in the portal. We now filter out inactive environments from the drop down menu.</li>
+<li>Some changes to the BC Data Catalogue were not being reflected in the APS Portal. This has been resolved so all datasets are synced with the BC Data Catalogue.</li>
+</ul>
 
                                 
                                 <!-- Required only on API pages -->
@@ -253,20 +218,20 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../guides/prom-query/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../releases/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">Query Kong Metrics Using Service Account</span>
+                                                <span class="block mt-1">Releases</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../gateway/common-config/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2023-jun-1.2.12/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Common Controls</span>
+                                                <span class="block mt-1">2023-​JUN Release 1.​2.​12</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -310,6 +275,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Supported Plugins", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "2023-SEPT Release 1.2.14", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
