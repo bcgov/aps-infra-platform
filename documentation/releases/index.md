@@ -4,7 +4,7 @@
 
 | Release Date | Release                                    |
 | ------------ | ------------------------------------------ |
-| 2023 Sept 18 | [1.2.14 Minor Release](2023-sept-1.2.14.md)|
+| 2023 Sept 19 | [1.2.14 Minor Release](2023-sept-1.2.14.md)|
 | 2023 Jun 19  | [1.2.12 Minor Release](2023-jun-1.2.12.md) |
 | 2023 Mar 14  | [1.2.11 Minor Release](2023-mar-1.2.11.md) |
 | 2023 Jan 19  | [1.2.6 Minor Release](2023-jan-1.2.6.md)   |
