@@ -67,8 +67,8 @@ jobs:
             --awsBucketRootPath $TECHDOCS_S3_DEV_ROOT_PATH
       
       - name: Publish docs to prod bucket
-        # Only publish to prod bucket on a release
-        if: ${{ github.event_name == 'workflow_dispatch' }} && ${{ inputs.deploy_location == 'prod' }} 
+        # Only publish to prod bucket on a manual trigger to prod
+        if: github.event_name == 'workflow_dispatch' && inputs.deploy_location == 'prod'
         run: |
           techdocs-cli publish --publisher-type awsS3 \
             --storage-name $TECHDOCS_S3_BUCKET_NAME \
