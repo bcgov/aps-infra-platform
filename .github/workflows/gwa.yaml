@@ -27,7 +27,7 @@ jobs:
       - name: Apply Namespace Configuration
         run: |
           export PATH=`pwd`:$PATH
-          cd .gwa/$NS
+          cd .gwa
 
           # include only if working in the test/training environment
           gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
@@ -37,6 +37,6 @@ jobs:
             --client-id=${ { secrets.GWA_ACCT_ID } } \
             --client-secret=${ { secrets.GWA_ACCT_SECRET } }
 
-          gwa pg
+          gwa pg gwconfig.yaml
 
           
