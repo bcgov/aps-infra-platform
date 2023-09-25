@@ -1,0 +1,89 @@
+kind: Namespace
+name: gw-6328f
+displayName: gw-6328f Display Name
+---
+kind: GatewayService
+name: ajc-butter-dev
+tags: [ns.gw-6328f]
+host: httpbin.org
+port: 443
+protocol: https
+retries: 0
+routes:
+  - name: ajc-butter-dev
+    tags: [ns.gw-6328f]
+    hosts:
+      - ajc-butter.dev.api.gov.bc.ca
+    methods:
+      - GET
+    strip_path: false
+    https_redirect_status_code: 426
+    path_handling: v0
+    request_buffering: true
+    response_buffering: true
+plugins:
+  - name: jwt-keycloak
+    tags: [ns.gw-6328f]
+    enabled: true
+    config:
+      allowed_iss:
+      - https://dev.loginproxy.gov.bc.ca/auth/realms/apigw
+      allowed_aud: ap-gw-6328f-default-dev
+      run_on_preflight: true
+      iss_key_grace_period: 10
+      maximum_expiration: 0
+      algorithm: RS256
+      claims_to_verify:
+      - exp
+      uri_param_names:
+      - jwt
+      cookie_names: []
+      scope: null
+      roles: null
+      realm_roles: null
+      client_roles: null
+      anonymous: null
+      consumer_match: true
+      consumer_match_claim: azp
+      consumer_match_claim_custom_id: true
+      consumer_match_ignore_not_found: false
+  - name: request-transformer
+    tags: [ns.gw-6328f]
+    enabled: true
+    config:
+      http_method: null
+---
+kind: CredentialIssuer
+name: gw-6328f default
+description: Default Authorization Profile for gw-6328f Gateway
+flow: client-credentials
+mode: auto
+authPlugin: jwt-keycloak
+clientAuthenticator: client-secret
+clientRoles: []
+inheritFrom: Gold Shared IdP
+---
+kind: DraftDataset
+name: ajc-butter-dataset
+title: ajc-butter
+organization: ministry-of-citizens-services
+organizationUnit: databc
+notes: Some information about the ajc-butter service
+tags: [ajc-butter, openapi]
+license_title: Access Only
+view_audience: Government
+security_class: LOW-PUBLIC
+record_publish_date: '2021-05-27'
+---
+kind: Product
+appId: '96C41B057A41'
+name: ajc-butter API
+dataset: ajc-butter-dataset
+environments:
+  - name: dev
+    appId: '563853BE'
+    active: false
+    approval: false
+    flow: client-credentials
+    credentialIssuer: gw-6328f default
+    services: [ajc-butter-dev]
