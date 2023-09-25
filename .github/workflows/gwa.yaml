@@ -37,6 +37,6 @@ jobs:
             --client-id=${ { secrets.GWA_ACCT_ID } } \
             --client-secret=${ { secrets.GWA_ACCT_SECRET } }
 
-          gwa pg gwconfig.yaml
+          gwa apply -i gwconfig.yaml
 
           
