@@ -97,9 +97,9 @@ Clicking `Generate Secrets` will generate a Client ID and Secret pair with a Tok
 To get a JWT Token, run the following command:
 
 ```
-export CID=""
-export CSC=""
-export URL=""
+export CID="<Client ID>"
+export CSC="<Client Secret>"
+export URL="<Token Endpoint>"
 ```
 
 ```
