@@ -1,5 +1,5 @@
 ---
-title: Resources
+title: External Resources
 order: 380
 icon: note
 ---
