@@ -10,24 +10,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>2023-JAN Release 1.2.6</title>
-    <meta name="title" content="2023-JAN Release 1.2.6">
-    <meta name="description" content="The API Services Portal has been updated with new features, enhancements, and bug fixes.">
+    <title>Upstream Service Setup</title>
+    <meta name="title" content="Upstream Service Setup">
+    <meta name="description" content="We have Kong Data Planes running on Platform Service's Silver and Gold Private Openshift clusters.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/releases/2023-jan-1.2.6/">
+    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/resources/upstream-services/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-jan-1.2.6/">
-    <meta property="og:title" content="2023-JAN Release 1.2.6">
-    <meta property="og:description" content="The API Services Portal has been updated with new features, enhancements, and bug fixes.">
+    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/resources/upstream-services/">
+    <meta property="og:title" content="Upstream Service Setup">
+    <meta property="og:description" content="We have Kong Data Planes running on Platform Service's Silver and Gold Private Openshift clusters.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-jan-1.2.6/">
-    <meta property="twitter:title" content="2023-JAN Release 1.2.6">
-    <meta property="twitter:description" content="The API Services Portal has been updated with new features, enhancements, and bug fixes.">
+    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/resources/upstream-services/">
+    <meta property="twitter:title" content="Upstream Service Setup">
+    <meta property="twitter:description" content="We have Kong Data Planes running on Platform Service's Silver and Gold Private Openshift clusters.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -36,6 +36,7 @@
     <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.748944213881" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
     <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.748944213881" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.748944213881" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -176,65 +177,111 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="api-services-portal-release-126" class="break-words">
+<doc-anchor-target id="upstream-service-setup" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api-services-portal-release-126">#</doc-anchor-trigger>
-        <span>API Services Portal Release 1.2.6</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#upstream-service-setup">#</doc-anchor-trigger>
+        <span>Upstream Service Setup</span>
     </h1>
 </doc-anchor-target>
-<p>The API Services Portal has been updated with new features, enhancements, and bug fixes.</p>
-<doc-anchor-target id="new-features">
+<doc-anchor-target id="upstream-services-on-ocp">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#new-features">#</doc-anchor-trigger>
-        <span>New Features</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#upstream-services-on-ocp">#</doc-anchor-trigger>
+        <span>Upstream Services on OCP</span>
     </h2>
 </doc-anchor-target>
-<ul>
-<li><strong>Shared IdP</strong>:
-<ul>
-<li>This feature allows API Providers to leverage the SSO Gold-tier Keycloak cluster to manage Client Credentials without having to deal directly with the cluster. The APS team has a custom realm on this Keycloak cluster called apigw, which is administered by the API Services Portal. To use it, <a href="/aps-infra-platform/guides/tutorial-idp-client-cred-flow/#shared-idp">follow these steps</a>.</li>
-</ul>
-</li>
-<li><strong>Private Routing</strong>:
-<ul>
-<li>This feature allows API Providers to make private API endpoints, which can have security benefits. <a href="/aps-infra-platform/guides/owner-journey/#private-routing">Learn more here</a>.</li>
-</ul>
-</li>
-<li><strong>New Plugins</strong>
-<ul>
-<li><a href="/aps-infra-platform/gateway/plugins/waiting-queue/#waiting-queue">Waiting Queue</a>: Support Waiting Queue solutions, such as <a href="https://github.com/bcgov/WaitingQueue">https://github.com/bcgov/WaitingQueue</a>.</li>
-<li><a href="/aps-infra-platform/gateway/plugins/kong-upstream-auth-basic/#kong-upstream-auth-basic">Kong Upstream Auth Basic</a>: Kong Plugin to add HTTP Basic Authentication to the upstream request header.</li>
-</ul>
-</li>
-<li>Edit an application
-<ul>
-<li>API Consumers can now edit their existing applications in the portal.</li>
-</ul>
-</li>
-</ul>
-<doc-anchor-target id="enhancements">
+<p>We have Kong Data Planes running on Platform Service&#x27;s Silver and Gold Private Openshift clusters. If your upstream services run on one of these clusters, then you will need to configuration the network polices to allow access from the API Gateway. Additionally, if you are interested in private routing, there is a section that covers this in detail below.</p>
+<doc-anchor-target id="network-policies">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#network-policies">#</doc-anchor-trigger>
+        <span>Network Policies</span>
+    </h3>
+</doc-anchor-target>
+<blockquote>
+<p>If your service is running on the Openshift platform, you should specify the Kubernetes Service in the <code v-pre>Service.host</code>. It must have the format: <code v-pre>&lt;name&gt;.&lt;ocp-namespace&gt;.svc</code>. Also, make sure your <code v-pre>Service.port</code> matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.</p>
+</blockquote>
+<p>The Kong Gateway runs Data Planes in both Silver and Gold clusters.</p>
+<p><strong>Silver Cluster</strong></p>
+<p>You will need to create a Network Policy on your side similar to the following to allow the Gateway&#x27;s test and prod environments to route traffic to your API:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: 264e6f
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: 264e6f</code></pre>
+</doc-codeblock></div>
+<p><strong>Gold Cluster</strong></p>
+<p>If your service is running on Gold, you will need to contact the APS team so that we can properly provision the <code v-pre>namespace</code> on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: b8840c
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: b8840c</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="upstream-services-with-mtls">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#enhancements">#</doc-anchor-trigger>
-        <span>Enhancements</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#upstream-services-with-mtls">#</doc-anchor-trigger>
+        <span>Upstream Services with mTLS</span>
     </h2>
 </doc-anchor-target>
-<ul>
-<li>Added about us, privacy, accessibility, copyright, and contact us pages to the site footer</li>
-<li>User interface improvements to the Service Accounts page</li>
-<li>User interface improvements to the Gateway Services page</li>
-<li>User interface improvements to the login pages, and separate login pages created for API providers and API Consumers</li>
-<li>User interface improvements to how API Providers publish their APIs and request organization admins to approve their namespace</li>
-<li>Updated Kong from release 2.7.2 to release 2.8.3</li>
-</ul>
-<doc-anchor-target id="fixes">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#fixes">#</doc-anchor-trigger>
-        <span>Fixes</span>
-    </h2>
-</doc-anchor-target>
-<ul>
-<li>Minor user interface fixes</li>
-</ul>
+<blockquote>
+<p><strong>Require mTLS between the Gateway and your Upstream Service?</strong> To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the <code v-pre>ca_certificates</code> and <code v-pre>tls_verify</code> is required as well. Example:</p>
+</blockquote>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">services:
+  - name: my-upstream-service
+    host: my-upstream.site
+    tags: [_NS_]
+    port: 443
+    protocol: https
+    tls_verify: true
+    ca_certificates: [0a780ee0-626c-11eb-ae93-0242ac130012]
+    client_certificate: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
+    routes: [...]
+certificates:
+  - cert: &quot;&lt;PEM FORMAT&gt;&quot;
+    key: &quot;&lt;PEM FORMAT&gt;&quot;
+    tags: [_NS_]
+    id: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
+ca_certificates:
+  - cert: &quot;&lt;PEM FORMAT&gt;&quot;
+    tags: [_NS_]
+    id: 0a780ee0-626c-11eb-ae93-0242ac130012</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>NOTE: You must generate a UUID (<code v-pre>python -c 'import uuid; print(uuid.uuid4())'</code>) for each certificate and ca_certificate you create (set the <code v-pre>id</code>) and reference it in your <code v-pre>services</code> details.</p>
+</blockquote>
+<blockquote>
+<p>HELPER: Python command to get a PEM file on one line: <code v-pre>python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem</code></p>
+</blockquote>
 
                                 
                                 <!-- Required only on API pages -->
@@ -244,20 +291,20 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2023-mar-1.2.11/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../resources/gateway-configuration/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">2023-​MAR Release 1.​2.​11</span>
+                                                <span class="block mt-1">Gateway Configuration</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2022-oct-1.2.5/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../resources/api-discovery/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">2022-​OCT Release 1.​2.​5</span>
+                                                <span class="block mt-1">API Discovery</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -301,6 +348,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "2023-JAN Release 1.2.6", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Upstream Service Setup", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>

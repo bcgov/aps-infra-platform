@@ -10,24 +10,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>2023-JAN Release 1.2.6</title>
-    <meta name="title" content="2023-JAN Release 1.2.6">
-    <meta name="description" content="The API Services Portal has been updated with new features, enhancements, and bug fixes.">
+    <title>API Discovery</title>
+    <meta name="title" content="API Discovery">
+    <meta name="description" content="Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/releases/2023-jan-1.2.6/">
+    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/resources/api-discovery/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-jan-1.2.6/">
-    <meta property="og:title" content="2023-JAN Release 1.2.6">
-    <meta property="og:description" content="The API Services Portal has been updated with new features, enhancements, and bug fixes.">
+    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/resources/api-discovery/">
+    <meta property="og:title" content="API Discovery">
+    <meta property="og:description" content="Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-jan-1.2.6/">
-    <meta property="twitter:title" content="2023-JAN Release 1.2.6">
-    <meta property="twitter:description" content="The API Services Portal has been updated with new features, enhancements, and bug fixes.">
+    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/resources/api-discovery/">
+    <meta property="twitter:title" content="API Discovery">
+    <meta property="twitter:description" content="Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -36,6 +36,7 @@
     <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.748944213881" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
     <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.748944213881" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.748944213881" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -176,65 +177,178 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="api-services-portal-release-126" class="break-words">
+<doc-anchor-target id="api-discovery" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api-services-portal-release-126">#</doc-anchor-trigger>
-        <span>API Services Portal Release 1.2.6</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api-discovery">#</doc-anchor-trigger>
+        <span>API Discovery</span>
     </h1>
 </doc-anchor-target>
-<p>The API Services Portal has been updated with new features, enhancements, and bug fixes.</p>
-<doc-anchor-target id="new-features">
+<doc-anchor-target id="share-your-api-for-discovery">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#new-features">#</doc-anchor-trigger>
-        <span>New Features</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#share-your-api-for-discovery">#</doc-anchor-trigger>
+        <span>Share your API for Discovery</span>
     </h2>
 </doc-anchor-target>
-<ul>
-<li><strong>Shared IdP</strong>:
-<ul>
-<li>This feature allows API Providers to leverage the SSO Gold-tier Keycloak cluster to manage Client Credentials without having to deal directly with the cluster. The APS team has a custom realm on this Keycloak cluster called apigw, which is administered by the API Services Portal. To use it, <a href="/aps-infra-platform/guides/tutorial-idp-client-cred-flow/#shared-idp">follow these steps</a>.</li>
-</ul>
-</li>
-<li><strong>Private Routing</strong>:
-<ul>
-<li>This feature allows API Providers to make private API endpoints, which can have security benefits. <a href="/aps-infra-platform/guides/owner-journey/#private-routing">Learn more here</a>.</li>
-</ul>
-</li>
-<li><strong>New Plugins</strong>
-<ul>
-<li><a href="/aps-infra-platform/gateway/plugins/waiting-queue/#waiting-queue">Waiting Queue</a>: Support Waiting Queue solutions, such as <a href="https://github.com/bcgov/WaitingQueue">https://github.com/bcgov/WaitingQueue</a>.</li>
-<li><a href="/aps-infra-platform/gateway/plugins/kong-upstream-auth-basic/#kong-upstream-auth-basic">Kong Upstream Auth Basic</a>: Kong Plugin to add HTTP Basic Authentication to the upstream request header.</li>
-</ul>
-</li>
-<li>Edit an application
-<ul>
-<li>API Consumers can now edit their existing applications in the portal.</li>
-</ul>
-</li>
-</ul>
-<doc-anchor-target id="enhancements">
+<p>Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.</p>
+<p>The <code v-pre>API Services Portal</code> Directory organizes your APIs by Datasets, Products and Environments. You can manage them via the CLI, the API or through the UI.</p>
+<p>Go to <a href="../gateway-admin/#directory-api">Gateway Administration</a> for links to the Directory API.</p>
+<doc-anchor-target id="setup-your-draft-dataset">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#enhancements">#</doc-anchor-trigger>
-        <span>Enhancements</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-your-draft-dataset">#</doc-anchor-trigger>
+        <span>Setup your Draft Dataset</span>
     </h2>
 </doc-anchor-target>
-<ul>
-<li>Added about us, privacy, accessibility, copyright, and contact us pages to the site footer</li>
-<li>User interface improvements to the Service Accounts page</li>
-<li>User interface improvements to the Gateway Services page</li>
-<li>User interface improvements to the login pages, and separate login pages created for API providers and API Consumers</li>
-<li>User interface improvements to how API Providers publish their APIs and request organization admins to approve their namespace</li>
-<li>Updated Kong from release 2.7.2 to release 2.8.3</li>
-</ul>
-<doc-anchor-target id="fixes">
+<p>If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal:</p>
+<ol>
+<li>Click <code v-pre>Help</code> in the top right, then <code v-pre>API Docs</code></li>
+<li>Click the green <code v-pre>Authorize</code> button, then enter your Client ID and Secret</li>
+<li>Click the <code v-pre>PUT /namespaces/{ns}/datasets</code> accordion item</li>
+<li>Click <code v-pre>Try it out</code>, enter your namespace, personalize any fields in the Request body, remove the lines pertaining to organization, and click <code v-pre>Execute</code></li>
+<li>Scroll down and ensure a 200 Response was received</li>
+</ol>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: DraftDataset
+name: my-draft-dataset
+organization: ministry-of-citizens-services
+organizationUnit: databc
+notes: Some information about this API
+tags: [health, standards, openapi]
+sector: Service
+license_title: Access Only
+view_audience: Government
+security_class: LOW-PUBLIC
+record_publish_date: &quot;2021-05-27&quot;</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>List of available organizations:</p>
+<p><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations</a></p>
+</blockquote>
+<blockquote>
+<p>Use the following to get the <code v-pre>organizationUnit</code>:</p>
+<p><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/console/#/Organizations/organization-units">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/console/#/Organizations/organization-units</a></p>
+</blockquote>
+<doc-anchor-target id="setup-your-product">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#fixes">#</doc-anchor-trigger>
-        <span>Fixes</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-your-product">#</doc-anchor-trigger>
+        <span>Setup your Product</span>
     </h2>
 </doc-anchor-target>
-<ul>
-<li>Minor user interface fixes</li>
-</ul>
+<p>How to add a Product:</p>
+<ol>
+<li>Navigate to Namespaces -&gt; Products</li>
+<li>Click <code v-pre>New Product</code> in the top right</li>
+</ol>
+<p>How to associate Product with a Dataset:</p>
+<ol>
+<li>Click the ellipses next to Add Env</li>
+<li>Find your newly created dataset and click Update</li>
+</ol>
+<blockquote>
+<p>There are various patterns for protecting an API that the Kong API Gateway supports. In the following example, the API is protected with Kong&#x27;s API Key and ACL plugins (<code v-pre>kong-api-key-acl</code> flow).</p>
+</blockquote>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: Product
+appId: 2B04C28E08AW
+name: My API
+dataset: my-draft-dataset
+environments:
+  - id: 1F7CA929
+    name: dev
+    active: false
+    approval: false
+    legal: terms-of-use-for-api-gateway-1
+    flow: kong-api-key-acl
+    additionalDetailsToRequest: Please provide a bit more of this
+    services: []
+  - id: 2F7CA929
+    name: test
+    active: false
+    approval: true
+    legal: terms-of-use-for-api-gateway-1
+    flow: kong-api-key-acl
+    additionalDetailsToRequest: Asking for test environment? Please provide some more info
+    services: [a-service-for-$NS]
+  - id: 3F7CA929
+    name: prod
+    active: false
+    approval: true
+    legal: terms-of-use-for-api-gateway-1
+    flow: client-credentials
+    credentialIssuer: Resource Server $NS
+    additionalDetailsToRequest: Production? Great, please provide X, Y and Z
+    services: []</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="update-gateway-configuration">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#update-gateway-configuration">#</doc-anchor-trigger>
+        <span>Update Gateway Configuration</span>
+    </h2>
+</doc-anchor-target>
+<p>In the previous section the example defined an environment that is protected using Kong&#x27;s API Key and ACL plugins. To protect the Service, the corresponding plugins need to exist on the Gateway for that service or route. The ACL <code v-pre>allow</code> corresponds to the unique <code v-pre>Environment ID</code> defined in Section 9.2.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">  plugins:
+  - name: key-auth
+    tags: [ ns.$NS ]
+    protocols: [ http, https ]
+    config:
+      key_names: [&quot;X-API-KEY&quot;]
+      run_on_preflight: true
+      hide_credentials: true
+      key_in_body: false
+  - name: acl
+    tags: [ ns.$NS ]
+    config:
+      hide_groups_header: true
+      allow: [ &lt;SEE ENVIRONMENT DETAIL&gt; ]</code></pre>
+</doc-codeblock></div>
+<p>How to Update Gateway Configuration:</p>
+<ol>
+<li>In Namespaces -&gt; Products, click edit next to product environment</li>
+<li>For Authorization, choose Kong API Key with ACL Flow. Assign Terms of Use if desired.</li>
+<li>Check Require Approval</li>
+<li>Click View Plugin Template, and add the plugin configuration to the service <code v-pre>a-service-for-$NS</code> in the <code v-pre>gwconfig.yaml</code> file you created in Section 3.</li>
+<li>Re-run the publish command: <code v-pre>./gwa pg gwconfig.yaml</code>. This will protect the upstream service with an API Key.</li>
+<li>Back in the portal, click Continue</li>
+<li>Drag and drop the available service to Active Services</li>
+<li>Click Save</li>
+</ol>
+<doc-anchor-target id="enabling-for-discovery">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#enabling-for-discovery">#</doc-anchor-trigger>
+        <span>Enabling for Discovery</span>
+    </h2>
+</doc-anchor-target>
+<p>Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.</p>
+<p><strong>Prerequisite:</strong> Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: <a href="https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118">https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118</a></p>
+<p>Once approved, you must make an Environment <code v-pre>active</code> for the corresponding Product Environment to appear in the API Directory. You can do this by either updating the Product Environment configuration above to <code v-pre>active: true</code>, or going to the API Services Portal UI and editing the Environment details.</p>
+<doc-anchor-target id="view-your-product-in-the-api-directory">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#view-your-product-in-the-api-directory">#</doc-anchor-trigger>
+        <span>View Your Product in the API Directory</span>
+    </h2>
+</doc-anchor-target>
+<p>Find your API in the <code v-pre>API Services Portal Directory</code>.</p>
+<div class="table-wrapper scrollbar overflow-hidden">
+<table class="comfortable">
+<thead>
+<tr>
+<th>Environment</th>
+<th>API Services Portal Directory Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TEST / TRAINING</td>
+<td><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory">https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory</a></td>
+</tr>
+<tr>
+<td>PRODUCTION</td>
+<td><a href="https://api.gov.bc.ca/devportal/api-directory">https://api.gov.bc.ca/devportal/api-directory</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It is now ready to receive access requests from the community!</p>
 
                                 
                                 <!-- Required only on API pages -->
@@ -244,20 +358,20 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2023-mar-1.2.11/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../resources/upstream-services/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">2023-​MAR Release 1.​2.​11</span>
+                                                <span class="block mt-1">Upstream Service Setup</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2022-oct-1.2.5/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../resources/api-access/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">2022-​OCT Release 1.​2.​5</span>
+                                                <span class="block mt-1">API Access</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -301,6 +415,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "2023-JAN Release 1.2.6", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "API Discovery", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
