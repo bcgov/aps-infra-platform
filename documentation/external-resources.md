@@ -4,7 +4,7 @@ order: 380
 icon: note
 ---
 
-# Resources
+# External Resources
 
 The following resources are offered for guidance on APIs with the purpose of providing information on how to design APIs, follow good patterns, and ensure consistency and structure.
 
