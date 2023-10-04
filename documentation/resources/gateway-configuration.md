@@ -107,17 +107,13 @@ You should see a 200 response with a valid UUID.
 
 ## Using an OpenAPI Spec
 
-With version 2 of the GWA CLI, the OpenAPI to Kong configuration generator has been removed from the CLI and is now recommended to use Kong's `inso` command line.
+With version 2 of the GWA CLI, the OpenAPI to Kong configuration generator has been removed from the CLI and is now recommended to use Kong's `deck` command line.
 
-Reference: https://docs.insomnia.rest/inso-cli/cli-command-reference/OAS-spec.yml
+Reference: https://docs.konghq.com/deck/latest/
 
-**Download INSO**
+Follow the installation instructions here: https://docs.konghq.com/deck/latest/installation/
 
-```
-curl -L https://github.com/Kong/insomnia/releases/download/lib%402023.5.8/inso-linux-2023.5.8.tar.xz | tar -J -xf -
-```
-
-Generating Kong Gateway configuration from an OpenAPI spec.
+Below is an example of a simple OpenAPI spec that we will use to generate a Kong configuration file.
 
 ```yaml
 openapi: 3.0.1
@@ -174,10 +170,12 @@ x-kong-route-defaults:
     - a-service-for-ajc-deck.api.gov.bc.ca
 ```
 
+Save to `openapi.yaml`.
+
 **Generate Kong Configuration:**
 
 ```shell
-inso generate config -f yaml -o gw.yaml --tags ns.ajc-deck openapi.yaml
+deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.ajc-deck
 ```
 
 **Publish:**
