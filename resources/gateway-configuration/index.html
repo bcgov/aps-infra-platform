@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.748945758471">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.749775370148">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,12 +31,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.748945758471" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.749775370148" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.748945758471" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.749775370148" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.748945758471" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.748945758471" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.749775370148" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.749775370148" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -312,13 +312,10 @@ spec:
         <span>Using an OpenAPI Spec</span>
     </h2>
 </doc-anchor-target>
-<p>With version 2 of the GWA CLI, the OpenAPI to Kong configuration generator has been removed from the CLI and is now recommended to use Kong&#x27;s <code v-pre>inso</code> command line.</p>
-<p>Reference: <a href="https://docs.insomnia.rest/inso-cli/cli-command-reference/OAS-spec.yml">https://docs.insomnia.rest/inso-cli/cli-command-reference/OAS-spec.yml</a></p>
-<p><strong>Download INSO</strong></p>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">curl -L https://github.com/Kong/insomnia/releases/download/lib%402023.5.8/inso-linux-2023.5.8.tar.xz | tar -J -xf -</code></pre>
-</doc-codeblock></div>
-<p>Generating Kong Gateway configuration from an OpenAPI spec.</p>
+<p>With version 2 of the GWA CLI, the OpenAPI to Kong configuration generator has been removed from the CLI and is now recommended to use Kong&#x27;s <code v-pre>deck</code> command line.</p>
+<p>Reference: <a href="https://docs.konghq.com/deck/latest/">https://docs.konghq.com/deck/latest/</a></p>
+<p>Follow the installation instructions here: <a href="https://docs.konghq.com/deck/latest/installation/">https://docs.konghq.com/deck/latest/installation/</a></p>
+<p>Below is an example of a simple OpenAPI spec that we will use to generate a Kong configuration file.</p>
 <div class="codeblock-wrapper"><doc-codeblock>
 <pre class="language-yaml"><code v-pre class="language-yaml">openapi: 3.0.1
 info:
@@ -371,9 +368,10 @@ x-kong-route-defaults:
   hosts:
     - a-service-for-ajc-deck.api.gov.bc.ca</code></pre>
 </doc-codeblock></div>
+<p>Save to <code v-pre>openapi.yaml</code>.</p>
 <p><strong>Generate Kong Configuration:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">inso generate config -f yaml -o gw.yaml --tags ns.ajc-deck openapi.yaml</code></pre>
+<pre class="language-bash"><code v-pre class="language-bash">deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.ajc-deck</code></pre>
 </doc-codeblock></div>
 <p><strong>Publish:</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
