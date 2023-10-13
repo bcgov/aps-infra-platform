@@ -82,7 +82,7 @@ What you have setup:
 - Protected with the Client Credential grant using OCIO SSO Gold cluster
 - Separation of concerns for authentication and authorization
 
-## 5. Request a Token
+## 5. Access your API
 
 Go to the `Namespaces` tab in the `API Services Portal` and click the `Preview in Directory` link in the `Products` panel.
 
