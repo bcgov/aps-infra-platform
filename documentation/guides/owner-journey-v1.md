@@ -711,9 +711,9 @@ You can administer Authorization by toggling access to the particular Product an
 
 Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.
 
-**Prerequisite:** Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118
+**Prerequisite:** Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be performed on the Portal by going to the "Namespaces" tab, selecting your namespace, and clicking the "Add Organization" button. The appropriate Organization Admin will be notified by email.
 
-Once approved, you must make an Environment `active` for the corresponding Product Environment to appear in the API Directory. You can do this by either updating the Product Environment configuration above to `active: true`, or going to the API Services Portal UI and editing the Environment details.
+Once approved, you must make an Environment `active` for the corresponding Product Environment to appear in the API Directory. You can do this by either updating the Product Environment configuration above to `active: true`, or go to the API services portal UI, click the edit environment details, and click on the checkbox 'enable environment'.
 
 ### 9.8 View Your Product in the API Directory
 
