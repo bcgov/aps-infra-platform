@@ -119,3 +119,24 @@ To enable anonymous access to your API, update your plugin configuration with:
     consumer_match_claim_custom_id: false
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
+
+## Event Metric
+
+This `pre-function` allows you to collect arbitrary metrics that you can then track in the APS Grafana instance (https://grafana.apps.gov.bc.ca/).
+
+```
+echo """
+if kong.request.get_query_arg("layers") ~= "WILDFIRE" then
+    kong.service.request.set_header("x-event", "to-beid")
+else
+    kong.service.request.set_header("x-event", "to-ocp")
+end
+""" | \
+python3 -c "import json,sys; script=sys.stdin.read(); print(json.dumps(script.strip()))"
+
+- name: pre-function
+  tags: [ _NS_ ]
+  config:
+    access:
+    - "<PUT OUTPUT FROM ABOVE HERE>"
+```
