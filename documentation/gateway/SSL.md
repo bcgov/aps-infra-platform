@@ -17,12 +17,13 @@ openssl x509 -in gw.crt -fingerprint -serial -dates -noout
 
 ## \*.api.gov.bc.ca
 
-| Issue Date  | Expires     | Deployed    | SHA1 Fingerprint                                            | Serial No.   |
-| ----------- | ----------- | ----------- | ----------------------------------------------------------- | ------------ |
-| Oct 6 2020  | Oct 16 2021 | Oct 6 2020  | 20:7D:15:9D:42:BE:CC:BC:FD:EF:DF:13:77:C7:25:A3:A4:72:45:05 | 7876EB597E14 |
-| Feb 16 2021 | Oct 16 2021 | Feb 25 2021 | 4D:EA:CE:C4:0A:73:67:D3:B4:03:F6:63:C4:E1:67:2C:47:9D:EA:82 | 3B5849D8A670 |
-| Sep 27 2021 | Oct 16 2022 | Oct 6 2021  | E3:DF:EC:89:BC:03:9B:E9:7D:57:91:EB:52:18:59:46:AA:A9:3A:15 | 1B588948FBB2 |
-| Sep 28 2022 | Oct 16 2023 | TBD | 2D:E5:32:16:C6:0A:0D:F4:0C:1F:39:DD:BD:DD:A8:1A:51:4C:2D:94 | 34A6625E5ECF4E734BA6C4CF198F99B9 |
+| Issue Date  | Expires     | Deployed    | SHA1 Fingerprint (abbrev.)                      | Serial No.   |
+| ----------- | ----------- | ----------- | ----------------------------------------------- | ------------ |
+| Oct 6 2020  | Oct 16 2021 | Oct 6 2020  | 20:7D:15:9D:42:BE:CC:BC:FD:EF:DF:13:77:C7:25:A3 | 7876EB597E14 |
+| Feb 16 2021 | Oct 16 2021 | Feb 25 2021 | 4D:EA:CE:C4:0A:73:67:D3:B4:03:F6:63:C4:E1:67:2C | 3B5849D8A670 |
+| Sep 27 2021 | Oct 16 2022 | Oct 6 2021  | E3:DF:EC:89:BC:03:9B:E9:7D:57:91:EB:52:18:59:46 | 1B588948FBB2 |
+| Sep 28 2022 | Oct 16 2023 | Oct 2022    | 2D:E5:32:16:C6:0A:0D:F4:0C:1F:39:DD:BD:DD:A8:1A | 34A6625E5ECF |
+| Oct 4 2023  | Oct 16 2024 | Oct 13 2023 | 52:78:CD:99:3C:00:4E:4F:57:CD:EF:71:B9:E2:53:08 | 74BC58EEA87E |
 
 You can run the above as one line:
 
