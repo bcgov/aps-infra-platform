@@ -10,24 +10,24 @@
     <meta name="generator" content="Retype 3.5.0">
 
     <!-- Primary Meta Tags -->
-    <title>2022-SEPT Release 1.2.3</title>
-    <meta name="title" content="2022-SEPT Release 1.2.3">
-    <meta name="description" content="The API Services Portal has been updated with a new feature:">
+    <title>2023-NOV Release 1.2.15</title>
+    <meta name="title" content="2023-NOV Release 1.2.15">
+    <meta name="description" content="The API Services Portal has been updated with some bug fixes.">
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/releases/2022-sept/">
+    <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/releases/2023-nov-1.2.15/">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/releases/2022-sept/">
-    <meta property="og:title" content="2022-SEPT Release 1.2.3">
-    <meta property="og:description" content="The API Services Portal has been updated with a new feature:">
+    <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-nov-1.2.15/">
+    <meta property="og:title" content="2023-NOV Release 1.2.15">
+    <meta property="og:description" content="The API Services Portal has been updated with some bug fixes.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/releases/2022-sept/">
-    <meta property="twitter:title" content="2022-SEPT Release 1.2.3">
-    <meta property="twitter:description" content="The API Services Portal has been updated with a new feature:">
+    <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/releases/2023-nov-1.2.15/">
+    <meta property="twitter:title" content="2023-NOV Release 1.2.15">
+    <meta property="twitter:description" content="The API Services Portal has been updated with some bug fixes.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
@@ -176,16 +176,39 @@
                                 <!-- Rendered if sidebar right is enabled -->
                                 <div id="docs-sidebar-right-toggle"></div>
                                 <!-- Page content  -->
-<doc-anchor-target id="api-services-portal-release-123" class="break-words">
+<doc-anchor-target id="api-services-portal-release-1215" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api-services-portal-release-123">#</doc-anchor-trigger>
-        <span>API Services Portal Release 1.2.3</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#api-services-portal-release-1215">#</doc-anchor-trigger>
+        <span>API Services Portal Release 1.2.15</span>
     </h1>
 </doc-anchor-target>
-<p>The API Services Portal has been updated with a new feature:</p>
-<p><strong>Integration with BC Services Card</strong></p>
-<p>API consumers can now use BC Services Card for login authentication.</p>
-<p>Note: Authentication options are not interchangeable. If you choose to use BC Services Card, and were previously using an alternative authentication method (such as Business BCeID, GitHub, or IDIR), your existing account’s settings and services will not be linked. We suggest that you continue using your original authentication credential.</p>
+<p>The API Services Portal has been updated with some bug fixes.</p>
+<doc-anchor-target id="fixes">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#fixes">#</doc-anchor-trigger>
+        <span>Fixes</span>
+    </h2>
+</doc-anchor-target>
+<ul>
+<li>Namespace creation regex (#917)</li>
+<li>Consumers appearing multipe times (#920)</li>
+<li>Enhanced error messaging for consumer and product deletion (#927)</li>
+<li>Enabling API publishing toggle button: Label and description change #936</li>
+<li>&#x27;Service Account&#x27; section description is inaccurate #935</li>
+<li>Batch sync not returning non-200 when there are errors #931</li>
+<li>Request access button showing for public flow #924</li>
+<li>Product without environments giving an error #918</li>
+<li>Revoke product environment access to consumer does not work #925</li>
+<li>Prevent clients from accidentally using the incomplete ‘Manual’ authorization mode #621</li>
+<li>Route not appearing in Portal after creating using v2 of gwa cli #921</li>
+<li>Mark can Grant Access to the service for the environment which is pending for approval #475</li>
+<li>Address requestor as Portal User in the Email Notifications when name is not available #186</li>
+<li>Confirm when deleting resources #880</li>
+<li>Improve the UX of revoking access and deleting consumer #715</li>
+<li>When requesting access giving an error that is difficult to troubleshoot #788</li>
+<li>Hard delete ( force delete) cause namespace list service fails and does not display namespaces in the drop down #876</li>
+<li>Hard delete of Namespace (/namespaces/?force=true) cause the application inaccessible (throws 502 Bad Gateway Error) #459</li>
+</ul>
 
                                 
                                 <!-- Required only on API pages -->
@@ -195,20 +218,20 @@
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2022-sept-1.2.4/">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../releases/">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                             <span>
                                                 <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
-                                                <span class="block mt-1">2022-​SEPT Release 1.​2.​4</span>
+                                                <span class="block mt-1">Releases</span>
                                             </span>
                                         </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2022-aug/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../releases/2023-sept-1.2.14/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">2022-​AUG Release 1.​2</span>
+                                                <span class="block mt-1">2023-​SEPT Release 1.​2.​14</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -252,6 +275,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "2022-SEPT Release 1.2.3", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "2023-NOV Release 1.2.15", level: 2, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
