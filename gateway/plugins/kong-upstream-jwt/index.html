@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.752704589760">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.752839861798">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,11 +31,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../../resources/css/retype.css?v=3.5.0.752704589760" rel="stylesheet">
+    <link href="../../../resources/css/retype.css?v=3.5.0.752839861798" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.752704589760" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../../resources/js/config.js?v=3.5.0.752839861798" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.752704589760" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../../resources/js/lunr.js?v=3.5.0.752839861798" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../../resources/js/prism.js?v=3.5.0.752839861798" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -199,12 +200,95 @@
       tags: [ _NS_ ]
       config:
         header: GW-JWT
-        include_credential_type: false
-        issuer: null
-        key_id: null
-        private_key_location: /etc/secrets/kongh-cluster-ca/kong-upstream-jwt.key
-        public_key_location: /etc/secrets/kongh-cluster-ca/kong-upstream-jwt.pem</code></pre>
+        include_credential_type: false</code></pre>
 </doc-codeblock></div>
+<doc-anchor-target id="clients">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#clients">#</doc-anchor-trigger>
+        <span>Clients</span>
+    </h2>
+</doc-anchor-target>
+<doc-anchor-target id="javascript-express">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#javascript-express">#</doc-anchor-trigger>
+        <span>Javascript (Express)</span>
+    </h3>
+</doc-anchor-target>
+<p>For this example, the <code v-pre>kong-upstream-jwt</code> plugin should be configured with:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">config:
+  header: Authorization
+  include_credential_type: true</code></pre>
+</doc-codeblock></div>
+<p><code v-pre>npm i express express-oauth2-jwt-bearer</code></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-javascript"><code v-pre class="language-javascript">const express = require(&quot;express&quot;);
+const app = express();
+const port = 3300;
+
+const { auth } = require(&quot;express-oauth2-jwt-bearer&quot;);
+app.use(auth());
+
+app.get(&quot;/&quot;, (req, res) =&gt; {
+  res.send(&quot;Hello World!&quot;);
+});
+
+app.listen(port, () =&gt; {
+  console.log(`Listening on port ${port}`);
+});</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">ISSUER_BASE_URL=https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca \
+AUDIENCE=&lt;SERVICE-NAME&gt; \
+node server.js</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="python-fastapi">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#python-fastapi">#</doc-anchor-trigger>
+        <span>Python (FastAPI)</span>
+    </h3>
+</doc-anchor-target>
+<p>For this example, the <code v-pre>kong-upstream-jwt</code> plugin should be configured with:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-yaml"><code v-pre class="language-yaml">config:
+  header: gw-jwt
+  include_credential_type: false</code></pre>
+</doc-codeblock></div>
+<p><code v-pre>pip install fastapi uvicorn pyjwt</code></p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-python"><code v-pre class="language-python">import os
+import jwt
+from jwt import PyJWKClient
+from fastapi import FastAPI, Request, Depends, HTTPException
+
+app = FastAPI()
+
+def gateway_auth(request: Request) -&gt; dict:
+    try:
+        encoded_token = request.headers['gw-jwt']
+        jwks_client = PyJWKClient(os.environ.get('JWKS_URI'))
+        signing_key = jwks_client.get_signing_key_from_jwt(encoded_token)
+        return jwt.decode(encoded_token, signing_key.key,
+          algorithms=[&quot;RS256&quot;],
+          audience=os.environ.get('AUDIENCE').split(&quot;,&quot;))
+    except Exception as ex:
+        raise HTTPException(
+          status_code=401,
+          detail=str(ex),
+          headers={&quot;WWW-Authenticate&quot;: &quot;X-Gateway&quot;})
+
+@app.get(&quot;/&quot;)
+def read_root( gateway: dict = Depends(gateway_auth)):
+    return {&quot;Hello&quot;: &quot;World&quot;}</code></pre>
+</doc-codeblock></div>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-bash"><code v-pre class="language-bash">JWKS_URI=https://aps-jwks-upstream-jwt-api-gov-bc-ca.dev.api.gov.bc.ca/certs \
+AUDIENCE=&lt;SERVICE-NAME&gt; \
+uvicorn server:app --reload</code></pre>
+</doc-codeblock></div>
+<blockquote>
+<p>NOTE: If you are trying to run this on a Mac and you get <code v-pre>unable to get local issuer certificate</code>, you may need to run: <code v-pre>open /Applications/Python\ 3.11/Install\ Certificates.command</code> to install the latest CA certificates.</p>
+</blockquote>
 
                                 
                                 <!-- Required only on API pages -->
@@ -271,6 +355,6 @@
 
     <div id="docs-overlay-target"></div>
 
-    <script data-cfasync="false">window.__DOCS__ = { "title": "Kong Upstream JWT", level: 3, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
+    <script data-cfasync="false">window.__DOCS__ = { "title": "Kong Upstream JWT", level: 3, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false, tocDepth: 23 }</script>
 </body>
 </html>
