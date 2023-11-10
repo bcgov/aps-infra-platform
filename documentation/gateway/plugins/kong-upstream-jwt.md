@@ -17,6 +17,13 @@ services:
         include_credential_type: false
 ```
 
+## JWKS
+
+| Environment   | URL                                                                  |
+| ------------- | -------------------------------------------------------------------- |
+| Test/Training | https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca/certs |
+| Production    | TBD - Pending Release                                                |
+
 ## Clients
 
 ### Javascript (Express)
@@ -94,7 +101,7 @@ def read_root( gateway: dict = Depends(gateway_auth)):
 ```
 
 ```sh
-JWKS_URI=https://aps-jwks-upstream-jwt-api-gov-bc-ca.dev.api.gov.bc.ca/certs \
+JWKS_URI=https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca/certs \
 AUDIENCE=<SERVICE-NAME> \
 uvicorn server:app --reload
 ```
