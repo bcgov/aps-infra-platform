@@ -125,13 +125,13 @@ To enable anonymous access to your API, update your plugin configuration with:
 This `pre-function` allows you to collect arbitrary metrics that you can then track in the APS Grafana instance (https://grafana.apps.gov.bc.ca/).
 
 ```
-echo """
+echo '
 if kong.request.get_query_arg("layers") ~= "WILDFIRE" then
     kong.service.request.set_header("x-event", "to-beid")
 else
     kong.service.request.set_header("x-event", "to-ocp")
 end
-""" | \
+' | \
 python3 -c "import json,sys; script=sys.stdin.read(); print(json.dumps(script.strip()))"
 
 - name: pre-function
