@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.752839861798">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.752974402638">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,11 +31,11 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.752839861798" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.752974402638" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.752839861798" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.752974402638" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.752839861798" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.752974402638" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -330,13 +330,13 @@
 </doc-anchor-target>
 <p>This <code v-pre>pre-function</code> allows you to collect arbitrary metrics that you can then track in the APS Grafana instance (<a href="https://grafana.apps.gov.bc.ca/">https://grafana.apps.gov.bc.ca/</a>).</p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">echo &quot;&quot;&quot;
+<pre class="language-none"><code v-pre class="language-none">echo '
 if kong.request.get_query_arg(&quot;layers&quot;) ~= &quot;WILDFIRE&quot; then
     kong.service.request.set_header(&quot;x-event&quot;, &quot;to-beid&quot;)
 else
     kong.service.request.set_header(&quot;x-event&quot;, &quot;to-ocp&quot;)
 end
-&quot;&quot;&quot; | \
+' | \
 python3 -c &quot;import json,sys; script=sys.stdin.read(); print(json.dumps(script.strip()))&quot;
 
 - name: pre-function
