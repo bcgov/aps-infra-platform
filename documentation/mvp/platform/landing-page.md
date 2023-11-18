@@ -63,6 +63,7 @@ Some of the features require you to create a developer account.
 
 ### API provider zone
 
+
 ![](../../artifacts/nontech-apiprovider.png)
 
 The [API provider zone](https://bcgov.github.io/aps-infra-platform/) is for **API providers** - people building back-end applications that expose APIs, including:
