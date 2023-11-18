@@ -8,7 +8,7 @@ order: 100
 
 ![](../../artifacts/nontech-overview.png)
 
-The BC Gov API Platform is the trusted and authoritative "front door" for government APIs.
+The BC Gov API Platform is the trusted and authoritative "front door" for government APIs ([What is an API?](../developer/what-is-an-api)).
 
 APIs are the building blocks of connected services. They allow different systems, applications, and data sources across BC government ministries and the broader public sector to talk to each other. Supporting connected services is a key part of the B.C. Government's Digital Plan and Data Management Policy.
 
