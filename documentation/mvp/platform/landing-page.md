@@ -4,7 +4,6 @@ order: 100
 
 # API Platform
 
-![](../../artifacts/banner-platform.png)
 ## Overview
 
 ![](../../artifacts/nontech-overview.png)
