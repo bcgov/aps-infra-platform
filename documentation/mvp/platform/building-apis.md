@@ -44,4 +44,4 @@ Our API delivery process includes all the steps needed to build and run a good A
 
 ## Getting started
 
-To get started as an API providers, see our [API producer zone](https://bcgov.github.io/aps-infra-platform).
+To get started as an API provider, see our [API provider zone](../provider/provider-zone).

@@ -78,7 +78,7 @@ It includes:
 - lightweight governance - to ensure APIs are built to a consistent quality
 - a portal for gateway and consumer access management
 
-Currently, you need an IDIR account to access parts of the API provider zone. To get access, see [getting started](#getting-started).
+Currently, you need a Government-issued account to access parts of the API provider zone. To get access, see [getting started](#getting-started).
 
 ## Service level
 
