@@ -159,7 +159,7 @@ Our bespoke code, including the code for all our API proxies, is mostly coded in
 
 ### API consumers
 
-To get started as an API provider, see the [developer hub](../developer/hub).
+To get started as an API consumer, see the [developer hub](../developer/hub).
 
 ### API providers
 
