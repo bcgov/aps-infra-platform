@@ -163,4 +163,4 @@ To get started as an API consumer, see the [developer hub](../developer/hub).
 
 ### API providers
 
-To get started as an API provider, see [Building APIs](./building-apis).
+To get started as an API provider, see [building government APIs](./building-apis).
