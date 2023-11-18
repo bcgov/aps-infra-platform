@@ -1,5 +1,7 @@
 # Developer Hub
 
+![](../../artifacts/banner-devhub.png)
+
 ![](../../artifacts/hub2.png)
 
 - Getting started with our APIs
