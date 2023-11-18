@@ -33,7 +33,7 @@ The API platform has three components:
 The API gateway is the runtime component of the API platform, and includes:
 
 - API proxies – the front door for each API, handling security and rate limiting
-- an authorisation server – in partnership with the [SSO team](https://bcgov.github.io/sso-requests), this authenticates and authorises the calling application and end user, and is integrated with [IDIM](https://www2.gov.bc.ca/gov/content/governments/services-for-government/information-management-technology/identity-and-authentication-services)
+- an authorisation server – in partnership with the [Common Hosted Single Sign-On team](https://bcgov.github.io/sso-requests), this service authenticates and authorises the calling application and end user, and is integrated with [Identity and Authentication Services](https://www2.gov.bc.ca/gov/content/governments/services-for-government/information-management-technology/identity-and-authentication-services)
 - logging, monitoring and alerting – tools to keep the platform healthy
 
 > Excluded:
@@ -63,10 +63,9 @@ Some of the features require you to create a developer account.
 
 ### API provider zone
 
-
 ![](../../artifacts/nontech-apiprovider.png)
 
-The [API provider zone](https://bcgov.github.io/aps-infra-platform/) is for **API providers** - people building back-end applications that expose APIs, including:
+The [API provider zone](../provider/provider-zone) is for **API providers** - people building back-end applications that expose APIs, including:
 
 - technical and non-technical people
 

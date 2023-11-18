@@ -32,4 +32,8 @@ APS provides a consistent approach for APIs that is aligned with B.C. government
 
 ## Getting started
 
+Developers building applications with B.C. government APIs can get started quickly by visiting the [API Services Portal](https://api.gov.bc.ca) and logging in with their GitHub, IDIR, or BC Services Card identity.
+
+The latest platform documentation and release notes can be found on our [BC Gov API Services GitHub](https://bcgov.github.io/aps-infra-platform/) page.
+
 ## Support
