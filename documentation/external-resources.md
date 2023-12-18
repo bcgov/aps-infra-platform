@@ -1,7 +1,7 @@
 ---
 title: External Resources
 order: 380
-icon: note
+#icon: note
 ---
 
 # External Resources
