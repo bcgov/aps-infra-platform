@@ -1,7 +1,7 @@
 ---
 title: Presentations
 order: 370
-icon: note
+#icon: note
 ---
 
 # Presentations
