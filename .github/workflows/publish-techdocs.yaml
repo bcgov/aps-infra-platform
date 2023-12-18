@@ -1,8 +1,8 @@
 name: Publish TechDocs
 
 on:
-  push: 
-    branches: [main] 
+  push:
+    branches: [test]
     paths:
       - "documentation/**"
       - "mkdocs.yml"
@@ -10,13 +10,13 @@ on:
   workflow_dispatch:
     inputs:
       deploy_location:
-        description: 'Deploy to'
+        description: "Deploy to"
         required: true
         default: dev
         type: choice
         options:
-        - dev
-        - prod
+          - dev
+          - prod
 
 jobs:
   publish-techdocs-site:
@@ -31,7 +31,7 @@ jobs:
       AWS_ENDPOINT: ${{ secrets.TECHDOCS_AWS_ENDPOINT }}
       ENTITY_NAMESPACE: ${{ vars.TECHDOCS_ENTITY_NAMESPACE }}
       ENTITY_KIND: ${{ vars.TECHDOCS_ENTITY_KIND }}
-      ENTITY_NAME: 'aps-infra-platform-docs'
+      ENTITY_NAME: "aps-infra-platform-docs"
 
     steps:
       - name: Checkout code
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/setup-node@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: "3.9"
 
       - name: Install techdocs-cli
         run: sudo npm install -g @techdocs/cli
@@ -65,7 +65,7 @@ jobs:
             --awsEndpoint $AWS_ENDPOINT \
             --awsS3ForcePathStyle true \
             --awsBucketRootPath $TECHDOCS_S3_DEV_ROOT_PATH
-      
+
       - name: Publish docs to prod bucket
         # Only publish to prod bucket on a manual trigger to prod
         if: github.event_name == 'workflow_dispatch' && inputs.deploy_location == 'prod'
@@ -75,4 +75,3 @@ jobs:
             --entity $ENTITY_NAMESPACE/$ENTITY_KIND/$ENTITY_NAME \
             --awsEndpoint $AWS_ENDPOINT \
             --awsS3ForcePathStyle true \
-            
