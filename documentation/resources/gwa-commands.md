@@ -108,13 +108,14 @@ $ gwa generate-config --template client-credentials-shared-idp \
 
 **Usage:** `gwa get [type] <flags> [flags]`
 
-Get gateway resources.  Retrieve a table of datasets, issuers, organizations or products.
+Get gateway resources.  Retrieve a table of datasets, issuers, organizations, org-units or products.
 
 **Flags**
 
 | Flag | Description |
 | ----- | ------ |
 | `--json` | Return output as JSON |
+| `--org string` | Organization to filter results by |
 | `--yaml` | Return output as YAML |
 
 
@@ -172,13 +173,14 @@ Create a new namespace
 | Flag | Description |
 | ----- | ------ |
 | `-d, --description string` | optionally add a description |
+| `-g, --generate` | generates a random, unique namespace |
 | `-n, --name string` | optionally define your own namespace |
 
 
 **Examples**
 
 ```shell
-$ gwa namespace create
+$ gwa namespace create --generate
 $ gwa namespace create --name my-namespace --description="This is my namespace"
 ```
 
@@ -218,9 +220,22 @@ List all your managed namespaces
 
 ## publish-gateway
 
-**Usage:** `gwa publish-gateway [configFile] [flags]`
+**Usage:** `gwa publish-gateway [inputs...] [flags]`
 
-Publish your kong configuration
+Once you have a gateway configuration file ready to publish, you can run the following command to reflect your changes in the gateway:  
+  
+  $ gwa pg sample.yaml  
+  
+If you want to see the expected changes but not actually apply them, you can run:  
+  
+  $ gwa pg --dry-run sample.yaml  
+  
+inputs accepts a wide variety of formats, for example:  
+  
+  1. Empty, which means find all the possible YAML files in the current directory and publish them  
+  2. A space-separated list of specific YAML files in the current directory, or  
+  3. A directory relative to the current directory  
+
 
 **Flags**
 
@@ -233,7 +248,9 @@ Publish your kong configuration
 **Examples**
 
 ```shell
-$ gwa publish-gateway path/to/config.yaml
+$ gwa publish-gateway
+$ gwa publish-gateway path/to/config1.yaml other-path/to/config2.yaml
+$ gwa publish-gateway path/to/directory/containing-configs/
 $ gwa publish-gateway path/to/config.yaml --dry-run
 $ gwa publish-gateway path/to/config.yaml --qualifier dev
 ```
