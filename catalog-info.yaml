@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "aps-infra-platform-docs"
+  description: "A guide to the BC Gov API Services"
+  annotations:
+    github.com/project-slug: bcgov/aps-infra-platform
+    backstage.io/techdocs-ref: dir:./documentation
+spec:
+  type: documentation
+  lifecycle: production
+  owner: "citz"

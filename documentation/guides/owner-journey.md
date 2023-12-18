@@ -149,7 +149,14 @@ Find information about authentication and authorization patterns, reference impl
 - [API Access](../resources/api-access.md) : Approve and administer controls for consumer access to your APIs.
 - [CI/CD Integration](../resources/cicd-integration.md)
 
+<<<<<<< HEAD
+
 ### Ready for Production?
+
+=======
+Use the `client-credentials` flow to protect your API (see [Client Credential Protection](../guides/tutorial-idp-client-cred-flow.md)).
+
+> > > > > > > f52b256db0e7414d8e33ef1404adb31f455779d4
 
 Our production instance supports all your environments, so once you know what you are building and are ready to deploy your "dev" environment, you can setup the API gateway in our production instance.
 

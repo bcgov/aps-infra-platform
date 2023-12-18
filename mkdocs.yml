@@ -1,0 +1,55 @@
+site_name: BC Gov API Services
+docs_dir: documentation
+
+nav:
+  - 'README.md'
+  - 'personas.md'
+  - Guides:
+    - 'guides/owner-journey.md'
+    - 'Client Credential Protection': 'guides/tutorial-idp-client-cred-flow.md'
+    - 'Signed JWT w/ Certificate': 'guides/intro-signed-jwt-pubkey.md'
+    - 'Signed JWT w/ Hosted JWKS': 'guides/intro-signed-jwt.md'
+    - 'guides/keycloak-rbac.md'
+    - 'guides/prom-query.md'
+  - Gateway:
+    - 'Supported Plugins': 'gateway/AVAILABLE-PLUGINS.md'
+    - 'Common Controls': 'gateway/COMMON-CONFIG.md'
+    - Plugins:
+      - 'gateway/plugins/acl.md'
+      - 'gateway/plugins/cors.md'
+      - 'gateway/plugins/gwa-ip-anonymity.md'
+      - 'gateway/plugins/jwt-keycloak.md'
+      - 'gateway/plugins/key-auth.md'
+      - 'gateway/plugins/kong-upstream-auth-basic.md'
+      - 'gateway/plugins/kong-upstream-jwt.md'
+      - 'gateway/plugins/oidc.md'
+      - 'gateway/plugins/oidc-consumer.md'
+      - 'gateway/plugins/proxy-cache.md'
+      - 'gateway/plugins/rate-limiting.md'
+      - 'gateway/plugins/request-transformer.md'
+      - 'gateway/plugins/waiting-queue.md'
+    - 'gateway/SSL.md'  
+  - Portal User Cases:
+    - 'portal-use-cases/login.md'
+    - 'portal-use-cases/create-service-account.md'
+    - 'portal-use-cases/switch-namespace.md'
+    - 'portal-use-cases/access.md'
+    - 'portal-use-cases/consumer-maintenance.md'
+    - 'portal-use-cases/websequencediagrams.md'
+  - Releases:
+    - 'releases/index.md'
+    - 'releases/2023-jun-1.2.12.md'
+    - 'releases/2023-mar-1.2.11.md'
+    - 'releases/2023-jan-1.2.6.md'
+    - 'releases/2022-oct-1.2.5.md'
+    - 'releases/2022-sept-1.2.4.md'
+    - 'releases/2022-sept.md'
+    - 'releases/2022-aug.md'
+    - 'releases/2022-may.md'
+    - 'releases/2021-jun.md'
+  - 'glossary.md'
+  - 'resources.md'
+  - 'presentations.md'
+
+plugins: 
+- techdocs-core
