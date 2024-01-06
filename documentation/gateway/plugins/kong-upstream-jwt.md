@@ -22,7 +22,7 @@ services:
 | Environment   | URL                                                                  |
 | ------------- | -------------------------------------------------------------------- |
 | Test/Training | https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca/certs |
-| Production    | TBD - Pending Release                                                |
+| Production    | https://aps-jwks-upstream-jwt.api.gov.bc.ca/certs                    |
 
 ## Clients
 
@@ -54,6 +54,8 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 ```
+
+For `test/training` environment:
 
 ```sh
 ISSUER_BASE_URL=https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca \
@@ -99,6 +101,8 @@ def gateway_auth(request: Request) -> dict:
 def read_root( gateway: dict = Depends(gateway_auth)):
     return {"Hello": "World"}
 ```
+
+For `test/training` environment:
 
 ```sh
 JWKS_URI=https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca/certs \
