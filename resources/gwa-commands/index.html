@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.754880550589">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.758315815371">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,12 +31,12 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.754880550589" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.758315815371" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.754880550589" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.758315815371" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.754880550589" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.754880550589" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.758315815371" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.758315815371" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -343,7 +343,7 @@ $ gwa generate-config --template client-credentials-shared-idp \
     </h2>
 </doc-anchor-target>
 <p><strong>Usage:</strong> <code v-pre>gwa get [type] &lt;flags&gt; [flags]</code></p>
-<p>Get gateway resources.  Retrieve a table of datasets, issuers, organizations or products.</p>
+<p>Get gateway resources.  Retrieve a table of datasets, issuers, organizations, org-units or products.</p>
 <p><strong>Flags</strong></p>
 <div class="table-wrapper scrollbar overflow-hidden">
 <table class="comfortable">
@@ -357,6 +357,10 @@ $ gwa generate-config --template client-credentials-shared-idp \
 <tr>
 <td><code v-pre>--json</code></td>
 <td>Return output as JSON</td>
+</tr>
+<tr>
+<td><code v-pre>--org string</code></td>
+<td>Organization to filter results by</td>
 </tr>
 <tr>
 <td><code v-pre>--yaml</code></td>
@@ -445,6 +449,10 @@ $ gwa login --client-id &lt;YOUR_CLIENT_ID&gt; --client-secret &lt;YOUR_CLIENT_S
 <td>optionally add a description</td>
 </tr>
 <tr>
+<td><code v-pre>-g, --generate</code></td>
+<td>generates a random, unique namespace</td>
+</tr>
+<tr>
 <td><code v-pre>-n, --name string</code></td>
 <td>optionally define your own namespace</td>
 </tr>
@@ -453,7 +461,7 @@ $ gwa login --client-id &lt;YOUR_CLIENT_ID&gt; --client-secret &lt;YOUR_CLIENT_S
 </div>
 <p><strong>Examples</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">$ gwa namespace create
+<pre class="language-bash"><code v-pre class="language-bash">$ gwa namespace create --generate
 $ gwa namespace create --name my-namespace --description=&quot;This is my namespace&quot;</code></pre>
 </doc-codeblock></div>
 <doc-anchor-target id="namespacecurrent">
@@ -512,8 +520,17 @@ $ gwa namespace create --name my-namespace --description=&quot;This is my namesp
         <span>publish-gateway</span>
     </h2>
 </doc-anchor-target>
-<p><strong>Usage:</strong> <code v-pre>gwa publish-gateway [configFile] [flags]</code></p>
-<p>Publish your kong configuration</p>
+<p><strong>Usage:</strong> <code v-pre>gwa publish-gateway [inputs...] [flags]</code></p>
+<p>Once you have a gateway configuration file ready to publish, you can run the following command to reflect your changes in the gateway:</p>
+<p>$ gwa pg sample.yaml</p>
+<p>If you want to see the expected changes but not actually apply them, you can run:</p>
+<p>$ gwa pg --dry-run sample.yaml</p>
+<p>inputs accepts a wide variety of formats, for example:</p>
+<ol>
+<li>Empty, which means find all the possible YAML files in the current directory and publish them</li>
+<li>A space-separated list of specific YAML files in the current directory, or</li>
+<li>A directory relative to the current directory</li>
+</ol>
 <p><strong>Flags</strong></p>
 <div class="table-wrapper scrollbar overflow-hidden">
 <table class="comfortable">
@@ -537,7 +554,9 @@ $ gwa namespace create --name my-namespace --description=&quot;This is my namesp
 </div>
 <p><strong>Examples</strong></p>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-bash"><code v-pre class="language-bash">$ gwa publish-gateway path/to/config.yaml
+<pre class="language-bash"><code v-pre class="language-bash">$ gwa publish-gateway
+$ gwa publish-gateway path/to/config1.yaml other-path/to/config2.yaml
+$ gwa publish-gateway path/to/directory/containing-configs/
 $ gwa publish-gateway path/to/config.yaml --dry-run
 $ gwa publish-gateway path/to/config.yaml --qualifier dev</code></pre>
 </doc-codeblock></div>
@@ -608,7 +627,7 @@ $ gwa status --json</code></pre>
                                     <ul class="flex flex-wrap items-center text-sm">
                                     </ul>
                                 </div>
-                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2023. All rights reserved.</p></div>
+                                <div class="docs-copyright py-2 text-gray-500 dark:text-dark-350 text-sm leading-relaxed"><p>© Copyright 2024. All rights reserved.</p></div>
                             </footer>
                         </div>
                     </div>
