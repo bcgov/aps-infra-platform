@@ -37,11 +37,11 @@ Here, additional metadata details defined in the `dataset` are visible, as well 
 
 API Listings in the Directory can be created and managed via:
 
-- **Command Line Interface (CLI)**: See the [Quick Start guide](../guides/owner-journey.md) for instructions on downloading the CLI and logging in.
+- :star: **Command Line Interface (CLI)**: See the [Quick Start guide](../guides/owner-journey.md) for instructions on downloading the CLI and logging in.
 - **Directory API**: Go to [Gateway Administration](../resources/gateway-admin.md#directory-api) for links to the Directory API specs and Swagger UI.
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
-!!! API Services Portal web UI limitations
+!!! Web UI limitations
 At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
 !!!
 
@@ -117,7 +117,7 @@ Now it's time to publish the dataset:
 +++ CLI
 1. Login - `gwa login`
 2. Set the namespace - `gwa config set namespace <namespace-name>`
-3. Publish the draft dataset - `gwa apply -i <draft-dataset.yaml`
+3. Publish the draft dataset - `gwa apply -i <draft-dataset.yaml>`
 
 You should see `✔ [DraftDataset] <dataset-name>: created`
 +++ API (Swagger UI)
@@ -152,11 +152,14 @@ Preview your new API listing by opening the API Directory and clicking the **You
 
 If you haven't added a product yet, follow these steps and then link your dataset:
 
++++ CLI
+1. Create a product configuration using the YAML template below.
+   
+   Specify your dataset by `name` in the config - `dataset: my-draft-dataset`
+2. Publish the product - `gwa apply -i <product.yaml>`
 +++ Web UI
 1. Navigate to Namespaces -> Products.
 2. Click `New Product` in the top right.
-+++ CLI (coming soon)
-<!-- TODO: Add CLI instructions -->
 +++
 
 +++YAML Template
