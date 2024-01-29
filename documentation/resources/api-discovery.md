@@ -65,7 +65,7 @@ Start by writing up a draft dataset in a local YAML file (if using the CLI) or J
 kind: DraftDataset # object type for gwa-cli use
 name: my-draft-dataset # unique dataset name, not displayed
 title: Useful API # API title shown on the Directory
-notes: A handy API with many uses # API description, supports Markdown formatting
+notes: A handy API with many uses. # API description, supports Markdown formatting
 tags: [useful, data, openapi] # keywords, may be used for search in future
 organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the namespace
 organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
@@ -79,7 +79,7 @@ record_publish_date: "2021-05-27" # date when the API was published
 kind: DraftDataset
 name: my-draft-dataset
 title: Useful API
-notes: A handy API with many uses
+notes: A handy API with many uses.
 tags: [useful, data, openapi]
 organization: ministry-of-citizens-services
 organizationUnit: databc
@@ -93,7 +93,7 @@ record_publish_date: "2021-05-27"
 {
   "name": "my-draft-dataset",
   "title": "Useful API",
-  "notes": "A handy API with many uses",
+  "notes": "A handy API with many uses.",
   "tags": [
     "useful",
     "data",
@@ -144,13 +144,13 @@ Search is exact. Be mindful of spaces and case.
 !!!
 5. Click Update.
 
-Preview your new API listing by opening the API Directory and clicking the **Your Products** tab.
+Preview your new API listing by opening the API Directory and clicking the **Your Products** tab. Confirm everything is as desired.
 
-<!-- TODO: Add image of new listing -->
+![New API card](assets/new-api-directory-card.png)
 
 #### Setup a New Product
 
-How to add a Product:
+If you haven't added a product yet, follow these steps and then link your dataset:
 
 +++ Web UI
 1. Navigate to Namespaces -> Products.
