@@ -140,3 +140,32 @@ python3 -c "import json,sys; script=sys.stdin.read(); print(json.dumps(script.st
     access:
     - "<PUT OUTPUT FROM ABOVE HERE>"
 ```
+
+## Disabling global error handling
+
+APS has a global `post-function` plugin that transforms the response message if the following HTTP status codes are returned by the upstream service:
+
+```
+s408 = "Request timeout",
+s411 = "Length required",
+s412 = "Precondition failed",
+s413 = "Payload too large",
+s414 = "URI too long",
+s417 = "Expectation failed",
+s494 = "Request header or cookie too large",
+s500 = "An unexpected error occurred",
+s502 = "An invalid response was received from the upstream server",
+s503 = "The upstream server is currently unavailable",
+s504 = "The upstream server is timing out",
+```
+
+If this transformation is not desired, you can override it by including the following plugin on your Service:
+
+```
+plugins:
+  - name: post-function
+    tags: [ _NS_ ]
+    config:
+      rewrite:
+      - "--"
+```
