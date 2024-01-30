@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.759538548937">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.759964566520">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -31,11 +31,11 @@
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.759538548937" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.759964566520" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.759538548937" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.759964566520" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.759538548937" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.759964566520" data-turbo-eval="false" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -344,6 +344,35 @@ python3 -c &quot;import json,sys; script=sys.stdin.read(); print(json.dumps(scri
   config:
     access:
     - &quot;&lt;PUT OUTPUT FROM ABOVE HERE&gt;&quot;</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="disabling-global-error-handling">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#disabling-global-error-handling">#</doc-anchor-trigger>
+        <span>Disabling global error handling</span>
+    </h2>
+</doc-anchor-target>
+<p>APS has a global <code v-pre>post-function</code> plugin that transforms the response message if the following HTTP status codes are returned by the upstream service:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">s408 = &quot;Request timeout&quot;,
+s411 = &quot;Length required&quot;,
+s412 = &quot;Precondition failed&quot;,
+s413 = &quot;Payload too large&quot;,
+s414 = &quot;URI too long&quot;,
+s417 = &quot;Expectation failed&quot;,
+s494 = &quot;Request header or cookie too large&quot;,
+s500 = &quot;An unexpected error occurred&quot;,
+s502 = &quot;An invalid response was received from the upstream server&quot;,
+s503 = &quot;The upstream server is currently unavailable&quot;,
+s504 = &quot;The upstream server is timing out&quot;,</code></pre>
+</doc-codeblock></div>
+<p>If this transformation is not desired, you can override it by including the following plugin on your Service:</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">plugins:
+  - name: post-function
+    tags: [ _NS_ ]
+    config:
+      rewrite:
+      - &quot;--&quot;</code></pre>
 </doc-codeblock></div>
 
                                 
