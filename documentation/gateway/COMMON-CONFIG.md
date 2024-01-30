@@ -143,7 +143,7 @@ python3 -c "import json,sys; script=sys.stdin.read(); print(json.dumps(script.st
 
 ## Disabling global error handling
 
-APS has a global `post-function` plugin that transforms the response message if the following HTTP Status Codes:
+APS has a global `post-function` plugin that transforms the response message if the following HTTP status codes are returned by the upstream service:
 
 ```
 s408 = "Request timeout",
