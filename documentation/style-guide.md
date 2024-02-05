@@ -1,11 +1,5 @@
 <!-- copied whole hog from https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/style/style-guide.md -->
 <!-- needs to be pared down -->
----
-title: Documentation Style Guide
-linktitle: Style guide
-content_type: concept
-weight: 40
----
 
 <!-- overview -->
 This page gives writing style guidelines for the Kubernetes documentation.
@@ -29,16 +23,6 @@ with some adjustments along with a few
 glossary entries, tabs, and representing feature state.
 {{< /note >}}
 
-## Language
-
-Kubernetes documentation has been translated into multiple languages
-(see [Localization READMEs](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)).
-
-The way of localizing the docs for a different language is described in [Localizing Kubernetes Documentation](/docs/contribute/localization/).
-
-The English-language documentation uses U.S. English spelling and grammar.
-
-{{< comment >}}[If you're localizing this page, you can omit the point about US English.]{{< /comment >}}
 
 ## Documentation formatting standards
 
@@ -115,6 +99,23 @@ Do | Don't
 events are recorded with an associated "stage". | events are recorded with an associated "stage."
 The copy is called a "fork". | The copy is called a "fork."
 {{< /table >}}
+
+### Tabs
+Test
+=== "Tab 1"
+    Markdown **content**.
+
+    Multiple paragraphs.
+
+=== "Tab 2"
+    More Markdown **content**.
+
+    - list item a
+    - list item b
+
+## Keyboard keys / UI buttons
+++ctrl++
+++Activity++
 
 ## Inline code formatting
 
@@ -307,6 +308,19 @@ On-premises | On-premises or On-prem rather than On-premise or other variations.
 {{< /table >}}
 
 ## Shortcodes
+
+[PyMdown blocks](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
+
+```
+/// note | Did you know?
+You can create a note with Blocks!
+///
+```
+
+/// note | Did you know?
+You can create a note with Blocks!
+///
+
 
 Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create
 different rhetorical appeal levels. Our documentation supports three different
