@@ -47,7 +47,7 @@ At this time, not all steps required to create an API listing are possible throu
 
 ### Environments
 
-All API Directory functionality is available in the `test` environment. Feel free to create an API listing there before adding to the production Directory.
+All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
 
 | Environment     | API Services Portal Directory Link                               |
 | --------------- | ---------------------------------------------------------------- |
