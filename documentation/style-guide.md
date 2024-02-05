@@ -91,14 +91,12 @@ Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory.
 Open the `/_data/concepts.yaml` file. | Open the /\_data/concepts.yaml file.
 {{< /table >}}
 
-### Use the international standard for punctuation inside quotes
+### Table
 
-{{< table caption = "Do and Don't - Use the international standard for punctuation inside quotes" >}}
-Do | Don't
-:--| :-----
-events are recorded with an associated "stage". | events are recorded with an associated "stage."
-The copy is called a "fork". | The copy is called a "fork."
-{{< /table >}}
+| Do | Don't |
+|--| -----|
+| events are recorded with an associated "stage". | events are recorded with an associated "stage."|
+| The copy is called a "fork". | The copy is called a "fork."
 
 ### Tabs
 
