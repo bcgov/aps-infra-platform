@@ -1,5 +1,5 @@
 <!-- copied whole hog from https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/style/style-guide.md -->
-<!-- needs to be slimmed down -->
+<!-- needs to be pared down -->
 ---
 title: Documentation Style Guide
 linktitle: Style guide
