@@ -101,7 +101,7 @@ The copy is called a "fork". | The copy is called a "fork."
 {{< /table >}}
 
 ### Tabs
-Test
+
 === "Tab 1"
     Markdown **content**.
 
@@ -113,45 +113,63 @@ Test
     - list item a
     - list item b
 
-### Keyboard keys / UI buttons
-DOESN'T WORK?
-++ctrl++
-++Activity++
-
-### Highlight Lines
-```{.python hl_lines="1 3"}
-import foo.bar
-import boo.baz
-import foo.bar.baz
-```
+=== "Tab 3"
+    ```
+    kind: DraftDataset
+    name: my-draft-dataset
+    title: Useful API
+    ```
 
 ```
-```{.python hl_lines="1 3"}
-import foo.bar
-import boo.baz
-import foo.bar.baz
-```
-```
+=== "Tab 1"
+    Markdown **content**.
 
-### Code snippet titles
-````text title="Snazzy command"
-```
-import foo.bar
-```
-````
-```
+    Multiple paragraphs.
 
-```
-````text title="Snazzy command"
-```
-import foo.bar
-```
-````
+=== "Tab 2"
+    More Markdown **content**.
+
+    - list item a
+    - list item b
 ```
 
 ### Blocks
-#### PyMdown blocks don't work
-[PyMdown blocks](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
+
+!!! warning
+    Beware!
+
+```
+!!! warning
+    Beware!
+```
+
+!!! info
+    Take note
+
+```
+!!! info
+    Take note
+```
+
+!!! note
+    Seriously, take a note
+
+```
+!!! note
+    Seriously, take a note
+```
+
+### Things that don't work
+Or I haven't figured out yet
+
+#### Code block titles
+```
+!!! note | FYI
+    You can't specify a block title
+```
+
+#### PyMdown blocks
+[reference](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
 
 ```
 /// note | Did you know?
@@ -159,41 +177,21 @@ You can create a note with Blocks!
 ///
 ```
 
-#### `!!!`?
+#### Code snippet titles
 
-!!! warning
-    Beware!
-
+#### Code line highlighting
 ```
-!!! warning
-    Beware!
+```{.python hl_lines="1 3"}
+import foo.bar
+import boo.baz
+import foo.bar.baz
 ```
-
-!!! info
-    Take note
-
-```
-!!! info
-    Take note
 ```
 
-!!! note
-    Seriously, take a note
-
-```
-!!! note
-    Seriously, take a note
-```
-
-!!! note | FYI
-    You can specify a block title
-
-```
-!!! note | FYI
-    You can specify a block title
-```
-
-
+#### Keyboard keys / UI buttons
+https://facelessuser.github.io/pymdown-extensions/extensions/keys/
+++ctrl++
+++Activity++
 
 ## Inline code formatting
 
