@@ -178,13 +178,13 @@ You can create a note with Blocks!
 #### Code snippet titles
 
 #### Code line highlighting
-```
+````
 ```{.python hl_lines="1 3"}
 import foo.bar
 import boo.baz
 import foo.bar.baz
 ```
-```
+````
 
 #### Keyboard keys / UI buttons
 https://facelessuser.github.io/pymdown-extensions/extensions/keys/
