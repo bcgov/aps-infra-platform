@@ -113,9 +113,88 @@ Test
     - list item a
     - list item b
 
-## Keyboard keys / UI buttons
+### Keyboard keys / UI buttons
+DOESN'T WORK?
 ++ctrl++
 ++Activity++
+
+### Highlight Lines
+```{.python hl_lines="1 3"}
+import foo.bar
+import boo.baz
+import foo.bar.baz
+```
+
+```
+```{.python hl_lines="1 3"}
+import foo.bar
+import boo.baz
+import foo.bar.baz
+```
+```
+
+### Code snippet titles
+````text title="Snazzy command"
+```
+import foo.bar
+```
+````
+```
+
+```
+````text title="Snazzy command"
+```
+import foo.bar
+```
+````
+```
+
+### Blocks
+#### PyMdown blocks don't work
+[PyMdown blocks](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
+
+```
+/// note | Did you know?
+You can create a note with Blocks!
+///
+```
+
+#### `!!!`?
+
+!!! warning
+   Beware!
+
+```
+!!! warning
+   Beware!
+```
+
+!!! info
+   Take note
+
+```
+!!! info
+   Take note
+```
+
+!!! note
+   Seriously, take a note
+
+```
+!!! note
+   Seriously, take a note
+```
+
+!!! caution
+   Danger Robinson
+
+```
+!!! caution
+   Danger Robinson
+```
+
+
+
 
 ## Inline code formatting
 
@@ -308,19 +387,6 @@ On-premises | On-premises or On-prem rather than On-premise or other variations.
 {{< /table >}}
 
 ## Shortcodes
-
-[PyMdown blocks](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
-
-```
-/// note | Did you know?
-You can create a note with Blocks!
-///
-```
-
-/// note | Did you know?
-You can create a note with Blocks!
-///
-
 
 Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create
 different rhetorical appeal levels. Our documentation supports three different
