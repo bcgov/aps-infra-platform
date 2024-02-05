@@ -162,37 +162,36 @@ You can create a note with Blocks!
 #### `!!!`?
 
 !!! warning
-   Beware!
+    Beware!
 
 ```
 !!! warning
-   Beware!
+    Beware!
 ```
 
 !!! info
-   Take note
+    Take note
 
 ```
 !!! info
-   Take note
+    Take note
 ```
 
 !!! note
-   Seriously, take a note
+    Seriously, take a note
 
 ```
 !!! note
-   Seriously, take a note
+    Seriously, take a note
 ```
 
-!!! caution
-   Danger Robinson
+!!! note | FYI
+    You can specify a block title
 
 ```
-!!! caution
-   Danger Robinson
+!!! note | FYI
+    You can specify a block title
 ```
-
 
 
 
