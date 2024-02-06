@@ -151,17 +151,17 @@ Preview your new API listing by opening the API Directory and clicking the **You
 
 If you haven't added a product yet, follow these steps and then link your dataset:
 
-+++ CLI
+=== "CLI"
 1. Create a product configuration using the YAML template below.
    
    Specify your dataset by `name` in the config - `dataset: my-draft-dataset`
 2. Publish the product - `gwa apply -i <product.yaml>`
-+++ Web UI
+=== "Web UI"
 1. Navigate to Namespaces -> Products.
 2. Click `New Product` in the top right.
-+++
 
-+++YAML Template
+
+===! "YAML Template"
 <!-- TODO: describe product fields -->
 ```yaml
 kind: Product
@@ -175,14 +175,14 @@ environments:
     approval: false
     services: [my-service-dev]
 ```
-+++
+
 ### Enabling for Discovery
 
 Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.
 
-!!!Prerequisite: Add Organization
-Before sharing your API on the API Directory, you must add your Organization and Business Unit to your namespace. If you have yet to complete this you will see a banner on the `Namespaces` page on the API Service Portal asking you to `Add Organization`. You will then need to wait for approval from the Organization Administrator.
-!!!
+!!! note "Prerequisite: Add Organization"
+  Before sharing your API on the API Directory, you must add your Organization and Business Unit to your namespace. If you have yet to complete this you will see a banner on the `Namespaces` page on the API Service Portal asking you to `Add Organization`. You will then need to wait for approval from the Organization Administrator.
+
 
 Enable an environment to display the API in the API Directory. You can individually enable each environment (dev, test, prod). 
 
