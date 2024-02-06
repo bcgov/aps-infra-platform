@@ -17,15 +17,16 @@ propose changes to this document in a pull request.
 testing [truly-sane-lists](https://pypi.org/project/mdx-truly-sane-lists/) functionality
 
 - attributes
+  - type
  
 - customer 
-    - first_name
-    - family_name
-    - email
+  - first_name
+  - family_name
+  - email
 - person
-    - first_name
-    - family_name
-    - birth_date
+  - first_name
+  - family_name
+  - birth_date
 - subscription_id
 
 - request
