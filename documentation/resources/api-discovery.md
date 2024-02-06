@@ -59,75 +59,75 @@ First, we need a draft dataset with metadata about your API. This information he
 Start by writing up a draft dataset in a local YAML file (if using the CLI) or JSON file (if using the API). Here is the schema, omitting some optional fields:
 
 === "YAML Template (w/ field descriptions)"
-```yaml
-kind: DraftDataset # object type for gwa-cli use
-name: my-draft-dataset # unique dataset name, not displayed
-title: Useful API # API title shown on the Directory
-notes: A handy API with many uses. # API description, supports Markdown formatting
-tags: [useful, data, openapi] # keywords, may be used for search in future
-organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the namespace
-organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
-license_title: Open Government Licence - British Columbia # see https://bcgov.github.io/data-publication/pages/dps_licences.html for licensing options
-view_audience: Government # who can access the API
-security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
-record_publish_date: "2021-05-27" # date when the API was published
-```
+    ```yaml
+    kind: DraftDataset # object type for gwa-cli use
+    name: my-draft-dataset # unique dataset name, not displayed
+    title: Useful API # API title shown on the Directory
+    notes: A handy API with many uses. # API description, supports Markdown formatting
+    tags: [useful, data, openapi] # keywords, may be used for search in future
+    organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the namespace
+    organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
+    license_title: Open Government Licence - British Columbia # see https://bcgov.github.io/data-publication/pages/dps_licences.html for licensing options
+    view_audience: Government # who can access the API
+    security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
+    record_publish_date: "2021-05-27" # date when the API was published
+    ```
 
 === "YAML Template"
-```yaml
-kind: DraftDataset
-name: my-draft-dataset
-title: Useful API
-notes: A handy API with many uses.
-tags: [useful, data, openapi]
-organization: ministry-of-citizens-services
-organizationUnit: databc
-license_title: Open Government Licence - British Columbia
-view_audience: Government
-security_class: PUBLIC
-record_publish_date: "2021-05-27"
-```
+    ```yaml
+    kind: DraftDataset
+    name: my-draft-dataset
+    title: Useful API
+    notes: A handy API with many uses.
+    tags: [useful, data, openapi]
+    organization: ministry-of-citizens-services
+    organizationUnit: databc
+    license_title: Open Government Licence - British Columbia
+    view_audience: Government
+    security_class: PUBLIC
+    record_publish_date: "2021-05-27"
+    ```
 
 === "JSON Template"
-```json
-{
-  "name": "my-draft-dataset",
-  "title": "Useful API",
-  "notes": "A handy API with many uses.",
-  "tags": [
-    "useful",
-    "data",
-    "openapi"
-  ],
-  "organization": "ministry-of-citizens-services",
-  "organizationUnit": "databc",
-  "license_title": "Open Government Licence - British Columbia",
-  "view_audience": "Government",
-  "security_class": "PUBLIC",
-  "record_publish_date": "2021-05-27"
-}
-```
+    ```json
+    {
+    "name": "my-draft-dataset",
+    "title": "Useful API",
+    "notes": "A handy API with many uses.",
+    "tags": [
+        "useful",
+        "data",
+        "openapi"
+    ],
+    "organization": "ministry-of-citizens-services",
+    "organizationUnit": "databc",
+    "license_title": "Open Government Licence - British Columbia",
+    "view_audience": "Government",
+    "security_class": "PUBLIC",
+    "record_publish_date": "2021-05-27"
+    }
+    ```
 
 Check our [source code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116) for up-to-date data rules for `DraftDatasets`.
 
 Now it's time to publish the dataset:
 
 === "CLI"
-1. Login - `gwa login`
-2. Set the namespace - `gwa config set namespace <namespace-name>`
-3. Publish the draft dataset - `gwa apply -i <draft-dataset.yaml>`
+    1. Login - `gwa login`
+    2. Set the namespace - `gwa config set namespace <namespace-name>`
+    3. Publish the draft dataset - `gwa apply -i <draft-dataset.yaml>`
 
-You should see `✔ [DraftDataset] <dataset-name>: created`
+    You should see `✔ [DraftDataset] <dataset-name>: created`
 
 === "API (Swagger UI)"
-1. [Login](https://api.gov.bc.ca/login?identity=provider&f=%2F) to the API Services Portal as an API Provider.
-2. Click **Help** in the top right, then **API Docs** to open the [Swagger UI](https://api.gov.bc.ca/ds/api/v2/console/).
-3. Under API Directory, click the **PUT /namespaces/{ns}/datasets** [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
-4. Click **Try it out**.
-5. Enter your namespace.
-6. Copy your JSON `dataset` into the Request body.
-7. Click **Execute**.
-8. Scroll down and ensure a `200` Response was received.
+    1. [Login](https://api.gov.bc.ca/login?identity=provider&f=%2F) to the API Services Portal as an API Provider.
+    2. Click **Help** in the top right, then **API Docs** to open the [Swagger UI](https://api.gov.bc.ca/ds/api/v2/console/).
+    3. Under API Directory, click the **PUT /namespaces/{ns}/datasets** [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
+    4. Click **Try it out**.
+    5. Enter your namespace.
+    6. Copy your JSON `dataset` into the Request body.
+    7. Click **Execute**.
+    8. Scroll down and ensure a `200` Response was received.
 
 
 ### Link Your Dataset to a Product
@@ -152,29 +152,29 @@ Preview your new API listing by opening the API Directory and clicking the **You
 If you haven't added a product yet, follow these steps and then link your dataset:
 
 === "CLI"
-1. Create a product configuration using the YAML template below.
-   
-   Specify your dataset by `name` in the config - `dataset: my-draft-dataset`
-2. Publish the product - `gwa apply -i <product.yaml>`
+    1. Create a product configuration using the YAML template below.
+      
+      Specify your dataset by `name` in the config - `dataset: my-draft-dataset`
+    2. Publish the product - `gwa apply -i <product.yaml>`
 === "Web UI"
-1. Navigate to **Namespaces** -> **Products**.
-2. Click **New Product** in the top right.
+    1. Navigate to **Namespaces** -> **Products**.
+    2. Click **New Product** in the top right.
 
 
 ===! "YAML Template"
 <!-- TODO: describe product fields -->
-```yaml
-kind: Product
-appId: 'D31E616FE1A6'
-name: Useful API
-dataset: my-draft-dataset
-environments:
-  - name: dev
-    appId: '4221AAF6'
-    active: false
-    approval: false
-    services: [my-service-dev]
-```
+    ```yaml
+    kind: Product
+    appId: 'D31E616FE1A6'
+    name: Useful API
+    dataset: my-draft-dataset
+    environments:
+    - name: dev
+        appId: '4221AAF6'
+        active: false
+        approval: false
+        services: [my-service-dev]
+    ```
 
 ### Enabling for Discovery
 
