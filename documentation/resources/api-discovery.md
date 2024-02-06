@@ -112,13 +112,14 @@ Check our [source code](https://github.com/bcgov/api-services-portal/blob/dev/sr
 
 Now it's time to publish the dataset:
 
-+++ CLI
+=== "CLI"
 1. Login - `gwa login`
 2. Set the namespace - `gwa config set namespace <namespace-name>`
 3. Publish the draft dataset - `gwa apply -i <draft-dataset.yaml>`
 
 You should see `✔ [DraftDataset] <dataset-name>: created`
-+++ API (Swagger UI)
+
+=== "API (Swagger UI)"
 1. [Login](https://api.gov.bc.ca/login?identity=provider&f=%2F) to the API Services Portal as an API Provider.
 2. Click `Help` in the top right, then `API Docs` to open the [Swagger UI](https://api.gov.bc.ca/ds/api/v2/console/).
 3. Under API Directory, click the `PUT /namespaces/{ns}/datasets` [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
@@ -127,7 +128,7 @@ You should see `✔ [DraftDataset] <dataset-name>: created`
 6. Copy your JSON `dataset` into the Request body
 7. Click `Execute`
 8. Scroll down and ensure a `200` Response was received
-+++
+
 
 ### Link Your Dataset to a Product
 
