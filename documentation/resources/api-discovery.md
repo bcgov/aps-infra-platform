@@ -21,7 +21,7 @@ Cards show basic metadata about the API: the API name (`title`), associated mini
 Despite the name `dataset`, don't think that all API's need to serve *data*. Many API's provide services, for example, the [BC Route Planner API](https://api.gov.bc.ca/devportal/api-directory/740?preview=false) returns vehicle routes between start and end points.
 
 !!! info
-  Think of `datasets` as API metadata records.
+    Think of `datasets` as API metadata records.
 
 Clicking on the API name opens the full API listing details.
 ![BC Route Planner API listing details](assets/api-directory-listing.png)
@@ -29,7 +29,7 @@ Clicking on the API name opens the full API listing details.
 Here, additional metadata details defined in the `dataset` are visible, as well as the associated `products` which consumers can request access to.
 
 !!! info
-  `products` bundle one or more gateway services which are protected in the same way. They are used to manage consumer access.
+    `products` bundle one or more gateway services which are protected in the same way. They are used to manage consumer access.
 
 ## Sharing Your API
 
@@ -40,16 +40,13 @@ API Listings in the Directory can be created and managed via:
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
 !!! Web UI limitations
-At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
+    At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
 
 !!! (Web UI limitations)
-At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
+    At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
 
 !!! warning (Web UI limitations)
-At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
-
-[!NOTE]  
-Highlights information that users should take into account, even when skimming.
+    At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
 
 ### Environments
 
