@@ -13,6 +13,23 @@ propose changes to this document in a pull request.
 
 ## Markdown Syntax
 
+### Lists
+testing [truly-sane-lists](https://pypi.org/project/mdx-truly-sane-lists/) functionality
+
+- attributes
+ 
+- customer 
+    - first_name
+    - family_name
+    - email
+- person
+    - first_name
+    - family_name
+    - birth_date
+- subscription_id
+
+- request
+
 ### Table
 
 | Do | Don't |
