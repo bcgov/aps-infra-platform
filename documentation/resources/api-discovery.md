@@ -72,6 +72,7 @@ view_audience: Government # who can access the API
 security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
 record_publish_date: "2021-05-27" # date when the API was published
 ```
+
 === "YAML Template"
 ```yaml
 kind: DraftDataset
@@ -86,6 +87,7 @@ view_audience: Government
 security_class: PUBLIC
 record_publish_date: "2021-05-27"
 ```
+
 === "JSON Template"
 ```json
 {
