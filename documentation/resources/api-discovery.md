@@ -35,17 +35,14 @@ Here, additional metadata details defined in the `dataset` are visible, as well 
 
 API Listings in the Directory can be created and managed via:
 
-- :star: **Command Line Interface (CLI)**: See the [Quick Start guide](../guides/owner-journey.md) for instructions on downloading the CLI and logging in.
+- ⭐ **Command Line Interface (CLI)**: See the [Quick Start guide](../guides/owner-journey.md) for instructions on downloading the CLI and logging in.
 - **Directory API**: Go to [Gateway Administration](../resources/gateway-admin.md#directory-api) for links to the Directory API specs and Swagger UI.
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
-!!! Web UI limitations
-    At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
+!!! Warning
+    **Web UI limitations**: At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
 
-!!! (Web UI limitations)
-    At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
-
-!!! warning (Web UI limitations)
+!!! warning "Web UI limitations"
     At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
 
 ### Environments

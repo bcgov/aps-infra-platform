@@ -159,13 +159,10 @@ Open the `/_data/concepts.yaml` file. | Open the /\_data/concepts.yaml file.
 
 #### Details
 ??? optional-class "Summary"
-    Here's some content.
-
-??? multiple optional-class "Summary"
-    Here's some content.
+    Write the class, then a title/summary in quotes, then more content in here.
 
 ???+ warning "Summary"
-    Expand this by default
+    Expand details by default with a `+`.
 
 
 ### Things that don't work
