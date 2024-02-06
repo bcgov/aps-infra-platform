@@ -58,7 +58,7 @@ First, we need a draft dataset with metadata about your API. This information he
 
 Start by writing up a draft dataset in a local YAML file (if using the CLI) or JSON file (if using the API). Here is the schema, omitting some optional fields:
 
-+++ YAML Template (w/ field descriptions)
+=== "YAML Template (w/ field descriptions)"
 ```yaml
 kind: DraftDataset # object type for gwa-cli use
 name: my-draft-dataset # unique dataset name, not displayed
@@ -72,7 +72,7 @@ view_audience: Government # who can access the API
 security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
 record_publish_date: "2021-05-27" # date when the API was published
 ```
-+++ YAML Template
+=== "YAML Template"
 ```yaml
 kind: DraftDataset
 name: my-draft-dataset
@@ -86,7 +86,7 @@ view_audience: Government
 security_class: PUBLIC
 record_publish_date: "2021-05-27"
 ```
-+++ JSON Template
+=== "JSON Template"
 ```json
 {
   "name": "my-draft-dataset",
@@ -105,8 +105,6 @@ record_publish_date: "2021-05-27"
   "record_publish_date": "2021-05-27"
 }
 ```
-+++
-
 
 Check our [source code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116) for up-to-date data rules for `DraftDatasets`.
 
