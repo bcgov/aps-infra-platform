@@ -16,20 +16,37 @@ propose changes to this document in a pull request.
 ### Lists
 testing [truly-sane-lists](https://pypi.org/project/mdx-truly-sane-lists/) functionality
 
-- attributes
-  - type
+1. attributes
+  1. type
  
-- customer 
-  - first_name
-  - family_name
-  - email
-- person
-  - first_name
-  - family_name
-  - birth_date
-- subscription_id
+1. customer 
+  1. first_name
+  1. family_name
+  1. email
+1. person
+  1. first_name
+  1. family_name
+  1. birth_date
+1. subscription_id
 
-- request
+1. request
+
+```
+1. attributes
+  1. type
+ 
+1. customer 
+  1. first_name
+  1. family_name
+  1. email
+1. person
+  1. first_name
+  1. family_name
+  1. birth_date
+1. subscription_id
+
+1. request
+```
 
 ### Table
 
