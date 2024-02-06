@@ -18,7 +18,6 @@ propose changes to this document in a pull request.
 When you refer to an API object, use
 [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as
 Pascal case. 
-You will see the same formatting in the [API Reference](https://api.gov.bc.ca/ds/api/v2/console/#model-BatchResult). 
 
 | Do | Don't |
 | -- | -----|
@@ -38,7 +37,7 @@ Use bold for clickable actions or to highlight items in a UI.
 
 ### Use italics to define or introduce new terms
 
-This guideline applies to introductory/overview content, most likely to be found in Tutorial and Explanation pages. Follow this alongside using UpperCamelCase.
+This guideline applies to introductory or overview content, most likely to be found in Tutorial and Explanation pages. Follow this alongside using UpperCamelCase.
 
 | Do | Don't |
 | -- | -----|
@@ -88,7 +87,7 @@ Remove trailing spaces in the code. | Add trailing spaces in the code, where the
 {{< /table >}}
 
 !!! note
-DevHub supports syntax highlighting for code samples, though specifying a language is optional. 
+    DevHub supports syntax highlighting for code samples, though specifying a language is optional. 
 
 ### Use angle brackets for placeholders
 
@@ -96,9 +95,16 @@ Use angle brackets as a placeholder for variables you want the user to enter (ex
 
 | Do | Don't |
 | -- | -----|
-| Apply your GatewayService configuration: <br>
- ```shell gwa apply --input <gateway-config.yaml>``` | Apply your GatewayService configuration:
-<br> ```shell gwa apply --input [file]``` |
+| Apply your GatewayService configuration:
+```shell 
+gwa apply --input <gateway-config.yaml>
+``` 
+| Apply your GatewayService configuration:
+```shell
+gwa apply --input [file]
+``` 
+|
+| tags: [ <namespace> ] | tags: [ _NS_ ] |
 
 ### Use square brackets for optional arguments
 Place optional arguments in square brackets (and thus show mandatory arguments without brackets). Parameters for optional 
