@@ -121,13 +121,13 @@ You should see `✔ [DraftDataset] <dataset-name>: created`
 
 === "API (Swagger UI)"
 1. [Login](https://api.gov.bc.ca/login?identity=provider&f=%2F) to the API Services Portal as an API Provider.
-2. Click `Help` in the top right, then `API Docs` to open the [Swagger UI](https://api.gov.bc.ca/ds/api/v2/console/).
-3. Under API Directory, click the `PUT /namespaces/{ns}/datasets` [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
-4. Click `Try it out`
-5. Enter your namespace
-6. Copy your JSON `dataset` into the Request body
-7. Click `Execute`
-8. Scroll down and ensure a `200` Response was received
+2. Click **Help** in the top right, then **API Docs** to open the [Swagger UI](https://api.gov.bc.ca/ds/api/v2/console/).
+3. Under API Directory, click the **PUT /namespaces/{ns}/datasets** [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
+4. Click **Try it out**.
+5. Enter your namespace.
+6. Copy your JSON `dataset` into the Request body.
+7. Click **Execute**.
+8. Scroll down and ensure a `200` Response was received.
 
 
 ### Link Your Dataset to a Product
@@ -135,13 +135,13 @@ You should see `✔ [DraftDataset] <dataset-name>: created`
 If you've already worked through the [Quick Start guide](../guides/owner-journey.md) or set up a gateway service, you may already have a `product`. In this case, we can associate the `product` with a `dataset`:
 
 1. Open the [Products](https://api.gov.bc.ca/manager/products) page in the API Services Portal.
-2. Click the ellipsis (`...`) next to `Add Env`, select `Edit Product`.
-3. Customize the `Product Name`, if desired.
-4. In the `Link to BC Data Catalogue` dialogue, enter the `title` of your newly created, or existing BCDC, dataset.
+2. Click the ellipsis (**...**) next to **Add Env**, select **Edit Product**.
+3. Customize the **Product Name**, if desired.
+4. In the **Link to BC Data Catalogue** dialogue, enter the `title` of your newly created, or existing BCDC, dataset.
 !!!
 Search is exact. Be mindful of spaces and case.
 !!!
-5. Click Update.
+5. Click **Update**.
 
 Preview your new API listing by opening the API Directory and clicking the **Your Products** tab. Confirm everything is as desired.
 
@@ -157,8 +157,8 @@ If you haven't added a product yet, follow these steps and then link your datase
    Specify your dataset by `name` in the config - `dataset: my-draft-dataset`
 2. Publish the product - `gwa apply -i <product.yaml>`
 === "Web UI"
-1. Navigate to Namespaces -> Products.
-2. Click `New Product` in the top right.
+1. Navigate to **Namespaces** -> **Products**.
+2. Click **New Product** in the top right.
 
 
 ===! "YAML Template"
