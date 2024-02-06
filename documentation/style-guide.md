@@ -9,8 +9,7 @@ propose changes to this document in a pull request.
 <!-- body -->
 
 !!! Note
-API Program Services documentation uses
-[mkdocs](https://www.mkdocs.org/) and the [mkdocs-techdocs-core plugin](https://github.com/backstage/mkdocs-techdocs-core) with some [PyMdown extensions](https://facelessuser.github.io/pymdown-extensions/).
+    API Program Services documentation uses [mkdocs](https://www.mkdocs.org/) and the [mkdocs-techdocs-core plugin](https://github.com/backstage/mkdocs-techdocs-core) with some [PyMdown extensions](https://facelessuser.github.io/pymdown-extensions/).
 
 ## Markdown Syntax
 
@@ -20,6 +19,13 @@ API Program Services documentation uses
 | -- | -----|
 | This | That |
 | This | That |
+
+```
+| Do | Don't |
+| -- | -----|
+| This | That |
+| This | That |
+```
 
 ### Tabs
 
@@ -120,8 +126,13 @@ import foo.bar.baz
 
 #### Keyboard keys / UI buttons
 https://facelessuser.github.io/pymdown-extensions/extensions/keys/
+
 ++ctrl++
 ++Activity++
+
+#### Emoji
+Works but glitchy?
+:star: :smile: :heart: :thumbsup:
 
 ## Documentation formatting standards
 
