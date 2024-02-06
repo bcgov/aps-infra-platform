@@ -9,239 +9,69 @@ propose changes to this document in a pull request.
 <!-- body -->
 
 !!! Note
-    API Program Services documentation uses [mkdocs](https://www.mkdocs.org/) and the [mkdocs-techdocs-core plugin](https://github.com/backstage/mkdocs-techdocs-core) with some [PyMdown extensions](https://facelessuser.github.io/pymdown-extensions/).
-
-## Markdown Syntax
-
-### Lists
-testing [truly-sane-lists](https://pypi.org/project/mdx-truly-sane-lists/) functionality
-
-1. attributes
-  1. type
- 
-1. customer 
-  1. first_name
-  1. family_name
-  1. email
-1. person
-  1. first_name
-  1. family_name
-  1. birth_date
-1. subscription_id
-
-1. request
-
-```
-1. attributes
-  1. type
- 
-1. customer 
-  1. first_name
-  1. family_name
-  1. email
-1. person
-  1. first_name
-  1. family_name
-  1. birth_date
-1. subscription_id
-
-1. request
-```
-
-### Table
-
-| Do | Don't |
-| -- | -----|
-| This | That |
-| This | That |
-
-```
-| Do | Don't |
-| -- | -----|
-| This | That |
-| This | That |
-```
-
-### Tabs
-
-=== "Tab 1"
-    Markdown **content**.
-
-    Multiple paragraphs.
-
-=== "Tab 2"
-    More Markdown **content**.
-
-    - list item a
-    - list item b
-
-=== "Tab 3"
-    ```
-    kind: DraftDataset
-    name: my-draft-dataset
-    title: Useful API
-    ```
-
-```
-=== "Tab 1"
-    Markdown **content**.
-
-    Multiple paragraphs.
-
-=== "Tab 2"
-    More Markdown **content**.
-
-    - list item a
-    - list item b
-```
-
-### Blocks
-
-!!! warning
-    Beware!
-
-```
-!!! warning
-    Beware!
-```
-
-!!! info "Info with custom name"
-    Take note, you can modify title for a block by specifying it in quotes after the class.
-
-```
-!!! info "Info with custom name"
-    Take note, you can modify title for a block by specifying it in quotes after the class.
-```
-
-!!! note
-    Seriously, take a note.
-
-```
-!!! note
-    Seriously, take a note.
-```
-
-### Details (pop-out)
-??? optional-class "Summary"
-    Write the class, then a title/summary in quotes, then more content in here.
-
-???+ warning "Summary"
-    Expand details by default with a `+`.
-
-```
-??? optional-class "Summary"
-    Write the class, then a title/summary in quotes, then more content in here.
-
-???+ warning "Summary"
-    Expand details by default with a `+`.
-```
-
-### Things that don't work
-Or I haven't figured out yet
-
-#### PyMdown blocks
-[reference](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
-
-```
-/// note | Did you know?
-You can create a note with Blocks!
-///
-```
-
-#### Code snippet titles
-
-#### Code line highlighting
-````
-```{.python hl_lines="1 3"}
-import foo.bar
-import boo.baz
-import foo.bar.baz
-```
-````
-
-#### Keyboard keys / UI buttons
-https://facelessuser.github.io/pymdown-extensions/extensions/keys/
-
-++ctrl++
-++Activity++
-
-#### Emoji
-Works but glitchy?
-:star: :smile: :heart: :thumbsup:
+    API Program Services documentation uses [mkdocs](https://www.mkdocs.org/) and the [mkdocs-techdocs-core plugin](https://github.com/backstage/mkdocs-techdocs-core). The [Material for mkdocs framework](https://squidfunk.github.io/mkdocs-material/reference/) appears to be the best reference for Markdown syntax for the current deployment.
 
 ## Documentation formatting standards
 
 ### Use upper camel case for API objects
 
-When you refer specifically to interacting with an API object, use
+When you refer to an API object, use
 [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as
-Pascal case. You may see different capitalization, such as "configMap",
-in the [API Reference](/docs/reference/kubernetes-api/). When writing
-general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
+Pascal case. 
+You will see the same formatting in the [API Reference](https://api.gov.bc.ca/ds/api/v2/console/#model-BatchResult). 
 
-When you are generally discussing an API object, use
-[sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+| Do | Don't |
+| -- | -----|
+| Then, publish the DraftDataset. | Then, publish the draft dataset. |
+| Products bundle one or more GatewayServices. | `products` bundle one or more gateway `services`. |
 
-The following examples focus on capitalization. For more information about formatting
-API object names, review the related guidance on [Code Style](#code-style-inline-code).
-
-{{< table caption = "Do and Don't - Use Pascal case for API objects" >}}
-Do | Don't
-:--| :-----
-The HorizontalPodAutoscaler resource is responsible for ... | The Horizontal pod autoscaler is responsible for ...
-A PodList object is a list of pods. | A Pod List object is a list of pods.
-The Volume object contains a `hostPath` field. | The volume object contains a hostPath field.
-Every ConfigMap object is part of a namespace. | Every configMap object is part of a namespace.
-For managing confidential data, consider using the Secret API. | For managing confidential data, consider using the secret API.
-{{< /table >}}
-
-### Use angle brackets for placeholders
-
-Use angle brackets for placeholders. Tell the reader what a placeholder
-represents, for example:
-
-Display information about a pod:
-
-```shell
-kubectl describe pod <pod-name> -n <namespace>
-```
-
-If the namespace of the pod is `default`, you can omit the '-n' parameter.
+!!! question
+    This one is tricky! If `code style` seems like a better option to you, we could revisit this standard.
 
 ### Use bold for user interface elements
+Use bold for clickable actions or to highlight items in a UI.
 
-{{< table caption = "Do and Don't - Bold interface elements" >}}
-Do | Don't
-:--| :-----
-Click **Fork**. | Click "Fork".
-Select **Other**. | Select "Other".
-{{< /table >}}
+| Do | Don't |
+| -- | -----|
+| Click **Service Accounts**, then click **New Service Account**. | Click `Service Accounts`, then click `New Service Account`. |
+| Go to the **Authorization** tab. | Go to the Authorization tab. |
 
 ### Use italics to define or introduce new terms
 
-{{< table caption = "Do and Don't - Use italics for new terms" >}}
-Do | Don't
-:--| :-----
-A _cluster_ is a set of nodes ... | A "cluster" is a set of nodes ...
-These components form the _control plane_. | These components form the **control plane**.
-{{< /table >}}
+This guideline applies to introductory/overview content, most likely to be found in Tutorial and Explanation pages. Follow this alongside using UpperCamelCase.
 
-### Use code style for filenames, directories, and paths
+| Do | Don't |
+| -- | -----|
+| *Products* bundle one or more GatewayServices. | "Products" bundle one or more GatewayServices. |
+| Namespaces must be associated with an *Organization*. | Namespaces must be associated with an **Organization**. |
 
-{{< table caption = "Do and Don't - Use code style for filenames, directories, and paths" >}}
-Do | Don't
-:--| :-----
-Open the `envars.yaml` file. | Open the envars.yaml file.
-Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory.
-Open the `/_data/concepts.yaml` file. | Open the /\_data/concepts.yaml file.
-{{< /table >}}
+### Use code style (`monospace`) for filenames, directories, and paths
 
-## Inline code formatting
+| Do | Don't |
+| -- | -----|
+| Open the `gw-config.yaml` file. | Open the `gw-config.yaml` file. |
+| Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory. |
 
-### Use code style for inline code, commands, and API objects {#code-style-inline-code}
+## Code formatting
+
+### Use code style for inline code and commands
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`` ` ``).
+
+| Do | Don't |
+| -- | -----|
+| Login with the `gwa login` command. | Login with the "gwa login" command. |
+
+| Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**. |
+
+### Code s
+| Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax. |
+| Use triple backticks before and after a multi-line block of code for fenced code blocks. | Use multi-line blocks of code to create diagrams, flowcharts, or other illustrations. |
+| Use meaningful variable names that have a context. | Use variable names such as 'foo','bar', and 'baz' that are not meaningful and lack context. |
+| Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well. |
+
+| 
 
 {{< table caption = "Do and Don't - Use code style for inline code, commands, and API objects" >}}
 Do | Don't
@@ -257,11 +87,22 @@ Use meaningful variable names that have a context. | Use variable names such as 
 Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well.
 {{< /table >}}
 
-{{< note >}}
-The website supports syntax highlighting for code samples, but specifying a language
-is optional. Syntax highlighting in the code block should conform to the
-[contrast guidelines.](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
-{{< /note >}}
+!!! note
+DevHub supports syntax highlighting for code samples, though specifying a language is optional. 
+
+### Use angle brackets for placeholders
+
+Use angle brackets as a placeholder for variables you want the user to enter (except in URLs, where you should use curly braces for placeholders).
+
+| Do | Don't |
+| -- | -----|
+| Apply your GatewayService configuration: <br>
+ ```shell gwa apply --input <gateway-config.yaml>``` | Apply your GatewayService configuration:
+<br> ```shell gwa apply --input [file]``` |
+
+### Use square brackets for optional arguments
+Place optional arguments in square brackets (and thus show mandatory arguments without brackets). Parameters for optional 
+
 
 ### Use code style for object field names and namespaces
 
@@ -570,6 +411,127 @@ in the parent document, before and after you call the include. For example:
 ```
 
 ## Markdown elements
+
+### Table
+
+| Do | Don't |
+| -- | -----|
+| This | That |
+| This | That |
+
+```
+| Do | Don't |
+| -- | -----|
+| This | That |
+| This | That |
+```
+
+### Tabs
+
+=== "Tab 1"
+    Markdown **content**.
+
+    Multiple paragraphs.
+
+=== "Tab 2"
+    More Markdown **content**.
+
+    - list item a
+    - list item b
+
+=== "Tab 3"
+    ```
+    kind: DraftDataset
+    name: my-draft-dataset
+    title: Useful API
+    ```
+
+```
+=== "Tab 1"
+    Markdown **content**.
+
+    Multiple paragraphs.
+
+=== "Tab 2"
+    More Markdown **content**.
+
+    - list item a
+    - list item b
+```
+
+### Blocks
+
+!!! warning
+    Beware!
+
+```
+!!! warning
+    Beware!
+```
+
+!!! info "Info with custom name"
+    Take note, you can modify title for a block by specifying it in quotes after the class.
+
+```
+!!! info "Info with custom name"
+    Take note, you can modify title for a block by specifying it in quotes after the class.
+```
+
+!!! note
+    Seriously, take a note.
+
+```
+!!! note
+    Seriously, take a note.
+```
+
+### Details (pop-out)
+??? optional-class "Summary"
+    Write the class, then a title/summary in quotes, then more content in here.
+
+???+ warning "Summary"
+    Expand details by default with a `+`.
+
+```
+??? optional-class "Summary"
+    Write the class, then a title/summary in quotes, then more content in here.
+
+???+ warning "Summary"
+    Expand details by default with a `+`.
+```
+
+### Things that don't work
+Or I haven't figured out yet
+
+#### PyMdown blocks
+[reference](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
+
+```
+/// note | Did you know?
+You can create a note with Blocks!
+///
+```
+
+#### Code snippet titles
+
+#### Code line highlighting
+````
+```{.python hl_lines="1 3"}
+import foo.bar
+import boo.baz
+import foo.bar.baz
+```
+````
+
+#### Keyboard keys / UI buttons
+https://facelessuser.github.io/pymdown-extensions/extensions/keys/
+
+++ctrl++
+++Activity++
+
+#### Emoji
+Works but glitchy?
+:star: :smile: :heart: :thumbsup:
 
 ### Line breaks
 
