@@ -157,6 +157,17 @@ Open the `/_data/concepts.yaml` file. | Open the /\_data/concepts.yaml file.
     Seriously, take a note
 ```
 
+#### Details
+??? optional-class "Summary"
+    Here's some content.
+
+??? multiple optional-class "Summary"
+    Here's some content.
+
+???+ warning "Summary"
+    Expand this by default
+
+
 ### Things that don't work
 Or I haven't figured out yet
 
