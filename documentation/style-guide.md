@@ -2,27 +2,126 @@
 <!-- needs to be pared down -->
 
 <!-- overview -->
-This page gives writing style guidelines for the Kubernetes documentation.
+This page gives writing style guidelines for the API Program Services documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
 
-For additional information on creating new content for the Kubernetes
-documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/).
-
-Changes to the style guide are made by SIG Docs as a group. To propose a change
-or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming
-SIG Docs meeting, and attend the meeting to participate in the discussion.
-
 <!-- body -->
 
-{{< note >}}
-Kubernetes documentation uses
-[Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
-with some adjustments along with a few
-[Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/) to support
-glossary entries, tabs, and representing feature state.
-{{< /note >}}
+!!! Note
+API Program Services documentation uses
+[mkdocs](https://www.mkdocs.org/) and the [mkdocs-techdocs-core plugin](https://github.com/backstage/mkdocs-techdocs-core) with some [PyMdown extensions](https://facelessuser.github.io/pymdown-extensions/).
 
+## Markdown Syntax
+
+### Table
+
+| Do | Don't |
+| -- | -----|
+| This | That |
+| This | That |
+
+### Tabs
+
+=== "Tab 1"
+    Markdown **content**.
+
+    Multiple paragraphs.
+
+=== "Tab 2"
+    More Markdown **content**.
+
+    - list item a
+    - list item b
+
+=== "Tab 3"
+    ```
+    kind: DraftDataset
+    name: my-draft-dataset
+    title: Useful API
+    ```
+
+```
+=== "Tab 1"
+    Markdown **content**.
+
+    Multiple paragraphs.
+
+=== "Tab 2"
+    More Markdown **content**.
+
+    - list item a
+    - list item b
+```
+
+### Blocks
+
+!!! warning
+    Beware!
+
+```
+!!! warning
+    Beware!
+```
+
+!!! info "Info with custom name"
+    Take note, you can modify title for a block by specifying it in quotes after the class.
+
+```
+!!! info "Info with custom name"
+    Take note, you can modify title for a block by specifying it in quotes after the class.
+```
+
+!!! note
+    Seriously, take a note.
+
+```
+!!! note
+    Seriously, take a note.
+```
+
+### Details (pop-out)
+??? optional-class "Summary"
+    Write the class, then a title/summary in quotes, then more content in here.
+
+???+ warning "Summary"
+    Expand details by default with a `+`.
+
+```
+??? optional-class "Summary"
+    Write the class, then a title/summary in quotes, then more content in here.
+
+???+ warning "Summary"
+    Expand details by default with a `+`.
+```
+
+### Things that don't work
+Or I haven't figured out yet
+
+#### PyMdown blocks
+[reference](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
+
+```
+/// note | Did you know?
+You can create a note with Blocks!
+///
+```
+
+#### Code snippet titles
+
+#### Code line highlighting
+````
+```{.python hl_lines="1 3"}
+import foo.bar
+import boo.baz
+import foo.bar.baz
+```
+````
+
+#### Keyboard keys / UI buttons
+https://facelessuser.github.io/pymdown-extensions/extensions/keys/
+++ctrl++
+++Activity++
 
 ## Documentation formatting standards
 
@@ -90,114 +189,6 @@ Open the `envars.yaml` file. | Open the envars.yaml file.
 Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory.
 Open the `/_data/concepts.yaml` file. | Open the /\_data/concepts.yaml file.
 {{< /table >}}
-
-### Table
-
-| Do | Don't |
-|--| -----|
-| events are recorded with an associated "stage". | events are recorded with an associated "stage."|
-| The copy is called a "fork". | The copy is called a "fork."
-
-### Tabs
-
-=== "Tab 1"
-    Markdown **content**.
-
-    Multiple paragraphs.
-
-=== "Tab 2"
-    More Markdown **content**.
-
-    - list item a
-    - list item b
-
-=== "Tab 3"
-    ```
-    kind: DraftDataset
-    name: my-draft-dataset
-    title: Useful API
-    ```
-
-```
-=== "Tab 1"
-    Markdown **content**.
-
-    Multiple paragraphs.
-
-=== "Tab 2"
-    More Markdown **content**.
-
-    - list item a
-    - list item b
-```
-
-### Blocks
-
-!!! warning
-    Beware!
-
-```
-!!! warning
-    Beware!
-```
-
-!!! info
-    Take note
-
-```
-!!! info
-    Take note
-```
-
-!!! note
-    Seriously, take a note
-
-```
-!!! note
-    Seriously, take a note
-```
-
-#### Details
-??? optional-class "Summary"
-    Write the class, then a title/summary in quotes, then more content in here.
-
-???+ warning "Summary"
-    Expand details by default with a `+`.
-
-
-### Things that don't work
-Or I haven't figured out yet
-
-#### Code block titles
-```
-!!! note | FYI
-    You can't specify a block title
-```
-
-#### PyMdown blocks
-[reference](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
-
-```
-/// note | Did you know?
-You can create a note with Blocks!
-///
-```
-
-#### Code snippet titles
-
-#### Code line highlighting
-````
-```{.python hl_lines="1 3"}
-import foo.bar
-import boo.baz
-import foo.bar.baz
-```
-````
-
-#### Keyboard keys / UI buttons
-https://facelessuser.github.io/pymdown-extensions/extensions/keys/
-++ctrl++
-++Activity++
 
 ## Inline code formatting
 
