@@ -1,5 +1,7 @@
 site_name: BC Gov API Services
 docs_dir: documentation
+repo_url: https://github.com/bcgov/aps-infra-platform
+edit_uri: edit/main/documentation
 
 nav:
   - "README.md"
