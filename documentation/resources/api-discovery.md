@@ -29,7 +29,7 @@ Clicking on the API name opens the full API listing details.
 
 Here, additional metadata details defined in the `dataset` are visible, as well as the associated `products` which consumers can request access to.
 
-!!! info
+!!! info "Products"
     `products` bundle one or more gateway services which are protected in the same way. They are used to manage consumer access.
 
 ## Sharing Your API
@@ -181,7 +181,7 @@ If you haven't added a product yet, follow these steps and then link your datase
 Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.
 
 !!! note "Prerequisite: Add Organization"
-  Before sharing your API on the API Directory, you must add your Organization and Business Unit to your namespace. If you have yet to complete this you will see a banner on the `Namespaces` page on the API Service Portal asking you to `Add Organization`. You will then need to wait for approval from the Organization Administrator.
+    Before sharing your API on the API Directory, you must add your Organization and Business Unit to your namespace. If you have yet to complete this you will see a banner on the `Namespaces` page on the API Service Portal asking you to `Add Organization`. You will then need to wait for approval from the Organization Administrator.
 
 
 Enable an environment to display the API in the API Directory. You can individually enable each environment (dev, test, prod). 
