@@ -65,11 +65,19 @@ document, use the backtick (`` ` ``).
 | -- | -----|
 | Login with the `gwa login` command. | Login with the "gwa login" command. |
 
-### Code snippets
+### Use code blocks for multi-line code and commands
 
-Enclose code samples and multi-line commands with triple backticks (\`\`\`). 
+Enclose multi-line code samples with triple backticks (\`\`\`). Code blocks can be helpful to offset even single line commands
 
-DevHub supports syntax highlighting for code samples. Specifying a language is optional and can be included after the first set of backticks, for example, ````yaml`. 
+DevHub supports syntax highlighting for code samples. Specifying a language is optional and can be included after the first set of backticks, for example, ```` yaml`.
+
+Add titles for code blocks using `title=<custom title>` after the backticks, for example, ```` yaml title="Product YAML Template"`.
+
+``` yaml title="Product YAML Template"
+kind: Product
+appId: 'D31E616FE1A6'
+...
+```
 
 <!-- START TO REVIEW -->
 
@@ -81,7 +89,7 @@ Use angle brackets as a placeholder for variables you want the user to enter (ex
 | -- | -----|
 | `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
 | `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
-| `gwa get <`
+| `gwa get <resource>` | `gwa get <foo>` |
 
 ### Use square brackets for optional arguments
 Place optional arguments in square brackets (and thus show mandatory arguments without brackets). Parameters for optional 
@@ -176,7 +184,7 @@ For example, use "a `Secret` object" over just "a `Secret`".
 
 | Do | Don't |
 | -- | -----|
-| gwa get datasets | $ gwa get datasets
+| `gwa get datasets` | `$ gwa get datasets`
 
 ### Separate commands from output
 

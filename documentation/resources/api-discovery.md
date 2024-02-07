@@ -160,21 +160,19 @@ If you haven't added a product yet, follow these steps and then link your datase
     1. Navigate to **Namespaces** -> **Products**.
     2. Click **New Product** in the top right.
 
-
-===! "YAML Template"
 <!-- TODO: describe product fields -->
-    ```yaml
-    kind: Product
-    appId: 'D31E616FE1A6'
-    name: Useful API
-    dataset: my-draft-dataset
-    environments:
-    - name: dev
-        appId: '4221AAF6'
-        active: false
-        approval: false
-        services: [my-service-dev]
-    ```
+``` yaml title="Product YAML Template"
+kind: Product
+appId: 'D31E616FE1A6'
+name: Useful API
+dataset: my-draft-dataset
+environments:
+- name: dev
+    appId: '4221AAF6'
+    active: false
+    approval: false
+    services: [my-service-dev]
+```
 
 ### Enabling for Discovery
 
