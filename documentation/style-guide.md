@@ -1,3 +1,7 @@
+---
+title: APS Style Guide
+---
+
 <!-- copied whole hog from https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/style/style-guide.md -->
 <!-- needs to be pared down -->
 
