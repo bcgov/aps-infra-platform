@@ -67,7 +67,7 @@ document, use the backtick (`` ` ``).
 
 ### Use code blocks for multi-line code and commands
 
-Enclose multi-line code samples with triple backticks (\`\`\`). Code blocks can be helpful to offset even single line commands
+Enclose multi-line code samples with triple backticks (\`\`\`). 
 
 DevHub supports syntax highlighting for code samples. Specifying a language is optional and can be included after the first set of backticks, for example, ````yaml`.
 
@@ -79,12 +79,27 @@ appId: 'D31E616FE1A6'
 ...
 ```
 
-Turn off line numbers
+Code blocks can be helpful to offset single line commands and provide easy access to a **Copy** button. Turn off line numbers to improve readability, or use inline code formatting.
+
+Code block without line numbers:
+
+```md
+```shell linenums="0"
+gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
+```
+```
 
 ```shell linenums="0"
-kind: Product
-appId: 'D31E616FE1A6'
+gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 ```
+
+Inline:
+
+```md
+`gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>`
+```
+
+`gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>`
 
 <!-- START TO REVIEW -->
 
