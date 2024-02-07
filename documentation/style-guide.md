@@ -2,9 +2,6 @@
 title: APS Style Guide
 ---
 
-<!-- copied whole hog from https://github.com/kubernetes/website/blob/main/content/en/docs/contribute/style/style-guide.md -->
-<!-- needs to be pared down -->
-
 <!-- overview -->
 This page gives writing style guidelines for the API Program Services documentation.
 These are guidelines, not rules. Use your best judgment, and feel free to
@@ -15,13 +12,13 @@ propose changes to this document in a pull request.
 !!! Note
     API Program Services documentation uses [mkdocs](https://www.mkdocs.org/) and the [mkdocs-techdocs-core plugin](https://github.com/backstage/mkdocs-techdocs-core). The [Material for mkdocs framework](https://squidfunk.github.io/mkdocs-material/reference/) appears to be the best reference for Markdown syntax for the current deployment.
 
-## Documentation formatting standards
+## General formatting standards
 
 ### Use upper camel case for API objects
 
 When you refer to an API object, use
 [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as
-Pascal case. 
+Pascal case. Write the API object name as a single word.
 
 | Do | Don't |
 | -- | -----|
@@ -55,7 +52,9 @@ This guideline applies to introductory or overview content, most likely to be fo
 | Open the `gw-config.yaml` file. | Open the `gw-config.yaml` file. |
 | Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory. |
 
+
 ## Code formatting
+
 
 ### Use code style for inline code and commands
 
@@ -66,14 +65,37 @@ document, use the backtick (`` ` ``).
 | -- | -----|
 | Login with the `gwa login` command. | Login with the "gwa login" command. |
 
+### Code snippets
+
+Enclose code samples and multi-line commands with triple backticks (\`\`\`). 
+
+DevHub supports syntax highlighting for code samples. Specifying a language is optional and can be included after the first set of backticks, for example, ````yaml`. 
+
+<!-- START TO REVIEW -->
+
+### Use angle brackets for placeholders
+
+Use angle brackets as a placeholder for variables you want the user to enter (except in URLs, where you should use curly braces for placeholders). Use meaningful variable names for the context.
+
+| Do | Don't |
+| -- | -----|
+| `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
+| `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
+| `gwa get <`
+
+### Use square brackets for optional arguments
+Place optional arguments in square brackets (and thus show mandatory arguments without brackets). Parameters for optional 
+
+### Use code style for gwa command line tool
+
+| Do | Don't |
+| -- | -----|
+| The `gwa` handles authenticating to the API server. | The gwa handles authenticating to the API server. |
 
 
-### Code sni
-| Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax. |
+
 
 | Use meaningful variable names that have a context. | Use variable names such as 'foo','bar', and 'baz' that are not meaningful and lack context. |
-
-| 
 
 {{< table caption = "Do and Don't - Use code style for inline code, commands, and API objects" >}}
 Do | Don't
@@ -89,22 +111,6 @@ Use meaningful variable names that have a context. | Use variable names such as 
 Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well.
 {{< /table >}}
 
-!!! note
-    DevHub supports syntax highlighting for code samples, though specifying a language is optional. 
-
-### Use angle brackets for placeholders
-
-Use angle brackets as a placeholder for variables you want the user to enter (except in URLs, where you should use curly braces for placeholders). Use meaningful variable names for the context.
-
-| Do | Don't |
-| -- | -----|
-| `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
-| tags: [ <namespace> ] | tags: [ _NS_ ] |
-
-### Use square brackets for optional arguments
-Place optional arguments in square brackets (and thus show mandatory arguments without brackets). Parameters for optional 
-
-
 ### Use code style for object field names and namespaces
 
 {{< table caption = "Do and Don't - Use code style for object field names" >}}
@@ -115,15 +121,6 @@ The value of the `exec` field is an ExecAction object. | The value of the "exec"
 Run the process as a DaemonSet in the `kube-system` namespace. | Run the process as a DaemonSet in the kube-system namespace.
 {{< /table >}}
 
-### Use code style for Kubernetes command tool and component names
-
-{{< table caption = "Do and Don't - Use code style for Kubernetes command tool and component names" >}}
-Do | Don't
-:--| :-----
-The `kubelet` preserves node stability. | The kubelet preserves node stability.
-The `kubectl` handles locating and authenticating to the API server. | The kubectl handles locating and authenticating to the apiserver.
-Run the process with the certificate, `kube-apiserver --client-ca-file=FILENAME`. | Run the process with the certificate, kube-apiserver --client-ca-file=FILENAME. |
-{{< /table >}}
 
 ### Starting a sentence with a component tool or component name
 
@@ -159,13 +156,6 @@ Set the value of the `replicas` field to 2. | Set the value of the `replicas` fi
 
 This section talks about how we reference API resources in the documentation.
 
-### Clarification about "resource"
-
-Kubernetes uses the word "resource" to refer to API resources, such as `pod`,
-`deployment`, and so on. We also use "resource" to talk about CPU and memory
-requests and limits. Always refer to API resources as "API resources" to avoid
-confusion with CPU and memory resources.
-
 ### When to use Kubernetes API terminologies
 
 The different Kubernetes API terminologies are:
@@ -178,96 +168,35 @@ The different Kubernetes API terminologies are:
 Always use "resource" or "object" when referring to an API resource in docs.
 For example, use "a `Secret` object" over just "a `Secret`".
 
-### API resource names
-
-Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case),
-also known as PascalCase, and code formatting.
-
-For inline code in an HTML document, use the `<code>` tag. In a Markdown document, use the backtick (`` ` ``).
-
-Don't split an API object name into separate words. For example, use `PodTemplateList`, not Pod Template List.
-
-For more information about PascalCase and code formatting, please review the related guidance on
-[Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
-and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
-
-For more information about Kubernetes API terminologies, please review the related
-guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
+<!-- END TO REVIEW -->
 
 ## Code snippet formatting
 
 ### Don't include the command prompt
 
-{{< table caption = "Do and Don't - Don't include the command prompt" >}}
-Do | Don't
-:--| :-----
-kubectl get pods | $ kubectl get pods
-{{< /table >}}
+| Do | Don't |
+| -- | -----|
+| gwa get datasets | $ gwa get datasets
 
 ### Separate commands from output
 
-Verify that the pod is running on your chosen node:
+For example: 
+
+Retrieve a table of Datasets in your Namespace:
 
 ```shell
-kubectl get pods --output=wide
+gwa get datasets
 ```
 
 The output is similar to this:
 
 ```console
-NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
-nginx    1/1       Running   0          13s    10.200.0.4   worker0
+Name                 Title
+useful-api-dataset   Useful API
+another-api-dataset  Another API
 ```
 
-### Versioning Kubernetes examples
-
-Code examples and configuration examples that include version information should
-be consistent with the accompanying text.
-
-If the information is version specific, the Kubernetes version needs to be defined
-in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task)
-or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial).
-Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
-
-To specify the Kubernetes version for a task or tutorial page, include
-`min-kubernetes-server-version` in the front matter of the page.
-
-If the example YAML is in a standalone file, find and review the topics that include it as a reference.
-Verify that any topics using the standalone YAML have the appropriate version information defined.
-If a stand-alone YAML file is not referenced from any topics, consider deleting it instead of updating it.
-
-For example, if you are writing a tutorial that is relevant to Kubernetes version 1.8,
-the front-matter of your markdown file should look something like:
-
-```yaml
----
-title: <your tutorial title here>
-min-kubernetes-server-version: v1.8
----
-```
-
-In code and configuration examples, do not include comments about alternative versions.
-Be careful to not include incorrect statements in your examples as comments, such as:
-
-```yaml
-apiVersion: v1 # earlier versions use...
-kind: Pod
-...
-```
-
-## Kubernetes.io word list
-
-A list of Kubernetes-specific terms and words to be used consistently across the site.
-
-{{< table caption = "Kubernetes.io word list" >}}
-Term | Usage
-:--- | :----
-Kubernetes | Kubernetes should always be capitalized.
-Docker | Docker should always be capitalized.
-SIG Docs | SIG Docs rather than SIG-DOCS or other variations.
-On-premises | On-premises or On-prem rather than On-premise or other variations.
-{{< /table >}}
-
+<!-- START TO UPDATE -->
 ## Shortcodes
 
 Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create
@@ -451,30 +380,24 @@ Beware.
     Expand details by default with a `+`.
 ```
 
+<!-- END TO UPDATE -->
+
 ### Line breaks
 
-Use a single newline to separate block-level content like headings, lists, images,
-code blocks, and others. The exception is second-level headings, where it should
-be two newlines. Second-level headings follow the first-level (or the title) without
-any preceding paragraphs or texts. A two line spacing helps visualize the overall
-structure of content in a code editor better.
+Use a single empty newline to separate block-level content like headings, lists, images,
+code blocks, and others.
 
-Manually wrap paragraphs in the Markdown source when appropriate. Since the git
-tool and the GitHub website generate file diffs on a line-by-line basis,
-manually wrapping long lines helps the reviewers to easily find out the changes
-made in a PR and provide feedback. It also helps the downstream localization
-teams where people track the upstream changes on a per-line basis.  Line
-wrapping can happen at the end of a sentence or a punctuation character, for
-example. One exception to this is that a Markdown link or a shortcode is
-expected to be in a single line.
+Manually wrap paragraphs in the Markdown source to break long lines.
+Since git generates file diffs on a line-by-line basis, manually wrapping long lines 
+helps the reviewers to easily find out the changes made in a PR and provide feedback. 
 
 ### Headings and titles {#headings}
 
 People accessing this documentation may use a screen reader or other assistive technology (AT).
 [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices,
 they output items on a page one at a time. If there is a lot of content on a page, you can
-use headings to give the page an internal structure. A good page structure helps all readers
-to easily navigate the page or filter topics of interest.
+use headings to give the page an internal structure. A good page structure helps all 
+readers to easily navigate the page or filter topics of interest.
 
 | Do | Don't |
 | -- | ----- |
@@ -482,58 +405,29 @@ to easily navigate the page or filter topics of interest.
 | Use sentence case for headings in the page body. For example, "Use the access approval process." | Use title case for headings in the page body. For example, "Use the Access Approval Process." |
 | Use title case for the page title in the front matter. For example, `title: Client Credential Protection`. | Use sentence case for page titles in the front matter. For example, don't use `title: Client credential protection`.
 
-### Paragraphs
+### Horizontal rules
 
 | Do | Don't |
 | -- | ----- |
-| Try to keep paragraphs under 6 sentences. | Indent the first paragraph with space characters. For example, ⋅⋅⋅Three spaces before a paragraph will indent it. |
-| Use three hyphens (`---`) to create a horizontal rule. Use horizontal rules for breaks in paragraph content. For example, a change of scene in a story, or a shift of topic within a section. | Use horizontal rules for decoration. |
-
-All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
-All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
-All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
-
----
-
-All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
-
+| Use three hyphens (`---`) to create a horizontal rule. Use horizontal rules for meaningful breaks within paragraph content. For example, a shift of topic within a section. | Use horizontal rules in addition to headings or for decoration. |
 
 ### Links
+Write links using `[link text](URL)`.
 
-{{< table caption = "Do and Don't - Links" >}}
-Do | Don't
-:--| :-----
-Write hyperlinks that give you context for the content they link to. For example: Certain ports are open on your machines. See <a href="#check-required-ports">Check required ports</a> for more details. | Use ambiguous terms such as "click here". For example: Certain ports are open on your machines. See <a href="#check-required-ports">here</a> for more details.
-Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions)` and the output is [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions). | Write HTML-style links: `<a href="/media/examples/link-element-example.css" target="_blank">Visit our tutorial!</a>`, or create links that open in new tabs or windows. For example: `[example website](https://example.com){target="_blank"}`
-{{< /table >}}
+| Do | Don't |
+| -- | ----- |
+| Write hyperlinks that give you context for the content they link to. For example: The [Swagger Console](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml) can be used to test API endpoints. | Use ambiguous terms such as "click here". For example: The Swagger Console can be used to test API endpoints. Try it out [here](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml). |
 
 ### Lists
 
-Group items in a list that are related to each other and need to appear in a specific
-order or to indicate a correlation between multiple items. When a screen reader comes
-across a list—whether it is an ordered or unordered list—it will be announced to the
-user that there is a group of list items. The user can then use the arrow keys to move
-up and down between the various items in the list. Website navigation links can also be
-marked up as list items; after all they are nothing but a group of related links.
+- End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
 
-- End each item in a list with a period if one or more items in the list are complete
-  sentences. For the sake of consistency, normally either all items or none should be complete sentences.
+  !!! note
+      Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.
 
-  {{< note >}}
-  Ordered lists that are part of an incomplete introductory sentence can be in lowercase
-  and punctuated as if each item was a part of the introductory sentence.
-  {{< /note >}}
-
-- Use the number one (`1.`) for ordered lists.
+- Use the number one (`1.`) all items in for ordered lists.
 
 - Use (`+`), (`*`), or (`-`) for unordered lists.
-
-- Leave a blank line after each list.
-
-- Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
-
-- List items may consist of multiple paragraphs. Each subsequent paragraph in a list
-  item must be indented by either four spaces or one tab.
 
 ## Content best practices
 
