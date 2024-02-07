@@ -21,18 +21,18 @@ When you refer to an API object, use
 Pascal case. Write the API object name as a single word.
 
 | Do | Don't |
-| -- | -----|
+| -- | ----- |
 | Then, publish the DraftDataset. | Then, publish the draft dataset. |
 | Products bundle one or more GatewayServices. | `products` bundle one or more gateway `services`. |
 
 !!! question
-    This one is tricky! If `code style` seems like a better option to you, we could revisit this standard.
+    This one is tricky! If `code style` seems like a better option to you, we can revisit this standard.
 
 ### Use bold for user interface elements
 Use bold for clickable actions or to highlight items in a UI.
 
 | Do | Don't |
-| -- | -----|
+| -- | ----- |
 | Click **Service Accounts**, then click **New Service Account**. | Click `Service Accounts`, then click `New Service Account`. |
 | Go to the **Authorization** tab. | Go to the Authorization tab. |
 
@@ -41,16 +41,34 @@ Use bold for clickable actions or to highlight items in a UI.
 This guideline applies to introductory or overview content, most likely to be found in Tutorial and Explanation pages. Follow this alongside using UpperCamelCase.
 
 | Do | Don't |
-| -- | -----|
+| -- | ----- |
 | *Products* bundle one or more GatewayServices. | "Products" bundle one or more GatewayServices. |
 | Namespaces must be associated with an *Organization*. | Namespaces must be associated with an **Organization**. |
 
 ### Use code style (`monospace`) for filenames, directories, and paths
 
 | Do | Don't |
-| -- | -----|
+| -- | ----- |
 | Open the `gw-config.yaml` file. | Open the `gw-config.yaml` file. |
 | Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory. |
+
+### Use code style for object field names and values
+
+| Do | Don't |
+| -- | ----- |
+| Set the value of the `host` field in the configuration file. | Set the value of the "host" field in the configuration file. |
+| Change the value of `minute` from to `30000`. | Change the value of "minute" to "30000". |
+
+!!! question
+    This one is tricky! It looks like Kong service configurations often include string field values in quotes. Using code style makes it clear where these quotes are required.
+    
+    If normal text seems like a better option to you for field values, we can revisit this standard.
+
+### Use code style for gwa command line tool
+
+| Do | Don't |
+| -- | ----- |
+| The `gwa` handles authenticating to the API server. | The gwa handles authenticating to the API server. |
 
 
 ## Code formatting
@@ -62,7 +80,7 @@ For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`` ` ``).
 
 | Do | Don't |
-| -- | -----|
+| -- | ----- |
 | Login with the `gwa login` command. | Login with the "gwa login" command. |
 
 ### Use code blocks for multi-line code and commands
@@ -79,7 +97,33 @@ appId: 'D31E616FE1A6'
 ...
 ```
 
-Code blocks can be helpful to offset single line commands and provide easy access to a **Copy** button. Turn off line numbers to improve readability, or use inline code formatting. Stay consistent within a document.
+### Don't include the command prompt
+
+| Do | Don't |
+| -- | ----- |
+| `gwa get datasets` | `$ gwa get datasets` |
+
+### Separate commands from output
+
+For example: 
+
+Retrieve a table of Datasets in your Namespace:
+
+```shell linenums="0"
+gwa get datasets
+```
+
+The output is similar to this:
+
+```console
+Name                 Title
+useful-api-dataset   Useful API
+another-api-dataset  Another API
+```
+
+### Turn off line numbers for single-line code blocks
+
+Code blocks can be helpful to offset single line commands and provide easy access to a **Copy to Clipboard** button. Turn off line numbers to improve readability, or use inline code formatting. Stay consistent within a document.
 
 ```md
     Code block without line numbers:
@@ -93,24 +137,8 @@ Code blocks can be helpful to offset single line commands and provide easy acces
 gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 ```
 
-<!-- START TO REVIEW -->
-
-### Use angle brackets for placeholders
-
-Use angle brackets as a placeholder for variables you want the user to enter (except in URLs, where you should use curly braces for placeholders). Use meaningful variable names for the context.
-
-| Do | Don't |
-| -- | -----|
-| `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
-| `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
-| `curl https://{MYSERVICE}.api.gov.bc.ca/headers` | |`curl https://<MYSERVICE>.api.gov.bc.ca/headers` |
-| `gwa get <resource>` | `gwa get <foo>` |
-
 ### Command line syntax
 
-Write commands that must be typed as shown as text without brackets or braces.
-
-#### Use square brackets for optional arguments
 | Notation | Description | Example use |
 | -------- | ----------- | ----------- |
 | `Text without brackets or braces`	| Items you must type as shown. | `gwa namespace list` |
@@ -120,125 +148,16 @@ Write commands that must be typed as shown as text without brackets or braces.
 | Vertical bar (`|`) | Separator for mutually exclusive items. You must choose one. |
 | Ellipsis (`...`) | Items that can be repeated and used multiple times. | `gwa publish-gateway <filename...>` |
 
-Optional arguments may
-`gwa status [flags]`
+### Use angle brackets for placeholders
 
-#### Use three dots when multiple values are accepted
-`gwa publish-gateway <filename...>`
-
-#### Separate mutually exclusive options with a pipe (`|`) inside curly braces.
-`gwa config get {api_key|host|namespace}`
-
-
-#### Use code style for gwa command line tool
+Use angle brackets as a placeholder for variables you want the user to enter (except in URLs, where you should use curly braces for placeholders). Use meaningful variable names for the context.
 
 | Do | Don't |
-| -- | -----|
-| The `gwa` handles authenticating to the API server. | The gwa handles authenticating to the API server. |
-
-
-
-
-| Use meaningful variable names that have a context. | Use variable names such as 'foo','bar', and 'baz' that are not meaningful and lack context. |
-
-{{< table caption = "Do and Don't - Use code style for inline code, commands, and API objects" >}}
-Do | Don't
-:--| :-----
-The `kubectl run` command creates a `Pod`. | The "kubectl run" command creates a pod.
-The kubelet on each node acquires a `Lease`… | The kubelet on each node acquires a lease…
-A `PersistentVolume` represents durable storage… | A Persistent Volume represents durable storage…
-For declarative management, use `kubectl apply`. | For declarative management, use "kubectl apply".
-Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax.
-Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**.
-Use triple backticks before and after a multi-line block of code for fenced code blocks. | Use multi-line blocks of code to create diagrams, flowcharts, or other illustrations.
-Use meaningful variable names that have a context. | Use variable names such as 'foo','bar', and 'baz' that are not meaningful and lack context.
-Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well.
-{{< /table >}}
-
-### Use code style for object field names and namespaces
-
-{{< table caption = "Do and Don't - Use code style for object field names" >}}
-Do | Don't
-:--| :-----
-Set the value of the `replicas` field in the configuration file. | Set the value of the "replicas" field in the configuration file.
-The value of the `exec` field is an ExecAction object. | The value of the "exec" field is an ExecAction object.
-Run the process as a DaemonSet in the `kube-system` namespace. | Run the process as a DaemonSet in the kube-system namespace.
-{{< /table >}}
-
-
-### Starting a sentence with a component tool or component name
-
-{{< table caption = "Do and Don't - Starting a sentence with a component tool or component name" >}}
-Do | Don't
-:--| :-----
-The `kubeadm` tool bootstraps and provisions machines in a cluster. | `kubeadm` tool bootstraps and provisions machines in a cluster.
-The kube-scheduler is the default scheduler for Kubernetes. | kube-scheduler is the default scheduler for Kubernetes.
-{{< /table >}}
-
-### Use a general descriptor over a component name
-
-{{< table caption = "Do and Don't - Use a general descriptor over a component name" >}}
-Do | Don't
-:--| :-----
-The Kubernetes API server offers an OpenAPI spec. | The apiserver offers an OpenAPI spec.
-Aggregated APIs are subordinate API servers. | Aggregated APIs are subordinate APIServers.
-{{< /table >}}
-
-### Use normal style for string and integer field values
-
-For field values of type string or integer, use normal style without quotation marks.
-
-{{< table caption = "Do and Don't - Use normal style for string and integer field values" >}}
-Do | Don't
-:--| :-----
-Set the value of `imagePullPolicy` to Always. | Set the value of `imagePullPolicy` to "Always".
-Set the value of `image` to nginx:1.16. | Set the value of `image` to `nginx:1.16`.
-Set the value of the `replicas` field to 2. | Set the value of the `replicas` field to `2`.
-{{< /table >}}
-
-## Referring to Kubernetes API resources
-
-This section talks about how we reference API resources in the documentation.
-
-### When to use Kubernetes API terminologies
-
-The different Kubernetes API terminologies are:
-
-- Resource type: the name used in the API URL (such as `pods`, `namespaces`)
-- Resource: a single instance of a resource type (such as `pod`, `secret`)
-- Object: a resource that serves as a "record of intent". An object is a desired
-  state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
-
-Always use "resource" or "object" when referring to an API resource in docs.
-For example, use "a `Secret` object" over just "a `Secret`".
-
-<!-- END TO REVIEW -->
-
-## Code snippet formatting
-
-### Don't include the command prompt
-
-| Do | Don't |
-| -- | -----|
-| `gwa get datasets` | `$ gwa get datasets`
-
-### Separate commands from output
-
-For example: 
-
-Retrieve a table of Datasets in your Namespace:
-
-```shell
-gwa get datasets
-```
-
-The output is similar to this:
-
-```console
-Name                 Title
-useful-api-dataset   Useful API
-another-api-dataset  Another API
-```
+| -- | ----- |
+| `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
+| `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
+| `curl https://{MYSERVICE}.api.gov.bc.ca/headers` | |`curl https://<MYSERVICE>.api.gov.bc.ca/headers` |
+| `gwa get <resource>` | `gwa get <foo>` |
 
 <!-- START TO UPDATE -->
 ## Shortcodes
@@ -429,7 +348,7 @@ Beware.
 ### Line breaks
 
 Use a single empty newline to separate block-level content like headings, lists, images,
-code blocks, and others.
+code blocks, and others. Use two empty lines to separate level 2 headings.
 
 Manually wrap paragraphs in the Markdown source to break long lines.
 Since git generates file diffs on a line-by-line basis, manually wrapping long lines 
