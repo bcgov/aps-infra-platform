@@ -69,14 +69,21 @@ document, use the backtick (`` ` ``).
 
 Enclose multi-line code samples with triple backticks (\`\`\`). Code blocks can be helpful to offset even single line commands
 
-DevHub supports syntax highlighting for code samples. Specifying a language is optional and can be included after the first set of backticks, for example, ```` yaml`.
+DevHub supports syntax highlighting for code samples. Specifying a language is optional and can be included after the first set of backticks, for example, ````yaml`.
 
-Add titles for code blocks using `title=<custom title>` after the backticks, for example, ```` yaml title="Product YAML Template"`.
+Add titles for code blocks using `title=<custom title>` after the backticks, for example, ````yaml title="Product YAML Template"`.
 
-``` yaml title="Product YAML Template"
+```yaml title="Product YAML Template"
 kind: Product
 appId: 'D31E616FE1A6'
 ...
+```
+
+Turn off line numbers
+
+```shell linenums="0"
+kind: Product
+appId: 'D31E616FE1A6'
 ```
 
 <!-- START TO REVIEW -->

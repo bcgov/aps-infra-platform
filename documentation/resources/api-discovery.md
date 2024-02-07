@@ -161,7 +161,7 @@ If you haven't added a product yet, follow these steps and then link your datase
     2. Click **New Product** in the top right.
 
 <!-- TODO: describe product fields -->
-``` yaml title="Product YAML Template"
+```yaml title="Product YAML Template"
 kind: Product
 appId: 'D31E616FE1A6'
 name: Useful API
