@@ -62,13 +62,12 @@ document, use the backtick (`` ` ``).
 | -- | -----|
 | Login with the `gwa login` command. | Login with the "gwa login" command. |
 
-| Use single backticks to enclose inline code. For example, `var example = true`. | Use two asterisks (`**`) or an underscore (`_`) to enclose inline code. For example, **var example = true**. |
 
-### Code s
+
+### Code sni
 | Enclose code samples with triple backticks. (\`\`\`)| Enclose code samples with any other syntax. |
-| Use triple backticks before and after a multi-line block of code for fenced code blocks. | Use multi-line blocks of code to create diagrams, flowcharts, or other illustrations. |
+
 | Use meaningful variable names that have a context. | Use variable names such as 'foo','bar', and 'baz' that are not meaningful and lack context. |
-| Remove trailing spaces in the code. | Add trailing spaces in the code, where these are important, because the screen reader will read out the spaces as well. |
 
 | 
 
@@ -91,19 +90,11 @@ Remove trailing spaces in the code. | Add trailing spaces in the code, where the
 
 ### Use angle brackets for placeholders
 
-Use angle brackets as a placeholder for variables you want the user to enter (except in URLs, where you should use curly braces for placeholders).
+Use angle brackets as a placeholder for variables you want the user to enter (except in URLs, where you should use curly braces for placeholders). Use meaningful variable names for the context.
 
 | Do | Don't |
 | -- | -----|
-| Apply your GatewayService configuration:
-```shell 
-gwa apply --input <gateway-config.yaml>
-``` 
-| Apply your GatewayService configuration:
-```shell
-gwa apply --input [file]
-``` 
-|
+| `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
 | tags: [ <namespace> ] | tags: [ _NS_ ] |
 
 ### Use square brackets for optional arguments
@@ -380,57 +371,7 @@ The output is:
 Beware.
 {{< /warning >}}
 
-## Common Shortcode Issues
-
-### Ordered Lists
-
-Shortcodes will interrupt numbered lists unless you indent four spaces before the notice and the tag.
-
-For example:
-
-    1. Preheat oven to 350˚F
-
-    1. Prepare the batter, and pour into springform pan.
-       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
-
-    1. Bake for 20-25 minutes or until set.
-
-The output is:
-
-1. Preheat oven to 350˚F
-
-1. Prepare the batter, and pour into springform pan.
-
-   {{< note >}}Grease the pan for best results.{{< /note >}}
-
-1. Bake for 20-25 minutes or until set.
-
-### Include Statements
-
-Shortcodes inside include statements will break the build. You must insert them
-in the parent document, before and after you call the include. For example:
-
-```
-{{</* note */>}}
-{{</* include "task-tutorial-prereqs.md" */>}}
-{{</* /note */>}}
-```
-
 ## Markdown elements
-
-### Table
-
-| Do | Don't |
-| -- | -----|
-| This | That |
-| This | That |
-
-```
-| Do | Don't |
-| -- | -----|
-| This | That |
-| This | That |
-```
 
 ### Tabs
 
@@ -506,39 +447,6 @@ in the parent document, before and after you call the include. For example:
     Expand details by default with a `+`.
 ```
 
-### Things that don't work
-Or I haven't figured out yet
-
-#### PyMdown blocks
-[reference](https://facelessuser.github.io/pymdown-extensions/extensions/blocks/)
-
-```
-/// note | Did you know?
-You can create a note with Blocks!
-///
-```
-
-#### Code snippet titles
-
-#### Code line highlighting
-````
-```{.python hl_lines="1 3"}
-import foo.bar
-import boo.baz
-import foo.bar.baz
-```
-````
-
-#### Keyboard keys / UI buttons
-https://facelessuser.github.io/pymdown-extensions/extensions/keys/
-
-++ctrl++
-++Activity++
-
-#### Emoji
-Works but glitchy?
-:star: :smile: :heart: :thumbsup:
-
 ### Line breaks
 
 Use a single newline to separate block-level content like headings, lists, images,
@@ -564,24 +472,27 @@ they output items on a page one at a time. If there is a lot of content on a pag
 use headings to give the page an internal structure. A good page structure helps all readers
 to easily navigate the page or filter topics of interest.
 
-{{< table caption = "Do and Don't - Headings" >}}
-Do | Don't
-:--| :-----
-Update the title in the front matter of the page or blog post. | Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.
-Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
-Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
-Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
-Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
-{{< /table >}}
+| Do | Don't |
+| -- | ----- |
+| Use ordered headings (level 2 and 3) to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles. |
+| Use sentence case for headings in the page body. For example, "Use the access approval process." | Use title case for headings in the page body. For example, "Use the Access Approval Process." |
+| Use title case for the page title in the front matter. For example, `title: Client Credential Protection`. | Use sentence case for page titles in the front matter. For example, don't use `title: Client credential protection`.
 
 ### Paragraphs
 
-{{< table caption = "Do and Don't - Paragraphs" >}}
-Do | Don't
-:--| :-----
-Try to keep paragraphs under 6 sentences. | Indent the first paragraph with space characters. For example, ⋅⋅⋅Three spaces before a paragraph will indent it.
-Use three hyphens (`---`) to create a horizontal rule. Use horizontal rules for breaks in paragraph content. For example, a change of scene in a story, or a shift of topic within a section. | Use horizontal rules for decoration.
-{{< /table >}}
+| Do | Don't |
+| -- | ----- |
+| Try to keep paragraphs under 6 sentences. | Indent the first paragraph with space characters. For example, ⋅⋅⋅Three spaces before a paragraph will indent it. |
+| Use three hyphens (`---`) to create a horizontal rule. Use horizontal rules for breaks in paragraph content. For example, a change of scene in a story, or a shift of topic within a section. | Use horizontal rules for decoration. |
+
+All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
+All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
+All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
+
+---
+
+All API Directory functionality is accessible in both the `test` and `production` environments. While you are encouraged to utilize the `test` environment for experimentation and training purposes, if you already know the details of the API you're building, you can add it directly to the production Directory.
+
 
 ### Links
 
@@ -620,38 +531,27 @@ marked up as list items; after all they are nothing but a group of related links
 - List items may consist of multiple paragraphs. Each subsequent paragraph in a list
   item must be indented by either four spaces or one tab.
 
-### Tables
-
-The semantic purpose of a data table is to present tabular data. Sighted users can
-quickly scan the table but a screen reader goes through line by line. A table caption
-is used to create a descriptive title for a data table. Assistive technologies (AT)
-use the HTML table caption element to identify the table contents to the user within the page structure.
-
-- Add table captions using [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions) for tables.
-
 ## Content best practices
 
 This section contains suggested best practices for clear, concise, and consistent content.
 
 ### Use present tense
 
-{{< table caption = "Do and Don't - Use present tense" >}}
-Do | Don't
-:--| :-----
-This command starts a proxy. | This command will start a proxy.
- {{< /table >}}
+| Do | Don't |
+| -- | ----- |
+| This command checks status. | This command will check status. |
 
 Exception: Use future or past tense if it is required to convey the correct
 meaning.
 
 ### Use active voice
 
-{{< table caption = "Do and Don't - Use active voice" >}}
-Do | Don't
-:--| :-----
-You can explore the API using a browser. | The API can be explored using a browser.
-The YAML file specifies the replica count. | The replica count is specified in the YAML file.
-{{< /table >}}
+To help identify uses of the passive voice, you can try [Hemingway Editor](https://hemingwayapp.com/).
+
+| Do | Don't |
+| -- | ----- |
+| You can explore the API using a browser. | The API can be explored using a browser. |
+| The YAML file specifies the route. | The route is specified in the YAML file. |
 
 Exception: Use passive voice if active voice leads to an awkward construction.
 
@@ -659,61 +559,53 @@ Exception: Use passive voice if active voice leads to an awkward construction.
 
 Use simple and direct language. Avoid using unnecessary phrases, such as saying "please."
 
-{{< table caption = "Do and Don't - Use simple and direct language" >}}
-Do | Don't
-:--| :-----
-To create a ReplicaSet, ... | In order to create a ReplicaSet, ...
-See the configuration file. | Please see the configuration file.
-View the pods. | With this next command, we'll view the pods.
-{{< /table >}}
+| Do | Don't |
+| -- | ----- |
+| To create a Product, ... | In order to create a Product, ... |
+| See the configuration file. | Please see the configuration file. |
+| View the Consumer. | With this next command, we'll view the Consumer. |
 
 ### Address the reader as "you"
 
-{{< table caption = "Do and Don't - Addressing the reader" >}}
-Do | Don't
-:--| :-----
-You can create a Deployment by ... | We'll create a Deployment by ...
-In the preceding output, you can see... | In the preceding output, we can see ...
-{{< /table >}}
-
-### Avoid Latin phrases
-
-Prefer English terms over Latin abbreviations.
-
-{{< table caption = "Do and Don't - Avoid Latin phrases" >}}
-Do | Don't
-:--| :-----
-For example, ... | e.g., ...
-That is, ...| i.e., ...
-{{< /table >}}
-
-Exception: Use "etc." for et cetera.
+| Do | Don't |
+| -- | ----- |
+| You can create a Dataset by ... | We'll create a Dataset by ... |
+| In the preceding output, you can see... | In the preceding output, one can see ... |
 
 ## Patterns to avoid
 
-### Avoid using "we"
+### Avoid Latin abbreviations
 
-Using "we" in a sentence can be confusing, because the reader might not know
+Prefer English terms over Latin abbreviations.
+
+| Do | Don't |
+| -- | ----- |
+| For example, ... | e.g., ... |
+| That is, ...| i.e., ... |
+
+Exception: Use "etc." for et cetera.
+
+### Avoid ambiguous pronouns
+
+Avoid using "we." Using "we" in a sentence can be confusing, because the reader might not know
 whether they're part of the "we" you're describing.
 
-{{< table caption = "Do and Don't - Patterns to avoid" >}}
-Do | Don't
-:--| :-----
-Version 1.4 includes ... | In version 1.4, we have added ...
-Kubernetes provides a new feature for ... | We provide a new feature ...
-This page teaches you how to use pods. | In this page, we are going to learn about pods.
-{{< /table >}}
+Be mindful when using "it" to ensure the there is no confusion about the noun being referenced. When in doubt, reuse the noun.
+
+| Do | Don't |
+| -- | ----- |
+| Version 1.4 includes ... | In version 1.4, we have added ...|
+| This page teaches you how to create a Product. | In this page, we are going to learn about Products. |
+| The popup will display options... | It will display options... |
 
 ### Avoid jargon and idioms
 
 Some readers speak English as a second language. Avoid jargon and idioms to help them understand better.
 
-{{< table caption = "Do and Don't - Avoid jargon and idioms" >}}
-Do | Don't
-:--| :-----
-Internally, ... | Under the hood, ...
-Create a new cluster. | Turn up a new cluster.
-{{< /table >}}
+| Do | Don't |
+| -- | ----- |
+| Internally, ... | Under the hood, ... |
+| Create a new Service. | Spin up a new Service. |
 
 ### Avoid statements about the future
 
@@ -722,39 +614,25 @@ an alpha feature, put the text under a heading that identifies it as alpha
 information.
 
 An exception to this rule is documentation about announced deprecations
-targeting removal in future versions. One example of documentation like this
-is the [Deprecated API migration guide](/docs/reference/using-api/deprecation-guide/).
+targeting removal in future versions. 
 
 ### Avoid statements that will soon be out of date
 
-Avoid words like "currently" and "new." A feature that is new today might not be
-considered new in a few months.
+Avoid words like "currently" and "new." A feature that is new today might not be considered new in a few months.
 
-{{< table caption = "Do and Don't - Avoid statements that will soon be out of date" >}}
-Do | Don't
-:--| :-----
-In version 1.4, ... | In the current version, ...
-The Federation feature provides ... | The new Federation feature provides ...
-{{< /table >}}
+| Do | Don't |
+| -- | ----- |
+| In version 1.4, ... | In the current version, ... |
+| The Federation feature provides ... | The new Federation feature provides ... |
 
 ### Avoid words that assume a specific level of understanding
 
 Avoid words such as "just", "simply", "easy", "easily", or "simple". These words do not add value.
 
-{{< table caption = "Do and Don't - Avoid insensitive words" >}}
-Do | Don't
-:--| :-----
-Include one command in ... | Include just one command in ...
-Run the container ... | Simply run the container ...
-You can remove ... | You can easily remove ...
-These steps ... | These simple steps ...
-{{< /table >}}
-
-### EditorConfig file
-The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
-such as VS Code. You can use this file if you want to ensure that your contributions are consistent with
-the rest of the project. To view the file, refer to
-[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
+| Do | Don't |
+| -- | ----- |
+| You can remove ... | You can easily remove ... |
+| These steps ... | These simple steps ... |
 
 ## {{% heading "whatsnext" %}}
 
@@ -762,3 +640,5 @@ the rest of the project. To view the file, refer to
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
 * Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
+
+This document is modified from the Kubernetes Documentation Style Guide. © 2024 The Kubernetes Authors CC BY 4.0.
