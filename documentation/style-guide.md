@@ -93,14 +93,6 @@ Code blocks can be helpful to offset single line commands and provide easy acces
 gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 ```
 
-```md linenums="0"
-Inline code format:
-
-`gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>`
-```
-
-`gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>`
-
 <!-- START TO REVIEW -->
 
 ### Use angle brackets for placeholders
@@ -111,12 +103,34 @@ Use angle brackets as a placeholder for variables you want the user to enter (ex
 | -- | -----|
 | `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
 | `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
+| `curl https://{MYSERVICE}.api.gov.bc.ca/headers` | |`curl https://<MYSERVICE>.api.gov.bc.ca/headers` |
 | `gwa get <resource>` | `gwa get <foo>` |
 
-### Use square brackets for optional arguments
-Place optional arguments in square brackets (and thus show mandatory arguments without brackets). Parameters for optional 
+### Command line syntax
 
-### Use code style for gwa command line tool
+Write commands that must be typed as shown as text without brackets or braces.
+
+#### Use square brackets for optional arguments
+| Notation | Description | Example use |
+| -- | -----|
+| `Text without brackets or braces`	| Items you must type as shown. | `gwa namespace list` |
+| `<Text inside angle brackets>` | Placeholder for which you must supply a value. | `gwa get <resource>` |
+| `[Text inside square brackets]` |	Optional items. | `gwa status [flags]` |
+| `{Text inside braces}` | Set of required items. You must choose one. |
+| Vertical bar (`|`) | Separator for mutually exclusive items. You must choose one. |
+| Ellipsis (`...`) | Items that can be repeated and used multiple times. |
+
+Optional arguments may
+`gwa status [flags]`
+
+#### Use three dots when multiple values are accepted
+`gwa publish-gateway <filename...>`
+
+#### Separate mutually exclusive options with a pipe (`|`) inside curly braces.
+`gwa config get {api_key|host|namespace}`
+
+
+#### Use code style for gwa command line tool
 
 | Do | Don't |
 | -- | -----|
