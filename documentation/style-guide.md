@@ -112,13 +112,13 @@ Write commands that must be typed as shown as text without brackets or braces.
 
 #### Use square brackets for optional arguments
 | Notation | Description | Example use |
-| -- | -----|
+| -------- | ----------- | ----------- |
 | `Text without brackets or braces`	| Items you must type as shown. | `gwa namespace list` |
 | `<Text inside angle brackets>` | Placeholder for which you must supply a value. | `gwa get <resource>` |
 | `[Text inside square brackets]` |	Optional items. | `gwa status [flags]` |
-| `{Text inside braces}` | Set of required items. You must choose one. |
+| `{Text inside braces}` | Set of required items. You must choose one. | `gwa config get {api_key|host|namespace}` |
 | Vertical bar (`|`) | Separator for mutually exclusive items. You must choose one. |
-| Ellipsis (`...`) | Items that can be repeated and used multiple times. |
+| Ellipsis (`...`) | Items that can be repeated and used multiple times. | `gwa publish-gateway <filename...>` |
 
 Optional arguments may
 `gwa status [flags]`
