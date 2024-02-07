@@ -79,23 +79,23 @@ appId: 'D31E616FE1A6'
 ...
 ```
 
-Code blocks can be helpful to offset single line commands and provide easy access to a **Copy** button. Turn off line numbers to improve readability, or use inline code formatting.
-
-Code block without line numbers:
+Code blocks can be helpful to offset single line commands and provide easy access to a **Copy** button. Turn off line numbers to improve readability, or use inline code formatting. Stay consistent within a document.
 
 ```md
+    Code block without line numbers:
+
+    ```shell linenums="0"
+    gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
+    ```
+```
+
 ```shell linenums="0"
 gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 ```
-```
 
-```shell linenums="0"
-gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
-```
+```md linenums="0"
+Inline code format:
 
-Inline:
-
-```md
 `gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>`
 ```
 
