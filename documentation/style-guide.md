@@ -302,31 +302,32 @@ Beware.
     - list item b
 ```
 
-### Blocks
+### Callouts
 
-!!! warning
-    Beware!
+Use callouts to highlight important information users need to know. 
+Do not use quote formatting (`> Your text`) to achieve the same outcome.
 
-```
-!!! warning
-    Beware!
+There are many available [callout types](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#supported-types), of which these three should be used: note,  warning, and danger.
+
+Add callouts using `!!! <type> ["Custom callout title"]` and indenting any content to contain in the callout, for example:
+```md
+!!! warning ["Don't forget"]
+    You **must** do this. You *may* include markdown here.
 ```
 
-!!! info "Info with custom name"
-    Take note, you can modify title for a block by specifying it in quotes after the class.
+!!! warning ["Don't forget"]
+    You **must** do this. You *may* include markdown here.
 
-```
-!!! info "Info with custom name"
-    Take note, you can modify title for a block by specifying it in quotes after the class.
-```
+Usage guidelines: 
 
 !!! note
-    Seriously, take a note.
+    Notes provide useful information or reminders for the user, but the information is not required to follow. Notes may not be relevant or necessary to every user.
 
-```
-!!! note
-    Seriously, take a note.
-```
+!!! warning
+    Warnings are potentially dangerous actions that a user should heed before continuing with a task. They are often non-optional steps.
+
+!!! danger
+    Danger notices are dangerous actions that a user should exercise extreme caution before performing. They often involve the potential for data loss or other destructive actions.
 
 ### Details (pop-out)
 ??? optional-class "Summary"
