@@ -1,5 +1,6 @@
 ---
 order: 2200
+visibility: hidden
 ---
 
 # API Discovery
