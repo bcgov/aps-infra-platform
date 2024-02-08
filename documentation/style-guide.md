@@ -1,5 +1,6 @@
 ---
 title: APS Style Guide
+visibility: hidden
 ---
 
 <!-- overview -->
@@ -318,7 +319,7 @@ Add callouts using `!!! <type> ["Custom callout title"]` and indenting any conte
 !!! warning ["Don't forget"]
     You **must** do this. You *may* include markdown here.
 
-Usage guidelines: 
+**Usage guidelines:**
 
 !!! note
     Notes provide useful information or reminders for the user, but the information is not required to follow. Notes may not be relevant or necessary to every user.
