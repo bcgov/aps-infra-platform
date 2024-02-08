@@ -14,7 +14,7 @@ nav:
       - "Query Kong Metrics (PQL": guides/prom-query.md
   - Resources:
       - "resources/api-access.md"
-      - "resources/api-discovery.md"
+      - "resources/api-discovery-devhub.md"
       - "resources/cicd-integration.md"
       - "resources/gateway-admin.md"
       - "resources/gateway-configuration.md"
