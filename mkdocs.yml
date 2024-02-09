@@ -41,7 +41,7 @@ nav:
           - "gateway/plugins/waiting-queue.md"
       - "gateway/SSL.md"
   - Reference:
-      - "glossary.md"
+      - "reference/glossary.md"
       - Releases:
         - "reference/releases/index.md"
         - "reference/releases/2023-nov-1.2.15.md"
