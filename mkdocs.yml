@@ -13,6 +13,9 @@ nav:
       - "Signed JWT w/ Hosted JWKS": "guides/intro-signed-jwt.md"
       - "guides/keycloak-rbac.md"
       - "Query Kong Metrics (PQL": guides/prom-query.md
+  - How-to Guides:
+      - "Sharing an API": "how-to/api-discovery.md#sharing-your-api"
+      - "how-to/api-discovery.md#what-is-the-api-directory"
   - Resources:
       - "resources/api-access.md"
       - "resources/api-discovery.md"
