@@ -14,11 +14,11 @@ nav:
       - "guides/keycloak-rbac.md"
       - "Query Kong Metrics": guides/prom-query.md
   - How-to Guides:
-      - "Sharing an API": "how-to/api-discovery/#sharing-your-api"
-      - "how-to/api-discovery/#what-is-the-api-directory"
+      - Sharing APIs:
+        - "API Directory": how-to/api-discovery/#what-is-the-api-directory"
+        - "Sharing an API": "how-to/api-discovery/#sharing-your-api"
   - Resources:
       - "resources/api-access.md"
-      - "resources/api-discovery.md"
       - "resources/cicd-integration.md"
       - "resources/gateway-admin.md"
       - "resources/gateway-configuration.md"

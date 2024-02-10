@@ -15,7 +15,7 @@ By listing your API in the API Directory, you also gain access to tools for mana
 
 The API Directory shows available APIs through API listings. Each listing features one API and is visible as a card on the API Directory's main page.
 
-![BC Route Planner API card](assets/api-directory-card.png)
+![BC Route Planner API card](../artifacts/api-directory-card.png)
 
 Cards show basic metadata about the API: the API name (`title`), associated ministry (`organization`), description (`notes`), and available environments. This metadata is defined in a `dataset`.
 
@@ -26,7 +26,7 @@ Despite the name `dataset`, don't think that all API's need to serve *data*. Man
 
 Clicking on the API name opens the full API listing details.
 
-![BC Route Planner API listing details](assets/api-directory-listing.png)
+![BC Route Planner API listing details](../artifacts/api-directory-listing.png)
 
 Here, additional metadata details defined in the `dataset` are visible, as well as the associated `products` which consumers can request access to.
 
@@ -146,7 +146,7 @@ Search is exact. Be mindful of spaces and case.
 
 Preview your new API listing by opening the API Directory and clicking the **Your Products** tab. Confirm everything is as desired.
 
-![New API card](assets/new-api-directory-card.png)
+![New API card](../artifacts/new-api-directory-card.png)
 
 #### Setup a New Product
 

@@ -1,3 +1,3 @@
 # Personas
 
-![API Management Platform personas](guides/assets/personas.png "Personas")
+![API Management Platform personas](artifacts/personas.png "Personas")

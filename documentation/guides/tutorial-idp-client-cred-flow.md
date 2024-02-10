@@ -10,7 +10,7 @@ Steps for protecting and calling an API using the OAuth2 Client Credential Grant
 6. Client Calling an API
 7. Gateway Proxying to Upstream
 
-![alt text](assets/oauth2.png "Protecting an API")
+![alt text](../artifacts/oauth2.png "Protecting an API")
 
 ## 1. Configuring an API on the Kong Gateway
 
