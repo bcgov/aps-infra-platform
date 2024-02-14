@@ -17,10 +17,10 @@ The following steps guide an API Provider through setting up an API on the BC Go
 
 ## 1. Download the `gwa` CLI
 
-The `gwa` CLI is available for Linux, MacOS, and Windows at https://github.com/bcgov/gwa-cli/releases/tag/v2.0.11. For this tutorial, if you have access to a Platform Services Openshift cluster, you can use the Openshift Terminal and run:
+The `gwa` CLI is available for Linux, MacOS, and Windows at https://github.com/bcgov/gwa-cli/releases/tag/v2.0.15. For this tutorial, if you have access to a Platform Services Openshift cluster, you can use the Openshift Terminal and run:
 
 ```sh
-curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.11/gwa_Linux_x86_64.tgz | tar -zxf -
+curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
 export PATH=$PATH:$PWD
 
 ```
@@ -36,19 +36,25 @@ gwa login
 
 ## 3. Apply Configuration
 
-Templates are available for generating gateway configuration for popular integration patterns. Below has one that uses the [Client Credentials Oauth2 Grant](./tutorial-idp-client-cred-flow.md) and uses a [Shared Identity Provider](./tutorial-idp-client-cred-flow.md#shared-idp).
+Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](./tutorial-idp-client-cred-flow.md) using a [Shared Identity Provider](./tutorial-idp-client-cred-flow.md#shared-idp).
 
-First, create a new namespace.
+First, create a new Namespace. 
 
 ```
-gwa namespace create
+gwa namespace create -g
+```
+
+`-g` generates a random, unique namespace which is displayed in response. Set the active namespace:
+
+```
+gwa config set --namespace <NEW-NAMESPACE>
 ```
 
 Second, choose a vanity url: `<MYSERVICE>.api.gov.bc.ca`.
 
-Then run the following command, substituting `<MYSERVICE>` with your unique name for your API.
+Then run the following command, substituting `<MYSERVICE>` with a unique name for your API.
 
-If you know your upstream service, you can specify that as well, or you can use the example one `https://httpbin.org` provided.
+You can also specify an upstream service or leave the example provided (`https://httpbin.org`).
 
 ```
 gwa generate-config \
@@ -57,7 +63,7 @@ gwa generate-config \
   --upstream https://httpbin.org
 ```
 
-Apply changes:
+Apply the configuration file:
 
 ```
 gwa apply -i gw-config.yml
@@ -71,65 +77,67 @@ gwa status
 
 ## 4. Review Setup
 
-To review what configuration has been setup, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the `Namespaces` tab, and select the newly created namespace.
+To review what configuration has been setup, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the **Namespaces** tab, and select the newly created Namespace.
 
-From here, you can go to `Activity` to review what configuration has been setup.
+From here, go to **Activity** and select **More details** next to "published gateway configuration" to review what the configuration.
 
 What you have setup:
 
-- Vanity url: `<MYSERVICE>.dev.api.gov.bc.ca`
+- Route to your service, via the vanity url: `<MYSERVICE>.dev.api.gov.bc.ca`
 - Protected by an SSL `*.api.gov.bc.ca` certificate
 - Protected with the Client Credential grant using OCIO SSO Gold cluster
 - Separation of concerns for authentication and authorization
 
 ## 5. Access your API
 
-Go to the `Namespaces` tab in the `API Services Portal` and click the `Preview in Directory` link in the `Products` panel.
+If you try to access your service now without any authorization, you will receive an `Unauthorized` 401 response. Try:
 
-You will see a card with the title of the Dataset that you created earlier.
-
-Click the title, then click `Request Access`.
-
-Choose or create an `Application`, select the `Dev` environment, and click `Request Access & Continue`.
-
-Clicking `Generate Secrets` will generate a Client ID and Secret pair with a Token URL. Make a note of this information as it will be used to request a JWT Token.
-
-To get a JWT Token, run the following command:
-
+```sh
+curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid
 ```
+
+This command returns an error, rather than a UUID4 from the upstream `https://httpbin.org/uuid`:
+
+`{  "message": "Unauthorized" }`
+
+Gaining access involves requesting access (as a consumer of your API would), obtaining a client secret and ID, and requesting a JWT token.
+
+Start by going to the **Namespaces** tab in the API Services Portal and click the **Preview in Directory** link in the **Products** panel.
+
+You will see a card with the service name you chose earlier (`<MYSERVICE>`). This card is a preview of how the service would look when shared to the API Directory.
+
+Click the title, then click **Request Access**.
+
+Choose or create an **Application**, select the **Dev** environment, and click **Request Access & Continue**.
+
+Click **Generate Secrets** to generate a Client ID and Secret pair with a Token URL. Copy these values into the following command to set as environment variables.
+
+```sh
 export CID="<Client ID>"
 export CSC="<Client Secret>"
 export URL="<Token Endpoint>"
 ```
 
-```
-curl -s $URL \
+Then run the following command to request a JWT token and export it to an environment variable (`TOKEN`):
+
+```sh
+export TOKEN=$(curl -s $URL \
   -X POST -H "Content-Type: application/x-www-form-urlencoded" \
   -d client_id=$CID -d client_secret=$CSC \
   -d grant_type=client_credentials \
-  -d scopes=openid
+  -d scopes=openid | jq -r '.access_token')
 ```
 
-Extract the `access_token` and put it into an environment variables `TOK`.
+Finally, try the `curl` command again with the token in the header:
 
-```
-curl https://<MYSERVICE>-api-gov-bc-ca.test.api.gov.bc.ca/headers -H "Authorization: Bearer $TOK"
+```sh
+curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid -H "Authorization: Bearer $TOKEN"
 ```
 
-It should return header information similar to the following:
+It should return a random UUID4 similar to the following:
 
-```
-{
-  "headers": {
-    "Accept": "*/*",
-    "User-Agent": "curl/7.64.1",
-    "X-Consumer-Custom-Id": "8ED11248-072EBB2791974533",
-    "X-Consumer-Id": "db3a0658-c049-430e-b143-ce46685d8e20",
-    "X-Consumer-Username": "8ED11248-072EBB2791974533",
-    "X-Credential-Identifier": "a91bb07c-41a9-49b6-9481-155e9fd68dba"
-  }
-}
-```
+`{  "uuid": "fb49e86c-7e91-45e7-aca1-d0bf1515252d" }`
+
 
 ## 6. What to try next?
 
