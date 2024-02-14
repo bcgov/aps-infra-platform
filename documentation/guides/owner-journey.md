@@ -17,7 +17,13 @@ The following steps guide an API Provider through setting up an API on the BC Go
 
 ## 1. Download the `gwa` CLI
 
-The `gwa` CLI is available for Linux, MacOS, and Windows at https://github.com/bcgov/gwa-cli/releases/tag/v2.0.15. For this tutorial, if you have access to a Platform Services Openshift cluster, you can use the Openshift Terminal and run:
+The `gwa` CLI is available for Linux, MacOS, and Windows at https://github.com/bcgov/gwa-cli/releases/tag/v2.0.15. 
+
+The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`). If you are running Windows, it is recommended to use WSL2. 
+
+Alternatively, if you have access to a Platform Services OpenShift cluster, you can use the OpenShift commmand line [terminal](https://console.apps.silver.devops.gov.bc.ca/terminal) from any operating system.
+
+Start by downloading the `gwa` cli and adding to `PATH` for the session:
 
 ```sh
 curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
