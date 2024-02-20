@@ -15,9 +15,8 @@ nav:
       - "guides/keycloak-rbac.md"
       - "Query Kong Metrics": guides/prom-query.md
   - How-to Guides:
-      - Sharing APIs:
-        - "API Directory": how-to/api-discovery/#what-is-the-api-directory"
-        - "Sharing an API": "how-to/api-discovery/#sharing-your-api"
+      - "Sharing an API": "how-to/api-discovery.md"
+      - "Sharing an Externally Protected API": "how-to/protected-externally.md"
   - Resources:
       - "resources/api-access.md"
       - "resources/cicd-integration.md"

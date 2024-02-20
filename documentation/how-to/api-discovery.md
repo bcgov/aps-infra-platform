@@ -3,7 +3,7 @@ order: 2200
 visibility: hidden
 ---
 
-# API Discovery
+# Share an API for discovery
 
 ## What is the API Directory?
 
@@ -11,31 +11,31 @@ The [API Directory](https://api.gov.bc.ca/devportal/api-directory) enables you t
 
 By listing your API in the API Directory, you also gain access to tools for managing your API consumers through access requests and approvals.
 
-## API Listings
+## API listings
 
 The API Directory shows available APIs through API listings. Each listing features one API and is visible as a card on the API Directory's main page.
 
 ![BC Route Planner API card](../artifacts/api-directory-card.png)
 
-Cards show basic metadata about the API: the API name (`title`), associated ministry (`organization`), description (`notes`), and available environments. This metadata is defined in a `dataset`.
+Cards show basic metadata about the API: the API name (`title`), associated ministry (`organization`), description (`notes`), and available environments. This metadata is defined in a Dataset.
 
-Despite the name `dataset`, don't think that all API's need to serve *data*. Many API's provide services, for example, the [BC Route Planner API](https://api.gov.bc.ca/devportal/api-directory/740?preview=false) returns vehicle routes between start and end points.
+Despite the name "dataset", don't think that all API's need to serve *data*. Many API's provide services, for example, the [BC Route Planner API](https://api.gov.bc.ca/devportal/api-directory/740?preview=false) returns vehicle routes between start and end points.
 
 !!! info
-    Think of `datasets` as API metadata records.
+    Think of Datasets as API metadata records.
 
 Clicking on the API name opens the full API listing details.
 
 ![BC Route Planner API listing details](../artifacts/api-directory-listing.png)
 
-Here, additional metadata details defined in the `dataset` are visible, as well as the associated `products` which consumers can request access to.
+Here, additional metadata details defined in the Dataset are visible, as well as the associated Products which consumers can request access to.
 
 !!! info "Products"
-    `products` bundle one or more gateway services which are protected in the same way. They are used to manage consumer access.
+    *Products* bundle one or more Gateway Services which are protected in the same way. They are used to manage consumer access.
 
-## Sharing Your API
+## Share an API
 
-API Listings in the Directory can be created and managed via:
+API listings in the Directory can be created and managed via:
 
 - ⭐ **Command Line Interface (CLI)**: See the [Quick Start tutorial](../tutorials/quick-start.md) for instructions on downloading the CLI and logging in.
 - **Directory API**: Go to [Gateway Administration](../resources/gateway-admin.md#directory-api) for links to the Directory API specs and Swagger UI.
@@ -55,9 +55,9 @@ All API Directory functionality is accessible in both the `test` and `production
 
 ### Setup a Draft Dataset
 
-First, we need a draft dataset with metadata about your API. This information helps consumers find your API in the Directory. If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Link Your Dataset to a Product](#link-your-dataset-to-a-product).
+First, we need a DraftDataset with metadata about your API. This information helps consumers find your API in the Directory. If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Link Your Dataset to a Product](#link-your-dataset-to-a-product).
 
-Start by writing up a draft dataset in a local YAML file (if using the CLI) or JSON file (if using the API). Here is the schema, omitting some optional fields:
+Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JSON file (if using the API). Here is the schema, omitting some optional fields:
 
 === "YAML Template (w/ field descriptions)"
     ```yaml
@@ -109,14 +109,14 @@ Start by writing up a draft dataset in a local YAML file (if using the CLI) or J
     }
     ```
 
-Check our [source code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116) for up-to-date data rules for `DraftDatasets`.
+Check our [source code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116) for up-to-date data rules for DraftDatasets.
 
-Now it's time to publish the dataset:
+Now it's time to publish the Dataset:
 
 === "CLI"
     1. Login - `gwa login`
     2. Set the namespace - `gwa config set namespace <namespace-name>`
-    3. Publish the draft dataset - `gwa apply -i <draft-dataset.yaml>`
+    3. Publish the DraftDataset - `gwa apply -i <draft-dataset.yaml>`
 
     You should see `✔ [DraftDataset] <dataset-name>: created`
 
@@ -126,14 +126,14 @@ Now it's time to publish the dataset:
     3. Under API Directory, click the **PUT /namespaces/{ns}/datasets** [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
     4. Click **Try it out**.
     5. Enter your namespace.
-    6. Copy your JSON `dataset` into the Request body.
+    6. Copy your DraftDataset JSON into the Request body.
     7. Click **Execute**.
     8. Scroll down and ensure a `200` Response was received.
 
 
 ### Link Your Dataset to a Product
 
-If you've already worked through the [Quick Start tutorial](../tutorial/quick-start.md) or set up a gateway service, you may already have a `product`. In this case, we can associate the `product` with a `dataset`:
+If you've already worked through the [Quick Start tutorial](../tutorial/quick-start.md) or set up a Gateway Service, you may already have a Product. In this case, we can associate the Product with a Dataset:
 
 1. Open the [Products](https://api.gov.bc.ca/manager/products) page in the API Services Portal.
 2. Click the ellipsis (**...**) next to **Add Env**, select **Edit Product**.
@@ -150,13 +150,13 @@ Preview your new API listing by opening the API Directory and clicking the **You
 
 #### Setup a New Product
 
-If you haven't added a product yet, follow these steps and then link your dataset:
+If you haven't added a Product yet, follow these steps and then link your Dataset:
 
 === "CLI"
-    1. Create a product configuration using the YAML template below.
+    1. Create a Product configuration using the YAML template below.
       
-      Specify your dataset by `name` in the config - `dataset: my-draft-dataset`
-    2. Publish the product - `gwa apply -i <product.yaml>`
+      Specify your Dataset by `name` in the config - `dataset: my-draft-dataset`
+    2. Publish the Product - `gwa apply -i <product.yaml>`
 === "Web UI"
     1. Navigate to **Namespaces** -> **Products**.
     2. Click **New Product** in the top right.
@@ -180,8 +180,7 @@ environments:
 Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.
 
 !!! note "Prerequisite: Add Organization"
-    Before sharing your API on the API Directory, you must add your Organization and Business Unit to your namespace. If you have yet to complete this you will see a banner on the `Namespaces` page on the API Service Portal asking you to `Add Organization`. You will then need to wait for approval from the Organization Administrator.
-
+    Before sharing your API on the API Directory, you must add your Organization and Business Unit to your Namespace. If you have yet to complete this you will see a banner on the Namespaces page on the API Service Portal asking you to **Add Organization**. You will then need to wait for approval from the Organization Administrator.
 
 Enable an environment to display the API in the API Directory. You can individually enable each environment (dev, test, prod). 
 

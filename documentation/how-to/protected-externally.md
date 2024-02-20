@@ -125,6 +125,6 @@ An Organization Administrator will receive your request and should approve it or
 
 After receiving organization approval, the final step is to enable the Product environment(s).
 
-Set `active: true` in the Product YAML and apply with `gwa apply -i <product.yaml>`.
+Enable environments by either updating the Product environment configuration YAML to `active: true`, or on the API Services Portal -> **Product** page -> **Edit** the environment details -> check **Enable Environment**.
 
 Your API is now listed on the [API Directory](https://api.gov.bc.ca/devportal/api-directory).
