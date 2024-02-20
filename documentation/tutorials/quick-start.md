@@ -28,7 +28,6 @@ Start by downloading the `gwa` cli and adding to `PATH` for the session:
 ```sh
 curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
 export PATH=$PATH:$PWD
-
 ```
 
 ## 2. Login
@@ -50,10 +49,10 @@ First, create a new Namespace.
 gwa namespace create -g
 ```
 
-`-g` generates a random, unique namespace which is displayed in response. Set the active namespace:
+`-g` generates a random, unique namespace which is displayed in response. Confirm this is the active namespace with:
 
 ```
-gwa config set --namespace <NEW-NAMESPACE>
+gwa namespace current
 ```
 
 Second, choose a vanity url: `<MYSERVICE>.api.gov.bc.ca`.

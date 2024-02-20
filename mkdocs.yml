@@ -5,8 +5,9 @@ edit_uri: blob/test/documentation
 
 nav:
   - "README.md"
+  - Tutorials:
+      - "tutorials/quick-start.md"
   - Guides:
-      - "guides/owner-journey.md"
       - "guides/owner-journey-v1.md"
       - "Client Credential Protection": "guides/tutorial-idp-client-cred-flow.md"
       - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"

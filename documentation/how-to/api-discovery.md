@@ -37,7 +37,7 @@ Here, additional metadata details defined in the `dataset` are visible, as well 
 
 API Listings in the Directory can be created and managed via:
 
-- ⭐ **Command Line Interface (CLI)**: See the [Quick Start guide](../guides/owner-journey.md) for instructions on downloading the CLI and logging in.
+- ⭐ **Command Line Interface (CLI)**: See the [Quick Start tutorial](../tutorials/quick-start.md) for instructions on downloading the CLI and logging in.
 - **Directory API**: Go to [Gateway Administration](../resources/gateway-admin.md#directory-api) for links to the Directory API specs and Swagger UI.
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
@@ -133,7 +133,7 @@ Now it's time to publish the dataset:
 
 ### Link Your Dataset to a Product
 
-If you've already worked through the [Quick Start guide](../guides/owner-journey.md) or set up a gateway service, you may already have a `product`. In this case, we can associate the `product` with a `dataset`:
+If you've already worked through the [Quick Start tutorial](../tutorial/quick-start.md) or set up a gateway service, you may already have a `product`. In this case, we can associate the `product` with a `dataset`:
 
 1. Open the [Products](https://api.gov.bc.ca/manager/products) page in the API Services Portal.
 2. Click the ellipsis (**...**) next to **Add Env**, select **Edit Product**.
