@@ -1,6 +1,7 @@
 ---
 order: 2200
 visibility: hidden
+title: "Share an API"
 ---
 
 # Share an API for discovery

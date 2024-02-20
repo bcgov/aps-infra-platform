@@ -1,3 +1,7 @@
+---
+title: "Share an Externally Protected API"
+---
+
 # Share an Externally Protected API
 
 Teams may want to take advantage of the API Directory to share their APIs, without managing their service with the API Management Platform's API Gateway. This guide shows how to 

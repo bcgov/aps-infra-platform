@@ -7,16 +7,16 @@ nav:
   - "README.md"
   - Tutorials:
       - "tutorials/quick-start.md"
-  - Guides:
+  - How-to Guides:
+      - "how-to/api-discovery.md"
+      - "how-to/protected-externally.md"
+  - Other Guides:
       - "guides/owner-journey-v1.md"
       - "Client Credential Protection": "guides/tutorial-idp-client-cred-flow.md"
       - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"
       - "Signed JWT w/ Hosted JWKS": "guides/intro-signed-jwt.md"
       - "guides/keycloak-rbac.md"
       - "Query Kong Metrics": guides/prom-query.md
-  - How-to Guides:
-      - "Sharing an API": "how-to/api-discovery.md"
-      - "Sharing an Externally Protected API": "how-to/protected-externally.md"
   - Resources:
       - "resources/api-access.md"
       - "resources/cicd-integration.md"
