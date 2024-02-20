@@ -1,5 +1,5 @@
 ---
-title: APS Style Guide
+title: Documentation Style Guide
 visibility: hidden
 ---
 

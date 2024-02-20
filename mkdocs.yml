@@ -66,6 +66,7 @@ nav:
         - "reference/portal-use-cases/consumer-maintenance.md"
         - "reference/portal-use-cases/websequencediagrams.md"
       - "reference/presentations.md"
+      - "reference/style-guide.md"
   - "external-resources.md"
 
 plugins:
