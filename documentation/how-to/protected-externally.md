@@ -8,11 +8,9 @@ Teams may want to take advantage of the API Directory to share their APIs, witho
 
 ## Before you begin
 
-The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`). If you are running Windows, it is recommended to use WSL2.
+You need to have the `gwa` command line interface (CLI). Download it from [GitHub](https://github.com/bcgov/gwa-cli/releases) and add to `PATH` for the session.
 
-## Download the `gwa` CLI 
-
-Start by downloading the `gwa` cli and adding to `PATH` for the session:
+On Linux, run this command to get set up:
 
 ```sh linenums="0"
 curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
@@ -21,7 +19,7 @@ export PATH=$PATH:$PWD
 
 ## Login
 
-Log into the API Services Portal with your IDIR account.
+Log into the API Services Portal with your IDIR account:
 
 ``` linenums="0"
 gwa config set host api.gov.bc.ca
