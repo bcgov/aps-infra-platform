@@ -157,8 +157,8 @@ Use angle brackets as a placeholder for variables you want the user to enter (ex
 | -- | ----- |
 | `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` 
 | `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
-| `curl https://{MYSERVICE}.api.gov.bc.ca/headers` | |`curl https://<MYSERVICE>.api.gov.bc.ca/headers` |
 | `gwa get <resource>` | `gwa get <foo>` |
+| `curl https://{MYSERVICE}.api.gov.bc.ca/headers` | `curl https://<MYSERVICE>.api.gov.bc.ca/headers` |
 
 
 ## Markdown elements
@@ -173,11 +173,11 @@ There are many available [callout types](https://squidfunk.github.io/mkdocs-mate
 
 Add callouts using `!!! <type> ["Custom callout title"]` and indenting any content to contain in the callout, for example:
 ```md
-!!! warning ["Don't forget"]
+!!! warning "Don't forget"
     You **must** do this. You *may* include markdown here.
 ```
 
-!!! warning ["Don't forget"]
+!!! warning "Don't forget"
     You **must** do this. You *may* include markdown here.
 
 **Usage guidelines:**
@@ -193,14 +193,14 @@ Add callouts using `!!! <type> ["Custom callout title"]` and indenting any conte
 
 ### Details
 
-Use collapsible details blocks to include longer note which may be useful but are not required information for all users.
+Use collapsible details blocks to include longer notes which may be useful but are not required information for all users.
 
 ```
 ??? optional-class "Summary"
     Write the callout type (default is `info`), then a title/summary in quotes, then more content in here.
 
 ???+ warning "Summary"
-    Expand details by default with a `+`.
+    Expand details blocks by default with `???+`.
 ```
 
 ??? optional-type "Summary"
@@ -217,7 +217,7 @@ Use tabs for documenting multiple user paths to achieve the same end, for exampl
 === "Tab 1"
     Add Markdown **content**.
 
-    Write Multiple paragraphs.
+    Write multiple paragraphs.
 
 === "Tab 2"
     More Markdown **content**.
@@ -249,15 +249,15 @@ Use tabs for documenting multiple user paths to achieve the same end, for exampl
 Use a single empty newline to separate block-level content like headings, lists, images,
 code blocks, and others. Use two empty lines to separate level 2 headings.
 
-Manually wrap paragraphs in the Markdown source to break long lines.
+Manually wrap long lines by adding breaks in the Markdown source.
 Since git generates file diffs on a line-by-line basis, manually wrapping long lines 
-helps the reviewers to easily find out the changes made in a PR and provide feedback. 
+helps reviewers to easily find the changes made in a PR and provide feedback. 
 
 ### Headings and titles {#headings}
 
-People accessing this documentation may use a screen reader or other assistive technology (AT).
+People accessing this documentation may use a screen reader or other assistive technology.
 [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices,
-they output items on a page one at a time. If there is a lot of content on a page, you can
+outputting items on a page one at a time. If there is a lot of content on a page, you can
 use headings to give the page an internal structure. A good page structure helps all 
 readers to easily navigate the page or filter topics of interest.
 
@@ -274,21 +274,26 @@ readers to easily navigate the page or filter topics of interest.
 | Use three hyphens (`---`) to create a horizontal rule. Use horizontal rules for meaningful breaks within paragraph content. For example, a shift of topic within a section. | Use horizontal rules in addition to headings or for decoration. |
 
 ### Links
-Write links using `[link text](URL)`.
+Write links using `[link text](URL)`. Write hyperlinks that give you context for the content they link to - avoid "click here."
 
 | Do | Don't |
 | -- | ----- |
-| Write hyperlinks that give you context for the content they link to. For example: The [Swagger Console](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml) can be used to test API endpoints. | Use ambiguous terms such as "click here". For example: The Swagger Console can be used to test API endpoints. Try it out [here](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml). |
+| The [Swagger Console](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml) can be used to test API endpoints. | The Swagger Console can be used to test API endpoints. Try it out [here](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml). |
 
 ### Lists
 
-- End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
+- End each item in a list with a period if one or more items in the list are complete sentences. 
+- For the sake of consistency, normally either all items or none should be complete sentences.
 
   !!! note
-      Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.
+      Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence. For example
 
-- Use the number one (`1.`) all items in for ordered lists.
+      Fruits I enjoy include
+        - apples
+        - pears
+        - persimmons.
 
+- Use the number one (`1.`) for all items in ordered lists.
 - Use (`+`), (`*`), or (`-`) for unordered lists.
 
 ## Content best practices
