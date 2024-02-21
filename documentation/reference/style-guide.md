@@ -290,9 +290,9 @@ Write links using `[link text](URL)`. Write hyperlinks that give you context for
 
       Fruits I enjoy include:
         
-        - apples
-        - pears
-        - persimmons.
+      - apples
+      - pears
+      - persimmons.
 
 - Use the number one (`1.`) for all items in ordered lists.
 - Use (`+`), (`*`), or (`-`) for unordered lists.
