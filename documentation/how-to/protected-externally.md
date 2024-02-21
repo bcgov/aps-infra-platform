@@ -14,7 +14,7 @@ The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`)
 
 Start by downloading the `gwa` cli and adding to `PATH` for the session:
 
-```sh
+```sh linenums="0"
 curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
 export PATH=$PATH:$PWD
 ```
@@ -23,7 +23,7 @@ export PATH=$PATH:$PWD
 
 Log into the API Services Portal with your IDIR account.
 
-```
+``` linenums="0"
 gwa config set host api.gov.bc.ca
 gwa login
 ```
@@ -34,13 +34,13 @@ Alternatively run `gwa config set host api-gov-bc-ca.test.api.gov.bc.ca` to work
 
 First, create a new *Namespace*. Namespaces provide a mechanism for isolating groups of resources and can be managed by multiple users on a team.
 
-```
+``` linenums="0"
 gwa namespace create -g
 ```
 
 `-g` generates a random, unique namespace which is displayed in response. Confirm this is the active namespace with:
 
-```
+``` linenums="0"
 gwa namespace current
 ```
 
@@ -84,7 +84,7 @@ Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JS
 
 After preparing a DraftDataset, publish it with:
 
-```
+``` linenums="0"
 `gwa apply -i <draft-dataset.yaml>`
 ```
 
@@ -111,7 +111,7 @@ environments:
 
 Then publish the product:
 
-```
+``` linenums="0"
 gwa apply -i <product.yaml>
 ```
 
