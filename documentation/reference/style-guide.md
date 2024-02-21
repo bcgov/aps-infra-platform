@@ -134,6 +134,8 @@ Code blocks can be helpful to offset single line commands and provide easy acces
     ```
 ```
 
+Code block without line numbers:
+
 ```shell linenums="0"
 gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 ```
