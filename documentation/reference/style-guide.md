@@ -286,9 +286,10 @@ Write links using `[link text](URL)`. Write hyperlinks that give you context for
 - For the sake of consistency, normally either all items or none should be complete sentences.
 
   !!! note
-      Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence. For example
+      Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence. For example:
 
-      Fruits I enjoy include
+      Fruits I enjoy include:
+        
         - apples
         - pears
         - persimmons.
