@@ -50,7 +50,7 @@ This guideline applies to introductory or overview content, most likely to be fo
 
 | Do | Don't |
 | -- | ----- |
-| Open the `gw-config.yaml` file. | Open the `gw-config.yaml` file. |
+| Open the `gw-config.yaml` file. | Open the "gw-config.yaml" file. |
 | Go to the `/docs/tutorials` directory. | Go to the /docs/tutorials directory. |
 
 ### Use code style for object field names and values
