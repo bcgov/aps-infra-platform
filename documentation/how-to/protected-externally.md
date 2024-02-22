@@ -4,7 +4,7 @@ title: "Share an Externally Protected API"
 
 # Share an Externally Protected API
 
-Teams may want to take advantage of the API Directory to share their APIs, without managing their service with the API Management Platform's API Gateway. This guide shows how to 
+This page shows how to share externally protected APIs on the API Directory, without setting up any gateway services in the API Management Portal. 
 
 ## Before you begin
 
@@ -26,7 +26,7 @@ gwa config set host api.gov.bc.ca
 gwa login
 ```
 
-Alternatively run `gwa config set host api-gov-bc-ca.test.api.gov.bc.ca` to work on the Test/Training instance of the API Management Platform. 
+Alternatively run `gwa config set host api-gov-bc-ca.test.api.gov.bc.ca` to work on the Test/Training instance of the API Management Portal. 
 
 ## Create a Namespace
 
