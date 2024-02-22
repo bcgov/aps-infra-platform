@@ -2,8 +2,8 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: "aps-infra-platform-docs"
-  title: "API Program Services Infrastructure Documentation"
-  description: "A guide to the BC Gov API Services"
+  title: "API Program Services Technical Documentation"
+  description: "A guide to the API Services Portal and API Directory"
   annotations:
     github.com/project-slug: bcgov/aps-infra-platform
     backstage.io/techdocs-ref: dir:./documentation
