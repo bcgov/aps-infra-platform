@@ -80,6 +80,16 @@ Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JS
     record_publish_date: "2021-05-27"
     ```
 
+!!! info
+  In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more and obtain access. For example:
+
+  ```md
+  notes: "Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
+          and endpoints to streamline application development.\r\n\r\n
+          Visit the [Useful API page](https://api.useful.com) to view the API spec and request access."
+  ```
+
+
 After preparing a DraftDataset, publish it with:
 
 ``` linenums="0"

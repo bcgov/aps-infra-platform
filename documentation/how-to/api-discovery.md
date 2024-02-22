@@ -112,6 +112,15 @@ Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JS
 
 Check our [source code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116) for up-to-date data rules for DraftDatasets.
 
+!!! info
+  In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more and obtain access. For example:
+
+  ```md
+  notes: "Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
+          and endpoints to streamline application development.\r\n\r\n
+          Visit the [Useful API page](https://api.useful.com) to view the API spec and request access."
+  ```
+
 Now it's time to publish the Dataset:
 
 === "CLI"
