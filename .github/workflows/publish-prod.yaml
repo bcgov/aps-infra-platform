@@ -1,7 +1,7 @@
 name: Publish Content (PROD)
 on:
   push:
-    branches: [main]
+    branches: [retype-archive]
 
 jobs:
   retype:
