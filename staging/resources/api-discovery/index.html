@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="turbo-root" content="/aps-infra-platform">
-    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.760818942039">
+    <meta name="turbo-cache-control" content="no-cache" data-turbo-track="reload" data-track-token="3.5.0.762293106095">
 
     <!-- See retype.com -->
     <meta name="generator" content="Retype 3.5.0">
@@ -12,7 +12,7 @@
     <!-- Primary Meta Tags -->
     <title>API Discovery</title>
     <meta name="title" content="API Discovery">
-    <meta name="description" content="The API Directory enables you to package your APIs and make them available for discovery by developers and other API consumers, across BC Government...">
+    <meta name="description" content="Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://bcgov.github.io/aps-infra-platform/resources/api-discovery/">
@@ -21,24 +21,22 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bcgov.github.io/aps-infra-platform/resources/api-discovery/">
     <meta property="og:title" content="API Discovery">
-    <meta property="og:description" content="The API Directory enables you to package your APIs and make them available for discovery by developers and other API consumers, across BC Government...">
-    <meta property="og:image" content="https://bcgov.github.io/aps-infra-platform/resources/assets/api-directory-card.png">
+    <meta property="og:description" content="Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://bcgov.github.io/aps-infra-platform/resources/api-discovery/">
     <meta property="twitter:title" content="API Discovery">
-    <meta property="twitter:description" content="The API Directory enables you to package your APIs and make them available for discovery by developers and other API consumers, across BC Government...">
-    <meta property="twitter:image" content="https://bcgov.github.io/aps-infra-platform/resources/assets/api-directory-card.png">
+    <meta property="twitter:description" content="Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.">
 
     <script data-cfasync="false">(function () { var el = document.documentElement, m = localStorage.getItem("doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="../../resources/css/retype.css?v=3.5.0.760818942039" rel="stylesheet">
+    <link href="../../resources/css/retype.css?v=3.5.0.762293106095" rel="stylesheet">
 
-    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.760818942039" data-turbo-eval="false" defer></script>
+    <script data-cfasync="false" src="../../resources/js/config.js?v=3.5.0.762293106095" data-turbo-eval="false" defer></script>
     <script data-cfasync="false" src="../../resources/js/retype.js?v=3.5.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.760818942039" data-turbo-eval="false" defer></script>
-    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.760818942039" defer></script>
+    <script id="lunr-js" data-cfasync="false" src="../../resources/js/lunr.js?v=3.5.0.762293106095" data-turbo-eval="false" defer></script>
+    <script id="prism-js" data-cfasync="false" src="../../resources/js/prism.js?v=3.5.0.762293106095" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -65,6 +63,9 @@
                     <!-- Top Nav -->
                     <nav class="hidden md:flex">
                         <ul class="flex flex-col mb-4 md:pl-16 md:mb-0 md:flex-row md:items-center">
+                            <li class="mr-6">
+                                <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://mvp.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/">⚠ Documentation has moved. For the most recent docs, visit mvp.developer.gov.bc.ca</a>
+                            </li>
                             <li class="mr-6">
                                 <a class="py-2 md:mb-0 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://api.gov.bc.ca">API Services Portal</a>
                             </li>
@@ -149,6 +150,9 @@
                             <nav>
                                 <ul class="flex flex-wrap justify-center items-center">
                                     <li class="mr-6">
+                                        <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://mvp.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/">⚠ Documentation has moved. For the most recent docs, visit mvp.developer.gov.bc.ca</a>
+                                    </li>
+                                    <li class="mr-6">
                                         <a class="block py-1 inline-flex items-center text-sm whitespace-nowrap transition-colors duration-200 ease-linear md:text-blue-500 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200" href="https://api.gov.bc.ca">API Services Portal</a>
                                     </li>
                                     <li class="mr-6">
@@ -185,103 +189,151 @@
         <span>API Discovery</span>
     </h1>
 </doc-anchor-target>
-<doc-anchor-target id="what-is-the-api-directory">
+<doc-anchor-target id="share-your-api-for-discovery">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#what-is-the-api-directory">#</doc-anchor-trigger>
-        <span>What is the API Directory?</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#share-your-api-for-discovery">#</doc-anchor-trigger>
+        <span>Share your API for Discovery</span>
     </h2>
 </doc-anchor-target>
-<p>The <a href="https://api.gov.bc.ca/devportal/api-directory">API Directory</a> enables you to package your APIs and make them available for discovery by developers and other API consumers, across BC Government and beyond.</p>
-<p>By listing your API in the API Directory, you also gain access to tools for managing your API consumers through access requests and approvals.</p>
-<doc-anchor-target id="api-listings">
+<p>Package your APIs and make them available for discovery through the API Services Portal and BC Data Catalogue.</p>
+<p>The <code v-pre>API Services Portal</code> Directory organizes your APIs by Datasets, Products and Environments. You can manage them via the CLI, the API or through the UI.</p>
+<p>Go to <a href="../gateway-admin/#directory-api">Gateway Administration</a> for links to the Directory API.</p>
+<doc-anchor-target id="setup-your-draft-dataset">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#api-listings">#</doc-anchor-trigger>
-        <span>API Listings</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-your-draft-dataset">#</doc-anchor-trigger>
+        <span>Setup your Draft Dataset</span>
     </h2>
 </doc-anchor-target>
-<p>The API Directory shows available APIs through API listings. Each listing features one API and is visible as a card on the API Directory&#x27;s main page.</p>
-<p><figure class="content-center">
-    <img src="../assets/api-directory-card.png" alt="BC Route Planner API card">
-    <figcaption class="caption">BC Route Planner API card</figcaption>
-</figure>
-</p>
-<p>Cards show basic metadata about the API: the API name (<code v-pre>title</code>), associated ministry (<code v-pre>organization</code>), description (<code v-pre>notes</code>), and available environments. This metadata is defined in a <code v-pre>dataset</code>.</p>
-<p>Despite the name <code v-pre>dataset</code>, don&#x27;t think that all API&#x27;s need to serve <em>data</em>. Many API&#x27;s provide services, for example, the <a href="https://api.gov.bc.ca/devportal/api-directory/740?preview=false">BC Route Planner API</a> returns vehicle routes between start and end points.</p>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-300"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-300" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
+<p>If you do not have a Dataset already defined in the BC Data Catalogue, you can create a draft in the API Services Portal:</p>
+<ol>
+<li>Click <code v-pre>Help</code> in the top right, then <code v-pre>API Docs</code></li>
+<li>Click the green <code v-pre>Authorize</code> button, then enter your Client ID and Secret</li>
+<li>Click the <code v-pre>PUT /namespaces/{ns}/datasets</code> accordion item</li>
+<li>Click <code v-pre>Try it out</code>, enter your namespace, personalize any fields in the Request body, remove the lines pertaining to organization, and click <code v-pre>Execute</code></li>
+<li>Scroll down and ensure a 200 Response was received</li>
+</ol>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">Think of `datasets` as API metadata records.</code></pre>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: DraftDataset
+name: my-draft-dataset
+organization: ministry-of-citizens-services
+organizationUnit: databc
+notes: Some information about this API
+tags: [health, standards, openapi]
+sector: Service
+license_title: Access Only
+view_audience: Government
+security_class: LOW-PUBLIC
+record_publish_date: &quot;2021-05-27&quot;</code></pre>
 </doc-codeblock></div>
-<p>Clicking on the API name opens the full API listing details.</p>
-<p><figure class="content-center">
-    <img src="../assets/api-directory-listing.png" alt="BC Route Planner API listing details">
-    <figcaption class="caption">BC Route Planner API listing details</figcaption>
-</figure>
-</p>
-<p>Here, additional metadata details defined in the <code v-pre>dataset</code> are visible, as well as the associated <code v-pre>products</code> which consumers can request access to.</p>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-300"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-300" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-            <h5>&quot;Products&quot;</h5>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">`products` bundle one or more gateway services which are protected in the same way. They are used to manage consumer access.</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="sharing-your-api">
+<blockquote>
+<p>List of available organizations:</p>
+<p><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/organizations</a></p>
+</blockquote>
+<blockquote>
+<p>Use the following to get the <code v-pre>organizationUnit</code>:</p>
+<p><a href="https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/console/#/Organizations/organization-units">https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/console/#/Organizations/organization-units</a></p>
+</blockquote>
+<doc-anchor-target id="setup-your-product">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#sharing-your-api">#</doc-anchor-trigger>
-        <span>Sharing Your API</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-your-product">#</doc-anchor-trigger>
+        <span>Setup your Product</span>
     </h2>
 </doc-anchor-target>
-<p>API Listings in the Directory can be created and managed via:</p>
-<ul>
-<li><span class="docs-emoji">&#x2B50;</span> <strong>Command Line Interface (CLI)</strong>: See the <a href="../../guides/owner-journey/">Quick Start guide</a> for instructions on downloading the CLI and logging in.</li>
-<li><strong>Directory API</strong>: Go to <a href="../gateway-admin/#directory-api">Gateway Administration</a> for links to the Directory API specs and Swagger UI.</li>
-<li><strong>Web user interface (UI)</strong>: Visit the <a href="https://api.gov.bc.ca/">API Services Portal</a> and login to the API Provider zone.</li>
-</ul>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-yellow-500"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-yellow-500" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M22.48 15.59L14.01 1.45A2.968 2.968 0 0012.16.09c-.78-.19-1.58-.07-2.27.35-.41.25-.76.6-1.01 1.01v.01L.4 15.6c-.83 1.43-.33 3.27 1.1 4.1.45.26.95.4 1.48.4h16.95c.8-.01 1.55-.33 2.11-.9.56-.57.87-1.33.86-2.13a3.04 3.04 0 00-.42-1.48zm-1.87 2.21c-.19.19-.44.3-.69.3H2.99c-.17 0-.34-.05-.49-.13a.992.992 0 01-.37-1.35L10.6 2.48c.08-.14.2-.25.34-.33a.992.992 0 011.37.33l8.46 14.13c.09.15.13.32.13.49 0 .26-.1.51-.29.7z"></path>
-                    <path d="M11.45 12.1c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .56.45 1 1 1zM11.46 14.1c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-            <h5>&quot;Web UI limitations&quot;</h5>
+<p>How to add a Product:</p>
+<ol>
+<li>Navigate to Namespaces -&gt; Products</li>
+<li>Click <code v-pre>New Product</code> in the top right</li>
+</ol>
+<p>How to associate Product with a Dataset:</p>
+<ol>
+<li>Click the ellipses next to Add Env</li>
+<li>Find your newly created dataset and click Update</li>
+</ol>
+<blockquote>
+<p>There are various patterns for protecting an API that the Kong API Gateway supports. In the following example, the API is protected with Kong&#x27;s API Key and ACL plugins (<code v-pre>kong-api-key-acl</code> flow).</p>
+</blockquote>
 <div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.</code></pre>
+<pre class="language-yaml"><code v-pre class="language-yaml">kind: Product
+appId: 2B04C28E08AW
+name: My API
+dataset: my-draft-dataset
+environments:
+  - id: 1F7CA929
+    name: dev
+    active: false
+    approval: false
+    legal: terms-of-use-for-api-gateway-1
+    flow: kong-api-key-acl
+    additionalDetailsToRequest: Please provide a bit more of this
+    services: []
+  - id: 2F7CA929
+    name: test
+    active: false
+    approval: true
+    legal: terms-of-use-for-api-gateway-1
+    flow: kong-api-key-acl
+    additionalDetailsToRequest: Asking for test environment? Please provide some more info
+    services: [a-service-for-$NS]
+  - id: 3F7CA929
+    name: prod
+    active: false
+    approval: true
+    legal: terms-of-use-for-api-gateway-1
+    flow: client-credentials
+    credentialIssuer: Resource Server $NS
+    additionalDetailsToRequest: Production? Great, please provide X, Y and Z
+    services: []</code></pre>
 </doc-codeblock></div>
-<doc-anchor-target id="environments">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#environments">#</doc-anchor-trigger>
-        <span>Environments</span>
-    </h3>
+<doc-anchor-target id="update-gateway-configuration">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#update-gateway-configuration">#</doc-anchor-trigger>
+        <span>Update Gateway Configuration</span>
+    </h2>
 </doc-anchor-target>
-<p>All API Directory functionality is accessible in both the <code v-pre>test</code> and <code v-pre>production</code> environments. While you are encouraged to utilize the <code v-pre>test</code> environment for experimentation and training purposes, if you already know the details of the API you&#x27;re building, you can add it directly to the production Directory.</p>
+<p>In the previous section the example defined an environment that is protected using Kong&#x27;s API Key and ACL plugins. To protect the Service, the corresponding plugins need to exist on the Gateway for that service or route. The ACL <code v-pre>allow</code> corresponds to the unique <code v-pre>Environment ID</code> defined in Section 9.2.</p>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-none"><code v-pre class="language-none">  plugins:
+  - name: key-auth
+    tags: [ ns.$NS ]
+    protocols: [ http, https ]
+    config:
+      key_names: [&quot;X-API-KEY&quot;]
+      run_on_preflight: true
+      hide_credentials: true
+      key_in_body: false
+  - name: acl
+    tags: [ ns.$NS ]
+    config:
+      hide_groups_header: true
+      allow: [ &lt;SEE ENVIRONMENT DETAIL&gt; ]</code></pre>
+</doc-codeblock></div>
+<p>How to Update Gateway Configuration:</p>
+<ol>
+<li>In Namespaces -&gt; Products, click edit next to product environment</li>
+<li>For Authorization, choose Kong API Key with ACL Flow. Assign Terms of Use if desired.</li>
+<li>Check Require Approval</li>
+<li>Click View Plugin Template, and add the plugin configuration to the service <code v-pre>a-service-for-$NS</code> in the <code v-pre>gwconfig.yaml</code> file you created in Section 3.</li>
+<li>Re-run the publish command: <code v-pre>./gwa pg gwconfig.yaml</code>. This will protect the upstream service with an API Key.</li>
+<li>Back in the portal, click Continue</li>
+<li>Drag and drop the available service to Active Services</li>
+<li>Click Save</li>
+</ol>
+<doc-anchor-target id="enabling-for-discovery">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#enabling-for-discovery">#</doc-anchor-trigger>
+        <span>Enabling for Discovery</span>
+    </h2>
+</doc-anchor-target>
+<p>Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.</p>
+<p><strong>Prerequisite:</strong> Your namespace must be approved for use by a Ministry Organization Administrator. This is a one-time process to link the Ministry to the Namespace and can be requested here: <a href="https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118">https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/118</a></p>
+<p>Once approved, you must make an Environment <code v-pre>active</code> for the corresponding Product Environment to appear in the API Directory. You can do this by either updating the Product Environment configuration above to <code v-pre>active: true</code>, or going to the API Services Portal UI and editing the Environment details.</p>
+<doc-anchor-target id="view-your-product-in-the-api-directory">
+    <h2>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#view-your-product-in-the-api-directory">#</doc-anchor-trigger>
+        <span>View Your Product in the API Directory</span>
+    </h2>
+</doc-anchor-target>
+<p>Find your API in the <code v-pre>API Services Portal Directory</code>.</p>
 <div class="table-wrapper scrollbar overflow-hidden">
 <table class="comfortable">
 <thead>
@@ -302,223 +354,7 @@
 </tbody>
 </table>
 </div>
-<doc-anchor-target id="setup-a-draft-dataset">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-a-draft-dataset">#</doc-anchor-trigger>
-        <span>Setup a Draft Dataset</span>
-    </h3>
-</doc-anchor-target>
-<p>First, we need a draft dataset with metadata about your API. This information helps consumers find your API in the Directory. If your API is already listed in the <a href="https://catalogue.data.gov.bc.ca/">BC Data Catalogue</a>, skip ahead to <doc-anchor-trigger to="#link-your-dataset-to-a-product">Link Your Dataset to a Product</doc-anchor-trigger>.</p>
-<p>Start by writing up a draft dataset in a local YAML file (if using the CLI) or JSON file (if using the API). Here is the schema, omitting some optional fields:</p>
-<doc-panels>
-   <doc-panel id="yaml-template-w-field-descriptions">
-       <template #title>&quot;YAML Template (w/ field descriptions)&quot;</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">```yaml
-kind: DraftDataset # object type for gwa-cli use
-name: my-draft-dataset # unique dataset name, not displayed
-title: Useful API # API title shown on the Directory
-notes: A handy API with many uses. # API description, supports Markdown formatting
-tags: [useful, data, openapi] # keywords, may be used for search in future
-organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the namespace
-organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/&lt;organization&gt; for options)
-license_title: Open Government Licence - British Columbia # see https://bcgov.github.io/data-publication/pages/dps_licences.html for licensing options
-view_audience: Government # who can access the API
-security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
-record_publish_date: &quot;2021-05-27&quot; # date when the API was published
-```</code></pre>
-</doc-codeblock></div>
-   </doc-panel>
-   <doc-panel id="yaml-template">
-       <template #title>&quot;YAML Template&quot;</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">```yaml
-kind: DraftDataset
-name: my-draft-dataset
-title: Useful API
-notes: A handy API with many uses.
-tags: [useful, data, openapi]
-organization: ministry-of-citizens-services
-organizationUnit: databc
-license_title: Open Government Licence - British Columbia
-view_audience: Government
-security_class: PUBLIC
-record_publish_date: &quot;2021-05-27&quot;
-```</code></pre>
-</doc-codeblock></div>
-   </doc-panel>
-   <doc-panel id="json-template">
-       <template #title>&quot;JSON Template&quot;</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">```json
-{
-&quot;name&quot;: &quot;my-draft-dataset&quot;,
-&quot;title&quot;: &quot;Useful API&quot;,
-&quot;notes&quot;: &quot;A handy API with many uses.&quot;,
-&quot;tags&quot;: [
-    &quot;useful&quot;,
-    &quot;data&quot;,
-    &quot;openapi&quot;
-],
-&quot;organization&quot;: &quot;ministry-of-citizens-services&quot;,
-&quot;organizationUnit&quot;: &quot;databc&quot;,
-&quot;license_title&quot;: &quot;Open Government Licence - British Columbia&quot;,
-&quot;view_audience&quot;: &quot;Government&quot;,
-&quot;security_class&quot;: &quot;PUBLIC&quot;,
-&quot;record_publish_date&quot;: &quot;2021-05-27&quot;
-}
-```</code></pre>
-</doc-codeblock></div>
-<p>Check our <a href="https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116">source code</a> for up-to-date data rules for <code v-pre>DraftDatasets</code>.</p>
-<p>Now it&#x27;s time to publish the dataset:</p>
-   </doc-panel>
-   <doc-panel id="cli">
-       <template #title>&quot;CLI&quot;</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">1. Login - `gwa login`
-2. Set the namespace - `gwa config set namespace &lt;namespace-name&gt;`
-3. Publish the draft dataset - `gwa apply -i &lt;draft-dataset.yaml&gt;`
-
-You should see `✔ [DraftDataset] &lt;dataset-name&gt;: created`</code></pre>
-</doc-codeblock></div>
-   </doc-panel>
-   <doc-panel id="api-swagger-ui">
-       <template #title>&quot;API (Swagger UI)&quot;</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">1. [Login](https://api.gov.bc.ca/login?identity=provider&amp;f=%2F) to the API Services Portal as an API Provider.
-2. Click **Help** in the top right, then **API Docs** to open the [Swagger UI](https://api.gov.bc.ca/ds/api/v2/console/).
-3. Under API Directory, click the **PUT /namespaces/{ns}/datasets** [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
-4. Click **Try it out**.
-5. Enter your namespace.
-6. Copy your JSON `dataset` into the Request body.
-7. Click **Execute**.
-8. Scroll down and ensure a `200` Response was received.</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="link-your-dataset-to-a-product">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#link-your-dataset-to-a-product">#</doc-anchor-trigger>
-        <span>Link Your Dataset to a Product</span>
-    </h3>
-</doc-anchor-target>
-<p>If you&#x27;ve already worked through the <a href="../../guides/owner-journey/">Quick Start guide</a> or set up a gateway service, you may already have a <code v-pre>product</code>. In this case, we can associate the <code v-pre>product</code> with a <code v-pre>dataset</code>:</p>
-<ol>
-<li>Open the <a href="https://api.gov.bc.ca/manager/products">Products</a> page in the API Services Portal.</li>
-<li>Click the ellipsis (<strong>...</strong>) next to <strong>Add Env</strong>, select <strong>Edit Product</strong>.</li>
-<li>Customize the <strong>Product Name</strong>, if desired.</li>
-<li>In the <strong>Link to BC Data Catalogue</strong> dialogue, enter the <code v-pre>title</code> of your newly created, or existing BCDC, dataset.</li>
-</ol>
-   </doc-panel>
-        </div>
-    </div>
-</div>
-        </div>
-    </div>
-</div>
-        </div>
-    </div>
-</div>
-<p>Search is exact. Be mindful of spaces and case.</p>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-<ol start="5">
-<li>Click <strong>Update</strong>.</li>
-</ol>
-<p>Preview your new API listing by opening the API Directory and clicking the <strong>Your Products</strong> tab. Confirm everything is as desired.</p>
-<p><figure class="content-center">
-    <img src="../assets/new-api-directory-card.png" alt="New API card">
-    <figcaption class="caption">New API card</figcaption>
-</figure>
-</p>
-<doc-anchor-target id="setup-a-new-product">
-    <h4>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#setup-a-new-product">#</doc-anchor-trigger>
-        <span>Setup a New Product</span>
-    </h4>
-</doc-anchor-target>
-<p>If you haven&#x27;t added a product yet, follow these steps and then link your dataset:</p>
-<doc-panels>
-   <doc-panel id="cli">
-       <template #title>&quot;CLI&quot;</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">1. Create a product configuration using the YAML template below.
-  
-  Specify your dataset by `name` in the config - `dataset: my-draft-dataset`
-2. Publish the product - `gwa apply -i &lt;product.yaml&gt;`</code></pre>
-</doc-codeblock></div>
-   </doc-panel>
-   <doc-panel id="web-ui">
-       <template #title>&quot;Web UI&quot;</template>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">1. Navigate to **Namespaces** -&gt; **Products**.
-2. Click **New Product** in the top right.</code></pre>
-</doc-codeblock></div>
-<!-- TODO: describe product fields -->
-<div class="codeblock-wrapper"><doc-codeblock>
-<div class="codeblock-title">title=&quot;Product YAML Template&quot;</div>
-<pre class="language-yaml"><code v-pre class="language-yaml">kind: Product
-appId: 'D31E616FE1A6'
-name: Useful API
-dataset: my-draft-dataset
-environments:
-- name: dev
-    appId: '4221AAF6'
-    active: false
-    approval: false
-    services: [my-service-dev]</code></pre>
-</doc-codeblock></div>
-<doc-anchor-target id="enabling-for-discovery">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#enabling-for-discovery">#</doc-anchor-trigger>
-        <span>Enabling for Discovery</span>
-    </h3>
-</doc-anchor-target>
-<p>Once the content is complete and you have applied the appropriate controls to your API, you are ready to make it available on the API Directory.</p>
-<div class="flex mb-6">
-    <div class="shrink-0 w-1 rounded-tl rounded-bl bg-blue-500 dark:bg-blue-400"></div>
-    <div class="flex w-full py-4 border border-l-0 border-gray-300 rounded-tr rounded-br doc-alert bg-white dark:bg-dark-700 dark:border-dark-700" role="alert">
-        <div class="flex items-center ml-4 h-7">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mb-px text-blue-500 dark:text-blue-400" width="22" height="22" viewBox="0 0 24 24" role="presentation">
-                <g fill="currentColor"><g>
-                    <path d="M12 1C5.93 1 1 5.93 1 12s4.93 11 11 11 11-4.93 11-11S18.07 1 12 1zm0 20c-4.96 0-9-4.04-9-9s4.04-9 9-9 9 4.04 9 9-4.04 9-9 9z"></path>
-                    <path d="M12 11c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zM12.01 7c-.56 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"></path>
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                </g></g>
-            </svg>
-        </div>
-        <div class="pr-5 ml-3 w-full">
-            <h5>note &quot;Prerequisite: Add Organization&quot;</h5>
-<div class="codeblock-wrapper"><doc-codeblock>
-<pre class="language-none"><code v-pre class="language-none">Before sharing your API on the API Directory, you must add your Organization and Business Unit to your namespace. If you have yet to complete this you will see a banner on the `Namespaces` page on the API Service Portal asking you to `Add Organization`. You will then need to wait for approval from the Organization Administrator.</code></pre>
-</doc-codeblock></div>
-<p>Enable an environment to display the API in the API Directory. You can individually enable each environment (dev, test, prod).</p>
-<p>Enable environments by either updating the Product Environment configuration YAML to <code v-pre>active: true</code>, or on the API Services Portal -&gt; Product page -&gt; Edit the Environment details -&gt; check <code v-pre>Enable Environment</code>.</p>
-<doc-anchor-target id="view-your-product-in-the-api-directory">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#view-your-product-in-the-api-directory">#</doc-anchor-trigger>
-        <span>View Your Product in the API Directory</span>
-    </h3>
-</doc-anchor-target>
-<p>Find your API in the <code v-pre>API Directory</code>.</p>
 <p>It is now ready to receive access requests from the community!</p>
-<p>Documentation on how to grant and manage your API consumer access is coming soon.</p>
-        </div>
-    </div>
-</div>
-   </doc-panel>
-        </div>
-    </div>
-</div>
 
                                 
                                 <!-- Required only on API pages -->
