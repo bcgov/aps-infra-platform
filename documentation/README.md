@@ -4,4 +4,4 @@ title: Welcome
 
 # Documentation has moved
 
-For the most recent docs from API Program Services, visit [DevHub](https://mvp.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/).
+This documentation is no longer being updated. For the most up to date information, visit [DevHub](https://mvp.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/).
