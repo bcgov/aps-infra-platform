@@ -2,7 +2,7 @@
 
 This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway.
 
-![alt text](assets/keycloak-rbac.png "Keycloak RBAC")
+![alt text](../artifacts/keycloak-rbac.png "Keycloak RBAC")
 
 ## 1. Configure a confidential client
 
