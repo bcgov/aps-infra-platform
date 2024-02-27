@@ -104,11 +104,11 @@ optional and can be included after the first set of backticks, for example, ````
 Add titles for code blocks using `title=<custom title>` after the backticks, for
 example, ````yaml title="Product YAML Template"`.
 
-    ```yaml title="Product YAML Template"
-    kind: Product
-    name: Useful API
-    ...
-    ```
+```yaml title="Product YAML Template"
+kind: Product
+name: Useful API
+...
+```
 
 ### Don't include the command prompt
 
@@ -122,17 +122,17 @@ For example:
 
 Retrieve a table of Datasets in your Namespace:
 
-    ```shell linenums="0"
-    gwa get datasets
-    ```
+```shell linenums="0"
+gwa get datasets
+```
 
 The output is similar to this:
 
-    ```console
-    Name                 Title
-    useful-api-dataset   Useful API
-    another-api-dataset  Another API
-    ```
+```console
+Name                 Title
+useful-api-dataset   Useful API
+another-api-dataset  Another API
+```
 
 ### Turn off line numbers for single-line code blocks
 
@@ -140,19 +140,19 @@ Code blocks can be helpful to offset single line commands and provide easy
 access to a **Copy to Clipboard** button. Turn off line numbers to improve
 readability, or use inline code formatting. Stay consistent within a document.
 
-    ```md
-    Code block without line numbers:
-
-        ```shell linenums="0"
-        gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
-        ```
-    ```
-
+```md
 Code block without line numbers:
 
     ```shell linenums="0"
     gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
     ```
+```
+
+Code block without line numbers:
+
+```shell linenums="0"
+gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
+```
 
 ### Command line syntax
 
@@ -190,10 +190,10 @@ of which these three should be used: note,  warning, and danger.
 Add callouts using `!!! <type> ["Custom callout title"]` and indenting any
 content to contain in the callout, for example:
 
-    ```md
-    !!! warning "Don't forget"
-        You **must** do this. You *may* include markdown here.
-    ```
+```md
+!!! warning "Don't forget"
+    You **must** do this. You *may* include markdown here.
+```
 
 !!! warning "Don't forget"
     You **must** do this. You *may* include markdown here.
@@ -219,14 +219,14 @@ content to contain in the callout, for example:
 Use collapsible details blocks to include longer notes which may be useful but
 are not required information for all users.
 
-    ```md
-    ??? optional-class "Summary"
-        Write the callout type (default is `info`), then a title/summary in quotes,
-        then more content in here.
+```md
+??? optional-class "Summary"
+    Write the callout type (default is `info`), then a title/summary in quotes,
+    then more content in here.
 
-    ???+ warning "Summary"
-        Expand details blocks by default with `???+`.
-    ```
+???+ warning "Summary"
+    Expand details blocks by default with `???+`.
+```
 
 ??? optional-type "Summary"
     Write the callout type (default is `info`), then a title/summary in quotes,
@@ -240,18 +240,18 @@ are not required information for all users.
 Use tabs for documenting multiple user paths to achieve the same end, for example,
 using the CLI or Portal UI.
 
-    ```md
-    === "Tab 1"
-        Add Markdown **content**.
+```md
+=== "Tab 1"
+    Add Markdown **content**.
 
-        Write multiple paragraphs.
+    Write multiple paragraphs.
 
-    === "Tab 2"
-        More Markdown **content**.
+=== "Tab 2"
+    More Markdown **content**.
 
-        - list item a
-        - list item b
-    ```
+    - list item a
+    - list item b
+```
 
 === "Tab 1"
     Add Markdown **content**.
