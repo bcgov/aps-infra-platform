@@ -110,11 +110,12 @@ Add other available environments if desired (e.g. `dev`, `test`, `sandbox`).
 kind: Product
 name: Useful API # Name shown on the API Directory
 dataset: my-draft-dataset # Dataset name or BC Data Catalogue slug value
+appId: '<UNIQUE_PRODUCT_APP_ID>' # Retrieve from https://api.gov.bc.ca/ds/api/v2/identifiers/product
 environments:
 - name: prod
   active: false
   flow: protected-externally
-  appId: '<UNIQUE_APP_ID>' # Retrieve from https://api.gov.bc.ca/ds/api/v2/identifiers/environment.
+  appId: '<UNIQUE_APP_ID>' # Retrieve from https://api.gov.bc.ca/ds/api/v2/identifiers/environment
 ```
 
 Then publish the product:
