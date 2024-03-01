@@ -50,17 +50,13 @@ First, create a new Namespace.
 gwa namespace create -g
 ```
 
-`-g` generates a random, unique namespace which is displayed in response. Set the active namespace:
+`-g` generates a random, unique Namespace name which is displayed in response and set as the current Namespace.
 
-```
-gwa config set --namespace <NEW-NAMESPACE>
-```
-
-Second, choose a vanity url: `<MYSERVICE>.api.gov.bc.ca`.
-
-Then run the following command, substituting `<MYSERVICE>` with a unique name for your API.
+Second, choose a unique name for your API to be shown as part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`.
 
 You can also specify an upstream service or leave the example provided (`https://httpbin.org`).
+
+Then run the following command, substituting your service name for `<MYSERVICE>`:
 
 ```
 gwa generate-config \
