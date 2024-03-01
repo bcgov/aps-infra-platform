@@ -23,7 +23,7 @@ The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`)
 
 Alternatively, if you have access to a Platform Services OpenShift cluster, you can use the OpenShift commmand line [terminal](https://console.apps.silver.devops.gov.bc.ca/terminal) from any operating system.
 
-Start by downloading the `gwa` CLI and adding to `PATH` for the session:
+Start by downloading the `gwa` cli and adding to `PATH` for the session:
 
 ```sh
 curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
@@ -49,17 +49,13 @@ First, create a new Namespace.
 gwa namespace create -g
 ```
 
-`-g` generates a random, unique namespace which is displayed in response. Confirm this is the active namespace with:
+`-g` generates a random, unique Namespace name which is displayed in response and set as the current Namespace.
 
-```
-gwa namespace current
-```
-
-Second, choose a vanity url: `<MYSERVICE>.api.gov.bc.ca`.
-
-Then run the following command, substituting `<MYSERVICE>` with a unique name for your API.
+Second, choose a unique name for your API to be shown as part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`.
 
 You can also specify an upstream service or leave the example provided (`https://httpbin.org`).
+
+Then run the following command, substituting your service name for `<MYSERVICE>`:
 
 ```
 gwa generate-config \
@@ -88,7 +84,8 @@ From here, go to **Activity** and select **More details** next to "published gat
 
 What you have setup:
 
-- Route to your service, via the vanity url: `<MYSERVICE>.dev.api.gov.bc.ca`
+- Route to your service, via the vanity URL: `<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`
+  - If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>.dev.api.gov.bc.ca`
 - Protected by an SSL `*.api.gov.bc.ca` certificate
 - Protected with the Client Credential grant using OCIO SSO Gold cluster
 - Separation of concerns for authentication and authorization
