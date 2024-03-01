@@ -17,7 +17,7 @@ The following steps guide an API Provider through setting up an API on the BC Go
 
 ## 1. Download the `gwa` CLI
 
-The `gwa` CLI is available for Linux, MacOS, and Windows at https://github.com/bcgov/gwa-cli/releases/tag/v2.0.15. 
+The `gwa` command line interface (CLI) is available for Linux, MacOS, and Windows at https://github.com/bcgov/gwa-cli/releases. 
 
 The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`). If you are running Windows, it is recommended to use WSL2. 
 
@@ -84,7 +84,8 @@ From here, go to **Activity** and select **More details** next to "published gat
 
 What you have setup:
 
-- Route to your service, via the vanity url: `<MYSERVICE>.dev.api.gov.bc.ca`
+- Route to your service, via the vanity URL: `<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`
+  - If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>.dev.api.gov.bc.ca`
 - Protected by an SSL `*.api.gov.bc.ca` certificate
 - Protected with the Client Credential grant using OCIO SSO Gold cluster
 - Separation of concerns for authentication and authorization
