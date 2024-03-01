@@ -28,7 +28,6 @@ Start by downloading the `gwa` cli and adding to `PATH` for the session:
 ```sh
 curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
 export PATH=$PATH:$PWD
-
 ```
 
 ## 2. Login
