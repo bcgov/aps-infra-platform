@@ -4,8 +4,8 @@ url: bcgov.github.io/aps-infra-platform
 branding:
   title: BC Gov API Services
 links:
-  - text: ⚠ Documentation has moved to mvp.developer.gov.bc.ca
-    link: https://mvp.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/
+  - text: ⚠ Documentation has moved to developer.gov.bc.ca
+    link: https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/
   # - text: API Services Portal
   #   link: https://api.gov.bc.ca
   # - text: "Rocket.Chat #aps-ops"
