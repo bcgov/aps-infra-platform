@@ -48,7 +48,7 @@ Now, add a *Dataset* with metadata about the API to display in the API Directory
 
 If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Add a Product](#add-a-product).
 
-Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JSON file (if using the API). Here is the schema, omitting some optional fields:
+Start by writing up a DraftDataset in a local YAML file. Here is the schema, omitting some optional fields:
 
 === "YAML Template (w/ field descriptions)"
     ```yaml
@@ -93,7 +93,7 @@ Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JS
 After preparing a DraftDataset, publish it with:
 
 ``` linenums="0"
-`gwa apply -i <draft-dataset.yaml>`
+gwa apply -i <draft-dataset.yaml>
 ```
 
 You should see `✔ [DraftDataset] <dataset-name>: created`.
@@ -138,6 +138,6 @@ An Organization Administrator will receive your request and should approve it or
 
 After receiving organization approval, the final step is to enable the Product environment(s).
 
-Enable environments by either updating the Product environment configuration YAML to `active: true`, or on the API Services Portal -> **Product** page -> **Edit** the environment details -> check **Enable Environment**.
+Enable environments by either updating the Product environment configuration YAML to `active: true`, or on the API Services Portal > **Product** page > **Edit** the environment details > check **Enable Environment**.
 
 Your API is now listed on the [API Directory](https://api.gov.bc.ca/devportal/api-directory).
