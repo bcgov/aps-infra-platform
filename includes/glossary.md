@@ -1,0 +1,4 @@
+*[API Provider]: An API Provider, usually a developer, creates, publishes, operates, and maintains APIs in the API Management Platform.
+*[Client]: In the context of an API, a client refers to a software application or system that accesses the functionality provided by the API. Clients send requests to and receive responses from the API.
+*[Namespace]: A namespace is a collection of Kong Gateway Services and Routes, generally managed by a single team or business unit.
+*[service]: A service represents an external upstream API or microservice consisting of a URL, which listens for incoming requests.

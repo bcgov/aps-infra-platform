@@ -59,3 +59,10 @@ nav:
 
 plugins:
   - techdocs-core
+
+markdown_extensions:
+  - abbr
+  - attr_list
+  - pymdownx.snippets:
+      auto_append:
+        - includes/glossary.md
