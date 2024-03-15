@@ -2,9 +2,10 @@
 
 ## Development
 
+Linux:
 ```
-cd documentation
-npx retypeapp watch
+docker pull ghcr.io/bcgov/devhub-techdocs-publish
+docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
 ```
 
 ## Validate Broken Links
