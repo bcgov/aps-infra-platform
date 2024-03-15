@@ -1,7 +1,7 @@
 name: Publish TechDocs
 on:
   push:
-    branches: [test, main, tooltips]
+    branches: [test, main, APS-2401-tooltips]
     paths:
       - "documentation/**"
       - "mkdocs.yml"
