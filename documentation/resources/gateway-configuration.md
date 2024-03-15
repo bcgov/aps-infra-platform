@@ -3,7 +3,7 @@ order: 2600
 ---
 
 # Gateway Configuration
-
+ 
 > **Declarative Config:** DecK is used to sync your configuration with Kong; see https://docs.konghq.com/deck/overview/ for more information.
 
 > **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the `tags` with the qualifier. For example, you can use a tag `ns.$NS.dev` to sync the Kong configuration for `dev` Service and Routes only.
@@ -18,7 +18,7 @@ order: 2600
 
 By default, publically available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
 
-There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publically available.
+There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publicly available.
 
 To support this, the route `hosts` can be updated with a host that follows the format: `<api-name>.cluster.local`. When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.
 
@@ -160,26 +160,29 @@ paths:
                   - headers
 ```
 
-Add in some Kong specific metadata:
+Add the following Kong specific metadata to the end of your OpenAPI spec,
+substituting a unique service subdomain for your API which will be part of your vanity URL: <MYSERVICE>.api.gov.bc.ca.
 
 ```yaml
-x-kong-name: ajc-deck-services
+x-kong-name: <MY-SERVICE>
 
 x-kong-route-defaults:
   hosts:
-    - a-service-for-ajc-deck.api.gov.bc.ca
+    - <MY-SERVICE>.api.gov.bc.ca
 ```
 
 Save to `openapi.yaml`.
 
 **Generate Kong Configuration:**
 
-```shell
-deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.ajc-deck
+Run the following command, substituting your API Services Portal Namespace in the `--select-tag` option:
+
+```shell linenums="0"
+deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.<GW-NAMESPACE>
 ```
 
-**Publish:**
+**Publish to the API Services Portal:**
 
-```shell
-gwa pg gw.yaml
+```shell linenums="0"
+gwa publish-gateway gw.yaml
 ```
