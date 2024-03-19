@@ -8,6 +8,7 @@ nav:
   - Tutorials:
       - "tutorials/quick-start.md"
   - How-to Guides:
+      - "how-to/create-gateway-service.md"
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
   - Other Guides:
@@ -21,7 +22,6 @@ nav:
       - "resources/api-access.md"
       - "resources/cicd-integration.md"
       - "resources/gateway-admin.md"
-      - "resources/gateway-configuration.md"
       - "resources/gwa-commands.md"
       - "resources/monitoring.md"
       - "resources/upstream-services.md"
@@ -59,3 +59,4 @@ nav:
 
 plugins:
   - techdocs-core
+  - git-revision-date-localized

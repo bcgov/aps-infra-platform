@@ -153,7 +153,7 @@ Find information about authentication and authorization patterns, reference impl
 
 - [Monitor your Services](../resources/monitoring.md) : View metrics for performance, traffic and trends.
 - [Gateway Administration](../resources/gateway-admin.md) : Add team members and create service accounts.
-- [Explore Different Plugins](../resources/gateway-configuration.md)
+- [Explore Different Plugins](../how-to/create-gateway-service.md)
 - [Upstream Service Setup](../resources/upstream-services.md)
 - [API Discovery](../resources/api-discovery.md) : Setup metadata about your APIs for discovery.
 - [API Access](../resources/api-access.md) : Approve and administer controls for consumer access to your APIs.
