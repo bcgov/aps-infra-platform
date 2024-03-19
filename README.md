@@ -10,6 +10,11 @@ docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-tec
 
 ## Validate Broken Links
 
+Note: At present, this checks internal absolute links (e.g. `/tutorials/quick-startmd`)
+against the base URL of https://dev.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs.
+
+Thus some changes may require deploying to the dev environment before checking links.
+
 ```
 npm install -g @umbrelladocs/linkspector
 linkspector check
