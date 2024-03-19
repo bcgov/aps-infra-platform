@@ -1,6 +1,6 @@
 # aps-infra-platform
 
-## Development
+## Preview docs
 
 Linux:
 ```
@@ -11,14 +11,11 @@ docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-tec
 ## Validate Broken Links
 
 ```
-npx broken-link-checker \
-  -r \
-  --exclude cluster.local \
-  --exclude github \
-  --exclude lua-users.org \
-  http://localhost:5000/aps-infra-platform/
-
+npm install -g @umbrelladocs/linkspector
+linkspector check
 ```
+
+See https://github.com/UmbrellaDocs/linkspector
 
 ## Update GWA CLI
 
