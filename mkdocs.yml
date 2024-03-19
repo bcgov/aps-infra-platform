@@ -66,3 +66,4 @@ markdown_extensions:
   - pymdownx.snippets:
       auto_append:
         - includes/glossary.md
+        
