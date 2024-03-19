@@ -81,7 +81,7 @@ found in Tutorial and Explanation pages. Follow this alongside using UpperCamelC
 
 | Do | Don't |
 | -- | ----- |
-| The `gwa` handles authenticating to the API server. | The gwa handles authenticating to the API server. |
+| `gwa` handles authenticating to the API server. | Gwa handles authenticating to the API server. |
 
 ## Code formatting
 
