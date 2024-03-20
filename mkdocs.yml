@@ -12,9 +12,9 @@ nav:
       - "how-to/generate-service-account.md"
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
+      - "how-to/tutorial-idp-client-cred-flow.md"
   - Other Guides:
       - "guides/owner-journey-v1.md"
-      - "Client Credential Protection": "guides/tutorial-idp-client-cred-flow.md"
       - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"
       - "Signed JWT w/ Hosted JWKS": "guides/intro-signed-jwt.md"
       - "guides/keycloak-rbac.md"
