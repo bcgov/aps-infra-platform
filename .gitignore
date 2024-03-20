@@ -3,3 +3,4 @@ site/
 _tmp
 patcher.py
 test_patcher.py
+.vscode/settings.json
