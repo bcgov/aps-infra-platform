@@ -10,7 +10,7 @@ Steps for protecting and calling an API using the OAuth2 Client Credential Grant
 6. Client Calling an API
 7. Gateway Proxying to Upstream
 
-![alt text](../artifacts/oauth2.png "Protecting an API")
+![alt text](/artifacts/oauth2.png "Protecting an API")
 
 ## 1. Configuring an API on the Kong Gateway
 
@@ -183,7 +183,7 @@ The Portal will use the credentials setup in the Authorization Profile, to creat
 
 ## 4. Provider Approving Access
 
-An Access Manager reviews the access request, sets any additional controls, grants the relevant permissions (i.e./ scopes and roles), and approves. The Portal will enable the Client and apply the permissions on the IdP.
+An Access Manager reviews the access request, sets any additional controls, grants the relevant permissions (such as scopes and roles), and approves. The Portal will enable the Client and apply the permissions on the IdP.
 
 The Portal sends a notification to the Requester letting them know that API Access has been approved (or rejected).
 
@@ -236,4 +236,4 @@ The Authorization Profile `clientAuthenticator` was set to `client-secret` in th
 
 - `client-jwt-jwks-url` (Signed JWT with JWKS URL or Certificate)
 
-In this scenario, when a Client is requesting access, they will be required to enter details about the client assertion certificates. The details can either be a public JWKS URL that holds the public key information for a key pair, or providing just the public key information. The information will be used in step 5 when retrieving the Bearer Token. For further details, you can see the specific examples [Signed JWT w/ Hosted JWKS](./intro-signed-jwt.md) or [Signed JWT w/ Certificate](./intro-signed-jwt-pubkey.md).
+In this scenario, when a Client is requesting access, they will be required to enter details about the client assertion certificates. The details can either be a public JWKS URL that holds the public key information for a key pair, or providing just the public key information. The information will be used in step 5 when retrieving the Bearer Token. For further details, you can see the specific examples [Signed JWT w/ Hosted JWKS](/guides/intro-signed-jwt.md) or [Signed JWT w/ Certificate](/guides/intro-signed-jwt-pubkey.md).

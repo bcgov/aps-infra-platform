@@ -59,4 +59,5 @@ nav:
 
 plugins:
   - techdocs-core
+  - ezlinks
 #   - git-revision-date-localized

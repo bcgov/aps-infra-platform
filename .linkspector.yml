@@ -1,3 +1,3 @@
 dirs:
   - documentation
-baseUrl: https://dev.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs
+baseUrl: http://localhost:3000/docs/default/component/local

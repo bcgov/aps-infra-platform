@@ -16,7 +16,7 @@ By listing your API in the API Directory, you also gain access to tools for mana
 
 The API Directory shows available APIs through API listings. Each listing features one API and is visible as a card on the API Directory's main page.
 
-![BC Route Planner API card](../artifacts/api-directory-card.png)
+![BC Route Planner API card](/artifacts/api-directory-card.png)
 
 Cards show basic metadata about the API: the API name (`title`), associated ministry (`organization`), description (`notes`), and available environments. This metadata is defined in a Dataset.
 
@@ -27,7 +27,7 @@ Despite the name "dataset", don't think that all API's need to serve *data*. Man
 
 Clicking on the API name opens the full API listing details.
 
-![BC Route Planner API listing details](../artifacts/api-directory-listing.png)
+![BC Route Planner API listing details](/artifacts/api-directory-listing.png)
 
 Here, additional metadata details defined in the Dataset are visible, as well as the associated Products which consumers can request access to.
 
@@ -38,8 +38,8 @@ Here, additional metadata details defined in the Dataset are visible, as well as
 
 API listings in the Directory can be created and managed via:
 
-- ⭐ **Command Line Interface (CLI)**: See the [Quick Start tutorial](../tutorials/quick-start.md) for instructions on downloading the CLI and logging in.
-- **Directory API**: Go to [Gateway Administration](../resources/gateway-admin.md#directory-api) for links to the Directory API specs and Swagger UI.
+- ⭐ **Command Line Interface (CLI)**: See the [Quick Start tutorial](/tutorials/quick-start.md) for instructions on downloading the CLI and logging in.
+- **Directory API**: Go to [Gateway Administration](/resources/gateway-admin.md#directory-api) for links to the Directory API specs and Swagger UI.
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
 !!! warning "Web UI limitations"
@@ -143,7 +143,7 @@ Now it's time to publish the Dataset:
 
 ### Link Your Dataset to a Product
 
-If you've already worked through the [Quick Start tutorial](../tutorial/quick-start.md) or set up a Gateway Service, you may already have a Product. In this case, we can associate the Product with a Dataset:
+If you've already worked through the [Quick Start tutorial](/tutorial/quick-start.md) or set up a Gateway Service, you may already have a Product. In this case, we can associate the Product with a Dataset:
 
 1. Open the [Products](https://api.gov.bc.ca/manager/products) page in the API Services Portal.
 2. Click the ellipsis (**...**) next to **Add Env**, select **Edit Product**.
@@ -152,11 +152,11 @@ If you've already worked through the [Quick Start tutorial](../tutorial/quick-st
 !!!
 Search is exact. Be mindful of spaces and case.
 !!!
-5. Click **Update**.
+1. Click **Update**.
 
 Preview your new API listing by opening the API Directory and clicking the **Your Products** tab. Confirm everything is as desired.
 
-![New API card](../artifacts/new-api-directory-card.png)
+![New API card](/artifacts/new-api-directory-card.png)
 
 #### Setup a New Product
 

@@ -302,12 +302,19 @@ helps all readers to easily navigate the page or filter topics of interest.
 
 ### Links
 
-Write links using `[link text](URL)`. Write hyperlinks that give you context for
-the content they link to - avoid "click here."
+Write links using `[link text](URL)`. 
+
+Write hyperlinks that give you context for the content they link to - avoid "click here."
 
 | Do | Don't |
 | -- | ----- |
 | The [Swagger Console](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml) can be used to test API endpoints. | The Swagger Console can be used to test API endpoints. Try it out [here](https://openapi.apps.gov.bc.ca/?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml). |
+
+Use root-relative links to support documents moving around without breaking links.
+
+| Do | Don't |
+| -- | ----- |
+| `[Tutorial](/tutorial/quick-start.md)` (even if linking from another page in `/tutorial`) | `[Tutorial](quick-start.md)` or `[Tutorial](../quick-start.md)` |
 
 ### Lists
 

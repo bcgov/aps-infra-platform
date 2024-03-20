@@ -4,19 +4,19 @@ order: 2600
 
 # Create a GatewayService
  
-> **Declarative Config:** DecK is used to sync your configuration with Kong; see https://docs.konghq.com/deck/overview/ for more information.
+> **Declarative Config:** DecK is used to sync your configuration with Kong; see https://docs.konghq.com/deck/latest/ for more information.
 
 > **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the `tags` with the qualifier. For example, you can use a tag `ns.$NS.dev` to sync the Kong configuration for `dev` Service and Routes only.
 
 ## Plugins
 
-> To view common plugin configuration go to [Common Controls](../gateway/COMMON-CONFIG.md)
+> To view common plugin configuration go to [Common Controls](/gateway/COMMON-CONFIG.md)
 
 > To learn about other available plugins, navigate to `Gateway > Plugins` on the sidebar of this page.
 
 ## Private Routing
 
-By default, publically available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
+By default, publicly available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
 
 There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publicly available.
 

@@ -90,7 +90,7 @@ services:
 
 Review the `gwconfig.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
 
-> To view common plugin configuration go to [Common Controls](../gateway/COMMON-CONFIG.md)
+> To view common plugin configuration go to [Common Controls](/gateway/COMMON-CONFIG.md)
 
 > To learn about other available plugins, navigate to `Gateway > Plugins` on the sidebar of this page.
 
@@ -158,7 +158,7 @@ spec:
 
 ### Private Routing
 
-By default, publically available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
+By default, publicly available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
 
 There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publically available.
 
@@ -178,10 +178,17 @@ services:
       - name: my-service-route
         tags: [ns.$NS]
         hosts:
-          - my-service.cluster.local
+          - <MYSERVICE>.cluster.local
 ```
 
-A new endpoint is then created in our Silver Test environment as: https://gw-my-service.264e6f-test.svc.cluster.local (if it was configured in our Prod environment, it would be: https://gw-my-service.264e6f-prod.svc.cluster.local)
+A new service endpoint with SSL termination (using Service Serving Certificates) is then created in the APS project space for the given Openshift cluster, with the following format:
+
+| Cluster     | Endpoint                                               |
+| ----------- | ------------------------------------------------------ |
+| Silver TEST | `https://gw-<MYSERVICE>.264e6f-test.svc.cluster.local` |
+| Silver PROD | `https://gw-<MYSERVICE>.264e6f-prod.svc.cluster.local` |
+| Gold TEST   | `https://gw-<MYSERVICE>.b8840c-test.svc.cluster.local` |
+| Gold PROD   | `https://gw-<MYSERVICE>.b8840c-prod.svc.cluster.local` |
 
 To verify that the endpoint is callable, you can deploy a simple pod that mounts the `service-ca` to be used for verifying the SSC.
 
@@ -733,7 +740,7 @@ Find information about authentication and authorization patterns, reference impl
 
 ### 10.3 Protect Your API using an External Identity Provider
 
-Use the `client-credentials` flow to protect your API (see [Client Credential Protection](tutorial-idp-client-cred-flow/)).
+Use the `client-credentials` flow to protect your API (see [Client Credential Protection](/guides/tutorial-idp-client-cred-flow.md)).
 
 ### 10.4 Use the Access Approval Process
 
