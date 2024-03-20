@@ -1,215 +1,226 @@
-# Protecting an API with OAuth2 Client Credential Flow
+---
+title: Client Credential Protection
+---
 
-Steps for protecting and calling an API using the OAuth2 Client Credential Grant.
+This page shows how to protect and call an API using the OAuth2 Client Credential flow.
 
-1. Configuring an API on the Kong Gateway
-2. Granting Access to the IdP
-3. Client Requesting Access
-4. Provider Approving Access
-5. Client Retrieving the Access Token
-6. Client Calling an API
-7. Gateway Proxying to Upstream
+Here is overview of the process (numbers reference steps in the table of contents):
 
-![alt text](/artifacts/oauth2.png "Protecting an API")
+![Client Credential flow](/artifacts/oauth2.png "Client Credential flow")
 
-## 1. Configuring an API on the Kong Gateway
+## Before you begin
 
-The API Provider User Journey document provides the steps to enable a new API on the Kong Gateway. It will walk you through the creation of a new Namespace, and a Service Account that can be used to configure the Kong Gateway and the Authorization Profile described in step 2.
+- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a GatewayService](/how-to/create-gateway-service.md)
+- [Share an API in the API Directory](/how-to/api-discovery.md/#share-an-api)
+- [Create a service account](/how-to/generate-service-account.md) (optional)
 
-Once the API is working on the Gateway, you can then define a Product, which can be made available on the API Services Portal Directory.
+## 1. Configure a service on the gateway
 
-## 2. Granting Access to the IdP
+Firstly, complete the steps listed above in **Before you begin**. This includes setting up an unprotected GatewayService pointing to your service.
 
-### Custom IdP
+## 2. Grant access to the identity provider
 
-#### a) Prerequisites
+The next step varies depending on your identity provider (IdP).
+If you're unsure which path to follow, use the shared IdP pattern.
 
-Before the Portal can be configured, a new set of credentials must be created on the IdP. For this tutorial, we will include the steps when Keycloak is the IdP.
+??? "Shared IdP"
 
-**Create a new Client on the IdP**
+    The shared IdP pattern leverages Pathfinder SSO (running Keycloak on
+    the Gold cluster) as an identity provider for managing Client Credentials.
+    The API Services Portal administers a custom realm on Pathfinder SSO called `apigw`,
+    so you never need to directly interact with the identity provider.
 
-Create a new client with Access Type `confidential`. All flows except `Service Accounts` should be turned off.
+    Token Issuers:
 
-Make a note of the `Client ID` and `Client Secret` , they will be used when the Portal `Authorization Profile` is created.
+    - https://dev.loginproxy.gov.bc.ca/auth/realms/apigw
+    - https://test.loginproxy.gov.bc.ca/auth/realms/apigw
+    - https://loginproxy.gov.bc.ca/auth/realms/apigw
 
-The `Full Scope Allowed` can be turned off and the `realm-management` client roles for `manage-clients` and `manage-users` should be added.
+    To use the shared IdP, perform the following steps:
 
-Add the `manage-clients` and `manage-users` client roles to the `Service Account Roles`.
+    #### a) Setup the Authorization Profile
 
-#### b) Setup the Authorization Profile
+    A credential with `CredentialIssuer.Admin` is required to update Authorization Profiles (`CredentialIssuer`).
 
-A credential with `CredentialIssuer.Admin` is required to update Authorization Profiles (`CredentialIssuer`).
+    Authorization Profiles can be setup either via the Portal or by using a Service Account with the Portal Directory API.
 
-Authorization Profiles can be setup either via the Portal or by using a Service Account with the Portal Directory API.
+    Update the below `CredentialIssuer` with the `name` and `description` that makes sense to you, and include the desired Roles setup for authorization.
 
-Update the below `CredentialIssuer` to include the environment details and the Scopes and Roles setup for authorization.
+    ```yaml
+    kind: CredentialIssuer
+    name: Resource Server Example
+    namespace: <GW-NAMESPACE>
+    description: <Authorization Profile description>
+    flow: client-credentials
+    mode: auto
+    authPlugin: jwt-keycloak
+    clientAuthenticator: client-secret
+    clientRoles: []
+    inheritFrom: Gold Shared IdP
+    ```
 
-```yaml
-kind: CredentialIssuer
-name: Resource Server Example
-namespace: $NS
-description: Authorization Profile for protecting Ministry of XYZ
-flow: client-credentials
-mode: auto
-authPlugin: jwt-keycloak
-clientAuthenticator: client-secret
-clientRoles: []
-clientMappers:
-  - name: audience
-    defaultValue: ""
-availableScopes: [Function1/read, Function2/*, Function3/write, Function3/read]
-owner: <your-username>
-environmentDetails:
-  - environment: prod
-    issuerUrl: https://auth-issuer
-    clientId: testapp-client
-    clientRegistration: managed
-    clientSecret: ""
-```
+    #### b) Link the Authorization Profile to the Product
 
-#### c) Link the Authorization Profile to the Product
+    Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select `Oauth2 Client Credential Flow` and the newly created Authorization Profile.
 
-Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select `Oauth2 Client Credential Flow` and the newly created Authorization Profile.
+    #### c) Update your Gateway Configuration with the Plugin
 
-#### d) Update your Gateway Configuration with the Plugin
+    Update your Gateway Configuration to include the `jwt-keycloak` plugin.
 
-Update your Gateway Configuration to include the `jwt-keycloak` plugin.
+    !!! info
+        When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
 
-> HINT: When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
+    Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
 
-Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
+    #### d) Optional Configuration
 
-#### e) Optional Configuration
+    ##### Roles
 
-**Scopes**
+    If you have Roles that you want to have controlled by the Portal, add them to the Client's `Roles`.
 
-If you have Client Scopes that you want to have controlled by the Portal, add them to the Realm's `Client Scopes` and `Default Client Scopes` on the IdP.
+    Update the `CredentialIssuer` record above with the `clientRoles` you want to manage.
 
-Update the `CredentialIssuer` record above to match the `availableScopes` with the ones added on the IdP.
+??? "Custom IdP"
 
-**Roles**
+    Before the Portal can be configured, a new set of credentials must be created on the IdP. For this tutorial, we will include the steps when Keycloak is the IdP.
 
-If you have Roles that you want to have controlled by the Portal, add them to the Client's `Roles`.
+    #### a) Create a new Client on the IdP
 
-Update the `CredentialIssuer` record above to match the `clientRoles` with the ones added on the IdP.
+    Create a new client with Access Type `confidential`. All flows except `Service Accounts` should be turned off.
 
-**Client Mappers**
+    Make a note of the `Client ID` and `Client Secret` , they will be used when the Portal `Authorization Profile` is created.
 
-The `audience` is an optional mapper that can be added to a Client.
+    The `Full Scope Allowed` can be turned off and the `realm-management` client roles for `manage-clients` and `manage-users` should be added.
 
-The IdP needs to have a policy that allows Audience to be added as a Protocol Mapper to the client.
+    Add the `manage-clients` and `manage-users` client roles to the `Service Account Roles`.
 
-In Keycloak, this is updated under the Realm's `Client Registration` -> `Client Registration Policies`.
+    #### b) Setup the Authorization Profile
 
-Edit the Authenticated Access Policies -> Allowed Protocol Mapper Types to include the `oidc-audience-mapper`.
+    A credential with `CredentialIssuer.Admin` is required to update Authorization Profiles (`CredentialIssuer`).
 
-**UMA2 Authorization Resources**
+    Authorization Profiles can be setup either via the Portal or by using a Service Account with the Portal Directory API.
 
-If you want to use the Authorization services, then set `Authorization Enabled` to `ON` for the Client on the IdP. You will also want to set the `Decision Strategy` to `Affirmative`.
+    Update the below `CredentialIssuer` to include the environment details and the Scopes and Roles setup for authorization.
 
-Update the following `CredentialIssuer` attributes:
+    ```yaml
+    kind: CredentialIssuer
+    name: Resource Server Example
+    namespace: <GW-NAMESPACE>
+    description: <Authorization Profile description>
+    flow: client-credentials
+    mode: auto
+    authPlugin: jwt-keycloak
+    clientAuthenticator: client-secret
+    clientRoles: []
+    clientMappers:
+      - name: audience
+        defaultValue: ""
+    availableScopes: [Function1/read, Function2/*, Function3/write, Function3/read]
+    owner: <your-username>
+    environmentDetails:
+      - environment: prod
+        issuerUrl: <https://auth-issuer>
+        clientId: <testapp-client>
+        clientRegistration: managed
+        clientSecret: ""
+    ```
 
-```
-  resourceType: ""
-  resourceAccessScope: ""
-  resourceScopes: []
-```
+    #### c) Link the Authorization Profile to the Product
 
-- `resourceType`: The Resource Type of the resources that will be managed (required)
-- `resourceScopes`: A list of the Authorization Scopes managed for the particular Resources (required)
-- `resourceAccessScope`: Used in the case where the Resource Server owns all the resources, a user must have the `resourceAccessScope` assigned in order to be allowed to manage the access. If it is not set, then the user has to be the resource owner in order to manage access.
+    Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select `Oauth2 Client Credential Flow` and the newly created Authorization Profile.
 
-> `resourceAccessScope` - The API Services Portal has not completed the implementation for the scenario where the User is the Resource Owner (`resourceAccessScope` is left blank). It uses the `Token Exchange` capability but it's an optional service available on Keycloak and has numerous caveats around it. Please contact the APS team if interested to know more.
+    #### d) Update your GatewayService with the Plugin
 
-### Shared IdP
+    Update your GatewayService configuration to include the `jwt-keycloak` plugin.
 
-Shared IdP is a new feature that allows you, as an API Provider, to leverage the SSO Gold-tier Keycloak cluster for managing Client Credentials, without having to deal with it directly.
-The APS team have a custom realm on this Keycloak called `apigw` which the API Services Portal administers.
+    !!! info
+        When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
 
-Token Issuers:
+    Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
 
-- https://dev.loginproxy.gov.bc.ca/auth/realms/apigw
-- https://test.loginproxy.gov.bc.ca/auth/realms/apigw
-- https://loginproxy.gov.bc.ca/auth/realms/apigw
+    #### e) Optional configuration
 
-To use it, perform the following steps:
+    ##### Scopes
 
-#### a) Setup the Authorization Profile
+    If you have Client Scopes that you want to have controlled by the Portal, add them to the Realm's `Client Scopes` and `Default Client Scopes` on the IdP.
 
-A credential with `CredentialIssuer.Admin` is required to update Authorization Profiles (`CredentialIssuer`).
+    Update the `CredentialIssuer` record above to match the `availableScopes` with the ones added on the IdP.
 
-Authorization Profiles can be setup either via the Portal or by using a Service Account with the Portal Directory API.
+    ##### Roles
 
-Update the below `CredentialIssuer` with the `name` and `description` that makes sense to you, and include the desired Roles setup for authorization.
+    If you have Roles that you want to have controlled by the Portal, add them to the Client's `Roles`.
 
-```yaml
-kind: CredentialIssuer
-name: Resource Server Example
-namespace: $NS
-description: Authorization Profile for protecting Ministry of XYZ
-flow: client-credentials
-mode: auto
-authPlugin: jwt-keycloak
-clientAuthenticator: client-secret
-clientRoles: []
-inheritFrom: Gold Shared IdP
-```
+    Update the `CredentialIssuer` record above to match the `clientRoles` with the ones added on the IdP.
 
-#### b) Link the Authorization Profile to the Product
+    ##### Client mappers
 
-Before making the API available on the Directory, the API should be configured with a plugin for protecting access. To do this, an API Provider can edit the Product details to select `Oauth2 Client Credential Flow` and the newly created Authorization Profile.
+    The `audience` is an optional mapper that can be added to a Client.
 
-#### c) Update your Gateway Configuration with the Plugin
+    The IdP needs to have a policy that allows Audience to be added as a Protocol Mapper to the client.
 
-Update your Gateway Configuration to include the `jwt-keycloak` plugin.
+    In Keycloak, this is updated under the Realm's `Client Registration` -> `Client Registration Policies`.
 
-> HINT: When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
+    Edit the Authenticated Access Policies -> Allowed Protocol Mapper Types to include the `oidc-audience-mapper`.
 
-Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
+    ##### UMA2 Authorization Resources
 
-#### d) Optional Configuration
+    If you want to use the Authorization services, then set `Authorization Enabled` to `ON` for the Client on the IdP. You will also want to set the `Decision Strategy` to `Affirmative`.
 
-**Roles**
+    Update the following `CredentialIssuer` attributes:
 
-If you have Roles that you want to have controlled by the Portal, add them to the Client's `Roles`.
+    ```
+      resourceType: ""
+      resourceAccessScope: ""
+      resourceScopes: []
+    ```
 
-Update the `CredentialIssuer` record above with the `clientRoles` you want to manage.
+    - `resourceType`: The Resource Type of the resources that will be managed (required)
+    - `resourceScopes`: A list of the Authorization Scopes managed for the particular Resources (required)
+    - `resourceAccessScope`: Used in the case where the Resource Server owns all the resources, a user must have the `resourceAccessScope` assigned in order to be allowed to manage the access. If it is not set, then the user has to be the resource owner in order to manage access.
 
-## 3. Client Requesting Access
+    > `resourceAccessScope` - The API Services Portal has not completed the implementation for the scenario where the User is the Resource Owner (`resourceAccessScope` is left blank). It uses the `Token Exchange` capability but it's an optional service available on Keycloak and has numerous caveats around it. Please contact the APS team if interested to know more.
 
-Request access to the API via the API Services Portal and generate the credentials to be used below.
+## 3. Request Access (API Consumer)
+
+At this point the API is protected with a Client Credential grant. The next steps show how to validate the flow.
+
+The API consumer would request access to the API via the API Services Portal and generate the credentials to be used below.
 
 The Portal will use the credentials setup in the Authorization Profile, to create a disabled Client on the IdP (with any applicable Client Mappers) and return the credentials to the Requesting user.
 
-## 4. Provider Approving Access
+## 4. Approve Access (API Provider)
 
 An Access Manager reviews the access request, sets any additional controls, grants the relevant permissions (such as scopes and roles), and approves. The Portal will enable the Client and apply the permissions on the IdP.
 
 The Portal sends a notification to the Requester letting them know that API Access has been approved (or rejected).
 
-## 5. Client Retrieving the Access Token
+## 5. Retrieve the Access Token (Client)
 
 Using the Credentials generated in step 3, the Requester calls the Token endpoint to get a new JWT token.
 
+```sh
+export CID="<Client ID>"
+export CSC="<Client Secret>"
+export URL="<Token Endpoint>"
+
+RESPONSE=$(curl -X POST "$URL" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=$CID" \
+  -d "client_secret=$CSC" \
+  -d "grant_type=client_credentials" \
+  -d "scopes=openid")
+
+echo "$RESPONSE" | jq
+export TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
 ```
-export CID=""
-export CSC=""
-export URL=""
 
-curl $URL \
-  -X POST -H "Content-Type: application/x-www-form-urlencoded" \
-  -d client_id=$CID -d client_secret=$CSC \
-  -d grant_type=client_credentials \
-  -d scopes=openid
-```
+## 6. Call the API (Client)
 
-## 6. Client Calling the API
-
-Extract the Access Token from the response, set it in a `TOK` environment variable, and call the API.
+Call the API with the Bearer token:
 
 ```
-curl -v -H "Authorization: Bearer $TOK" \
-  https://myservice.api.gov.bc.ca/v1/status
+curl -v -H "Authorization: Bearer $TOKEN" https://<MYSERVICE>.api.gov.bc.ca/
 ```
 
 The API Gateway's `jwt-keycloak` plugin will use the IdP's public keys to validate the token and depending on the plugin configuration, validate the scopes or roles.

@@ -85,22 +85,21 @@ From here, go to **Activity** and select **More details** next to "published gat
 What you have setup:
 
 - Route to your service, via the vanity URL: `<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`
+  - Retrieve the URL directly with this command: `gwa status --json | jq -r '.[].env_host'`
   - If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>.dev.api.gov.bc.ca`
 - Protected by an SSL `*.api.gov.bc.ca` certificate
-- Protected with the Client Credential grant using OCIO SSO Gold cluster
+- Protected with the Client Credential grant using Pathfinder SSO
 - Separation of concerns for authentication and authorization
 
 ## 5. Access your API
 
-If you try to access your service now without any authorization, you will receive an `Unauthorized` 401 response. Try:
+If you try to access your service now without any authentication, you will receive an `Unauthorized` 401 response. Try:
 
 ```sh
 curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid
 ```
 
-This command returns an error, rather than a UUID4 from the upstream `https://httpbin.org/uuid`:
-
-`{  "message": "Unauthorized" }`
+This command returns an error `{  "message": "Unauthorized" }`, rather than a UUID4 from the upstream `https://httpbin.org/uuid`.
 
 Gaining access involves requesting access (as a consumer of your API would), obtaining a client secret and ID, and requesting a JWT token.
 
@@ -123,11 +122,15 @@ export URL="<Token Endpoint>"
 Then run the following command to request a JWT token and export it to an environment variable (`TOKEN`):
 
 ```sh
-export TOKEN=$(curl -s $URL \
-  -X POST -H "Content-Type: application/x-www-form-urlencoded" \
-  -d client_id=$CID -d client_secret=$CSC \
-  -d grant_type=client_credentials \
-  -d scopes=openid | jq -r '.access_token')
+RESPONSE=$(curl -X POST "$URL" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=$CID" \
+  -d "client_secret=$CSC" \
+  -d "grant_type=client_credentials" \
+  -d "scopes=openid")
+
+echo "$RESPONSE" | jq
+export TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
 ```
 
 Finally, try the `curl` command again with the token in the header:

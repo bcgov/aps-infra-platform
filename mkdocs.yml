@@ -9,6 +9,7 @@ nav:
       - "tutorials/quick-start.md"
   - How-to Guides:
       - "how-to/create-gateway-service.md"
+      - "how-to/generate-service-account.md"
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
   - Other Guides:
@@ -61,3 +62,7 @@ plugins:
   - techdocs-core
   - ezlinks
 #   - git-revision-date-localized
+
+markdown_extensions:
+  - toc:
+      toc_depth: 3

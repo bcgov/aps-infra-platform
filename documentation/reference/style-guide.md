@@ -1,6 +1,5 @@
 ---
 title: Documentation Style Guide
-visibility: hidden
 ---
 
 <!-- overview -->
