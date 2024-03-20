@@ -12,7 +12,7 @@ nav:
       - "how-to/generate-service-account.md"
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
-      - "how-to/tutorial-idp-client-cred-flow.md"
+      - "how-to/client-cred-flow.md"
   - Other Guides:
       - "guides/owner-journey-v1.md"
       - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"

@@ -41,7 +41,7 @@ gwa login
 
 ## 3. Apply Configuration
 
-Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/guides/tutorial-idp-client-cred-flow.md) using a [Shared Identity Provider](/guides/tutorial-idp-client-cred-flow.md#shared-idp).
+Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md/#2-grant-access-to-the-identity-provider).
 
 First, create a new Namespace. 
 
@@ -161,7 +161,7 @@ Find information about authentication and authorization patterns, reference impl
 - [Share your API](/how-to/api-discovery.md) : Setup metadata about your APIs for discovery.
 - [API Access](/resources/api-access.md) : Approve and administer controls for consumer access to your APIs.
 - [CI/CD Integration](/resources/cicd-integration.md)
-- [Add Client Credential Protection](/guides/tutorial-idp-client-cred-flow.md)
+- [Add Client Credential Protection](/how-to/client-cred-flow.md)
 
 ### Ready for Production?
 

@@ -21,7 +21,7 @@ Firstly, complete the steps listed above in **Before you begin**. This includes 
 
 ## 2. Grant access to the identity provider
 
-The next step varies depending on your identity provider (IdP).
+This step varies depending on your identity provider (IdP).
 If you're unsure which path to follow, use the shared IdP pattern.
 
 ??? "Shared IdP"

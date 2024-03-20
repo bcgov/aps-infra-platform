@@ -740,7 +740,7 @@ Find information about authentication and authorization patterns, reference impl
 
 ### 10.3 Protect Your API using an External Identity Provider
 
-Use the `client-credentials` flow to protect your API (see [Client Credential Protection](/guides/tutorial-idp-client-cred-flow.md)).
+Use the `client-credentials` flow to protect your API (see [Client Credential Protection](/how-to/client-cred-flow.md)).
 
 ### 10.4 Use the Access Approval Process
 
