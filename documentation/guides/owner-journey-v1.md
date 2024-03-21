@@ -100,7 +100,7 @@ Review the `gwconfig.yaml` file to see what it is doing. There is a single upstr
 
 ### OCP Network Policies
 
-> If your service is running on the Openshift platform, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
+> If your service is running on the OpenShift platform, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
 
 The Kong Gateway runs Data Planes in both Silver and Gold clusters.
 
@@ -160,9 +160,9 @@ spec:
 
 By default, publicly available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
 
-There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publically available.
+There are use cases where the clients that are consuming the API are on the same OpenShift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publically available.
 
-To support this, the route `hosts` can be updated with a host that follows the format: `<api-name>.cluster.local`. When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.
+To support this, the route `hosts` can be updated with a host that follows the format: `<api-name>.cluster.local`. When the configuration is published to Kong, an OpenShift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the OpenShift cluster.
 
 An example Gateway configuration for an upstream API deployed in the Silver cluster would be:
 
@@ -181,7 +181,7 @@ services:
           - <MYSERVICE>.cluster.local
 ```
 
-A new service endpoint with SSL termination (using Service Serving Certificates) is then created in the APS project space for the given Openshift cluster, with the following format:
+A new service endpoint with SSL termination (using Service Serving Certificates) is then created in the APS project space for the given OpenShift cluster, with the following format:
 
 | Cluster     | Endpoint                                               |
 | ----------- | ------------------------------------------------------ |
@@ -198,7 +198,7 @@ kind: ConfigMap
 metadata:
   name: tmp-ca
   annotations:
-    service.beta.openshift.io/inject-cabundle: "true"
+    service.beta.OpenShift.io/inject-cabundle: "true"
 data: {}
 ---
 apiVersion: apps/v1
