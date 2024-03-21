@@ -279,6 +279,10 @@ Manually wrap long lines by adding breaks in the Markdown source.
 Since git generates file diffs on a line-by-line basis, manually wrapping long lines
 helps reviewers to easily find the changes made in a PR and provide feedback.
 
+Rather than doing this manually, find an extension like
+[Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap) for
+Visual Studio Code (shortcut `ALT + Q`).
+
 ### Headings and titles {#headings}
 
 People accessing this documentation may use a screen reader or other assistive technology.
