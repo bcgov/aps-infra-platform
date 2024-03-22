@@ -1,113 +1,39 @@
 ---
-order: 2600
+title: Create a Service
 ---
 
-# Create a GatewayService
- 
-> **Declarative Config:** DecK is used to sync your configuration with Kong; see https://docs.konghq.com/deck/latest/ for more information.
+<!-- overview -->
 
-> **Splitting Your Config:** A namespace `tag` with the format `ns.$NS` is mandatory for each service/route/plugin. But, if you have separate pipelines for your environments (i.e., dev, test and prod), you can split your configuration and update the `tags` with the qualifier. For example, you can use a tag `ns.$NS.dev` to sync the Kong configuration for `dev` Service and Routes only.
+In Kong, the API gateway which underlies the API Management Platform, a service
+is an entity representing an external upstream API or microservice. For example,
+a data transformation microservice, a billing API, and so on.
 
-## Plugins
+The main attribute of a service is its URL. You can specify the URL with a
+single string, or by specifying its protocol, host, port, and path individually.
 
-> To view common plugin configuration go to [Common Controls](/gateway/COMMON-CONFIG.md)
+Read more about services on the [Kong Gateway page](https://docs.konghq.com/gateway/latest/key-concepts/services/).
 
-> To learn about other available plugins, navigate to `Gateway > Plugins` on the sidebar of this page.
+Service configuration is stored in a GatewayService object in the API Services
+Portal. GatewayServices can be crafted from a template or generated from an
+OpenAPI specification. This guide only contains information on the OpenAPI
+route.
 
-## Private Routing
+## Before you begin
 
-By default, publicly available endpoints are created based on Kong Routes where the hosts must end with `*.api.gov.bc.ca` or `*.apps.gov.bc.ca`.
+- [Install gwa CLI](/how-to/gwa-install.md)
+- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
 
-There are use cases where the clients that are consuming the API are on the same Openshift platform that the API is deployed to. In this case, there is a security benefit of not making the API endpoints publicly available.
+<!-- ## Declarative Configuration -->
 
-To support this, the route `hosts` can be updated with a host that follows the format: `<api-name>.cluster.local`. When the configuration is published to Kong, an Openshift Service is created with a corresponding Service Serving Certificate (SSC), which is routeable from within the Openshift cluster.
-
-An example Gateway configuration for an upstream API deployed in the Silver cluster would be:
-
-```yaml
-services:
-  - name: my-service
-    host: httpbin.org
-    tags: [ns.$NS]
-    port: 443
-    protocol: https
-    retries: 0
-    routes:
-      - name: my-service-route
-        tags: [ns.$NS]
-        hosts:
-          - <MYSERVICE>.cluster.local
-```
-
-A new service endpoint with SSL termination (using Service Serving Certificates) is then created in the APS project space for the given Openshift cluster, with the following format:
-
-| Cluster     | Endpoint                                               |
-| ----------- | ------------------------------------------------------ |
-| Silver TEST | `https://gw-<MYSERVICE>.264e6f-test.svc.cluster.local` |
-| Silver PROD | `https://gw-<MYSERVICE>.264e6f-prod.svc.cluster.local` |
-| Gold TEST   | `https://gw-<MYSERVICE>.b8840c-test.svc.cluster.local` |
-| Gold PROD   | `https://gw-<MYSERVICE>.b8840c-prod.svc.cluster.local` |
-
-To verify that the endpoint is callable, you can deploy a simple pod that mounts the `service-ca` to be used for verifying the SSC.
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: tmp-ca
-  annotations:
-    service.beta.openshift.io/inject-cabundle: "true"
-data: {}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: tmp-deployment
-  labels:
-    app: sleeper
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: sleeper
-  template:
-    metadata:
-      labels:
-        app: sleeper
-    spec:
-      volumes:
-        - name: config
-          configMap:
-            name: tmp-ca
-
-      containers:
-        - name: idle
-          image: docker.io/curlimages/curl:latest
-          command: ["sh"]
-          args:
-            - -c
-            - |
-              sleep Infinite
-          ports:
-            - containerPort: 80
-          volumeMounts:
-            - name: config
-              mountPath: "/config"
-              readOnly: true
-```
-
-From the Pod's Terminal, you can then run:
-
-```bash
-curl -v --cacert /config/service-ca.crt \
-  https://gw-my-service.264e6f-prod.svc.cluster.local/uuid
-```
-
-You should see a 200 response with a valid UUID.
+!!! warning "Upstream service setup"
+    If your upstream services run on Platform
+    Service's Silver or Gold OpenShift cluster, then you will need to
+    configuration the network polices to allow access from the API Gateway.
+     [Upstream service setup](/resources/upstream-services.md)
 
 ## Using an OpenAPI Spec
 
-With version 2 of the GWA CLI, the OpenAPI to Kong configuration generator has been removed from the CLI and is now recommended to use Kong's `deck` command line.
+Kong's `deck` command line tool is used to convert an OpenAPI specification to a Kong configuration (which underlies )
 
 Reference: https://docs.konghq.com/deck/latest/
 
@@ -181,8 +107,26 @@ Run the following command, substituting your API Services Portal Namespace in th
 deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.<GW-NAMESPACE>
 ```
 
+!!! note "Namespace tags"
+    A namespace `tag` with the format `ns.<NAMESPACE>` is mandatory for each
+    service, route, and plugin object.
+    
+    If you have separate pipelines for your environments (dev, test and prod),
+    you can split your configuration and update the `tags` with the qualifier. 
+    
+    For example, you can use a tag `ns.<NAMESPACE>.dev` to sync the Kong configuration
+    for `dev` Service and Routes only.
+
 **Publish to the API Services Portal:**
 
 ```shell linenums="0"
 gwa publish-gateway gw.yaml
 ```
+
+## What's next?
+
+- [Add Client Credential Protection](/how-to/client-cred-flow.md)
+- [Configure a Private Route](/how-to/private-route.md)
+- [Configure Gateway Controls](/gateway/COMMON-CONFIG.md)
+- [Share your API](/how-to/api-discovery.md)
+- [Monitor your Services](/resources/monitoring.md)
