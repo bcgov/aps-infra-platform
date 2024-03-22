@@ -8,11 +8,15 @@ nav:
   - Tutorials:
       - "tutorials/quick-start.md"
   - How-to Guides:
+      - "how-to/gwa-install.md"
       - "how-to/create-gateway-service.md"
+      - "how-to/private-route.md"
       - "how-to/generate-service-account.md"
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
       - "how-to/client-cred-flow.md"
+  - Concepts:
+      - "concepts/api-directory.md"
   - Other Guides:
       - "guides/owner-journey-v1.md"
       - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"
@@ -66,3 +70,6 @@ plugins:
 markdown_extensions:
   - toc:
       toc_depth: 3
+  - pymdownx.tasklist:
+    #   custom_checkbox: true
+      clickable_checkbox: true
