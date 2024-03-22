@@ -12,7 +12,7 @@ The following resources are offered for guidance on APIs with the purpose of pro
 
 > The API store for the Government of Canada is a one-stop shop for APIs to build applications and services using government data and information. The API Store is the central repository of Federal government department APIs. The API Store enables discovery of APIs, ensures consistent security, provides performance and analytics information, and offers guidance on API life cycle management.
 
-[BC Government API Guidelines (DevHub)](https://developer.gov.bc.ca/Data-and-APIs/BC-Government-API-Guidelines)
+[BC Government API Guidelines (DevHub)](https://classic.developer.gov.bc.ca/Data-and-APIs/BC-Government-API-Guidelines)
 
 > The purpose of these guidelines is to promote consistency and provide guidance around the use of Application Programming Interfaces (APIs) across the BC government, and to enable exchange and integration of data between systems, agencies, businesses and citizens.
 
