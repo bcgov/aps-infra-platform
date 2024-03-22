@@ -10,6 +10,7 @@ Here is overview of the process (numbers reference steps in the table of content
 
 ## Before you begin
 
+- [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
 - [Create a GatewayService](/how-to/create-gateway-service.md)
 - [Share an API in the API Directory](/how-to/api-discovery.md/#share-an-api)
@@ -17,7 +18,8 @@ Here is overview of the process (numbers reference steps in the table of content
 
 ## 1. Configure a service on the gateway
 
-Firstly, complete the steps listed above in **Before you begin**. This includes setting up an unprotected GatewayService pointing to your service.
+Firstly, complete the steps listed above in **Before you begin**. This includes
+setting up an unprotected GatewayService pointing to your service.
 
 ## 2. Grant access to the identity provider
 
@@ -183,21 +185,29 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
 ## 3. Request Access (API Consumer)
 
-At this point the API is protected with a Client Credential grant. The next steps show how to validate the flow.
+At this point the API is protected with a Client Credential grant. The next
+steps show how to validate the flow.
 
-The API consumer would request access to the API via the API Services Portal and generate the credentials to be used below.
+The API consumer would request access to the API via the API Services Portal and
+generate the credentials to be used below.
 
-The Portal will use the credentials setup in the Authorization Profile, to create a disabled Client on the IdP (with any applicable Client Mappers) and return the credentials to the Requesting user.
+The Portal will use the credentials setup in the Authorization Profile, to
+create a disabled Client on the IdP (with any applicable Client Mappers) and
+return the credentials to the Requesting user.
 
 ## 4. Approve Access (API Provider)
 
-An Access Manager reviews the access request, sets any additional controls, grants the relevant permissions (such as scopes and roles), and approves. The Portal will enable the Client and apply the permissions on the IdP.
+An Access Manager reviews the access request, sets any additional controls,
+grants the relevant permissions (such as scopes and roles), and approves. The
+Portal will enable the Client and apply the permissions on the IdP.
 
-The Portal sends a notification to the Requester letting them know that API Access has been approved (or rejected).
+The Portal sends a notification to the Requester letting them know that API
+Access has been approved (or rejected).
 
 ## 5. Retrieve the Access Token (Client)
 
-Using the Credentials generated in step 3, the Requester calls the Token endpoint to get a new JWT token.
+Using the Credentials generated in step 3, the Requester calls the Token
+endpoint to get a new JWT token.
 
 ```sh
 export CID="<Client ID>"
@@ -219,32 +229,54 @@ export TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
 
 Call the API with the Bearer token:
 
-```
+```sh linenums="0"
 curl -v -H "Authorization: Bearer $TOKEN" https://<MYSERVICE>.api.gov.bc.ca/
 ```
 
-The API Gateway's `jwt-keycloak` plugin will use the IdP's public keys to validate the token and depending on the plugin configuration, validate the scopes or roles.
+The API Gateway's `jwt-keycloak` plugin will use the IdP's public keys to
+validate the token and depending on the plugin configuration, validate the
+scopes or roles.
 
 ## 7. Gateway Proxying to Upstream
 
-A technical, but important step in the integration is the Gateway proxying the request to the Upstream Service API and deciding on the different options for securing that interaction.
+A technical, but important step in the integration is the Gateway proxying the
+request to the Upstream Service API and deciding on the different options for
+securing that interaction.
 
 Options:
 
-- `Network Policy` : If the Services are co-located on the same Cluster as the Gateway's Data Plane, then native network policies can be used to protect the channel between the Gateway and the Upstream Service. This approach is used for Services running on the Openshift Silver cluster.
+- `Network Policy` : If the Services are co-located on the same Cluster as the
+  Gateway's Data Plane, then native network policies can be used to protect the
+  channel between the Gateway and the Upstream Service. This approach is used
+  for Services running on the OpenShift Silver cluster.
 
-- `Kong Upstream JWT`: This plugin adds a signed JWT to the request headers so that the Upstream Service can verify that the request came specifically from the Gateway.
+- `Kong Upstream JWT`: This plugin adds a signed JWT to the request headers so
+  that the Upstream Service can verify that the request came specifically from
+  the Gateway.
 
-- `Client Certificates` : Client certificates (mTLS) provides a way for the Upstream Service to provide a secure channel from the Gateway and to verify that the request came specifically from the Gateway.
+- `Client Certificates` : Client certificates (mTLS) provides a way for the
+  Upstream Service to provide a secure channel from the Gateway and to verify
+  that the request came specifically from the Gateway.
 
-- `Firewall IP Restrictions` : This provides a low-level of protection by limiting the IPs to the ones of the Gateway Data Planes. Because the Data Planes are typically on shared infrastructure, this would still allow traffic from other tenants. This might be acceptable based on the type of data delivered by or to the Upstream Service.
+- `Firewall IP Restrictions` : This provides a low-level of protection by
+  limiting the IPs to the ones of the Gateway Data Planes. Because the Data
+  Planes are typically on shared infrastructure, this would still allow traffic
+  from other tenants. This might be acceptable based on the type of data
+  delivered by or to the Upstream Service.
 
 ## Variations
 
 ### Signed JWT
 
-The Authorization Profile `clientAuthenticator` was set to `client-secret` in this tutorial, but there is an alternate setup that can be used:
+The Authorization Profile `clientAuthenticator` was set to `client-secret` in
+this tutorial, but there is an alternate setup that can be used:
 
 - `client-jwt-jwks-url` (Signed JWT with JWKS URL or Certificate)
 
-In this scenario, when a Client is requesting access, they will be required to enter details about the client assertion certificates. The details can either be a public JWKS URL that holds the public key information for a key pair, or providing just the public key information. The information will be used in step 5 when retrieving the Bearer Token. For further details, you can see the specific examples [Signed JWT w/ Hosted JWKS](/guides/intro-signed-jwt.md) or [Signed JWT w/ Certificate](/guides/intro-signed-jwt-pubkey.md).
+In this scenario, when a Client is requesting access, they will be required to
+enter details about the client assertion certificates. The details can either be
+a public JWKS URL that holds the public key information for a key pair, or
+providing just the public key information. The information will be used in step
+5 when retrieving the Bearer Token. For further details, you can see the
+specific examples [Signed JWT w/ Hosted JWKS](/guides/intro-signed-jwt.md) or
+[Signed JWT w/ Certificate](/guides/intro-signed-jwt-pubkey.md).
