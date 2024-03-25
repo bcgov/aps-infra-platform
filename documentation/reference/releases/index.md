@@ -5,7 +5,6 @@
 | Release Date | Release                                     |
 | ------------ | ------------------------------------------- |
 | 2024 Mar 5   | [1.2.18 Minor Release](/reference/releases/2024-mar-1.2.18.md)  |
-| 2024 Mar 5   | [1.2.18 Minor Release](/reference/releases/2024-mar-1.2.18.md)  |
 
 ## 2023
 

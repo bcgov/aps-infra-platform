@@ -198,7 +198,7 @@ kind: ConfigMap
 metadata:
   name: tmp-ca
   annotations:
-    service.beta.OpenShift.io/inject-cabundle: "true"
+    service.beta.openshift.io/inject-cabundle: "true"
 data: {}
 ---
 apiVersion: apps/v1
