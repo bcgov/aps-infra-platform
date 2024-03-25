@@ -1,23 +1,23 @@
 # aps-infra-platform
 
-## Development
+## Preview docs locally
 
+Linux:
 ```
-cd documentation
-npx retypeapp watch
+docker pull ghcr.io/bcgov/devhub-techdocs-publish
+docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
 ```
 
 ## Validate Broken Links
 
-```
-npx broken-link-checker \
-  -r \
-  --exclude cluster.local \
-  --exclude github \
-  --exclude lua-users.org \
-  http://localhost:5000/aps-infra-platform/
+First run the local preview. Then:
 
 ```
+npm install -g @umbrelladocs/linkspector
+linkspector check
+```
+
+See https://github.com/UmbrellaDocs/linkspector
 
 ## Update GWA CLI
 

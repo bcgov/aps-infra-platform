@@ -6,11 +6,17 @@ order: 2500
 
 ## Upstream Services on OCP
 
-We have Kong Data Planes running on Platform Service's Silver and Gold Private Openshift clusters. If your upstream services run on one of these clusters, then you will need to configuration the network polices to allow access from the API Gateway. Additionally, if you are interested in private routing, there is a section that covers this in detail below.
+We have Kong Data Planes running on Platform Service's Silver and Gold Private
+OpenShift clusters. If your upstream services run on one of these clusters, then
+you will need to configuration the network polices to allow access from the API
+Gateway.
+
+Additionally, you can set up [private routing](/how-to/private-route.md) to
+limit consumer access to that cluster.
 
 ### Network Policies
 
-> If your service is running on the Openshift platform, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
+> If your service is running on the OpenShift platform, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
 
 The Kong Gateway runs Data Planes in both Silver and Gold clusters.
 

@@ -1,0 +1,3 @@
+dirs:
+  - documentation
+baseUrl: http://localhost:3000/docs/default/component/local
