@@ -13,10 +13,10 @@ sidebar of this page.
 ```
 plugins:
 - name: pre-function
-    tags: [ _NS_ ]
-    config:
-      access:
-      - "kong.response.exit(307, 'site moved - redirecting...', {['Location'] = 'https://my-new-url.site'})"
+  tags: [ _NS_ ]
+  config:
+    access:
+    - "kong.response.exit(307, 'site moved - redirecting...', {['Location'] = 'https://my-new-url.site'})"
 ```
 
 ## Request Termination
