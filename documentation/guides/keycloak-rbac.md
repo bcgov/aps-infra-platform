@@ -2,7 +2,7 @@
 
 This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway.
 
-![alt text](../artifacts/keycloak-rbac.png "Keycloak RBAC")
+![alt text](/artifacts/keycloak-rbac.png "Keycloak RBAC")
 
 ## 1. Configure a confidential client
 
@@ -16,7 +16,7 @@ The `Assign Users to Roles` can be used to administer User permissions.
 
 **Pre-requisites:**
 
-- You have your application deployed in the Openshift Silver cluster
+- You have your application deployed in the OpenShift Silver cluster
 - You have created a namespace in the `API Services Portal`
 - You have a Service Account created with the `GatewayConfig.Publish` permission
 - Your Network Policy has been configured to allow traffic from the APS project space

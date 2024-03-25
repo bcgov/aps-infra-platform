@@ -1,10 +1,12 @@
 ---
+title: Common Controls
 order: 2000
 ---
 
-# Common Controls
-
 The following are sample Gateway controls for common scenarios.
+
+To learn about other available plugins, navigate to `Gateway > Plugins` on the
+sidebar of this page.
 
 ## Returning an HTTP Redirect
 

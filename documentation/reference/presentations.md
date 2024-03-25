@@ -16,4 +16,4 @@ order: 370
 
 <a href="../artifacts/APS-Road-to-Gold.pdf" download>Road to Gold</a>
 
-> Jan 2022 : Presented our journey from the Openshift Silver cluster to Gold cluster
+> Jan 2022 : Presented our journey from the OpenShift Silver cluster to Gold cluster

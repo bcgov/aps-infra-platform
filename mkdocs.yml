@@ -8,11 +8,17 @@ nav:
   - Tutorials:
       - "tutorials/quick-start.md"
   - How-to Guides:
+      - "how-to/gwa-install.md"
+      - "how-to/create-gateway-service.md"
+      - "how-to/private-route.md"
+      - "how-to/generate-service-account.md"
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
+      - "how-to/client-cred-flow.md"
+  - Concepts:
+      - "concepts/api-directory.md"
   - Other Guides:
       - "guides/owner-journey-v1.md"
-      - "Client Credential Protection": "guides/tutorial-idp-client-cred-flow.md"
       - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"
       - "Signed JWT w/ Hosted JWKS": "guides/intro-signed-jwt.md"
       - "guides/keycloak-rbac.md"
@@ -21,7 +27,6 @@ nav:
       - "resources/api-access.md"
       - "resources/cicd-integration.md"
       - "resources/gateway-admin.md"
-      - "resources/gateway-configuration.md"
       - "resources/gwa-commands.md"
       - "resources/monitoring.md"
       - "resources/upstream-services.md"
@@ -59,4 +64,12 @@ nav:
 
 plugins:
   - techdocs-core
-  - git-revision-date-localized
+  - ezlinks
+#   - git-revision-date-localized
+
+markdown_extensions:
+  - toc:
+      toc_depth: 3
+  - pymdownx.tasklist:
+    #   custom_checkbox: true
+      clickable_checkbox: true

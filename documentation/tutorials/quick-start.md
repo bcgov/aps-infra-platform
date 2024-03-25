@@ -9,11 +9,11 @@ isPublic: true
 publishDate: "2021-06-10T20:00:00.000-08:00"
 ---
 
-# API Provider Quick Start
+> NOTE: As of Sep 19, 2023, we have upgraded our command line interface to version 2, which is used in this tutorial. 
+> For a tutorial using v1 of the `gwa` CLI visit [API Provider User Journey v1](/guides/owner-journey-v1.md).
 
-> NOTE: As of Sep 19, 2023, we have upgraded our command line interface to version 2. This user journey goes through the steps with the new CLI. If you are looking for Version 1 of the user journey, please go [here](owner-journey-v1.md).
-
-The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. At the end of the guide, you will have a public API endpoint that is protected using the OAuth2 Client Credential Grant.
+The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. 
+At the end of the guide, you will have a public API endpoint that is protected using the OAuth2 Client Credential Grant.
 
 ## 1. Download the `gwa` CLI
 
@@ -41,7 +41,7 @@ gwa login
 
 ## 3. Apply Configuration
 
-Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](./tutorial-idp-client-cred-flow.md) using a [Shared Identity Provider](./tutorial-idp-client-cred-flow.md#shared-idp).
+Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md/#2-grant-access-to-the-identity-provider).
 
 First, create a new Namespace. 
 
@@ -85,22 +85,21 @@ From here, go to **Activity** and select **More details** next to "published gat
 What you have setup:
 
 - Route to your service, via the vanity URL: `<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`
+  - Retrieve the URL directly with this command: `gwa status --json | jq -r '.[].env_host'`
   - If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>.dev.api.gov.bc.ca`
 - Protected by an SSL `*.api.gov.bc.ca` certificate
-- Protected with the Client Credential grant using OCIO SSO Gold cluster
+- Protected with the Client Credential grant using Pathfinder SSO
 - Separation of concerns for authentication and authorization
 
 ## 5. Access your API
 
-If you try to access your service now without any authorization, you will receive an `Unauthorized` 401 response. Try:
+If you try to access your service now without any authentication, you will receive an `Unauthorized` 401 response. Try:
 
 ```sh
 curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid
 ```
 
-This command returns an error, rather than a UUID4 from the upstream `https://httpbin.org/uuid`:
-
-`{  "message": "Unauthorized" }`
+This command returns an error `{  "message": "Unauthorized" }`, rather than a UUID4 from the upstream `https://httpbin.org/uuid`.
 
 Gaining access involves requesting access (as a consumer of your API would), obtaining a client secret and ID, and requesting a JWT token.
 
@@ -123,11 +122,15 @@ export URL="<Token Endpoint>"
 Then run the following command to request a JWT token and export it to an environment variable (`TOKEN`):
 
 ```sh
-export TOKEN=$(curl -s $URL \
-  -X POST -H "Content-Type: application/x-www-form-urlencoded" \
-  -d client_id=$CID -d client_secret=$CSC \
-  -d grant_type=client_credentials \
-  -d scopes=openid | jq -r '.access_token')
+RESPONSE=$(curl -X POST "$URL" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=$CID" \
+  -d "client_secret=$CSC" \
+  -d "grant_type=client_credentials" \
+  -d "scopes=openid")
+
+echo "$RESPONSE" | jq
+export TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
 ```
 
 Finally, try the `curl` command again with the token in the header:
@@ -151,18 +154,19 @@ Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channe
 
 Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.
 
-- [Monitor your Services](../resources/monitoring.md) : View metrics for performance, traffic and trends.
-- [Gateway Administration](../resources/gateway-admin.md) : Add team members and create service accounts.
-- [Explore Different Plugins](../resources/gateway-configuration.md)
-- [Upstream Service Setup](../resources/upstream-services.md)
-- [API Discovery](../resources/api-discovery.md) : Setup metadata about your APIs for discovery.
-- [API Access](../resources/api-access.md) : Approve and administer controls for consumer access to your APIs.
-- [CI/CD Integration](../resources/cicd-integration.md)
-
-Use the `client-credentials` flow to protect your API (see [Client Credential Protection](tutorial-idp-client-cred-flow.md)).
+- [Monitor your Services](/resources/monitoring.md) : View metrics for performance, traffic and trends.
+- [Gateway Administration](/resources/gateway-admin.md) : Add team members and create service accounts.
+- [Customize Gateway Controls](/how-to/create-gateway-service.md)
+- [Upstream Service Setup](/resources/upstream-services.md)
+- [Share your API](/how-to/api-discovery.md) : Setup metadata about your APIs for discovery.
+- [API Access](/resources/api-access.md) : Approve and administer controls for consumer access to your APIs.
+- [CI/CD Integration](/resources/cicd-integration.md)
+- [Add Client Credential Protection](/how-to/client-cred-flow.md)
 
 ### Ready for Production?
 
-Our production instance supports all your environments, so once you know what you are building and are ready to deploy your "dev" environment, you can setup the API gateway in our production instance.
+Our production instance supports all your environments, so once you know what
+you are building and are ready to deploy your "dev" environment, you can setup
+the API gateway in our production instance.
 
 To get started, go to the API Services Portal at https://api.gov.bc.ca.
