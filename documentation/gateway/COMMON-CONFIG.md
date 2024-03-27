@@ -125,7 +125,7 @@ To enable anonymous access to your API, update your plugin configuration with:
 ## Event Metric
 
 This `pre-function` allows you to collect arbitrary metrics that you can then
-track in Grafana (<https://grafana.apps.gov.bc.ca/>) on the **X Events** dashboard.
+track in [Grafana](/resources/monitoring.md) on the **X Events** dashboard.
 
 First define your event conditions and desired `x-event` headers in Lua. Here is
 an example which looks at a query parameter:
