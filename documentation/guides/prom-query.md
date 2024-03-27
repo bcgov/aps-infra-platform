@@ -142,9 +142,9 @@ Some helpful takeaways:
 
 ### PromQL
 
-Check out the [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) for the basics of forming PromQL queries.
+Check out the [Prometheus querying documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) for the basics of forming PromQL queries.
 
-[This video](https://youtu.be/hvACEDjHQZE) is also useful for learning PromQL basics.
+[This video](https://youtu.be/hvACEDjHQZE) is also a good introduction.
 
 ## Grafana and Additional Queries
 
