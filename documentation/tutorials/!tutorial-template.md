@@ -1,5 +1,5 @@
 ---
-title: {Tutorial Title for a Specific Task}
+title: {Tutorial Title}
 ---
 <!-- template preamble -->
 
@@ -110,3 +110,4 @@ In this tutorial, you learned how to:
 - [Natural next thing to do](/how-to/next.md)
 - [Something else to consider or explore](/how-to/more.md)
 - Read more about the [Relevant concept](/concepts/relevant.md)
+- 5 items max!
