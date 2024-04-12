@@ -1,21 +1,35 @@
 ---
-title: {Guide Title for a Specific Task}
+title: {Tutorial Title for a Specific Task}
 ---
 <!-- template preamble -->
 
-A how-to page shows how to do a single thing, typically by giving a short
-sequence of steps. How-to pages have minimal explanation, but often provide links
-to conceptual topics that provide related background and knowledge.
+Tutorials are learning-oriented and targeted at beginners or experts to help
+them learn a skill through hands-on experience. A tutorial page shows how to
+accomplish a goal that is larger than a single task, following a carefully
+managed path from start to finish. Tutorials should assume users have limited
+prior experience and thus include surface-level explanations of core concepts, while
+linking to related concept pages for deeper explanations.
 
-To write a new how-to page, copy this file. All text in {curly brackets} should be replaced or removed.
+To write a new tutorial page, copy this file. All text in {curly brackets} should be replaced or removed.
 
-For more information on how-to pages, read the [Good Docs Project guide](https://gitlab.com/tgdp/templates/-/blob/main/how-to/guide-how-to.md).
+For more information on tutorial pages, read the [Good Docs Project guide](https://gitlab.com/tgdp/templates/-/blob/main/tutorial/guide-tutorial.md).
 
 <!-- overview -->
 
-This guide explains how to {insert a brief description of the task}.
+In this tutorial, you'll learn how to {insert brief description of the main tutorial task}. This tutorial is intended for {audience}.
 
-{Optional: Specify when and why your user might want to perform the task.}
+By the end of this tutorial, you'll be able to:
+
+- Learning objective 1
+- Learning objective 2
+- Learning objective 3
+
+<!-- background -->
+
+{This section is optional. Feel free to use some of the text below to help you get started.}
+
+- {product} is a {product type} that you can use to {common use case}...
+- Using {feature} enables you to {pain point}...
 
 {Optional: Include links/tooltips to relevant concepts when terms are introduced here or in the `steps` section.}
 
@@ -58,22 +72,6 @@ Before you begin, ensure you:
 
 {Repeat as above}
 
-{Note on multiple paths: Making users choose between multiple ways of doing this
- is confusing. When it comes to CLI vs UI, the CLI is generally the recommended
- path, so *only* include CLI instructions.}
-
-{Optional: Use tabs for documenting multiple user paths to achieve the same end, for example, using the CLI or Portal UI.}
-
-=== "CLI"
-    1. Create a Product configuration using the YAML template.
-    2. Publish the Product - `gwa apply -i <product.yaml>`
-=== "Web UI"
-    1. Navigate to **Namespaces** -> **Products**.
-    2. Click **New Product** in the top right.
-
-!!! warning "Don't forget"
-    Use callouts to communicate **important** information.
-
 {Optional: Use example code blocks as needed}
 
 {**TO DISCUSS**: When to use placeholders in example code}
@@ -93,16 +91,22 @@ services:
           - <MYSERVICE>.cluster.local
 ```
 
-### {Sub-task details}
+<!-- summary -->
 
-{This section is optional. Only include h3 headings if the sub-task is big and complex and demands splitting.
-Consider if the sub-task deserves it's own how-to page.}
+## Summary
+
+{Use this section to summarize what the user learned in the tutorial.}
+
+In this tutorial, you learned how to:
+
+- Summary point 1
+- Summary point 2
+- Summary point 3
 
 <!-- whatsnext -->
 
 ## What's next?
 
 - [Natural next thing to do](/how-to/next.md)
-- [Related reference material](/reference/api.md)
 - [Something else to consider or explore](/how-to/more.md)
 - Read more about the [Relevant concept](/concepts/relevant.md)
