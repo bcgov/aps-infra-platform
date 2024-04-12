@@ -172,7 +172,7 @@ Use meaningful variable names for the context.
 | Do | Don't |
 | -- | ----- |
 | `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` |
-| `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
+| `tags: [ ns.<namespace> ]` | `tags: [ _NS_ ]` |
 | `gwa get <resource>` | `gwa get <foo>` |
 | `curl https://<MYSERVICE>.api.gov.bc.ca/headers` | `curl https://*MYSERVICE*.api.gov.bc.ca/headers` |
 
