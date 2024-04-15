@@ -139,7 +139,7 @@ Now it's time to publish the Dataset:
 ## Link Your Dataset to a Product
 
 If you've already worked through the [Quick Start
-tutorial](/tutorial/quick-start.md) or set up a Gateway Service, you may already
+tutorial](/tutorials/quick-start.md) or set up a Gateway Service, you may already
 have a Product. In this case, we can associate the Product with a Dataset:
 
 1. Open the [Products](https://api.gov.bc.ca/manager/products) page in the API Services Portal.

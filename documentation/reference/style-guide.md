@@ -317,7 +317,7 @@ Use root-relative links to support documents moving around without breaking link
 
 | Do | Don't |
 | -- | ----- |
-| `[Tutorial](/tutorial/quick-start.md)` (even if linking from another page in `/tutorial`) | `[Tutorial](quick-start.md)` or `[Tutorial](../quick-start.md)` |
+| `[Tutorial](/tutorials/quick-start.md)` (even if linking from another page in `/tutorials`) | `[Tutorial](quick-start.md)` or `[Tutorial](../quick-start.md)` |
 
 ### Lists
 
