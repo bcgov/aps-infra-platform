@@ -122,6 +122,8 @@ To enable anonymous access to your API, update your plugin configuration with:
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
 
+If you do not want to advertise anonymous access on the API Directory, you can hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
+
 ## Event Metric
 
 This `pre-function` allows you to collect arbitrary metrics that you can then track in the APS Grafana instance (https://grafana.apps.gov.bc.ca/).
