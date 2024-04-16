@@ -5,10 +5,12 @@ title: {Tutorial Title}
 
 Tutorials are learning-oriented and targeted at beginners or experts to help
 them learn a skill through hands-on experience. A tutorial page shows how to
-accomplish a goal that is larger than a single task, following a carefully
+accomplish a goal that is larger than a single task, following a single, carefully
 managed path from start to finish. Tutorials should assume users have limited
 prior experience and thus include surface-level explanations of core concepts, while
 linking to related concept pages for deeper explanations.
+
+Tutorials should use the test environment (when applicable).
 
 To write a new tutorial page, copy this file. All text in {curly brackets} should be replaced or removed.
 
@@ -37,14 +39,14 @@ By the end of this tutorial, you'll be able to:
 
 ## Before you begin
 
-{Optional: You should be familiar with how to do a [more basic task](/how-to/basic.md) or [concept](/concepts/topic.md).}
+{Intro tutorials should have no prerequisites, though more advanced tutorials might have some.}
+
+{Optional: You should be familiar with how to do a [more basic task](/how-to/gwa-install.md) or [concept](/concepts/api-directory.md).}
 
 Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
-- [Complete This](/how-to/do-this.md)
-- [Do That](/how-to/do-that.md)
 
 <!-- steps -->
 
@@ -74,16 +76,13 @@ Before you begin, ensure you:
 
 {Optional: Use example code blocks as needed}
 
-{**TO DISCUSS**: When to use placeholders in example code}
+{**TO DISCUSS**: When to use placeholders in example code - see [how-to template](/how-to/!how-to-template.md)}
 
 ```yaml
 services:
   - name: my-service
     host: httpbin.org
     tags: [ns.<NAMESPACE>]
-    port: 443
-    protocol: https
-    retries: 0
     routes:
       - name: my-service-route
         tags: [ns.<NAMESPACE>]
@@ -107,7 +106,7 @@ In this tutorial, you learned how to:
 
 ## What's next?
 
-- [Natural next thing to do](/how-to/next.md)
-- [Something else to consider or explore](/how-to/more.md)
-- Read more about the [Relevant concept](/concepts/relevant.md)
+- [Natural next thing to do](/how-to/gwa-install.md)
+- [Something else to consider or explore](/how-to/private-route.md)
+- Read more about the [Relevant concept](/concepts/api-directory.md)
 - 5 items max!

@@ -67,11 +67,11 @@ If you would like to dive deeper or start implementing {concept}, check out the
 following resources:
 
 How-to guides
-- [Natural next thing to do](/how-to/next.md)
-- [Something else to consider or explore](/how-to/more.md)
+- [Natural next thing to do](/how-to/gwa-install.md)
+- [Something else to consider or explore](/how-to/private-route.md)
 
 Linked concepts
-- [Concept 1](/concepts/relevant.md)
+- [Concept 1](/concepts/api-directory.md)
 
 External resources
 - [Kong](https://docs.konghq.com/gateway/latest/key-concepts/services/)
