@@ -3,6 +3,8 @@ title: {Guide Title for a Specific Task}
 ---
 <!-- template preamble -->
 
+## Template preamble (remove!)
+
 A how-to page shows how to do a single thing, typically by giving a short
 sequence of steps. How-to pages have minimal explanation, but often provide links
 to conceptual topics that provide related background and knowledge.
@@ -12,6 +14,8 @@ How-tos should provide the available environments (`test`/`prod`) and endpoints,
 To write a new how-to page, copy this file. All text in {curly brackets} should be replaced or removed.
 
 For more information on how-to pages, read the [Good Docs Project guide](https://gitlab.com/tgdp/templates/-/blob/main/how-to/guide-how-to.md).
+
+---
 
 <!-- overview -->
 
@@ -110,7 +114,7 @@ services:
         # Tags should include a namespace identifier, replace <NAMESPACE>.
         tags: [ns.<NAMESPACE>]
         # Replace <MYSERVICE> with your service's desired internal name.
-        hosts:
+        hosts: 
           - <MYSERVICE>.cluster.local
 ```
 

@@ -340,6 +340,32 @@ Use root-relative links to support documents moving around without breaking link
 - Use the number one (`1.`) for all items in ordered lists.
 - Use (`+`), (`*`), or (`-`) for unordered lists.
 
+### Diagrams
+
+Use Mermaid to create diagrams by tagging a code block with the `mermaid` language tag. See the [Kubernetes Diagram Guide](https://kubernetes.io/docs/contribute/style/diagram-guide/) more information on creating diagrams with Mermaid (and don't forget about GenAI).
+
+!!! Note
+	Mermaid diagrams won't show when using the [devhub-techdocs-publish](https://github.com/bcgov/devhub-techdocs-publish/blob/main/docs/index.md#how-to-use-the-docker-image-to-preview-content-locally) to preview the documentation locally. 
+    They will show up when published to DevHub's preview or production sites.
+
+````
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
+````
+
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
+
 ## Content best practices
 
 This section contains suggested best practices for clear, concise, and consistent

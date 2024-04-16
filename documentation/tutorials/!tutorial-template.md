@@ -3,6 +3,8 @@ title: {Tutorial Title}
 ---
 <!-- template preamble -->
 
+## Template preamble (remove!)
+
 Tutorials are learning-oriented and targeted at beginners or experts to help
 them learn a skill through hands-on experience. A tutorial page shows how to
 accomplish a goal that is larger than a single task, following a single, carefully
@@ -15,6 +17,8 @@ Tutorials should use the test environment (when applicable).
 To write a new tutorial page, copy this file. All text in {curly brackets} should be replaced or removed.
 
 For more information on tutorial pages, read the [Good Docs Project guide](https://gitlab.com/tgdp/templates/-/blob/main/tutorial/guide-tutorial.md).
+
+---
 
 <!-- overview -->
 
