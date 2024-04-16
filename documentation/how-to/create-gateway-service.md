@@ -66,7 +66,7 @@ security: []
 paths:
   /headers:
     get:
-      operationId: get-heaers
+      operationId: get-headers
       summary: Returns the request headers.
       responses:
         "4XX":
