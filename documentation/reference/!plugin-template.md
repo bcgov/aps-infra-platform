@@ -12,7 +12,8 @@ nutritional information on a food package.
 Alongside other one-off reference page types, we will have a collection of Kong
 plugin reference pages.
 
-To write a new plugin reference page, copy this file. All text in {curly brackets} should be replaced or removed.
+To write a new plugin reference page, copy this file. All text in {curly
+brackets} should be replaced or removed.
 
 ---
 
@@ -30,11 +31,12 @@ The {plugin name} plugin lets you {what the plugin is used for}.
 {No need to duplicate the docs from Kong for stock plugins!}
 
 This is a stock plugin from Kong Hub. See the [configuration reference
-page](https://docs.konghq.com/hub/kong-inc/{plugin-name}/{kong-version}/configuration/) for a list of parameters and protocol compatibility notes.
+page](https://docs.konghq.com/hub/kong-inc/{plugin-name}/{kong-version}/configuration/)
+for a list of parameters and protocol compatibility notes.
 
 {For custom plugins, we should list the parameters}
 
-This is a custom plugin managed by the API Program Services team. 
+This is a custom plugin managed by the API Program Services team.
 
 Here is a list of all the parameters which can be used in this plugin's `config` section:
 
@@ -50,7 +52,8 @@ Here is a list of all the parameters which can be used in this plugin's `config`
 
 The {plugin name} plugin can be used in order to {specific desired outcome}.
 
-To {short description of desired outcome}, add this section to your GatewayService YAML configuration file:
+To {short description of desired outcome}, add this section to your
+GatewayService YAML configuration file:
 
 ```yaml
 plugins:
@@ -62,7 +65,8 @@ plugins:
     policy: local
 ```
 
-Replace <SERVICE_NAME> with the name of the service that this plugin configuration will target.
+Replace <SERVICE_NAME> with the name of the service that this plugin
+configuration will target.
 
 ### {Optional: Another use case}
 
@@ -70,10 +74,9 @@ The {plugin name} plugin can be used in order to {specific desired outcome}.
 
 {...}
 
-
 ## {Special consideration}
 
 {Optional: Some plugins have special considerations which we may want to
-highlight and give guidance around different use cases}
+highlight and give guidance around different use cases.}
 
 {For example, for the Rate Limiting plugin, the [Strategies](https://docs.konghq.com/hub/kong-inc/rate-limiting/#strategies) should be mentioned.}
