@@ -1,0 +1,7 @@
+terms:
+  api-services-portal:
+    def: A helpful tool for managing your APIs.
+    url: https://api.gov.bc.ca
+  gwa-cli:
+    def: Command line tool for creating and publishing gateway configuration.
+    url: https://dev.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/resources/gwa-commands/

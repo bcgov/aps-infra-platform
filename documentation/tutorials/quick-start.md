@@ -12,7 +12,7 @@ publishDate: "2021-06-10T20:00:00.000-08:00"
 > NOTE: As of Sep 19, 2023, we have upgraded our command line interface to version 2, which is used in this tutorial. 
 > For a tutorial using v1 of the `gwa` CLI visit [API Provider User Journey v1](/guides/owner-journey-v1.md).
 
-The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. 
+The following steps guide an API Provider through setting up an API on the {{ glossary_tooltip text="API Services Portal" term_id="api-services-portal" }} in a Test/Training instance. 
 At the end of the guide, you will have a public API endpoint that is protected using the OAuth2 Client Credential Grant.
 
 ## 1. Download the `gwa` CLI
