@@ -115,7 +115,7 @@ spec:
               readOnly: true
 ```
 
-From the Pod's Terminal, you can then a `curl` command against your service:
+From the Pod's Terminal, you can then run a `curl` command against your service:
 
 ```bash
 curl -v --cacert /config/service-ca.crt \
