@@ -81,14 +81,17 @@ Start by writing up a DraftDataset in a local YAML file. Here is the schema, omi
     ```
 
 !!! info "Link to your API"
-    In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more and obtain access. 
+    In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more.
+    Specifically, ensure there are links to the API specification, developer guide, and how to request access.
     Use Markdown for formatting.
     For example:
 
     ```md
-    notes: "Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
-            and endpoints to streamline application development.\r\n\r\n
-            Visit the [Useful API page](https://api.useful.com) to view the API spec and request access."
+    notes: |
+      Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
+      and endpoints to streamline application development.
+
+      Visit the [Useful API page](https://api.useful.com) to view the API spec, read the developer guide, and request access.
     ```
 
 After preparing a DraftDataset, publish it with:

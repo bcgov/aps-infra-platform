@@ -116,7 +116,8 @@ code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules
 for up-to-date data rules for DraftDatasets.
 
 !!! info "Link to your API"
-    In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more and obtain access. 
+    In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more.
+    Specifically, ensure there are links to the API specification and developer guide. 
     Use Markdown for formatting.
     For example:
 
@@ -125,7 +126,7 @@ for up-to-date data rules for DraftDatasets.
       Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
       and endpoints to streamline application development.
 
-      Visit the [Useful API page](https://api.useful.com) to view the API spec and request access.
+      Visit the [Useful API page](https://api.useful.com) to view the API spec and read the developer guide.
     ```
 
 Now it's time to publish the Dataset:
