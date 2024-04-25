@@ -53,7 +53,7 @@ jobs:
         continue-on-error: true
 
       - name: Print directory structure
-        run: ls -R /github/workspace
+        run: ls -R
 
   publish-techdocs-site:
     runs-on: ubuntu-latest
@@ -66,7 +66,7 @@ jobs:
           path: substituted_content
 
       - name: Print directory structure
-        run: ls -R /github/workspace
+        run: ls -R
 
       - name: Build TechDocs
         uses: bcgov/devhub-techdocs-publish@stable  
