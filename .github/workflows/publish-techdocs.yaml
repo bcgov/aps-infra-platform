@@ -52,6 +52,9 @@ jobs:
           cp catalog-info.yaml substituted_content
         continue-on-error: true
 
+      - name: Print directory structure
+        run: ls -R /github/workspace
+
   publish-techdocs-site:
     runs-on: ubuntu-latest
     name: Build and publish techdocs
@@ -61,6 +64,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: substituted_content
+
+      - name: Print directory structure
+        run: ls -R /github/workspace
 
       - name: Build TechDocs
         uses: bcgov/devhub-techdocs-publish@stable  
