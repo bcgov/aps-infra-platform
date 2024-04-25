@@ -38,9 +38,9 @@ def process_markdown_files(root_folder, definitions):
             if file.endswith(".md"):
                 markdown_file = os.path.join(root, file)
                 try:
-                    # modified_content = substitute_links(markdown_file, definitions)
-                    # with open(markdown_file, 'w') as f:
-                    #     f.write(modified_content)
+                    modified_content = substitute_links(markdown_file, definitions)
+                    with open(markdown_file, 'w') as f:
+                        f.write(modified_content)
                     print("Links substituted successfully in", markdown_file)
                 except Exception as e:
                     print("Error processing", markdown_file, ":", e)
