@@ -22,8 +22,7 @@ def substitute_links(markdown_file, definitions):
             content = f.read()
 
         for term_id, term_data in definitions.items():
-            pattern = r'\{\{ glossary_tooltip(?: term_id="([^"]+)"(?: text="([^"]+)")?| text="([^"]+)" term_id="' + term_id + r'") \}\}'
-
+            pattern = r'\{\{ glossary_tooltip term_id="' + term_id + r'"\s*(?:text="([^"]+)")?\s*\}\}'            
             matches = re.findall(pattern, content)
 
             for match in matches:
