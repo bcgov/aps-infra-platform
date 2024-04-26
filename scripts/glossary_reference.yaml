@@ -64,7 +64,7 @@ terms:
     def: An environment in software development is the collection of hardware and software a system uses to run applications and services. These include development, testing, and production environments.
     url: 
   gwa-command-line-interface:
-    name: gwa Command Line Interface
+    name: `gwa` Command Line Interface
     def: The `gwa` command line interface (CLI) is a tool for creating and publishing Gateway Services and other resources on the API Management Portal. Resources are defined in YAML configuration files. The `gwa` CLI helps support automated Gateway management through scripting.
     url: 
   kong-gateway:
