@@ -45,10 +45,31 @@ def process_markdown_files(root_folder, definitions):
                 except Exception as e:
                     print("Error processing", markdown_file, ":", e)
 
-def main():
-    config_file = 'scripts/terms.yaml'
-    definitions = load_definitions(config_file)
+def yaml_to_md_glossary(yaml_file):
+    with open(yaml_file, 'r') as f:
+        data = yaml.safe_load(f)
+    
+    markdown_table = "---\ntitle: Glossary\n---\n\n|Term|Definition|\n|:----|:----|\n"
+    
+    for term, details in data['terms'].items():
+        markdown_table += f"|{details['name']}|{details['def']}|\n"
+    
+    return markdown_table
 
+def save_to_file(markdown_table, output_file):
+    with open(output_file, 'w') as f:
+        f.write(markdown_table)
+
+def main():
+    terms_file = 'scripts/terms.yaml'
+    definitions = load_definitions(terms_file)
+    
+    # produce glossary
+    markdown_table = yaml_to_md_glossary(terms_file)
+    output_file = 'documentation/reference/glossary.md'
+    save_to_file(markdown_table, output_file)
+
+    # substitute docs
     documentation_folder = 'documentation'
     process_markdown_files(documentation_folder, definitions)
 
