@@ -26,12 +26,13 @@ def substitute_links(markdown_file, definitions):
             matches = re.findall(pattern, content)
 
             for match in matches:
-                term_text = match if match else term_data["name"]  # Use name if text is not provided
+                 # Use name if text is not provided
+                term_text = match if match else term_data["name"]
 
                 if term_data["url"]:
-                    link_tag = f'<a href="{term_data["url"]}" title="{term_data["def"]}" style="text-decoration: none !important; color: inherit; border-bottom: 1px dotted;">{term_text}</a>'
+                    link_tag = f'<a href="{term_data["url"]}" title="{term_data["def"]}" target="_blank" style="text-decoration: none !important; color: inherit; border-bottom: 1px dotted;">{term_text}</a>'
                 else:
-                    # Not actually a link, only tooltip
+                    # If no url, just create tooltip
                     link_tag = f'<span title="{term_data["def"]}" style="border-bottom: 1px dotted;">{term_text}</span>'
                 
                 # Replace the placeholder with the link tag
