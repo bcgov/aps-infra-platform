@@ -23,7 +23,7 @@ def substitute_links(markdown_file, definitions):
 
             for match in matches:
                 # Create the link tag
-                link_tag = f'<a href="{term_data["url"]}" title="{term_data["def"]}" style="text-decoration: none !important; color: #000; border-bottom: 1px dotted #000;">{match}</a>'
+                link_tag = f'<a href="{term_data["url"]}" title="{term_data["def"]}" style="text-decoration: none !important; color: inherit; border-bottom: 1px dotted;">{match}</a>'
                 # Replace the placeholder with the link tag
                 content = re.sub(pattern, link_tag, content, count=1)
 
