@@ -38,7 +38,7 @@ Use this tag when introducing key concepts. Most often this will be in an introd
 
 `{{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }}`
 
-`term_id`: The term to reference, defined in `scripts/glossary_reference.yaml`.
+`term_id`: The term to reference, defined in `scripts/glossary_reference.yaml`. Must be passed first as first attribute.
 
 `text` (optional): The displayed text. If not provided, the `name` (in Title Case) is used.
 
