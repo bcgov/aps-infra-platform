@@ -12,7 +12,7 @@ publishDate: "2021-06-10T20:00:00.000-08:00"
 > NOTE: As of Sep 19, 2023, we have upgraded our command line interface to version 2, which is used in this tutorial. 
 > For a tutorial using v1 of the `gwa` CLI visit [API Provider User Journey v1](/guides/owner-journey-v1.md).
 
-The following steps guide an API Provider through setting up an API on the {{ glossary_tooltip text="API Services Portal" term_id="api-services-portal" }} in a Test/Training instance. 
+The following steps guide an {{ glossary_tooltip term_id="api-provider" }} through setting up an API on the {{ glossary_tooltip text="API Services Portal" term_id="api-services-portal" }} in a Test/Training instance. 
 At the end of the guide, you will have a public API endpoint that is protected using the OAuth2 Client Credential Grant.
 
 ## 1. Download the `gwa` CLI
@@ -105,7 +105,7 @@ Gaining access involves requesting access (as a consumer of your API would), obt
 
 Start by going to the **Namespaces** tab in the API Services Portal and click the **Preview in Directory** link in the **Products** panel.
 
-You will see a card with the service name you chose earlier (`<MYSERVICE>`). This card is a preview of how the service would look when shared to the API Directory.
+You will see a card with the service name you chose earlier (`<MYSERVICE>`). This card is a preview of how the service would look when shared to the {{ glossary_tooltip term_id="api-directory" }}.
 
 Click the title, then click **Request Access**.
 

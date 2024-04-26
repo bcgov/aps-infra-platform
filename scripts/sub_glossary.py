@@ -3,10 +3,14 @@ import yaml
 import re
 import sys
 
+DOCS_URL = os.getenv('DOCS_URL', 'https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs')
+
 def load_definitions(config_file):
     try:
         with open(config_file, 'r') as f:
-            config = yaml.safe_load(f)
+            config = f.read()
+            config = config.replace('{DOCS_URL}', DOCS_URL)
+            config = yaml.safe_load(config)
             return config.get("terms", {})
     except Exception as e:
         print("Error loading configuration file:", e)
@@ -18,12 +22,18 @@ def substitute_links(markdown_file, definitions):
             content = f.read()
 
         for term_id, term_data in definitions.items():
-            pattern = r'\{\{ glossary_tooltip text="([^"]+)" term_id="' + term_id + r'" \}\}'
+            pattern = r'\{\{ glossary_tooltip(?: text="([^"]+)")? term_id="' + term_id + r'" \}\}'
             matches = re.findall(pattern, content)
 
             for match in matches:
-                # Create the link tag
-                link_tag = f'<a href="{term_data["url"]}" title="{term_data["def"]}" style="text-decoration: none !important; color: inherit; border-bottom: 1px dotted;">{match}</a>'
+                term_text = match if match else term_data["name"]  # Use name if text is not provided
+
+                if term_data["url"]:
+                    link_tag = f'<a href="{term_data["url"]}" title="{term_data["def"]}" style="text-decoration: none !important; color: inherit; border-bottom: 1px dotted;">{term_text}</a>'
+                else:
+                    # Not actually a link, only tooltip
+                    link_tag = f'<span title="{term_data["def"]}" style="border-bottom: 1px dotted;">{term_text}</span>'
+                
                 # Replace the placeholder with the link tag
                 content = re.sub(pattern, link_tag, content, count=1)
 
@@ -38,7 +48,7 @@ def process_markdown_files(root_folder, definitions):
             if file.endswith(".md"):
                 markdown_file = os.path.join(root, file)
                 try:
-                    modified_content = substitute_links(markdown_file, definitions)
+                    modified_content = substitute_links(markdown_file, definitions)         
                     with open(markdown_file, 'w') as f:
                         f.write(modified_content)
                     print("Links substituted successfully in", markdown_file)
@@ -47,7 +57,9 @@ def process_markdown_files(root_folder, definitions):
 
 def yaml_to_md_glossary(yaml_file):
     with open(yaml_file, 'r') as f:
-        data = yaml.safe_load(f)
+        data = f.read()
+        data = data.replace('{DOCS_URL}', DOCS_URL)
+        data = yaml.safe_load(data)
     
     markdown_table = "---\ntitle: Glossary\n---\n\n|Term|Definition|\n|:----|:----|\n"
     
@@ -59,13 +71,14 @@ def yaml_to_md_glossary(yaml_file):
 def save_to_file(markdown_table, output_file):
     with open(output_file, 'w') as f:
         f.write(markdown_table)
+    print("Glossary created at:", output_file)
 
 def main():
-    terms_file = 'scripts/terms.yaml'
-    definitions = load_definitions(terms_file)
+    reference_file = 'scripts/glossary_reference.yaml'
+    definitions = load_definitions(reference_file)
     
     # produce glossary
-    markdown_table = yaml_to_md_glossary(terms_file)
+    markdown_table = yaml_to_md_glossary(reference_file)
     output_file = 'documentation/reference/glossary.md'
     save_to_file(markdown_table, output_file)
 

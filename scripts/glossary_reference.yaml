@@ -18,7 +18,7 @@ terms:
   api-directory:
     name: API Directory
     def: Our API Directory is a centralized repository where API Providers can securely publish their APIs. API Consumers can find and request access to published APIs for integration in the API Directory.
-    url: 
+    url: {DOCS_URL}/concepts/api-directory
   api-gateway:
     name: API Gateway
     def: An API Gateway is a service that acts as a single entry point for multiple APIs, managing requests, routing, security, and other operations, simplifying and centralizing API management.
