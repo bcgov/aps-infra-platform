@@ -51,6 +51,7 @@ Before you begin, ensure you:
   {Optional: Explanatory text}
 
   {Optional: Code sample or screenshot that helps your users complete this step.}
+  {Re screenshots: Only use an image when it would be significantly harder to explain with text alone. Otherwise, don't.}
 
   {Optional: The result of completing this step.}
 
