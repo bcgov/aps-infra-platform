@@ -10,18 +10,18 @@ sidebar of this page.
 
 ## Returning an HTTP Redirect
 
-```
+```yaml
 plugins:
 - name: pre-function
-    tags: [ _NS_ ]
-    config:
-      access:
-      - "kong.response.exit(307, 'site moved - redirecting...', {['Location'] = 'https://my-new-url.site'})"
+  tags: [ _NS_ ]
+  config:
+    access:
+    - "kong.response.exit(307, 'site moved - redirecting...', {['Location'] = 'https://my-new-url.site'})"
 ```
 
 ## Request Termination
 
-```
+```yaml
 plugins:
 - name: request-termination
   tags: [ _NS_ ]
@@ -32,7 +32,7 @@ plugins:
 
 ## Adding Headers For Best Security Practices
 
-```
+```yaml
 plugins:
 - name: response-transformer
   tags: [ _NS_ ]
@@ -54,7 +54,7 @@ plugins:
 
 This provides the most accurate because it uses a centralized Cache that all Kong nodes use. The downside is that there is a 100-200ms latency.
 
-```
+```yaml
 plugins:
 - name: rate-limiting
   tags: [ _NS_ ]
@@ -74,7 +74,7 @@ plugins:
 
 This provides the fastest rate limiting option, with minimal latency (~1ms). The downside is that it is local to each node so calculating the actual load on your upstream is a function of the number of nodes.
 
-```
+```yaml
 plugins:
 - name: rate-limiting
   tags: [ _NS_ ]
@@ -101,7 +101,7 @@ To enable anonymous access to your API, update your plugin configuration with:
 
 ### key-auth
 
-```
+```yaml
 - name: key-auth
   tags: [ _NS_ ]
   config:
@@ -111,7 +111,7 @@ To enable anonymous access to your API, update your plugin configuration with:
 
 ### jwt-keycloak
 
-```
+```yaml
 - name: jwt-keycloak
   tags: [ _NS_ ]
   config:
@@ -122,25 +122,46 @@ To enable anonymous access to your API, update your plugin configuration with:
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
 
+If you do not want to advertise anonymous access on the API Directory, you can hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
+
 ## Event Metric
 
-This `pre-function` allows you to collect arbitrary metrics that you can then track in the APS Grafana instance (https://grafana.apps.gov.bc.ca/).
+This `pre-function` allows you to collect arbitrary metrics that you can then
+track in [Grafana](/resources/monitoring.md) on the **X Events** dashboard.
 
-```
-echo '
-if kong.request.get_query_arg("layers") ~= "WILDFIRE" then
-    kong.service.request.set_header("x-event", "to-beid")
+First define your event conditions and desired `x-event` headers in Lua. Here is
+an example which looks at a query parameter:
+
+```lua
+if kong.request.get_query_arg("layers") = "WILDFIRE" then
+    kong.service.request.set_header("x-event", "wildfire")
 else
-    kong.service.request.set_header("x-event", "to-ocp")
+    kong.service.request.set_header("x-event", "other")
+end
+```
+
+Then convert the Lua to a string to use in the plugin configuration:
+
+```sh
+echo '
+if kong.request.get_query_arg("layers") = "WILDFIRE" then
+    kong.service.request.set_header("x-event", "wildfire")
+else
+    kong.service.request.set_header("x-event", "other")
 end
 ' | \
 python3 -c "import json,sys; script=sys.stdin.read(); print(json.dumps(script.strip()))"
+```
 
+Finally, add the string to the plugin:
+
+```yaml
+plugins:
 - name: pre-function
   tags: [ _NS_ ]
   config:
     access:
-    - "<PUT OUTPUT FROM ABOVE HERE>"
+    - "<OUTPUT FROM ABOVE>"
 ```
 
 ## Disabling global error handling
@@ -163,11 +184,11 @@ s504 = "The upstream server is timing out",
 
 If this transformation is not desired, you can override it by including the following plugin on your Service:
 
-```
+```yaml
 plugins:
-  - name: post-function
-    tags: [ _NS_ ]
-    config:
-      rewrite:
-      - "--"
+- name: post-function
+  tags: [ _NS_ ]
+  config:
+    rewrite:
+    - "--"
 ```

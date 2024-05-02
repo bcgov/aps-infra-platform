@@ -142,21 +142,62 @@ Some helpful takeaways:
 
 ### PromQL
 
-Check out the [QUERYING PROMETHEUS](https://prometheus.io/docs/prometheus/latest/querying/basics/) documentation for the basics of forming PromQL queries.
+Check out the [Prometheus querying documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) for the basics of forming PromQL queries.
 
-I also felt [this video](https://youtu.be/hvACEDjHQZE) was useful for learning PromQL basics.
+[This video](https://youtu.be/hvACEDjHQZE) is also a good introduction.
 
 ## Grafana and Additional Queries
 
-We have a number of panels in our Grafana dashboards showcasing a number of queries. Here some examples of on our dashboard, along with the associated PromQL queries:
+The panels in the [Grafana dashboards](/resources/monitoring.md) available to
+API Providers make use of PromQL data sources. Here a few of the metrics seen on
+the dashboards, along with the PromQL queries:
 
 - Total Requests per second
-  - sum(rate(kong_http_status[1m]))
+  
+  ```linenums="0"
+  sum(rate(kong_http_status[1m]))
+  ```
+  
 - Kong Proxy Latency per Service
-  - histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="kong", service =~ ".*",route=~".*",1m])) by (service,le))
+
+  ```linenums="0"
+  histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="kong", service =~ ".*",route=~".*",1m])) by (service,le))
+  ```
+  
 - Upstream Time per Service
-  - histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="upstream", service =~ ".*",route=~".*",}[1m])) by (service,le))
+
+  ```linenums="0"
+  histogram_quantile(0.90, sum(rate(kong_latency_bucket{type="upstream", service =~ ".*",route=~".*",}[1m])) by (service,le))`
+  ```
+
 - Total Requests (5m) by Consumer
-  - sum(increase(konglog_service_consumer_counter{service=~".*",consumer!=""}[5m])) by (consumer, service, status) != 0
+  
+  ```linenums="0"
+  sum(
+      increase(
+          konglog_service_consumer_counter{
+              service=~".*",
+              consumer!=""
+          }[5m]
+      )
+  ) by (consumer, service, status) != 0
+  ```
+
 - 400 and 500 Errors
-  - sum(increase(konglog_service_agent_counter{status!='200',status!='201',status!='204',status!='206',status!='301',status!='302',status!='304',service!=''}[5m])) by (service, status) != 0
+  
+  ```linenums="0"
+  sum(
+      increase(
+          konglog_service_agent_counter{
+              status!='200',
+              status!='201',
+              status!='204',
+              status!='206',
+              status!='301',
+              status!='302',
+              status!='304',
+              service!=''
+          }[5m]
+      )
+  ) by (service, status) != 0
+  ```

@@ -8,6 +8,9 @@ order: 2800
 
 To grant access to other members of your team, you need to grant them the appropriate Scopes. You can do this from the `API Services Portal` by selecting the relevant `Namespace` and going to the Namespaces `Namespace Access` page. From there, you can grant users access to the Namespace.
 
+!!! note
+    Users must sign in to the API Services Portal at least once before you can grant them access to a Namespace.
+
 | Environment     | API Services Portal Link                 |
 | --------------- | ---------------------------------------- |
 | TEST / TRAINING | https://api-gov-bc-ca.test.api.gov.bc.ca |
