@@ -15,13 +15,15 @@ nav:
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
       - "how-to/client-cred-flow.md"
+      - "how-to/AVAILABLE-PLUGINS.md"
+      - "how-to/COMMON-CONFIG.md"
+      - "how-to/SSL.md"
+      - "how-to/intro-signed-jwt-pubkey.md"
+      - "how-to/intro-signed-jwt.md"
+      - "how-to/keycloak-rbac.md"
+      - "how-to/prom-query.md"
   - Concepts:
       - "concepts/api-directory.md"
-  - Other Guides:
-      - "guides/intro-signed-jwt-pubkey.md"
-      - "guides/intro-signed-jwt.md"
-      - "guides/keycloak-rbac.md"
-      - "guides/prom-query.md"
   - Resources:
       - "resources/api-access.md"
       - "resources/cicd-integration.md"
@@ -29,9 +31,7 @@ nav:
       - "resources/gwa-commands.md"
       - "resources/monitoring.md"
       - "resources/upstream-services.md"
-  - Gateway:
-      - "gateway/AVAILABLE-PLUGINS.md"
-      - "gateway/COMMON-CONFIG.md"
+  - Reference:
       - Plugins:
           - "reference/plugins/acl.md"
           - "reference/plugins/cors.md"
@@ -46,8 +46,6 @@ nav:
           - "reference/plugins/rate-limiting.md"
           - "reference/plugins/request-transformer.md"
           - "reference/plugins/waiting-queue.md"
-      - "gateway/SSL.md"
-  - Reference:
       - "reference/glossary.md"
       - "reference/releases/index.md"
       - Portal User Cases:
