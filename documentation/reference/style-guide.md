@@ -172,7 +172,7 @@ Use meaningful variable names for the context.
 | Do | Don't |
 | -- | ----- |
 | `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` |
-| `tags: [ <namespace> ]` | `tags: [ _NS_ ]` |
+| `tags: [ ns.<namespace> ]` | `tags: [ _NS_ ]` |
 | `gwa get <resource>` | `gwa get <foo>` |
 | `curl https://<MYSERVICE>.api.gov.bc.ca/headers` | `curl https://*MYSERVICE*.api.gov.bc.ca/headers` |
 
@@ -280,7 +280,7 @@ Since git generates file diffs on a line-by-line basis, manually wrapping long l
 helps reviewers to easily find the changes made in a PR and provide feedback.
 
 Rather than doing this manually, find an extension like
-[Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap) for
+[Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap){:data-proofer-ignore} for
 Visual Studio Code (shortcut `ALT + Q`).
 
 ### Headings and titles {#headings}
@@ -317,7 +317,7 @@ Use root-relative links to support documents moving around without breaking link
 
 | Do | Don't |
 | -- | ----- |
-| `[Tutorial](/tutorial/quick-start.md)` (even if linking from another page in `/tutorial`) | `[Tutorial](quick-start.md)` or `[Tutorial](../quick-start.md)` |
+| `[Tutorial](/tutorials/quick-start.md)` (even if linking from another page in `/tutorials`) | `[Tutorial](quick-start.md)` or `[Tutorial](../quick-start.md)` |
 
 ### Lists
 
@@ -339,6 +339,32 @@ Use root-relative links to support documents moving around without breaking link
 
 - Use the number one (`1.`) for all items in ordered lists.
 - Use (`+`), (`*`), or (`-`) for unordered lists.
+
+### Diagrams
+
+Use Mermaid to create diagrams by tagging a code block with the `mermaid` language tag. See the [Kubernetes Diagram Guide](https://kubernetes.io/docs/contribute/style/diagram-guide/) more information on creating diagrams with Mermaid (and don't forget about GenAI).
+
+!!! Note
+	Mermaid diagrams won't show when using the [devhub-techdocs-publish](https://github.com/bcgov/devhub-techdocs-publish/blob/main/docs/index.md#how-to-use-the-docker-image-to-preview-content-locally) to preview the documentation locally. 
+    They will show up when published to DevHub's preview or production sites.
+
+````
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
+````
+
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
 
 ## Content best practices
 

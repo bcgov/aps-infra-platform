@@ -8,6 +8,9 @@ order: 2800
 
 To grant access to other members of your team, you need to grant them the appropriate Scopes. You can do this from the `API Services Portal` by selecting the relevant `Namespace` and going to the Namespaces `Namespace Access` page. From there, you can grant users access to the Namespace.
 
+!!! note
+    Users must sign in to the API Services Portal at least once before you can grant them access to a Namespace.
+
 | Environment     | API Services Portal Link                 |
 | --------------- | ---------------------------------------- |
 | TEST / TRAINING | https://api-gov-bc-ca.test.api.gov.bc.ca |
@@ -76,8 +79,8 @@ From the Postman App, click `Import` and go to the `Link` tab, enter one of the 
 
 | Environment     | Kong Gateway API Postman URL                                                                                  |
 | --------------- | ------------------------------------------------------------------------------------------------------------- |
-| TEST / TRAINING | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml |
-| PRODUCTION      | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml                    |
+| TEST / TRAINING | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore} |
+| PRODUCTION      | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}                    |
 
 After creation, go to `Collections` and right-click on the `Gateway Administration (GWA) API` collection and select `edit`.
 

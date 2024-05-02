@@ -1,11 +1,13 @@
 name: Publish TechDocs
+
 on:
   push:
-    branches: [test, main]
+    branches: [ test, main ]
     paths:
       - "documentation/**"
       - "mkdocs.yml"
       - "catalog-info.yaml"
+      - "scripts/**"  
   workflow_dispatch:
     inputs:
       deploy_location:
@@ -20,18 +22,47 @@ on:
 jobs:
   publish-techdocs-site:
     runs-on: ubuntu-latest
-
-    name: A job to build and publish techdocs content
+    name: Build and publish techdocs
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Determine deployment environment
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.event.inputs.deploy_location }}" == "prod" ]]; then
+            echo "DEPLOY_ENV=prod" >> $GITHUB_ENV
+          else
+            echo "DEPLOY_ENV=dev" >> $GITHUB_ENV
+          fi
+
+      - name: Set base URL
+        run: |
+          if [[ "${{ env.DEPLOY_ENV }}" == "prod" ]]; then
+            echo "DOCS_URL=https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs" >> $GITHUB_ENV
+          else
+            echo "DOCS_URL=https://dev.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs" >> $GITHUB_ENV
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+          architecture: "x64"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+      
+      - name: Run python Script
+        run: python scripts/sub_glossary.py
+
       - name: Build TechDocs
-        uses: bcgov/devhub-techdocs-publish@stable  
+        uses: bcgov/devhub-techdocs-publish@stable
         id: build_and_publish
         with:
           publish: 'true'
-          production:  ${{ github.ref == 'refs/heads/main' && 'true' || 'false' }} 
+          production: ${{ env.DEPLOY_ENV == 'prod' && 'true' || 'false' }}
           bucket_name: ${{ secrets.TECHDOCS_S3_BUCKET_NAME }}
           s3_access_key_id: ${{ secrets.TECHDOCS_AWS_ACCESS_KEY_ID }}
           s3_secret_access_key: ${{ secrets.TECHDOCS_AWS_SECRET_ACCESS_KEY }}
