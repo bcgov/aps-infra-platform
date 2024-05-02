@@ -114,7 +114,7 @@ Check our [source
 code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116)
 for up-to-date data rules for DraftDatasets.
 
-!!! info "Link to your API"
+!!! note "Link to your API"
     In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more.
     Specifically, ensure there are links to the API specification and developer guide. 
     Use Markdown for formatting.

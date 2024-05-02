@@ -32,7 +32,7 @@ Pascal case. Write the API object name as a single word.
 | Then, publish the DraftDataset. | Then, publish the draft dataset. |
 | Products bundle one or more GatewayServices. | `products` bundle one or more gateway `services`. |
 
-!!! info
+!!! note
     This one is tricky! If `code style` seems like a better option to you, open
     a PR and we can revisit this standard.
 
@@ -69,7 +69,7 @@ found in Tutorial and Explanation pages. Follow this alongside using UpperCamelC
 | Set the value of the `host` field in the configuration file. | Set the value of the "host" field in the configuration file. |
 | Change the value of `minute` to `30000`. | Change the value of "minute" to "30000". |
 
-!!! info
+!!! note
     This one is also tricky! It looks like Kong service configurations often
     include string field values in quotes. Using code style makes it more clear
     where these quotes are required.

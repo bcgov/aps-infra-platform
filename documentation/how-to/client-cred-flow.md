@@ -70,7 +70,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
     Update your Gateway Configuration to include the `jwt-keycloak` plugin.
 
-    !!! info
+    !!! note
         When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
 
     Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
@@ -136,7 +136,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
     Update your GatewayService configuration to include the `jwt-keycloak` plugin.
 
-    !!! info
+    !!! note
         When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
 
     Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
