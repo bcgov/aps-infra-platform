@@ -295,7 +295,8 @@ helps all readers to easily navigate the page or filter topics of interest.
 | -- | ----- |
 | Use ordered headings (level 2 and 3) to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles. |
 | Use sentence case for headings in the page body. For example, "Use the access approval process." | Use title case for headings in the page body. For example, "Use the Access Approval Process." |
-| Use title case for the page title in the front matter. For example, `title: Client Credential Protection`. | Use sentence case for page titles in the front matter. For example, don't use `title: Client credential protection`. |
+| Use title case for the page title in the front matter. For example, `title: Client Credential Protection`. | Use sentence case for page titles. For example, don't use `title: Client credential protection`. |
+| If necessary, provide a shortened page title in the front matter. Specify the title to display on the page as a level one heading (`# Full Title`). | Specify page titles in `mkdocs.yml`. |
 
 ### Horizontal rules
 

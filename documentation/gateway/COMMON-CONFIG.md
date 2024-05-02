@@ -1,6 +1,5 @@
 ---
 title: Common Controls
-order: 2000
 ---
 
 The following are sample Gateway controls for common scenarios.

@@ -19,10 +19,10 @@ nav:
       - "concepts/api-directory.md"
   - Other Guides:
       - "guides/owner-journey-v1.md"
-      - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"
-      - "Signed JWT w/ Hosted JWKS": "guides/intro-signed-jwt.md"
+      - "guides/intro-signed-jwt-pubkey.md"
+      - "guides/intro-signed-jwt.md"
       - "guides/keycloak-rbac.md"
-      - "Query Kong Metrics": guides/prom-query.md
+      - "guides/prom-query.md"
   - Resources:
       - "resources/api-access.md"
       - "resources/cicd-integration.md"
@@ -31,8 +31,8 @@ nav:
       - "resources/monitoring.md"
       - "resources/upstream-services.md"
   - Gateway:
-      - "Supported Plugins": "gateway/AVAILABLE-PLUGINS.md"
-      - "Common Controls": "gateway/COMMON-CONFIG.md"
+      - "gateway/AVAILABLE-PLUGINS.md"
+      - "gateway/COMMON-CONFIG.md"
       - Plugins:
           - "gateway/plugins/acl.md"
           - "gateway/plugins/cors.md"
@@ -59,15 +59,15 @@ nav:
         - "reference/portal-use-cases/consumer-maintenance.md"
         - "reference/portal-use-cases/websequencediagrams.md"
       - "reference/presentations.md"
-  - "external-resources.md"
   - Contribute:
       - "contribute/style-guide.md"
+  - "external-resources.md"
 
 
 plugins:
   - techdocs-core
   - ezlinks
-  # - git-revision-date-localized
+  - git-revision-date-localized
 
 markdown_extensions:
   - toc:

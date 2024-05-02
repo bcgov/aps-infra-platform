@@ -1,12 +1,5 @@
 ---
-externalLink: https://github.com/bcgov/gwa-api/blob/dev/USER-JOURNEY.md
 title: "API Provider User Journey V1"
-description: "Setup a new namespace for onboarding services on the BC Gov API Gateway."
-order: 2
-tags: ["ns.platform"]
-isComplete: true
-isPublic: true
-publishDate: "2021-06-10T20:00:00.000-08:00"
 ---
 
 # API Provider User Journey

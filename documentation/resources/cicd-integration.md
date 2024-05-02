@@ -1,8 +1,6 @@
 ---
-order: 2700
+title: "CI/CD Integration"
 ---
-
-# CI/CD Integration
 
 ## Add to your CI/CD Pipeline
 

@@ -1,4 +1,6 @@
-# GWA CLI Commands
+---
+title: "GWA Commands"
+---
 
 GWA CLI helps manage gateway resources in a declarative fashion.
 

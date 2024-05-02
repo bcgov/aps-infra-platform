@@ -1,8 +1,6 @@
 ---
-order: 2500
+title: Set Up an Upstream Service
 ---
-
-# Upstream Service Setup
 
 ## Upstream Services on OCP
 

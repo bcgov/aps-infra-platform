@@ -1,4 +1,6 @@
-# Query Kong Metrics Using Service Account
+---
+title: "Query Kong Metrics"
+---
 
 ## Overview
 

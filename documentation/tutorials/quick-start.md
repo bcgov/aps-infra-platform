@@ -1,16 +1,6 @@
 ---
-externalLink: https://github.com/bcgov/gwa-api/blob/dev/USER-JOURNEY.md
 title: "API Provider Quick Start"
-description: "Setup a new namespace for onboarding services on the BC Gov API Gateway."
-order: 3
-tags: ["ns.platform"]
-isComplete: true
-isPublic: true
-publishDate: "2021-06-10T20:00:00.000-08:00"
 ---
-
-> NOTE: As of Sep 19, 2023, we have upgraded our command line interface to version 2, which is used in this tutorial. 
-> For a tutorial using v1 of the `gwa` CLI visit [API Provider User Journey v1](/guides/owner-journey-v1.md).
 
 The following steps guide an {{ glossary_tooltip term_id="api-provider" }} through setting up an API on the {{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }} in a Test/Training instance. 
 At the end of the guide, you will have a public API endpoint that is protected using the OAuth2 Client Credential Grant.

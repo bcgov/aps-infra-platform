@@ -1,8 +1,6 @@
 ---
-order: 2100
+title: "Supported Plugins"
 ---
-
-# Supported Plugins
 
 Current list of plugins available on the API Gateway.
 
