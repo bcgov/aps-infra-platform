@@ -2,7 +2,8 @@
 title: "API Provider User Journey V1"
 ---
 
-# API Provider User Journey
+!!! note
+    This tutorial uses version 1 of the `gwa` CLI, which is no longer recommended.
 
 The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links available at the end of this document ([here](#production-links)).
 

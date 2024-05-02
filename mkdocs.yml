@@ -18,7 +18,6 @@ nav:
   - Concepts:
       - "concepts/api-directory.md"
   - Other Guides:
-      - "guides/owner-journey-v1.md"
       - "guides/intro-signed-jwt-pubkey.md"
       - "guides/intro-signed-jwt.md"
       - "guides/keycloak-rbac.md"
