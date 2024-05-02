@@ -131,7 +131,7 @@ Consider if the sub-task deserves it's own how-to page.}
 
 <!-- whatsnext -->
 
-## What's next?
+## Next steps
 
 - [Natural next thing to do](/how-to/gwa-install.md)
 - [Related reference material](/reference/glossary.md)

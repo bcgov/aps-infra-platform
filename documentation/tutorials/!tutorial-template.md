@@ -129,7 +129,7 @@ In this tutorial, you learned how to:
 
 <!-- whatsnext -->
 
-## What's next?
+## Next steps
 
 - [Natural next thing to do](/how-to/gwa-install.md)
 - [Something else to consider or explore](/how-to/private-route.md)

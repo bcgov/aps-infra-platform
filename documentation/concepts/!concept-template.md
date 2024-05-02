@@ -84,7 +84,7 @@ OR
 
 <!-- whatsnext -->
 
-## What's next? (optional)
+## Next steps (optional)
 
 If you would like to dive deeper or start implementing {concept}, check out the
 following resources:

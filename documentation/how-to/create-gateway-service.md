@@ -123,7 +123,7 @@ deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.<GW-NAMESPACE>
 gwa publish-gateway gw.yaml
 ```
 
-## What's next?
+## Next steps
 
 - [Add Client Credential Protection](/how-to/client-cred-flow.md)
 - [Configure a Private Route](/how-to/private-route.md)
