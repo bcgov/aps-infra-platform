@@ -83,7 +83,7 @@ services:
 
 Review the `gwconfig.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
 
-> To view common plugin configuration go to [Common Controls](/gateway/COMMON-CONFIG.md)
+> To view common plugin configuration go to [Common Controls](/how-to/COMMON-CONFIG.md)
 
 > To learn about other available plugins, navigate to `Gateway > Plugins` on the sidebar of this page.
 

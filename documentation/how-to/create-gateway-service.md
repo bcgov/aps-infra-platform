@@ -127,6 +127,6 @@ gwa publish-gateway gw.yaml
 
 - [Add Client Credential Protection](/how-to/client-cred-flow.md)
 - [Configure a Private Route](/how-to/private-route.md)
-- [Configure Gateway Controls](/gateway/COMMON-CONFIG.md)
+- [Configure Gateway Controls](/how-to/COMMON-CONFIG.md)
 - [Share your API](/how-to/api-discovery.md)
 - [Monitor your Services](/resources/monitoring.md)
