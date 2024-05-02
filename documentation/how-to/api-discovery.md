@@ -10,15 +10,15 @@ discovery by developers and other API consumers, across BC Government and beyond
 
 ## Before you begin
 
-- [ ] [Install gwa CLI](/how-to/gwa-install.md)
-- [ ] [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
-- [ ] [Create a Service](/how-to/create-gateway-service.md)
+- [Install gwa CLI](/how-to/gwa-install.md)
+- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Service](/how-to/create-gateway-service.md)
   - API Providers with externally protected APIs should follow [this guide](/how-to/protected-externally.md) instead
-- [ ] Protect an API (optional)
+- Protect an API (optional)
 
 You should also be familiar with these concepts:
 
-- [ ] [API Directory](/concepts/api-directory.md)
+- [API Directory](/concepts/api-directory.md)
 
 ## Options
 
@@ -144,7 +144,7 @@ It's time to create a *Product*, which describes the type of protection on the
 API. Products are used to bundle Gateway Services and manage consumer access.
 
 If you've already worked through the [Quick Start
-tutorial](/tutorial/quick-start.md) or set up a GatewayService, you may already
+tutorial](/tutorials/quick-start.md) or set up a GatewayService, you may already
 have a Product.
 
 Follow these steps to create a Product (if necessary), and link the Product with

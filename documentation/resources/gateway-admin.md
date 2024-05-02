@@ -79,8 +79,8 @@ From the Postman App, click `Import` and go to the `Link` tab, enter one of the 
 
 | Environment     | Kong Gateway API Postman URL                                                                                  |
 | --------------- | ------------------------------------------------------------------------------------------------------------- |
-| TEST / TRAINING | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml |
-| PRODUCTION      | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml                    |
+| TEST / TRAINING | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore} |
+| PRODUCTION      | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}                    |
 
 After creation, go to `Collections` and right-click on the `Gateway Administration (GWA) API` collection and select `edit`.
 

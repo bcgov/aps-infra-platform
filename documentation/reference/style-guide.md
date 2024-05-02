@@ -280,7 +280,7 @@ Since git generates file diffs on a line-by-line basis, manually wrapping long l
 helps reviewers to easily find the changes made in a PR and provide feedback.
 
 Rather than doing this manually, find an extension like
-[Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap) for
+[Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap){:data-proofer-ignore} for
 Visual Studio Code (shortcut `ALT + Q`).
 
 ### Headings and titles {#headings}

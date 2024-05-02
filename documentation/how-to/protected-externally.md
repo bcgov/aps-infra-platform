@@ -46,7 +46,7 @@ gwa namespace current
 
 Now, add a *Dataset* with metadata about the API to display in the API Directory. This information helps consumers find your API in the Directory. Typically, each Dataset would describe one API.
 
-If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Add a Product](#add-a-product).
+If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Add a Product](#create-a-product).
 
 Start by writing up a DraftDataset in a local YAML file. Here is the schema, omitting some optional fields:
 

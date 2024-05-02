@@ -13,7 +13,7 @@ Here is overview of the process (numbers reference steps in the table of content
 - [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
 - [Create a GatewayService](/how-to/create-gateway-service.md)
-- [Share an API in the API Directory](/how-to/api-discovery.md/#share-an-api)
+- [Share an API in the API Directory](/how-to/api-discovery.md)
 - [Create a service account](/how-to/generate-service-account.md) (optional)
 
 ## 1. Configure a service on the gateway
