@@ -25,7 +25,6 @@ You should also be familiar with these concepts:
 API listings in the Directory can be created and managed via:
 
 - ⭐ **Command Line Interface (CLI)**
-- **Directory API**: Go to [Gateway Administration](/resources/gateway-admin.md#directory-api) for links to the Directory API specs and Swagger UI.
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
 !!! warning "Web UI limitations"
@@ -50,33 +49,24 @@ If using the `test` environment, set the host before logging in with `gwa`:
 gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
 ```
 
-## Setup a Draft Dataset
+## Create a Dataset
 
-First, we need a DraftDataset with metadata about your API. This information helps consumers find your API in the Directory. If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Link Your Dataset to a Product](#link-your-dataset-to-a-product).
+First, you need a Dataset with metadata about your API. This information
+helps consumers find your API in the Directory. If your API is already listed in
+the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Link
+Your Dataset to a Product](#link-your-dataset-to-a-product).
 
-Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JSON file (if using the API). Here is the schema, omitting some optional fields:
+Start by writing up a DraftDataset in a local YAML file to apply using the `gwa`
+CLI.
 
-=== "YAML Template (w/ field descriptions)"
-    ```yaml
-    kind: DraftDataset # object type for gwa-cli use
-    name: my-draft-dataset # unique dataset name, not displayed
-    title: Useful API # API title shown on the Directory
-    notes: A handy API with many uses. # API description, supports Markdown formatting
-    tags: [useful, data, openapi] # keywords, may be used for search in future
-    organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the namespace
-    organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
-    license_title: Open Government Licence - British Columbia # see https://bcgov.github.io/data-publication/pages/dps_licences.html for licensing options
-    view_audience: Government # who can access the API
-    security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
-    record_publish_date: "2021-05-27" # date when the API was published
-    ```
+Here is the schema with example data, omitting some optional fields:
 
 === "YAML Template"
     ```yaml
     kind: DraftDataset
-    name: my-draft-dataset
+    name: dataset-name
     title: Useful API
-    notes: A handy API with many uses.
+    notes: A handy API with *many* uses.
     tags: [useful, data, openapi]
     organization: ministry-of-citizens-services
     organizationUnit: databc
@@ -86,12 +76,27 @@ Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JS
     record_publish_date: "2021-05-27"
     ```
 
+=== "YAML Template (w/ field descriptions)"
+    ```yaml
+    kind: DraftDataset # object type for gwa-cli use
+    name: dataset-name # unique dataset name, not displayed
+    title: Useful API # API title shown on the Directory
+    notes: A handy API with *many* uses. # API description, supports Markdown formatting
+    tags: [useful, data, openapi] # keywords, may be used for search in future
+    organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the namespace
+    organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
+    license_title: Open Government Licence - British Columbia # see https://bcgov.github.io/data-publication/pages/dps_licences.html for licensing options
+    view_audience: Government # who can access the API
+    security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
+    record_publish_date: "2021-05-27" # date when the API was published
+    ```
+
 === "JSON Template"
     ```json
     {
-    "name": "my-draft-dataset",
+    "name": "dataset-name",
     "title": "Useful API",
-    "notes": "A handy API with many uses.",
+    "notes": "A handy API with *many* uses.",
     "tags": [
         "useful",
         "data",
@@ -106,15 +111,22 @@ Start by writing up a DraftDataset in a local YAML file (if using the CLI) or JS
     }
     ```
 
-Check our [source code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116) for up-to-date data rules for DraftDatasets.
+Check our [source
+code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116)
+for up-to-date data rules for DraftDatasets.
 
 !!! info "Link to your API"
-    In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more and obtain access. For example:
+    In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more.
+    Specifically, ensure there are links to the API specification and developer guide. 
+    Use Markdown for formatting.
+    For example:
 
     ```md
-    notes: "Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
-            and endpoints to streamline application development.\r\n\r\n
-            Visit the [Useful API page](https://api.useful.com) to view the API spec and request access."
+    notes: |
+      Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
+      and endpoints to streamline application development.
+
+      Visit the [Useful API page](https://api.useful.com) to view the API spec and read the developer guide.
     ```
 
 Now it's time to publish the Dataset:
@@ -126,63 +138,65 @@ Now it's time to publish the Dataset:
 
     You should see `✔ [DraftDataset] <dataset-name>: created`
 
-=== "API (Swagger UI)"
-    1. [Login](https://api.gov.bc.ca/login?identity=provider&f=%2F) to the API Services Portal as an API Provider.
-    2. Click **Help** in the top right, then **API Docs** to open the [Swagger UI](https://api.gov.bc.ca/ds/api/v2/console/).
-    3. Under API Directory, click the **PUT /namespaces/{ns}/datasets** [Update Dataset](https://api.gov.bc.ca/ds/api/v2/console/#/API%20Directory/put-dataset) accordion item.
-    4. Click **Try it out**.
-    5. Enter your namespace.
-    6. Copy your DraftDataset JSON into the Request body.
-    7. Click **Execute**.
-    8. Scroll down and ensure a `200` Response was received.
-
 ## Link Your Dataset to a Product
 
-If you've already worked through the [Quick Start
-tutorial](/tutorial/quick-start.md) or set up a Gateway Service, you may already
-have a Product. In this case, we can associate the Product with a Dataset:
+It's time to create a *Product*, which describes the type of protection on the
+API. Products are used to bundle Gateway Services and manage consumer access.
 
-1. Open the [Products](https://api.gov.bc.ca/manager/products) page in the API Services Portal.
-2. Click the ellipsis (**...**) next to **Add Env**, select **Edit Product**.
-3. Customize the **Product Name**, if desired.
-4. In the **Link to BC Data Catalogue** dialogue, enter the `title` of your newly created, or existing BCDC, dataset.
-!!!
-Search is exact. Be mindful of spaces and case.
-!!!
-1. Click **Update**.
+If you've already worked through the [Quick Start
+tutorial](/tutorial/quick-start.md) or set up a GatewayService, you may already
+have a Product.
+
+Follow these steps to create a Product (if necessary), and link the Product with
+the descriptive metadata in the Dataset:
+
+=== "CLI"
+    1. Create a Product configuration using the YAML template below
+      (or modify an existing configuration).
+      
+      Specify your Dataset by `name` in the configuration: `dataset: <dataset-name>`.
+
+      If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/),
+      use the slug value for `dataset` from the Data Catalogue dataset URL, `https://catalogue.data.gov.bc.ca/dataset/<api-slug-value>`.
+
+      Add other available environments if desired (e.g. `dev`, `test`, `sandbox`).
+        
+      ```yaml title="Product YAML Template"
+      kind: Product
+      name: Useful API # Name shown on the API Directory
+      dataset: dataset-name # Dataset name or BC Data Catalogue slug value
+      environments:
+      - name: prod
+        active: false
+      ```
+    
+    2. Publish the Product: `gwa apply -i <product.yaml>`
+    
+
+=== "Web UI"
+    #### Create a Product
+
+    1. Navigate to **Namespaces** -> **Products**.
+    2. Click **New Product** in the top right.
+   
+    #### Link a Dataset
+
+    Once you have a Product, associate the Product with a Dataset:
+
+    1. Open the **Products** page in the API Services Portal.
+    2. Click the ellipsis (**...**) next to **Add Env**, select **Edit Product**.
+    3. In the **Link to BC Data Catalogue** text field, enter the `title` of your newly created or existing BCDC dataset.
+    4. Click **Update**.
+      
+    !!! warning
+        Search is exact. Be mindful of spaces and upper vs lowercase.
+
+## Preview Your API Listing
 
 Preview your new API listing by opening the API Directory and clicking the
 **Your Products** tab. Confirm everything is as desired.
 
 ![New API card](/artifacts/new-api-directory-card.png)
-
-### Setup a New Product
-
-If you haven't added a Product yet, follow these steps and then link your Dataset:
-
-=== "CLI"
-    1. Create a Product configuration using the YAML template below.
-     
-      Specify your Dataset by `name` in the config - `dataset: my-draft-dataset`
-      
-    2. Publish the Product - `gwa apply -i <product.yaml>`
-=== "Web UI"
-    1. Navigate to **Namespaces** -> **Products**.
-    2. Click **New Product** in the top right.
-
-<!-- TODO: describe product fields -->
-```yaml title="Product YAML Template"
-kind: Product
-appId: 'D31E616FE1A6'
-name: Useful API
-dataset: my-draft-dataset
-environments:
-- name: dev
-    appId: '4221AAF6'
-    active: false
-    approval: false
-    services: [my-service-dev]
-```
 
 ## Enabling for Discovery
 
@@ -201,12 +215,12 @@ Enable an environment to display the API in the API Directory. You can
 individually enable each environment (dev, test, prod).
 
 Enable environments by either updating the Product Environment configuration
-YAML to `active: true`, or on the API Services Portal -> Product page -> Edit
-the Environment details -> check `Enable Environment`.
+YAML to `active: true`, or on the API Services Portal > **Product** page -> **Edit**
+the Environment details -> check **Enable Environment**.
 
 ## View Your Product in the API Directory
 
-Find your API in the `API Directory`.
+Find your API in the **API Directory**.
 
 It is now ready to receive access requests from the community!
 
