@@ -21,7 +21,7 @@ route.
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/how-to/gwa-commands.md#namespacecreate)
 
 <!-- ## Declarative Configuration -->
 
@@ -29,7 +29,7 @@ route.
     If your upstream services run on Platform
     Service's Silver or Gold OpenShift cluster, then you will need to
     configuration the network polices to allow access from the API Gateway.
-     [Upstream service setup](/resources/upstream-services.md)
+     [Upstream service setup](/how-to/upstream-services.md)
 
 ## Using an OpenAPI Spec
 
@@ -129,4 +129,4 @@ gwa publish-gateway gw.yaml
 - [Configure a Private Route](/how-to/private-route.md)
 - [Configure Gateway Controls](/how-to/COMMON-CONFIG.md)
 - [Share your API](/how-to/api-discovery.md)
-- [Monitor your Services](/resources/monitoring.md)
+- [Monitor your Services](/how-to/monitoring.md)

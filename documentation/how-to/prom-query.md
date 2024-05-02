@@ -150,7 +150,7 @@ Check out the [Prometheus querying documentation](https://prometheus.io/docs/pro
 
 ## Grafana and Additional Queries
 
-The panels in the [Grafana dashboards](/resources/monitoring.md) available to
+The panels in the [Grafana dashboards](/how-to/monitoring.md) available to
 API Providers make use of PromQL data sources. Here a few of the metrics seen on
 the dashboards, along with the PromQL queries:
 

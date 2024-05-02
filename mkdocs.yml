@@ -22,15 +22,14 @@ nav:
       - "how-to/intro-signed-jwt.md"
       - "how-to/keycloak-rbac.md"
       - "how-to/prom-query.md"
+      - "how-to/api-access.md"
+      - "how-to/cicd-integration.md"
+      - "how-to/gateway-admin.md"
+      - "how-to/gwa-commands.md"
+      - "how-to/monitoring.md"
+      - "how-to/upstream-services.md"
   - Concepts:
       - "concepts/api-directory.md"
-  - Resources:
-      - "resources/api-access.md"
-      - "resources/cicd-integration.md"
-      - "resources/gateway-admin.md"
-      - "resources/gwa-commands.md"
-      - "resources/monitoring.md"
-      - "resources/upstream-services.md"
   - Reference:
       - Plugins:
           - "reference/plugins/acl.md"

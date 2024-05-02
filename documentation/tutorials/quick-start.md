@@ -144,13 +144,13 @@ Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channe
 
 Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.
 
-- [Monitor your Services](/resources/monitoring.md) : View metrics for performance, traffic and trends.
-- [Gateway Administration](/resources/gateway-admin.md) : Add team members and create service accounts.
+- [Monitor your Services](/how-to/monitoring.md) : View metrics for performance, traffic and trends.
+- [Gateway Administration](/how-to/gateway-admin.md) : Add team members and create service accounts.
 - [Customize Gateway Controls](/how-to/create-gateway-service.md)
-- [Upstream Service Setup](/resources/upstream-services.md)
+- [Upstream Service Setup](/how-to/upstream-services.md)
 - [Share your API](/how-to/api-discovery.md) : Setup metadata about your APIs for discovery.
-- [API Access](/resources/api-access.md) : Approve and administer controls for consumer access to your APIs.
-- [CI/CD Integration](/resources/cicd-integration.md)
+- [API Access](/how-to/api-access.md) : Approve and administer controls for consumer access to your APIs.
+- [CI/CD Integration](/how-to/cicd-integration.md)
 - [Add Client Credential Protection](/how-to/client-cred-flow.md)
 
 ### Ready for Production?
