@@ -1,5 +1,5 @@
 ---
-title: API Access
+title: Manage API Access
 ---
 
 ## Use the Access Approval Process

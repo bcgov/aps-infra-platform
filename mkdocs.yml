@@ -8,30 +8,36 @@ nav:
   - Tutorials:
       - "tutorials/quick-start.md"
   - How-to Guides:
+    - Get Started:
       - "how-to/gwa-install.md"
+      - "how-to/gateway-admin.md"
+    - Configure a Gateway Service:
       - "how-to/create-gateway-service.md"
+      - "how-to/upstream-services.md"
       - "how-to/private-route.md"
-      - "how-to/generate-service-account.md"
+    - Protect a Gateway Servce:
+      - "how-to/COMMON-CONFIG.md"
+      - "how-to/client-cred-flow.md"
+      - "how-to/intro-signed-jwt.md"
+      - "how-to/intro-signed-jwt-pubkey.md"
+    - Share an API:
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
-      - "how-to/client-cred-flow.md"
-      - "how-to/AVAILABLE-PLUGINS.md"
-      - "how-to/COMMON-CONFIG.md"
-      - "how-to/SSL.md"
-      - "how-to/intro-signed-jwt-pubkey.md"
-      - "how-to/intro-signed-jwt.md"
-      - "how-to/keycloak-rbac.md"
-      - "how-to/prom-query.md"
-      - "how-to/api-access.md"
+    # - Manage Consumer Access:
+    - "how-to/api-access.md"
+    - Integrate DevOps:
       - "how-to/cicd-integration.md"
-      - "how-to/gateway-admin.md"
-      - "how-to/gwa-commands.md"
+      - "how-to/generate-service-account.md"
+    - Monitor a Gateway:
       - "how-to/monitoring.md"
-      - "how-to/upstream-services.md"
+      - "how-to/prom-query.md"
+    - "how-to/keycloak-rbac.md"
   - Concepts:
       - "concepts/api-directory.md"
   - Reference:
+      - "how-to/gwa-commands.md"
       - Plugins:
+          - "reference/plugins/AVAILABLE-PLUGINS.md"
           - "reference/plugins/acl.md"
           - "reference/plugins/cors.md"
           - "reference/plugins/gwa-ip-anonymity.md"
@@ -47,6 +53,7 @@ nav:
           - "reference/plugins/waiting-queue.md"
       - "reference/glossary.md"
       - "reference/releases/index.md"
+      - "reference/SSL.md"
       - Portal User Cases:
         - "reference/portal-use-cases/login.md"
         - "reference/portal-use-cases/create-service-account.md"

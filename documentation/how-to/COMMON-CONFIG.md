@@ -4,7 +4,7 @@ title: Common Controls
 
 The following are sample Gateway controls for common scenarios.
 
-To learn about other available plugins, navigate to `Gateway > Plugins` on the
+To learn about other available plugins, navigate to `References > Plugins` on the
 sidebar of this page.
 
 ## Returning an HTTP Redirect
