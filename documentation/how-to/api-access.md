@@ -1,5 +1,5 @@
 ---
-title: Manage API Access
+title: Manage Consumer Access
 ---
 
 ## Use the Access Approval Process

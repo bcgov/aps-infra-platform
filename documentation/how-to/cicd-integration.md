@@ -1,8 +1,6 @@
 ---
-title: "CI/CD Integration"
+title: "Add to a CI/CD Pipeline"
 ---
-
-## Add to your CI/CD Pipeline
 
 Update your CI/CD pipelines to run the `gwa-cli` to keep your services updated on the gateway.
 
