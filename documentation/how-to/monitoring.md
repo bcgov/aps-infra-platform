@@ -1,8 +1,6 @@
 ---
-order: 3000
+title: Monitor your Services
 ---
-
-# Monitor your Services
 
 ## View Metrics
 

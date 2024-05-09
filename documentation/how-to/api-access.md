@@ -1,8 +1,6 @@
 ---
-order: 2100
+title: Manage Consumer Access
 ---
-
-# API Access
 
 ## Use the Access Approval Process
 

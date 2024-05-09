@@ -41,7 +41,7 @@ This article explains the basics of {concept} and how it works in {the tool or c
 If more definitions are needed, include those definitions here as a bulleted list.}
 
 {Optional: Add visual aids to complement explanations (system diagram, flowchart, decision tree) -
-see the [Style Guide - Diagrams](/reference/style-guide.md#diagrams) and
+see the [Style Guide - Diagrams](/contribute/style-guide.md#diagrams) and
 [Good Docs](https://gitlab.com/tgdp/templates/-/blob/main/concept/process-concept.md#create-visual-aids-for-a-concept-document).}
 
 (Optional) Image/Figure: {Image title, which concisely explains the image or

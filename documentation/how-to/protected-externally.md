@@ -80,7 +80,7 @@ Start by writing up a DraftDataset in a local YAML file. Here is the schema, omi
     record_publish_date: "2021-05-27" # date when the API was published
     ```
 
-!!! info "Link to your API"
+!!! note "Link to your API"
     In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more.
     Specifically, ensure there are links to the API specification, developer guide, and how to request access.
     Use Markdown for formatting.

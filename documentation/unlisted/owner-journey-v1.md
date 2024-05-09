@@ -1,15 +1,9 @@
 ---
-externalLink: https://github.com/bcgov/gwa-api/blob/dev/USER-JOURNEY.md
 title: "API Provider User Journey V1"
-description: "Setup a new namespace for onboarding services on the BC Gov API Gateway."
-order: 2
-tags: ["ns.platform"]
-isComplete: true
-isPublic: true
-publishDate: "2021-06-10T20:00:00.000-08:00"
 ---
 
-# API Provider User Journey
+!!! note
+    This tutorial uses version 1 of the `gwa` CLI, which is no longer recommended.
 
 The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links available at the end of this document ([here](#production-links)).
 
@@ -90,7 +84,7 @@ services:
 
 Review the `gwconfig.yaml` file to see what it is doing. There is a single upstream service defined to be `httpbin.org`, and a single route `$NAME.api.gov.bc.ca` that passes all `GET` requests to the upstream service.
 
-> To view common plugin configuration go to [Common Controls](/gateway/COMMON-CONFIG.md)
+> To view common plugin configuration go to [Common Controls](/how-to/COMMON-CONFIG.md)
 
 > To learn about other available plugins, navigate to `Gateway > Plugins` on the sidebar of this page.
 

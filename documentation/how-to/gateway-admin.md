@@ -1,8 +1,6 @@
 ---
-order: 2800
+title: Manage Team Access
 ---
-
-# Gateway Administration
 
 ## Grant Access to Other Users
 
