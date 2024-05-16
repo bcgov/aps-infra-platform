@@ -47,3 +47,7 @@ Check `gwa` installed correctly by opening a new command prompt and running:
 ```shell linenums="0"
 gwa --version
 ```
+
+## Next steps
+
+- [API Provider Quick Start](/tutorials/quick-start.md)
