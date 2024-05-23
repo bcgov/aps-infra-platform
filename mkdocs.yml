@@ -10,6 +10,7 @@ nav:
   - How-to Guides:
       - "how-to/gwa-install.md"
       - "how-to/create-gateway-service.md"
+      - "how-to/protect-api.md"
       - "how-to/private-route.md"
       - "how-to/generate-service-account.md"
       - "how-to/api-discovery.md"
@@ -17,6 +18,9 @@ nav:
       - "how-to/client-cred-flow.md"
   - Concepts:
       - "concepts/api-directory.md"
+      - "concepts/gateway-config.md"
+      - "concepts/plugins.md"
+      - "concepts/services.md"
   - Other Guides:
       - "guides/owner-journey-v1.md"
       - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"
