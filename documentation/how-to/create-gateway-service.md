@@ -31,7 +31,9 @@ that can be added to Kong to add new features or alter the behavior of existing 
 - [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Namespace](/how-to/gwa-commands.md#namespacecreate)
 
-## Using a template
+## Define service configuration
+
+### Using a template
 
 There are currently two GatewayService templates supported by the `gwa` command line interface (CLI).
 
@@ -74,7 +76,7 @@ To use one of these templates, follow these steps:
       gwa apply -i gw-config.yml
       ```
 
-## Using an OpenAPI spec
+### Using an OpenAPI spec
 
 Kong's `deck` command line tool is used to convert an OpenAPI specification to a Kong configuration.
 
