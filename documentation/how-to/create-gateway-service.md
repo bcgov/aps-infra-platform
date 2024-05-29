@@ -33,7 +33,7 @@ that can be added to Kong to add new features or alter the behavior of existing 
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/how-to/gwa-commands.md#namespacecreate)
 
 ## Using a template
 
@@ -191,6 +191,6 @@ ab -n 20 -c 2 https://<MYSERVICE>-api-gov-bc-ca.test.api.gov.bc.ca/headers
 
 - [Add Client Credential Protection](/how-to/client-cred-flow.md)
 - [Configure a Private Route](/how-to/private-route.md)
-- [Configure Gateway Controls](/gateway/COMMON-CONFIG.md)
+- [Configure Gateway Controls](/how-to/COMMON-CONFIG.md)
 - [Share your API](/how-to/api-discovery.md)
-- [Monitor your Services](/resources/monitoring.md)
+- [Monitor your Services](/how-to/monitoring.md)

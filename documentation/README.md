@@ -1,4 +1,6 @@
-# Welcome
+---
+title: Welcome
+---
 
 The BC Government API Management Platform is a common component that serves as a
 central entry point for APIs, and acts as an intermediary between applications

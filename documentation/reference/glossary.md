@@ -1,6 +1,5 @@
 ---
 title: Glossary
-order: 390
 ---
 
 |Term|Definition|
