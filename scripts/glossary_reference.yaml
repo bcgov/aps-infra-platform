@@ -1,7 +1,7 @@
 terms:
   access-control:
     name: Access Control
-    def: Access control is a set of security measures that regulate who can access a system, services, data, or resource. Access control policies use {{ glossary_tooltip text="authentication" term_id="authentication" }} and {{ glossary_tooltip text="authorization" term_id="authorization" }} to verify users and enable access.
+    def: Access control is a set of security measures that regulate who can access a system, services, data, or resource. Access control policies use {{ glossary_tooltip term_id="authentication" text="authentication" }} and {{ glossary_tooltip term_id="authorization" text="authorization" }} to verify users and enable access.
     url: 
   access-token:
     name: Access Token
