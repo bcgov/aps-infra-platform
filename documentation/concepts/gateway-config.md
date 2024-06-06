@@ -6,7 +6,8 @@ This article explains the basics of a Gateway Configuration. It is an essential 
 
 ## Background
 
-Kong is an open-source API gateway and microservices management layer. A Kong Gateway Configuration is a YAML (YAML Ain't Markup Language) file used to define the configuration settings for Kong, such as routes, services, and plugins.
+Kong is an open-source API gateway and microservices management layer which powers the API Management Platform. 
+A Kong gateway configuration is a {{ glossary_tooltip term_id="yaml-file" text="YAML file" }} used to define the configuration settings for Kong, such as routes, services, and plugins, using declarative syntax.
 
 ## Use case
 
