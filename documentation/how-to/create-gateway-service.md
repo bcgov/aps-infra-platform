@@ -10,8 +10,7 @@ Service configuration allows Kong to manage, route, and handle requests to upstr
 
 Service configuration is stored in a GatewayService object in the API Services
 Portal. GatewayServices can be crafted from a template or generated from an
-OpenAPI specification. This guide contains information on both template and OpenAPI
-based implementations.
+OpenAPI specification, both of which are explained below.
 
 Once you have created a GatewayService, its functionality can be extended with our
 [Supported Plugins](/gateway/AVAILABLE-PLUGINS.md). They are essentially modular components 

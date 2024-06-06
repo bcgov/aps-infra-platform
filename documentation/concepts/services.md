@@ -4,9 +4,23 @@ title: Services
 
 This article explains the basics of Services, and how they are used to set up your API on the API Management Platform.
 
-## Background
+A Service represents an external upstream service or API that {{ glossary_tooltip term_id="kong-gateway" text="Kong" }} manages.
+This could be a service hosted internally within your infrastructure or an external service hosted elsewhere, for
+example, a data transformation microservice, a billing API, and so on. Kong acts as a proxy for these services, enabling
+you to control access, manage traffic, apply security policies, and more.
 
-A Service represents an external upstream service or API that Kong manages. This could be a service hosted internally within your infrastructure or an external service hosted elsewhere, for example, a data transformation microservice, a billing API, and so on. Kong acts as a proxy for these services, enabling you to control access, manage traffic, apply security policies, and more.
+The high level overview below shows requests arriving at routes and being forward to services, with responses taking the opposite pathway:
+
+```mermaid
+  flowchart LR
+      A(API client) <-- requests/responses --> B("Route (/mock)")
+      subgraph id1 ["API GATEWAY"]
+          B <-- requests/responses --> C("Service (example_service)")
+      end
+      C <-- requests/responses --> D(Upstream application)
+  
+      style id1 rx:10, ry:10
+```
 
 The main attribute of a Service is its URL. You can specify the URL with a single string, or by specifying its protocol, host, port, and path individually.
 
@@ -30,3 +44,6 @@ How-to guides
 Extend Service functionality with plugins
 
 - [Plugins](/concepts/plugins.md)
+
+External resources
+- [Kong: Get Started with Kong, Services and Routes](https://docs.konghq.com/gateway/latest/get-started/services-and-routes/)

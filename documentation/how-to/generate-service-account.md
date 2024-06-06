@@ -21,13 +21,14 @@ Before you begin, ensure you:
 
 1. Login to the [Test](https://api-gov-bc-ca.test.api.gov.bc.ca/) or [Production](https://api.gov.bc.ca/) instance of the Portal, whichever you are working in.
 
-2. Go to the `Namespaces` tab.
+2. Go to the **Namespaces** tab.
 
-3. Click `Service Accounts`, then Cick `New Service Account`.
+3. Click **Service Accounts**, then click **Create New Service Account**.
 
-4. Select the `GatewayConfig.Publish` permission for the Service Account and click `Share`. A new credential will be created - make a note of the `ID` and `Secret`.
+4. Select the **GatewayConfig.Publish** permission for the Service Account and click **Share**. A new credential will be created - make a note of the `ID` and `Secret`.
 
-> NOTE: Make sure to save the generated Client ID and Secret.
+!!! note
+    Make sure to save the generated `Client ID` and `Secret`.
 
 The following list describes the permissions:
 

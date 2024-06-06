@@ -4,10 +4,13 @@ title: Plugins
 
 This article explains the basics of Plugins, and how they work to extend the functionality of your [Services](/concepts/services.md).
 
-
 ## Purpose
 
-Plugins provide advanced functionality and extend the use of the Kong Gateway, which allows you to add new features to your implementation. Plugins can be configured to run in a variety of contexts, ranging from a specific route to all upstreams, and can execute actions inside Kong before or after a request has been proxied to the upstream API, as well as on any incoming responses. These plugins can perform various tasks such as authentication, rate limiting, logging, transformation of requests and responses, security enforcement, and more.
+Plugins extend the functionality of Kong Gateway, allowing you to add new features to your implementation.
+Plugins can perform various tasks such as authentication, rate limiting, logging, transformation of requests and
+responses, security enforcement, and more. Plugins can be configured to run in a variety of contexts, ranging from
+a specific route to all upstreams, and can execute actions inside Kong before or after a request has been proxied
+to the upstream API, as well as on any incoming responses.
 
 Some common types of Kong plugins include:
 
@@ -21,7 +24,17 @@ Some common types of Kong plugins include:
 
 ## Next steps
 
-If you would like to start implementing Plugins, check out the complete list of supported Plugins on the API Gateway:
+If you would like to dive deeper or start using plugins on your gateway services, check out the following resources:
 
-- [Supported Plugins](/gateway/AVAILABLE-PLUGINS.md)
+How-to guides
+
+- [Common Controls](how-to/COMMON-CONFIG.md)
+
+Reference
+
+- [Supported Plugins](/reference/plugins/AVAILABLE-PLUGINS.md)
+
+External resources
+
+- [Kong: Plugins](https://docs.konghq.com/gateway/latest/key-concepts/plugins/)
 

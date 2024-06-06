@@ -2,7 +2,9 @@
 title: Gateway Configuration
 ---
 
-This article explains the basics of a Gateway Configuration. It is an essential part of setting up your API in the API Management Platform.
+This article explains the basics of gateway configurations. Gateway configurations define how the API gateway routes
+incoming requests, applies security measures, handles transformations, and performs other tasks related to API management. 
+As such, they are the most fundamental part of setting up your API in the API Management Platform.
 
 ## Background
 
@@ -47,10 +49,14 @@ plugins:
     tags: [ns.example-namespace]
     enabled: true
     config:
-      http_method: null
+      add:
+        headers:
+        - x-new-header:value
+        - x-another-header:something
 ```
 
-This configuration defines a service `example-service-dev` with a corresponding route `example-service-route` and applies a request-transformer plugin to it.
+This configuration defines a service `example-service-dev` with a corresponding route `example-service-route` and
+applies a `request-transformer` plugin to it to add custom headers.
 
 ## Next steps
 
@@ -66,3 +72,6 @@ Linked concepts
 - [Services](/concepts/services.md)
 - [Plugins](/concepts/plugins.md)
 
+External resources
+
+- [Kong: Declarative configuration format](https://docs.konghq.com/gateway/latest/production/deployment-topologies/db-less-and-declarative-config/#declarative-configuration-format)
