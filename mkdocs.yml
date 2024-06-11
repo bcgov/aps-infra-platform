@@ -13,11 +13,11 @@ nav:
       - "how-to/gateway-admin.md"
     - Configure a Gateway Service:
       - "how-to/create-gateway-service.md"
-      - "how-to/protect-api.md"
       - "how-to/upstream-services.md"
       - "how-to/private-route.md"
     - Protect a Gateway Service:
       - "how-to/COMMON-CONFIG.md"
+      - "how-to/kong-api-key.md"
       - "how-to/client-cred-flow.md"
       - "how-to/intro-signed-jwt.md"
       - "how-to/intro-signed-jwt-pubkey.md"
@@ -37,6 +37,7 @@ nav:
       - "concepts/api-directory.md"
       - "concepts/gateway-config.md"
       - "concepts/plugins.md"
+      - "concepts/protect-api.md"
       - "concepts/services.md"
   - Reference:
       - "how-to/gwa-commands.md"

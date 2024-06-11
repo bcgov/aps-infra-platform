@@ -13,7 +13,7 @@ discovery by developers and other API consumers, across BC Government and beyond
 - [Create a Namespace](/how-to/gwa-commands.md#namespacecreate)
 - [Create a Service](/how-to/create-gateway-service.md)
   - API Providers with externally protected APIs should follow [this guide](/how-to/protected-externally.md) instead
-- [Protect an API](/how-to/protect-api.md) (optional)
+- [Protect an API](/concepts/protect-api.md) (optional)
 
 You should also be familiar with these concepts:
 

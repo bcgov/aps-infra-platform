@@ -2,7 +2,8 @@
 title: Protect an API
 ---
 
-This guide explains how to add protection to your GatewayService, by utilizing supported plugins.
+This article explains the basics of adding protection to your GatewayService, and how it works in
+conjunction with supported plugins.
 
 Protecting your API is crucial for several reasons:
 
@@ -20,12 +21,6 @@ Protecting your API is crucial for several reasons:
 
 Overall, protecting your API is essential for ensuring the security, integrity, and proper functioning of your systems and services.
 
-## Before you begin
-
-- [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
-- [Create a Service](/how-to/create-gateway-service.md)
-
 ## Kong API key
 
 Key-based authentication, often referred to as key-auth, is a method of authentication where a unique key or token is required to access an API or service. Here's how it typically works:
@@ -40,31 +35,18 @@ Key-based authentication, often referred to as key-auth, is a method of authenti
 
 Key-based authentication is simple to implement and widely used across various APIs and services. However, it's important to handle API keys securely to prevent unauthorized access or misuse.
 
-### Key-auth plugin
+See the how-to on [Kong API Key](/how-to/kong-api-key.md) to protect your API with key-based authentication.
 
-You can add the following plugin to your Gateway Configuration file to add key-based authentication to your GatewayService:
+## OAuth 2.0 Client Credential Flow
 
-```yaml
-  plugins:
-  - name: key-auth
-    tags: [ ns.<YOUR_NAMESPACE> ]
-    protocols: [ http, https ]
-    config:
-      key_names: ["X-API-KEY"]
-      run_on_preflight: true
-      hide_credentials: true
-      key_in_body: false
-```
-
-It is recommended to [share your API](/how-to/api-discovery.md) for discovery so that consumers of your API can request an API key.
-
-## OAuth 2.0 Client Credentials Flow
+With Oauth 2.0 client credential flow, the client application authenticates itself with the API Gateway using its client ID and client secret. The API gateway then forwards this authentication to the authorization server, which issues an access token. With this token, the client can access protected resources through the API gateway.
 
 See the how-to on [Client Credential Protection](/how-to/client-cred-flow.md) to protect your API with OAuth 2.0 Client Credentials Flow.
 
 ## Next steps
 
-- [Share an API](/how-to/api-discovery.md)
+- [Kong API Key](/how-to/kong-api-key.md)
+- [Client Credential Protection](/how-to/client-cred-flow.md)
 
 
 
