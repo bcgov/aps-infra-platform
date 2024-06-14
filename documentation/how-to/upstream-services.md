@@ -90,12 +90,10 @@ certificates:
     key: "<PEM FORMAT>"
     tags: [_NS_]
     id: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
-ca_certificates:
-  - cert: "<PEM FORMAT>"
-    tags: [_NS_]
-    id: 0a780ee0-626c-11eb-ae93-0242ac130012
 ```
 
-> NOTE: You must generate a UUID (`python -c 'import uuid; print(uuid.uuid4())'`) for each certificate and ca_certificate you create (set the `id`) and reference it in your `services` details.
+> NOTE: `ca_certificates` (Root CAs) must be installed by the `APS` team - please reach out to us on Rocket.Chat `#aps-ops` to request setup of your Root CA.  A `ca_certificates` `UUID` will be provided to you, to add to your `services` details.
+
+> NOTE: You must generate a UUID (`python -c 'import uuid; print(uuid.uuid4())'`) for each certificate you create (set the `id`) and reference it in your `services` details.
 
 > HELPER: Python command to get a PEM file on one line: `python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem`
