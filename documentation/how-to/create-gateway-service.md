@@ -34,7 +34,7 @@ that can be added to Kong to add new features or alter the behavior of existing 
 
 ### Using a template
 
-There are currently two GatewayService templates supported by the `gwa` command line interface (CLI).
+There are currently two gateway configuration templates supported by the `gwa` command line interface (CLI).
 
 They are:
 - `kong-httpbin`, which creates a basic, unprotected service, and 
