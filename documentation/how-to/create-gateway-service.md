@@ -4,7 +4,7 @@ title: Create a Service
 
 <!-- overview -->
 
-In Kong, the API gateway which underlies the API Management Platform, a {{ glossary_tooltip term_id="service" text="service" }}
+In Kong, the API gateway which underlies the API Services Portal, a {{ glossary_tooltip term_id="service" text="service" }}
 is an entity representing an external upstream API or microservice. 
 Service configuration allows Kong to manage, route, and handle requests to upstream services.
 
@@ -83,7 +83,7 @@ Reference: https://docs.konghq.com/deck/latest/
 
 Follow the installation instructions here: https://docs.konghq.com/deck/latest/installation/
 
-Below is an example of a simple OpenAPI spec that we will use to generate a Kong configuration file.
+Below is an example of a simple OpenAPI spec that you will use to generate a Kong configuration file.
 
 ```yaml
 openapi: 3.0.1

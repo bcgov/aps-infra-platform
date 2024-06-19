@@ -5,7 +5,7 @@ title: {Concept Name}
 
 ## Template preamble (remove!)
 
-A concept page explains some aspect of the API Management Platform. They can be
+A concept page explains some aspect of the API Program Services offerings. They can be
 thought of as extended definitions of major abstractions, such as a resource
 (like Products) or higher-level concept (like an API Gateway) or an overview of
 the Platform. Concept pages provide essential background, enabling readers to

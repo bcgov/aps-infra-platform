@@ -85,7 +85,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
 ??? "Custom IdP"
 
-    Before the Portal can be configured, a new set of credentials must be created on the IdP. For this tutorial, we will include the steps when Keycloak is the IdP.
+    Before the Portal can be configured, a new set of credentials must be created on the IdP. For this guide, Keycloak is used as the IdP.
 
     #### a) Create a new Client on the IdP
 

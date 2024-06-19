@@ -27,7 +27,7 @@ API listings in the Directory can be created and managed via:
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
 !!! warning "Web UI limitations"
-    At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
+    At this time, not all steps required to create an API listing are possible through the web UI. Using the CLI is recommended.
 
 ## Environments
 

@@ -2,7 +2,7 @@
 title: Services
 ---
 
-This article explains the basics of Services, and how they are used to set up your API on the API Management Platform.
+This article explains the basics of Services, and how they are used to set up your API on the API Services Portal.
 
 A Service represents an external upstream service or API that {{ glossary_tooltip term_id="kong-gateway" text="Kong" }} manages.
 This could be a service hosted internally within your infrastructure or an external service hosted elsewhere, for

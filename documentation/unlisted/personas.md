@@ -1,3 +1,3 @@
 # Personas
 
-![API Management Platform personas](artifacts/personas.png "Personas")
+![API Program Services personas](artifacts/personas.png "Personas")

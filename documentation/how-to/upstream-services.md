@@ -4,7 +4,7 @@ title: Set Up an Upstream Service
 
 ## Upstream Services on OCP
 
-We have Kong Data Planes running on Platform Service's Silver and Gold Private
+API Program Services (APS) has Kong Data Planes running on Platform Service's Silver and Gold Private
 OpenShift clusters. If your upstream services run on one of these clusters, then
 you will need to configuration the network polices to allow access from the API
 Gateway.
@@ -46,7 +46,7 @@ spec:
 
 **Gold Cluster**
 
-If your service is running on Gold, you will need to contact the APS team so that we can properly provision the `namespace` on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
+If your service is running on Gold, you will need to contact the APS team to have your Namespace provisioned on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
 
 ```yaml
 kind: NetworkPolicy
