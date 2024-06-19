@@ -2,7 +2,7 @@
 title: Welcome
 ---
 
-The API Program Services (APS) platform is a common component that serves as a  
+The API Program Services (APS) platform is a common component that serves as a
 central entry point for APIs, and acts as an intermediary between applications
 and backend services.
 
