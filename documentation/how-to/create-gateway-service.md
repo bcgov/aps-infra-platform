@@ -28,7 +28,7 @@ that can be added to Kong to add new features or alter the behavior of existing 
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/how-to/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
 
 ## Define service configuration
 

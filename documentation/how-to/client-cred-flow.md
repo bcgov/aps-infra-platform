@@ -11,7 +11,7 @@ Here is overview of the process (numbers reference steps in the table of content
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/how-to/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
 - [Create a GatewayService](/how-to/create-gateway-service.md)
 - [Share an API in the API Directory](/how-to/api-discovery.md)
 - [Create a service account](/how-to/generate-service-account.md) (optional)

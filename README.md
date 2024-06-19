@@ -29,7 +29,7 @@ cd _tmp
 git clone https://github.com/bcgov/gwa-cli
 cd gwa-cli
 just docs
-cp docs/gwa-commands.md ../../documentation/how-to/gwa-commands.md
+cp docs/gwa-commands.md ../../documentation/reference/gwa-commands.md
 ```
 
 ## Insert glossary term references

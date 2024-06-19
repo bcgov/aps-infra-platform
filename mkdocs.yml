@@ -40,7 +40,7 @@ nav:
       - "concepts/protect-api.md"
       - "concepts/services.md"
   - Reference:
-      - "how-to/gwa-commands.md"
+      - "reference/gwa-commands.md"
       - Plugins:
           - "reference/plugins/AVAILABLE-PLUGINS.md"
           - "reference/plugins/acl.md"
