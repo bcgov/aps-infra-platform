@@ -15,7 +15,7 @@ Ask aidan about other benefits
 
 Before you begin, ensure you:
 
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
 
 ## Generate a Service Account
 
@@ -43,4 +43,4 @@ The following list describes the permissions:
 
 ## Next steps
 
-- [CI/CD Integration](/resources/cicd-integration.md)
+- [CI/CD Integration](/how-to/cicd-integration.md)

@@ -13,7 +13,7 @@ Portal. GatewayServices can be crafted from a template or generated from an
 OpenAPI specification, both of which are explained below.
 
 Once you have created a GatewayService, its functionality can be extended with our
-[Supported Plugins](/gateway/AVAILABLE-PLUGINS.md). They are essentially modular components 
+[Supported Plugins](/reference/plugins/AVAILABLE-PLUGINS.md). They are essentially modular components 
 that can be added to Kong to add new features or alter the behavior of existing features.
 
 <!-- ## Declarative Configuration -->
@@ -23,7 +23,7 @@ that can be added to Kong to add new features or alter the behavior of existing 
     If your upstream services run on Platform
     Service's Silver or Gold OpenShift cluster, you will need to
     configure the network polices to allow access from the API Gateway.
-     [Upstream service setup](/resources/upstream-services.md)
+    See the [Upstream service setup](/how-to/upstream-services.md) guide for more information.
 
 ## Before you begin
 
