@@ -19,6 +19,9 @@ linkspector check
 
 See https://github.com/UmbrellaDocs/linkspector
 
+Alternatively, you can view the results of `htmltest` which runs as part of the DevHub TechDocs build process.
+Search the build logs for `htmltest` to find the results.
+
 ## Update GWA CLI
 
 **Prerequisite: `golang`**

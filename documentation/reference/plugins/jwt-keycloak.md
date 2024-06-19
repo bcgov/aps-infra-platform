@@ -40,8 +40,8 @@ services:
 
 | Field                       | Type     | Default | Description                                                                                                                                         |
 | --------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| allowed_iss                 | string[] | nil     | A list of allowed issuers for this route/service/api. Can be specified as a `string` or as a [Pattern](http://lua-users.org/wiki/PatternsTutorial). |
-| allowed_aud                 | string   | nil     | Allowed audience for this route/service/api. Can be specified as a `string` or as a [Pattern](http://lua-users.org/wiki/PatternsTutorial).          |
+| allowed_iss                 | string[] | nil     | A list of allowed issuers for this route/service/api. Can be specified as a `string` or as a Lua pattern. |
+| allowed_aud                 | string   | nil     | Allowed audience for this route/service/api. Can be specified as a `string` or as a Lua pattern. |
 | access_token_header         | string   | nil     | An alternate header to use instead of "Authorization"                                                                                               |
 | realm                       | string   | nil     | In the event of a 401, this value gets populated in the "WWW-Authenticate" response header as `Bearer realm="<realm>"`                              |
 | disable_access_token_header | boolean  | false   | If set to 'true', the access token will not be sent to the upstream service                                                                         |

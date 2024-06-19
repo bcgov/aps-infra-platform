@@ -15,7 +15,7 @@ You can read more about key-based authentication in the [Protect an API](/concep
 Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/references/gwa-commands.md#namespacecreate)
 - [Create a Service](/how-to/create-gateway-service.md)
 
 <!-- steps -->
