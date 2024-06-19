@@ -10,6 +10,6 @@ May 2023: Presented a Waiting Room solution in our Sprint Review.
 
 Mar 2023: Presented a proposed solution in our Sprint Review for supporting APS in the Cloud or Emerald platform.
 
-## [Road to Gold](/artifacts/Road-to-Gold.pdf)
+## [Road to Gold](/artifacts/APS-Road-to-Gold.pdf)
 
 Jan 2022: Presented our journey from the OpenShift Silver cluster to Gold cluster
