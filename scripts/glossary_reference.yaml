@@ -102,7 +102,7 @@ terms:
   service:
     name: Service
     def: A service represents an external upstream API or microservice consisting of a URL, which listens for incoming requests.
-    url: 
+    url: {DOCS_URL}/concepts/services
   scope:
     name: Scope
     def: Scope is a method used to specify authorization, or a set of permissions that grant access to specified systems and actions. Scopes can be applied to both users and service accounts.

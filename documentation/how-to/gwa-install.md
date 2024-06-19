@@ -47,3 +47,15 @@ Check `gwa` installed correctly by opening a new command prompt and running:
 ```shell linenums="0"
 gwa --version
 ```
+
+## Next steps
+
+If you would like to dive deeper with the `gwa` command line interface (CLI), check out the
+following resource:
+
+- [gwa Commands](/how-to/gwa-commands.md)
+
+Once you have `gwa` installed, try setting up an API on 
+the {{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }}:
+
+- [API Provider Quick Start](/tutorials/quick-start.md)
