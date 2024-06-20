@@ -1,16 +1,6 @@
 ---
-externalLink: https://github.com/bcgov/gwa-api/blob/dev/USER-JOURNEY.md
 title: "API Provider Quick Start"
-description: "Setup a new namespace for onboarding services on the BC Gov API Gateway."
-order: 3
-tags: ["ns.platform"]
-isComplete: true
-isPublic: true
-publishDate: "2021-06-10T20:00:00.000-08:00"
 ---
-
-> NOTE: As of Sep 19, 2023, we have upgraded our command line interface to version 2, which is used in this tutorial. 
-> For a tutorial using v1 of the `gwa` CLI visit [API Provider User Journey v1](/guides/owner-journey-v1.md).
 
 The following steps guide an {{ glossary_tooltip term_id="api-provider" }} through setting up an API on the {{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }} in a Test/Training instance. 
 At the end of the guide, you will have a public API endpoint that is protected using the OAuth2 Client Credential Grant.
@@ -41,7 +31,7 @@ gwa login
 
 ## 3. Apply Configuration
 
-Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md/#2-grant-access-to-the-identity-provider).
+Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md#2-grant-access-to-the-identity-provider).
 
 First, create a new Namespace. 
 
@@ -154,13 +144,13 @@ Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channe
 
 Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.
 
-- [Monitor your Services](/resources/monitoring.md) : View metrics for performance, traffic and trends.
-- [Gateway Administration](/resources/gateway-admin.md) : Add team members and create service accounts.
+- [Monitor your Services](/how-to/monitoring.md) : View metrics for performance, traffic and trends.
+- [Gateway Administration](/how-to/gateway-admin.md) : Add team members and create service accounts.
 - [Customize Gateway Controls](/how-to/create-gateway-service.md)
-- [Upstream Service Setup](/resources/upstream-services.md)
+- [Upstream Service Setup](/how-to/upstream-services.md)
 - [Share your API](/how-to/api-discovery.md) : Setup metadata about your APIs for discovery.
-- [API Access](/resources/api-access.md) : Approve and administer controls for consumer access to your APIs.
-- [CI/CD Integration](/resources/cicd-integration.md)
+- [API Access](/how-to/api-access.md) : Approve and administer controls for consumer access to your APIs.
+- [CI/CD Integration](/how-to/cicd-integration.md)
 - [Add Client Credential Protection](/how-to/client-cred-flow.md)
 
 ### Ready for Production?

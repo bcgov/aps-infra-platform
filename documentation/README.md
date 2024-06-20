@@ -1,12 +1,15 @@
-# Welcome
+---
+title: Welcome
+---
 
-The BC Government API Management Platform is a common component that serves as a
-central entry point for APIs, and acts as an intermediary between applications
-and backend services.
+The API Program Services (APS) team provides two common components to support
+API management and discovery: the API Services Portal and the API Directory.
 
-If you are a developer or part of a government team, you can administer and
-manage your APIs using the [API Services Portal](https://api.gov.bc.ca/). Within
-the Portal you can:
+If you are a developer or part of a government team, you can take advantage of
+the [API Services Portal](https://api.gov.bc.ca/) to administer and manage your
+APIs. The Portal provides API gateway functionality, creating a central entry
+point for APIs, and acting as an intermediary between applications and backend
+services. Within the Portal you can:
 
 - Define, configure, and manage API endpoints to ensure proper connectivity and access
 - Set up and manage security measures, including authentication, authorization,
@@ -18,7 +21,7 @@ the Portal you can:
   actions are occurring
 
 The [API Directory](https://api.gov.bc.ca/devportal/api-directory) provides a
-place to share your API for developers to discover.
+place to share your APIs for developers to discover.
 
 ## Need a hand?
 

@@ -1,3 +1,7 @@
+---
+title: "Signed JWT w/ Hosted JWKS"
+---
+
 # Signed JWT with Hosted JWKS
 
 The following example uses NodeJS code to show how to prepare for signed JWT authentication to an API on the BC Government API Gateway.

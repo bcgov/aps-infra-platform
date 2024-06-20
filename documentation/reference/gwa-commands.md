@@ -1,4 +1,6 @@
-# GWA CLI Commands
+---
+title: "GWA Commands"
+---
 
 GWA CLI helps manage gateway resources in a declarative fashion.
 
@@ -183,6 +185,16 @@ Create a new namespace
 $ gwa namespace create --generate
 $ gwa namespace create --name my-namespace --description="This is my namespace"
 ```
+
+!!! note "Namespace tags"
+    A namespace `tag` with the format `ns.<NAMESPACE>` is mandatory for each
+    service, route, and plugin object.
+    
+    If you have separate pipelines for your environments (dev, test and prod),
+    you can split your configuration and update the `tags` with the qualifier. 
+    
+    For example, you can use a tag `ns.<NAMESPACE>.dev` to sync the Kong configuration
+    for `dev` Service and Routes only.
 
 
 ### namespace.current

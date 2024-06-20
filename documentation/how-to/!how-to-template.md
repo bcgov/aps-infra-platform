@@ -34,7 +34,7 @@ This guide explains how to {insert a brief description of the task}.
 Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
 - [Complete This](/how-to/create-gateway-service.md)
 - [Do That](/how-to/generate-service-account.md)
 

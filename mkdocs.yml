@@ -1,4 +1,4 @@
-site_name: BC Gov API Services
+site_name: API Program Services
 docs_dir: documentation
 repo_url: https://github.com/bcgov/aps-infra-platform
 edit_uri: blob/test/documentation
@@ -8,49 +8,57 @@ nav:
   - Tutorials:
       - "tutorials/quick-start.md"
   - How-to Guides:
+    - Get Started:
       - "how-to/gwa-install.md"
+      - "how-to/gateway-admin.md"
+    - Configure a Gateway Service:
       - "how-to/create-gateway-service.md"
+      - "how-to/upstream-services.md"
       - "how-to/private-route.md"
-      - "how-to/generate-service-account.md"
+    - Protect a Gateway Service:
+      - "how-to/COMMON-CONFIG.md"
+      - "how-to/kong-api-key.md"
+      - "how-to/client-cred-flow.md"
+      - "how-to/intro-signed-jwt.md"
+      - "how-to/intro-signed-jwt-pubkey.md"
+    - Share an API:
       - "how-to/api-discovery.md"
       - "how-to/protected-externally.md"
-      - "how-to/client-cred-flow.md"
+    # - Manage Consumer Access:
+    - "how-to/api-access.md"
+    - Integrate DevOps:
+      - "how-to/cicd-integration.md"
+      - "how-to/generate-service-account.md"
+    - Monitor a Gateway:
+      - "how-to/monitoring.md"
+      - "how-to/prom-query.md"
+    - "how-to/keycloak-rbac.md"
   - Concepts:
       - "concepts/api-directory.md"
-  - Other Guides:
-      - "guides/owner-journey-v1.md"
-      - "Signed JWT w/ Certificate": "guides/intro-signed-jwt-pubkey.md"
-      - "Signed JWT w/ Hosted JWKS": "guides/intro-signed-jwt.md"
-      - "guides/keycloak-rbac.md"
-      - "Query Kong Metrics": guides/prom-query.md
-  - Resources:
-      - "resources/api-access.md"
-      - "resources/cicd-integration.md"
-      - "resources/gateway-admin.md"
-      - "resources/gwa-commands.md"
-      - "resources/monitoring.md"
-      - "resources/upstream-services.md"
-  - Gateway:
-      - "Supported Plugins": "gateway/AVAILABLE-PLUGINS.md"
-      - "Common Controls": "gateway/COMMON-CONFIG.md"
-      - Plugins:
-          - "gateway/plugins/acl.md"
-          - "gateway/plugins/cors.md"
-          - "gateway/plugins/gwa-ip-anonymity.md"
-          - "gateway/plugins/jwt-keycloak.md"
-          - "gateway/plugins/key-auth.md"
-          - "gateway/plugins/kong-upstream-auth-basic.md"
-          - "gateway/plugins/kong-upstream-jwt.md"
-          - "gateway/plugins/oidc.md"
-          - "gateway/plugins/oidc-consumer.md"
-          - "gateway/plugins/proxy-cache.md"
-          - "gateway/plugins/rate-limiting.md"
-          - "gateway/plugins/request-transformer.md"
-          - "gateway/plugins/waiting-queue.md"
-      - "gateway/SSL.md"
+      - "concepts/gateway-config.md"
+      - "concepts/plugins.md"
+      - "concepts/protect-api.md"
+      - "concepts/services.md"
   - Reference:
+      - "reference/gwa-commands.md"
+      - Plugins:
+          - "reference/plugins/AVAILABLE-PLUGINS.md"
+          - "reference/plugins/acl.md"
+          - "reference/plugins/cors.md"
+          - "reference/plugins/gwa-ip-anonymity.md"
+          - "reference/plugins/jwt-keycloak.md"
+          - "reference/plugins/key-auth.md"
+          - "reference/plugins/kong-upstream-auth-basic.md"
+          - "reference/plugins/kong-upstream-jwt.md"
+          - "reference/plugins/oidc.md"
+          - "reference/plugins/oidc-consumer.md"
+          - "reference/plugins/proxy-cache.md"
+          - "reference/plugins/rate-limiting.md"
+          - "reference/plugins/request-transformer.md"
+          - "reference/plugins/waiting-queue.md"
       - "reference/glossary.md"
       - "reference/releases/index.md"
+      - "reference/SSL.md"
       - Portal User Cases:
         - "reference/portal-use-cases/login.md"
         - "reference/portal-use-cases/create-service-account.md"
@@ -59,8 +67,10 @@ nav:
         - "reference/portal-use-cases/consumer-maintenance.md"
         - "reference/portal-use-cases/websequencediagrams.md"
       - "reference/presentations.md"
-      - "reference/style-guide.md"
+  - Contribute:
+      - "contribute/style-guide.md"
   - "external-resources.md"
+
 
 plugins:
   - techdocs-core

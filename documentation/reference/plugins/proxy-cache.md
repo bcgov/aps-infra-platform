@@ -31,7 +31,7 @@ services:
           #   dictionary_name: proxy_content_cache
 ```
 
-> `cache_ttl` : We only allow this value to be between 15 and 60 seconds
+> `cache_ttl` : This value is restricted to be between 15 and 60 seconds
 
 > The `strategy` and `memory.dictionary_name` will be set automatically and can not be overridden.
 

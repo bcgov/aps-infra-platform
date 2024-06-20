@@ -5,7 +5,7 @@ title: Install gwa CLI
 <!-- overview -->
 
 The `gwa` command line interface (CLI) is a tool for creating and publishing
-Gateway Services and other resources on the API Management Portal.
+Gateway Services and other resources on the API Services Portal.
 
 `gwa` runs from a single executable file for convenient installation.
 
@@ -47,3 +47,15 @@ Check `gwa` installed correctly by opening a new command prompt and running:
 ```shell linenums="0"
 gwa --version
 ```
+
+## Next steps
+
+If you would like to dive deeper with the `gwa` command line interface (CLI), check out the
+following resource:
+
+- [gwa Commands](/reference/gwa-commands.md)
+
+Once you have `gwa` installed, try setting up an API on 
+the {{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }}:
+
+- [API Provider Quick Start](/tutorials/quick-start.md)

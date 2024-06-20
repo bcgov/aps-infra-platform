@@ -1,19 +1,15 @@
 ---
 title: Presentations
-order: 370
-#icon: note
 ---
 
-# Presentations
+## [ARD and Waiting Room](/artifacts/ARD-and-Waiting-Room.pdf)
 
-<a href="../artifacts/ARD-and-Waiting-Room.pdf" download>ARD and Waiting Room</a>
+May 2023: Presented a Waiting Room solution in our Sprint Review.
 
-> May 2023 : Presented a Waiting Room solution in our Sprint Review.
+## [Client-Hosted Kong Gateway](/artifacts/Client-Hosted-Kong-Gateway.pdf)
 
-<a href="../artifacts/Client-Hosted-Kong-Gateway.pdf" download>Client-Hosted Kong Gateway</a>
+Mar 2023: Presented a proposed solution in our Sprint Review for supporting APS in the Cloud or Emerald platform.
 
-> Mar 2023 : Presented a proposed solution in our Sprint Review for supporting APS in the Cloud or Emerald platform.
+## [Road to Gold](/artifacts/APS-Road-to-Gold.pdf)
 
-<a href="../artifacts/APS-Road-to-Gold.pdf" download>Road to Gold</a>
-
-> Jan 2022 : Presented our journey from the OpenShift Silver cluster to Gold cluster
+Jan 2022: Presented our journey from the OpenShift Silver cluster to Gold cluster

@@ -1,4 +1,6 @@
-# OIDC and RBAC Protection
+---
+title: Protect an Application
+---
 
 This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway.
 

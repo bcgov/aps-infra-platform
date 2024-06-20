@@ -1,5 +1,4 @@
 ---
-order: 2200
 title: "Share an API"
 ---
 
@@ -11,10 +10,10 @@ discovery by developers and other API consumers, across BC Government and beyond
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
 - [Create a Service](/how-to/create-gateway-service.md)
   - API Providers with externally protected APIs should follow [this guide](/how-to/protected-externally.md) instead
-- Protect an API (optional)
+- [Protect an API](/concepts/protect-api.md) (optional)
 
 You should also be familiar with these concepts:
 
@@ -28,7 +27,7 @@ API listings in the Directory can be created and managed via:
 - **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login to the API Provider zone.
 
 !!! warning "Web UI limitations"
-    At this time, not all steps required to create an API listing are possible through the web UI. We recommend using the CLI.
+    At this time, not all steps required to create an API listing are possible through the web UI. Using the CLI is recommended.
 
 ## Environments
 
@@ -115,7 +114,7 @@ Check our [source
 code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116)
 for up-to-date data rules for DraftDatasets.
 
-!!! info "Link to your API"
+!!! note "Link to your API"
     In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more.
     Specifically, ensure there are links to the API specification and developer guide. 
     Use Markdown for formatting.

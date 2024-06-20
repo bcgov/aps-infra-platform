@@ -1,11 +1,10 @@
 ---
 title: Common Controls
-order: 2000
 ---
 
 The following are sample Gateway controls for common scenarios.
 
-To learn about other available plugins, navigate to `Gateway > Plugins` on the
+To learn about other available plugins, navigate to `References > Plugins` on the
 sidebar of this page.
 
 ## Returning an HTTP Redirect
@@ -127,7 +126,7 @@ If you do not want to advertise anonymous access on the API Directory, you can h
 ## Event Metric
 
 This `pre-function` allows you to collect arbitrary metrics that you can then
-track in [Grafana](/resources/monitoring.md) on the **X Events** dashboard.
+track in [Grafana](/how-to/monitoring.md) on the **X Events** dashboard.
 
 First define your event conditions and desired `x-event` headers in Lua. Here is
 an example which looks at a query parameter:

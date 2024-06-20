@@ -19,6 +19,9 @@ linkspector check
 
 See https://github.com/UmbrellaDocs/linkspector
 
+Alternatively, you can view the results of `htmltest` which runs as part of the DevHub TechDocs build process.
+Search the build logs for `htmltest` to find the results.
+
 ## Update GWA CLI
 
 **Prerequisite: `golang`**
@@ -29,7 +32,7 @@ cd _tmp
 git clone https://github.com/bcgov/gwa-cli
 cd gwa-cli
 just docs
-cp docs/gwa-commands.md ../../documentation/resources/gwa-commands.md
+cp docs/gwa-commands.md ../../documentation/reference/gwa-commands.md
 ```
 
 ## Insert glossary term references

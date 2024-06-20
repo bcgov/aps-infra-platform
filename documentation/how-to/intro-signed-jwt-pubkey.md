@@ -1,3 +1,7 @@
+---
+title: "Signed JWT w/ Certificate"
+---
+
 # Signed JWT with Certificate
 
 The following example uses NodeJS code to show how to prepare for signed JWT authentication to an API on the BC Government API Gateway.

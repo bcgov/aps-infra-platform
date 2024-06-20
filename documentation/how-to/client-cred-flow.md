@@ -11,7 +11,7 @@ Here is overview of the process (numbers reference steps in the table of content
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/resources/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
 - [Create a GatewayService](/how-to/create-gateway-service.md)
 - [Share an API in the API Directory](/how-to/api-discovery.md)
 - [Create a service account](/how-to/generate-service-account.md) (optional)
@@ -70,7 +70,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
     Update your Gateway Configuration to include the `jwt-keycloak` plugin.
 
-    !!! info
+    !!! note
         When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
 
     Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
@@ -85,7 +85,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
 ??? "Custom IdP"
 
-    Before the Portal can be configured, a new set of credentials must be created on the IdP. For this tutorial, we will include the steps when Keycloak is the IdP.
+    Before the Portal can be configured, a new set of credentials must be created on the IdP. For this guide, Keycloak is used as the IdP.
 
     #### a) Create a new Client on the IdP
 
@@ -136,7 +136,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
     Update your GatewayService configuration to include the `jwt-keycloak` plugin.
 
-    !!! info
+    !!! note
         When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
 
     Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
@@ -278,5 +278,5 @@ enter details about the client assertion certificates. The details can either be
 a public JWKS URL that holds the public key information for a key pair, or
 providing just the public key information. The information will be used in step
 5 when retrieving the Bearer Token. For further details, you can see the
-specific examples [Signed JWT w/ Hosted JWKS](/guides/intro-signed-jwt.md) or
-[Signed JWT w/ Certificate](/guides/intro-signed-jwt-pubkey.md).
+specific examples [Signed JWT w/ Hosted JWKS](/how-to/intro-signed-jwt.md) or
+[Signed JWT w/ Certificate](/how-to/intro-signed-jwt-pubkey.md).
