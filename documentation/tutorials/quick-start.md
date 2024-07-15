@@ -238,27 +238,27 @@ To clean up the resources resulting from the tutorial, complete the following st
 
 ## Next steps
 
-### Connect with the BC Government API Community
+Learn more about Gateway Service configuration:
 
-Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops).
-
-### Read Our Other Guides and Resources
-
-Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.
-
-- [Monitor your Services](/how-to/monitoring.md) : View metrics for performance, traffic and trends.
-- [Gateway Administration](/how-to/gateway-admin.md) : Add team members and create service accounts.
-- [Customize Gateway Controls](/how-to/create-gateway-service.md)
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
+- [Client Credential Protection](/how-to/client-cred-flow.md)
 - [Upstream Service Setup](/how-to/upstream-services.md)
-- [Share your API](/how-to/api-discovery.md) : Setup metadata about your APIs for discovery.
-- [API Access](/how-to/api-access.md) : Approve and administer controls for consumer access to your APIs.
+
+Discover other API Services Portal features:
+
+- [Manage Team Access](/how-to/gateway-admin.md)
+- [Share an API](/how-to/api-discovery.md)
+- [Manage Consumer Access](/how-to/api-access.md)
+- [Monitor your Services](/how-to/monitoring.md)
 - [CI/CD Integration](/how-to/cicd-integration.md)
-- [Add Client Credential Protection](/how-to/client-cred-flow.md)
 
-### Ready for Production?
+## Need a hand?
 
-Our production instance supports all your environments, so once you know what
-you are building and are ready to deploy your "dev" environment, you can setup
-the API gateway in our production instance.
+Create an account on
+[Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/) and join
+the [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel to
+connect with our team and user community. Alternatively, [open a support
+ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2) and
+we’ll get back to you via email in 3-5 business days.  
 
-To get started, go to the API Services Portal at https://api.gov.bc.ca.
+Either way, our team is here to answer your questions.
