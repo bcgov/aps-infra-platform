@@ -38,20 +38,17 @@ Gateway configuration is provided in a declarative configuration {{ glossary_too
 
 Templates are available for generating Gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md#2-grant-access-to-the-identity-provider).
 
-!!! note "API Services Portal environment"
-    For this tutorial, you will use the test/training environment (https://api-gov-bc-ca.test.api.gov.bc.ca), rather than the production environment (https://api.gov.bc.ca).
-
 1. Log into the API Services Portal with your IDIR account. 
+ 
+  !!! note "API Services Portal environment"
+      For this tutorial, you will use the test/training environment (https://api-gov-bc-ca.test.api.gov.bc.ca), rather than the production environment (https://api.gov.bc.ca).
 
   ```
   gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
   gwa login
   ```
 
-1. Create a new {{ glossary_tooltip term_id="Gateway"}}:
-
-  !!! Gateways
-      Gateways are the highest-level entitiy in the API Services Portal and contain Gateway Services and routes to your API.
+1. Create a new {{ glossary_tooltip term_id="gateway"}}:
 
   ```sh linenums="0"
   gwa gateway create
@@ -67,7 +64,7 @@ Templates are available for generating Gateway configuration for popular integra
 
 1. Run `gwa generate-config` to generate configuration for your Gateway from a template.
   
-  First, choose a unique name for your API to be shown as part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`.
+  First, choose a unique name for your API service to be shown as part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`.
 
   Then run the following command, substituting your service name for `<MYSERVICE>`:
 
@@ -87,7 +84,7 @@ Templates are available for generating Gateway configuration for popular integra
 
   You'll see the `GatewayService` configuration, including the upstream service, the routes that expose the GatewayService, and the plugins that add authentication and authorization. 
 
-  Below that are additional resources:
+  Below the `GatewayService`, you'll find additional resources:
 
   - `CredentialIssuer` supports the Client Credentials flow
   - `Product` and `DraftDataset` provide metadata about the service for the API Directory
@@ -129,7 +126,7 @@ At this point, you have successfully configured your Gateway. Before accessing y
 - Separation of concerns for authentication and authorization
 - API Directory listing (in private preview mode)
 
-1. Confirm the health of the connection between the API Gateway and the upstream service by running:
+1. Confirm the health of the connection between the API gateway and the upstream service by running:
 
   ```sh linenums="0"
   gwa status
@@ -148,13 +145,12 @@ At this point, you have successfully configured your Gateway. Before accessing y
   gwa status --hosts
   ```
 
-  The URL will be shown under the `Hosts` column. 
-  The URL will be `https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`.
+  The URL will be shown under the `Hosts` column and will be `https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`.
   
   !!! note "Vanity URL"
-      If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>.dev.api.gov.bc.ca`
+      If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>-dev.api.gov.bc.ca`.
 
-1. Try to access your Service without any authentication using a `curl` command:
+1. Try to access your Service without any authentication using this `curl` command:
 
   ```sh linenums="0"
   curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid
@@ -168,7 +164,7 @@ At this point, you have successfully configured your Gateway. Before accessing y
    (test instance), go to the **Gateways** tab, and select your newly created
    Gateway.
    
-   Click the **Preview in Directory** link in the **Products** panel.
+   In the **Products** panel, click the **Preview in Directory** link.
 
 1. You will see a card with the service name you chose earlier (`<MYSERVICE>`). This card is a preview of how the service would look when shared to the API Directory.
 
@@ -183,7 +179,7 @@ At this point, you have successfully configured your Gateway. Before accessing y
 
 1. Select the **Dev** API environment, and click **Request Access & Continue**.
 
-1. Click **Generate Secrets** to generate a Client ID and Secret pair with a Token URL. Copy these values into the following command to set as environment variables.
+1. Click **Generate Secrets** to generate a Client ID and Secret pair with a Token URL. Copy these values into the following command to set as environment variables, then run the command:
 
   ```sh
   export CID="<Client ID>"
@@ -191,7 +187,7 @@ At this point, you have successfully configured your Gateway. Before accessing y
   export URL="<Token Endpoint>"
   ```
 
-1. Run the following command to request a JWT token and export it to an environment variable (`TOKEN`):
+1. Run this command to request a JWT token and export it to an environment variable (`TOKEN`):
 
   ```sh
   RESPONSE=$(curl -X POST "$URL" \
@@ -216,22 +212,24 @@ At this point, you have successfully configured your Gateway. Before accessing y
 
   `{  "uuid": "fb49e86c-7e91-45e7-aca1-d0bf1515252d" }`
 
+  That's it! You have confirmed the successful configuration of your Gateway Service.
+
 <!-- cleanup -->
 
 ## Clean up
 
-To clean up the resources resulting from the tutorial, complete the following steps:
+To clean up the resources resulting from this tutorial, complete the following steps:
 
 1. On the **Gateways** > **Consumers** page, delete the Consumer which was granted access to the service from the ellipsis (**...**) options.  
+
+2. Delete the Gateway and associated services which were set up during the tutorial with this command:
 
   !!! danger
       The following action is irreversible. Ensure the correct Gateway is active first with:
       ``` linenums="0"
       gwa gateway current
       ```
-
-1. Delete the Gateway and associated services which were set up during the tutorial with this command:
-
+      
   ```sh linenums="0"
   gwa gateway destroy --force
   ```

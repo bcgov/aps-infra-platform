@@ -98,7 +98,7 @@ services:
 
 ## Clean up
 
-{Optional: Provide instructions on how to clean up the resources resulting from the tutorial.}
+{Optional: To clean up the resources resulting from this tutorial, complete the following steps:}
 
 {1. On the **Consumers** page, delete any Consumers which were granted access to the service.}
 
