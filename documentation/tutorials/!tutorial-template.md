@@ -103,12 +103,12 @@ services:
 {1. On the **Consumers** page, delete any Consumers which were granted access to the service.}
 
 !!! danger
-    This following action is irreversible. Ensure the correct Namespace is active first with:
+    The following action is irreversible. Ensure the correct Namespace is active first with:
     ``` linenums="0"
     gwa namespace current
     ```
 
-1. Delete the Namespace and associated services which were set up using during tutorial with this command:
+1. Delete the Namespace and associated services which were set up during the tutorial with this command:
 
   ``` linenums="0"
   gwa namespace destroy --force
