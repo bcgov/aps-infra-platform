@@ -252,13 +252,13 @@ Discover other API Services Portal features:
 - [Monitor your Services](/how-to/monitoring.md)
 - [CI/CD Integration](/how-to/cicd-integration.md)
 
-## Need a hand?
+## Get help
 
 Create an account on
 [Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/) and join
 the [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel to
-connect with our team and user community. Alternatively, [open a support
+connect with the API Program Services team and user community. Alternatively, [open a support
 ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2) and
 we’ll get back to you via email in 3-5 business days.  
 
-Either way, our team is here to answer your questions.
+Either way, the API Program Services team is here to answer your questions.
