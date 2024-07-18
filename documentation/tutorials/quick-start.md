@@ -77,7 +77,7 @@ Templates are available for generating Gateway configuration for popular integra
 
       You can specify an upstream service or leave the example provided (https://httpbin.org).
 
-1. Review the configuration in the `gw-config.yml` file.
+1. Review the configuration in the `gw-config.yaml` file.
 
   You'll see the `GatewayService` configuration, including:
   
@@ -90,7 +90,7 @@ Templates are available for generating Gateway configuration for popular integra
 1. Apply the configuration file to send it to the API Services Portal:
 
   ```sh
-  gwa apply -i gw-config.yml
+  gwa apply -i gw-config.yaml
   ```
 
   The output is similar to this:
