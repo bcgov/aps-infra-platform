@@ -46,3 +46,11 @@ Use this tag when introducing key concepts. Most often this will be in an introd
 `text` (optional): The displayed text. If not provided, the `name` (in Title Case) is used.
 
 The result is the display text specially styled with a tooltip including the definition and a link to a relevant reference URL (if defined in `glossary_reference.yaml`).
+
+## Deploy to DevHub
+
+A GitHub Actions workflow is used to deploy the docs to DevHub. The workflow is triggered by a push to the `main` or `test` branches - pushing to `main` will deploy to the `prod` environment (https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/), and pushing to `test` will deploy to the `test` environment (https://dev.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/).
+
+You can also manually trigger the workflow from the [Actions tab](https://github.com/bcgov/aps-infra-platform/actions/workflows/publish-techdocs.yaml) to deploy a working branch to the `test` environment. Use the `Run workflow` dropdown to select the branch you want to deploy.
+
+See the [workflow file](.github/workflows/publish-techdocs.yaml) for details.
