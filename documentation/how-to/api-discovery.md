@@ -142,8 +142,8 @@ Now it's time to publish the Dataset:
 It's time to create a *Product*, which describes the type of protection on the
 API. Products are used to bundle Gateway Services and manage consumer access.
 
-If you've already worked through the [Quick Start
-tutorial](/tutorials/quick-start.md) or set up a GatewayService, you may already
+If you've already worked through the [Protect an API with Client Credential Flow
+tutorial](/tutorials/protect-client-cred.md) or set up a GatewayService, you may already
 have a Product.
 
 Follow these steps to create a Product (if necessary), and link the Product with
