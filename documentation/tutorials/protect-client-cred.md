@@ -129,7 +129,7 @@ Templates are available for generating Gateway configuration for popular integra
 
 ## Access your API
 
-At this point, you have successfully configured your Gateway. Before accessing your API, let's review what you have setup:
+At this point, you have successfully configured your Gateway. Before accessing your API, let's review what you have set up:
 
 - Route to your service, via a vanity URL
 - Protected by an SSL `*.api.gov.bc.ca` certificate

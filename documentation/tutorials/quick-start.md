@@ -4,8 +4,8 @@ title: "API Provider Quick Start"
 
 <!-- overview -->
 
-In this tutorial, you'll learn how to get started with the {{ glossary_tooltip
-term_id="api-services-portal" }} and create a Gateway to route traffic to an API. This
+In this tutorial, you'll learn how to get started with the {{ glossary_tooltip term_id="api-services-portal" }}
+and create a Gateway to route traffic to an API. This
 tutorial is intended for {{ glossary_tooltip term_id="api-provider" text="API
 providers" }}.
 
@@ -41,7 +41,7 @@ Templates are available for generating Gateway configuration for popular integra
 
 1. Log into the API Services Portal with your IDIR account. 
 
-  ```
+  ```sh linenums="0"
   gwa login
   ```
 
@@ -110,11 +110,6 @@ Templates are available for generating Gateway configuration for popular integra
 
 ## Access your API
 
-At this point, you have successfully configured your Gateway. Before accessing your API, let's review what you have setup:
-
-- Route to your service, via a vanity URL
-- Protected by an SSL `*.api.gov.bc.ca` certificate
-
 1. Confirm the health of the connection between the API gateway and the upstream service by running:
 
   ```sh linenums="0"
@@ -142,15 +137,20 @@ At this point, you have successfully configured your Gateway. Before accessing y
 
 1. To see a more typical API response, visit `https://<MYSERVICE>.api.gov.bc.ca/uuid`.
    
-   You will see a random UUID4 from the upstream `https://httpbin.org/uuid`, similar to the following:
+   You will see a random UUID4 from the upstream `https://httpbin.org/uuid` in JSON format, similar to:
 
   ```
   {
-  "uuid": "16498622-b62b-4070-9467-785107380a47"
+      "uuid": "16498622-b62b-4070-9467-785107380a47"
   }
   ```
 
-  That's it! You have confirmed the successful configuration of your Gateway Service.
+  That's it! You have confirmed the successful configuration of your Gateway Service. 
+  
+  You have set up:
+
+   - Route to your service, via a vanity URL
+   - Protected by an SSL `*.api.gov.bc.ca` certificate
 
 <!-- cleanup -->
 
