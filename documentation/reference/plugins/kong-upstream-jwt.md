@@ -7,11 +7,11 @@ Reference: https://docs.konghq.com/hub/optum/kong-upstream-jwt
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
     - enabled: true
       name: kong-upstream-jwt
-      tags: [ _NS_ ]
+      tags: [ ns.<gatewayId> ]
       config:
         header: GW-JWT
         include_credential_type: false

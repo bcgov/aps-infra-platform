@@ -11,17 +11,17 @@ Here is overview of the process (numbers reference steps in the table of content
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
-- [Create a GatewayService](/how-to/create-gateway-service.md)
+- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
 - [Share an API in the API Directory](/how-to/api-discovery.md)
-- [Create a service account](/how-to/generate-service-account.md) (optional)
+- [Create a Service Account](/how-to/generate-service-account.md) (optional)
 
-## 1. Configure a service on the gateway
+## 1. Configure a Service on the Gateway
 
-Firstly, complete the steps listed above in **Before you begin**. This includes
-setting up an unprotected GatewayService pointing to your service.
+Complete the steps listed above in **Before you begin**. This includes
+setting up an unprotected Gateway Service pointing to your service.
 
-## 2. Grant access to the identity provider
+## 2. Grant Access to the Identity Provider
 
 This step varies depending on your identity provider (IdP).
 If you're unsure which path to follow, use the shared IdP pattern.
@@ -52,7 +52,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
     ```yaml
     kind: CredentialIssuer
     name: Resource Server Example
-    namespace: <GW-NAMESPACE>
+    gateway: <gatewayId>
     description: <Authorization Profile description>
     flow: client-credentials
     mode: auto
@@ -73,7 +73,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
     !!! note
         When you configure the Product Environment, a `Plugin Template` will be displayed - this can be a starting point for protecting your API on the Gateway.
 
-    Finally, from the Portal, `enable` the Environment to make it available on the API Directory.
+    Finally, from the Portal, **Enable** the Environment to make it available on the API Directory.
 
     #### d) Optional Configuration
 
@@ -108,7 +108,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
     ```yaml
     kind: CredentialIssuer
     name: Resource Server Example
-    namespace: <GW-NAMESPACE>
+    namespace: <gatewayId>
     description: <Authorization Profile description>
     flow: client-credentials
     mode: auto
@@ -191,7 +191,7 @@ steps show how to validate the flow.
 The API consumer would request access to the API via the API Services Portal and
 generate the credentials to be used below.
 
-The Portal will use the credentials setup in the Authorization Profile, to
+The Portal will use the credentials setup in the Authorization Profile to
 create a disabled Client on the IdP (with any applicable Client Mappers) and
 return the credentials to the Requesting user.
 

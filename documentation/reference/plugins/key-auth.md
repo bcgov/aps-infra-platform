@@ -7,10 +7,10 @@ Reference: https://docs.konghq.com/hub/kong-inc/key-auth/
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
   - name: key-auth
-    tags: [ _NS_ ]
+    tags: [ ns.<gatewayId> ]
     config:
       key_names:
       - X-API-KEY

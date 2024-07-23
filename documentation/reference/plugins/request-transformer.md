@@ -7,7 +7,7 @@ Reference: https://docs.konghq.com/hub/kong-inc/request-transformer/
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
   - config:
       add:
@@ -36,5 +36,5 @@ services:
     protocols:
     - https
     - http
-    tags: [ _NS_ ]
+    tags: [ ns.<gatewayId> ]
 ```

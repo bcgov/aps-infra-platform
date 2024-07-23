@@ -7,10 +7,10 @@ Example
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
   - name: cors
-    tags: [ _NS_ ]
+    tags: [ ns.<gatewayId> ]
     config:
       origins: ["*"]
       methods: [GET, POST, PUT, PATCH, OPTIONS]

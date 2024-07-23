@@ -7,11 +7,11 @@
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
     - enabled: true
       name: oidc
-      tags: [  _NS_ ]
+      tags: [  ns.<gatewayId> ]
       config:
         access_token_as_bearer: "no"
         access_token_header_name: X-Access-Token

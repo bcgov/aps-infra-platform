@@ -46,7 +46,7 @@ spec:
 
 **Gold Cluster**
 
-If your service is running on Gold, you will need to contact the APS team to have your Namespace provisioned on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
+If your service is running on Gold, you will need to contact the APS team to have your Gateway provisioned on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
 
 ```yaml
 kind: NetworkPolicy
@@ -78,7 +78,7 @@ spec:
 services:
   - name: my-upstream-service
     host: my-upstream.site
-    tags: [_NS_]
+    tags: [ns.<gatewayId>]
     port: 443
     protocol: https
     tls_verify: true
@@ -88,7 +88,7 @@ services:
 certificates:
   - cert: "<PEM FORMAT>"
     key: "<PEM FORMAT>"
-    tags: [_NS_]
+    tags: [ns.<gatewayId>]
     id: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
 ```
 

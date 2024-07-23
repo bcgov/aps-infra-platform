@@ -2,7 +2,7 @@
 title: "Add to a CI/CD Pipeline"
 ---
 
-Update your CI/CD pipelines to run the `gwa-cli` to keep your services updated on the gateway.
+Update your CI/CD pipelines to run the `gwa-cli` to keep your services updated on the Gateway.
 
 **Github Actions Example**
 
@@ -18,7 +18,7 @@ Github Workflow example:
 
 ```yaml
 env:
-  NS: "<your namespace>"
+  GW: "<gatewayId>"
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
           curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.4/gwa_Linux_x86_64.tgz | tar -zxf -
           export PATH=$PATH:$PWD
 
-      - name: Apply Namespace Configuration
+      - name: Apply Gateway Configuration
         run: |
           export PATH=`pwd`:$PATH
           cd .gwa
@@ -47,7 +47,7 @@ jobs:
           # include only if working in the test/training environment
           gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
 
-          gwa config set namespace $NS
+          gwa config set gateway $GW
           gwa login \
             --client-id=${ { secrets.GWA_ACCT_ID } } \
             --client-secret=${ { secrets.GWA_ACCT_SECRET } }

@@ -9,10 +9,10 @@ It is to support Waiting Queue solutions, such as https://github.com/bcgov/Waiti
 ```yaml
 services:
   - name: MY_REST_API
-    tags: [_NS_]
+    tags: [ns.<gatewayId>]
     plugins:
       - name: jwt-keycloak_1010
-        tags: [_NS_]
+        tags: [ns.<gatewayId>]
         enabled: true
         config:
           allowed_iss:
@@ -53,7 +53,7 @@ services:
 ```yaml
 plugins:
   - name: jwt-keycloak_1010
-    tags: [ns.NS]
+    tags: [ns.<gatewayId>]
     enabled: true
     config:
       allowed_iss:
@@ -62,7 +62,7 @@ plugins:
       access_token_header: AUTH-WAITING-QUEUE
       realm: waitingqueue
   - name: jwt-keycloak
-    tags: [ns.NS]
+    tags: [ns.<gatewayId>]
     enabled: true
     config:
       allowed_iss:

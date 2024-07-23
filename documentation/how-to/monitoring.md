@@ -20,6 +20,7 @@ Go to `Grafana` to view metrics for your configured services.
 | TEST / TRAINING | https://grafana-apps-gov-bc-ca.test.api.gov.bc.ca |
 | PRODUCTION      | https://grafana.apps.gov.bc.ca                    |
 
-You can also access summarized metrics from the `API Services Portal` by going to the `Namespaces` tab and clicking the `Gateway Services` link.
+You can also access summarized metrics from the API Services Portal by going to the **Gateways** tab, selecting the desired **Gateway**, clicking **Gateway Services**, and expanding the accordion of the Service in **7 Day Metrics**.
 
-> NOTE: A shortcut to Grafana is provided from the `Gateway Services` page by clicking `View metrics in real-time`.
+!!! note Grafana access
+    A shortcut to Grafana is provided from the `Gateway Services` page by clicking `View metrics in real-time`.

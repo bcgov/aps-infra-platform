@@ -27,14 +27,14 @@ Here's an example of what a simple Gateway Configuration might look like:
 ```yaml
 kind: GatewayService
 name: example-service-dev
-tags: [ns.example-namespace]
+tags: [ns.<gatewayId>]
 host: httpbin.org
 port: 443
 protocol: https
 retries: 0
 routes:
   - name: example-service-route
-    tags: [ns.example-namespace]
+    tags: [ns.<gatewayId>]
     hosts:
       - example-service.dev.api.gov.bc.ca
     methods:
@@ -46,7 +46,7 @@ routes:
     response_buffering: true
 plugins:
   - name: request-transformer
-    tags: [ns.example-namespace]
+    tags: [ns.<gatewayId>]
     enabled: true
     config:
       add:
@@ -65,7 +65,7 @@ following resources:
 
 How-to guides
 
-- [Create a Service](/how-to/create-gateway-service.md)
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
 
 Linked concepts
 

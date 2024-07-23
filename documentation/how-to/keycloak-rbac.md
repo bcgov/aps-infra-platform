@@ -19,7 +19,7 @@ The `Assign Users to Roles` can be used to administer User permissions.
 **Pre-requisites:**
 
 - You have your application deployed in the OpenShift Silver cluster
-- You have created a namespace in the `API Services Portal`
+- You have created a Gateway in the API Services Portal
 - You have a Service Account created with the `GatewayConfig.Publish` permission
 - Your Network Policy has been configured to allow traffic from the APS project space
 - You have completed your minimal service/route configuration and published it to the APS Kong Gateway
@@ -36,7 +36,7 @@ To protect your application, there are two plugins that need to be configured: `
     plugins:
       - enabled: true
         name: oidc
-        tags: [ ns.$NS ]
+        tags: [ ns.<gatewayId> ]
         config:
           access_token_as_bearer: "no"
           access_token_header_name: Authorization
@@ -110,7 +110,7 @@ The `acl` plugin will enforce that the user's `client_roles` includes the roles 
     plugins:
       - enabled: true
         name: acl
-        tags: [ ns.$NS ]
+        tags: [ ns.<gatewayId> ]
         config:
           allow:
             - ROLE_FOR_ACCESS
@@ -127,7 +127,7 @@ If your upstream service is stateless, then you can remove the cookie before the
 ```
       - name: request-transformer
         protocols: [http]
-        tags: [ ns.$NS ]
+        tags: [ ns.<gatewayId> ]
         config:
           remove:
             headers:

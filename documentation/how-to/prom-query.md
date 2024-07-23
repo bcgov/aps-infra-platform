@@ -4,13 +4,12 @@ title: "Query Kong Metrics"
 
 ## Overview
 
-Using a service account generated within your namespace, you can send Prometheus queries to retrieve Kong metrics. Some examples will be provided, but any [PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/) query can be sent.
+Using a service account generated within your Gateway, you can send Prometheus queries to retrieve Kong metrics. Some examples will be provided, but any [PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/) query can be sent.
 
 ## Prerequisites
 
-- Namespace in the API Gateway
-- Service Account associated with the namespace
-  - Service Account should have at least `Namespace.View` permissions
+- Gateway in the API Gateway
+- Service Account associated with the Gateway with `Gateway.View` permission or greater
 - Ideally an active service experiencing some traffic
 
 ## TL;DR

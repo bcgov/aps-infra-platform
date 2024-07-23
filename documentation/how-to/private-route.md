@@ -16,8 +16,8 @@ This page shows how to configure a private route for a service.
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
-- [Create a GatewayService](/how-to/create-gateway-service.md)
+- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
 
 ## Submit a request with APS
 
@@ -34,19 +34,19 @@ format: `<api-name>.cluster.local`. When the configuration is published to Kong,
 an OpenShift Service is created with a corresponding Service Serving Certificate
 (SSC), which is routeable from within the OpenShift cluster.
 
-An example GatewayService configuration for an upstream API deployed in the Silver cluster would be:
+An example Gateway Service configuration for an upstream API deployed in the Silver cluster would be:
 
 ```yaml
 services:
   - name: <MY-SERVICE>
     host: httpbin.org
-    tags: [ns.$NS]
+    tags: [ns.<gatewayId>]
     port: 443
     protocol: https
     retries: 0
     routes:
       - name: <MY-SERVICE-ROUTE>
-        tags: [ns.$NS]
+        tags: [ns.<gatewayId>]
         hosts:
           - <MY-SERVICE>.cluster.local
 ```
@@ -123,4 +123,4 @@ curl -v --cacert /config/service-ca.crt \
 ```
 
 You should see a 200 response including a UUID, if using the `httpbin.org`
-upstream host as shown in the example GatewayService.
+upstream host as shown in the example Gateway Service.

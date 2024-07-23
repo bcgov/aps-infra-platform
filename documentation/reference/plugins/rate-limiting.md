@@ -11,10 +11,10 @@ Reference: https://docs.konghq.com/hub/kong-inc/rate-limiting/
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
   - name: rate-limiting
-    tags: [ _NS_ ]
+    tags: [ ns.<gatewayId> ]
     config:
       fault_tolerant: true
       hide_client_headers: false

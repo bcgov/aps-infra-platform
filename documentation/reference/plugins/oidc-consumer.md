@@ -7,11 +7,11 @@
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
   - name: oidc-consumer
     enabled: true
-    tags: [ _NS_ ]
+    tags: [ ns.<gatewayId> ]
     config:
       username_field: preferred_username
       create_consumer: false

@@ -4,11 +4,11 @@ title: "Share an Externally Protected API"
 
 # Share an Externally Protected API
 
-This page shows how to share externally protected APIs on the API Directory, without setting up any gateway services in the API Services Portal. 
+This page shows how to share externally protected APIs on the API Directory, without setting up any Gateway Services in the API Services Portal. 
 
 ## Before you begin
 
-You need to have the `gwa` command line interface (CLI). Download it from [GitHub](https://github.com/bcgov/gwa-cli/releases) and add to `PATH` for the session.
+You need to have the `gwa` command line interface (CLI) installed. Download it from [GitHub](https://github.com/bcgov/gwa-cli/releases) and add to `PATH` for the session.
 
 On Linux, run this command to get set up:
 
@@ -28,18 +28,18 @@ gwa login
 
 Alternatively run `gwa config set host api-gov-bc-ca.test.api.gov.bc.ca` to work on the Test/Training instance of the API Services Portal. 
 
-## Create a Namespace
+## Create a Gateway
 
-First, create a new *Namespace*. Namespaces provide a mechanism for isolating groups of resources and can be managed by multiple users on a team.
+First, create a new *Gateway*. Gateways provide a mechanism for isolating groups of resources and can be managed by multiple users on a team.
 
 ``` linenums="0"
-gwa namespace create -g
+gwa gateway create -g
 ```
 
-`-g` generates a random, unique namespace which is displayed in response. Confirm this is the active namespace with:
+`-g` generates a random, unique namespace which is displayed in response. Confirm this is the active Gateway with:
 
 ``` linenums="0"
-gwa namespace current
+gwa gateway current
 ```
 
 ## Add a Dataset
@@ -134,7 +134,7 @@ gwa apply -i <product.yaml>
 
 ## Preview your API Listing
 
-Preview your new API listing by signing in to the [API Services Portal](https://api.gov.bc.ca/), opening the **API Directory** and clicking the **Your Products** tab. Confirm everything is as desired.
+Preview your new API listing by signing in to the [API Services Portal](https://api.gov.bc.ca/), opening the **API Directory**, and clicking the **Your Products** tab. Confirm everything is as desired.
 
 ## Add your Organization
 
@@ -146,6 +146,9 @@ An Organization Administrator will receive your request and should approve it or
 
 After receiving organization approval, the final step is to enable the Product environment(s).
 
-Enable environments by either updating the Product environment configuration YAML to `active: true`, or on the API Services Portal > **Product** page > **Edit** the environment details > check **Enable Environment**.
+Enable environments by either updating the Product environment configuration YAML to `active: true`, or navigate to the API Services Portal > **Gateway** > **Products** > **Edit** in the table > **Configure environment** > select **Enable Environment**.
+
+!!! note Enable Environment
+    The **Enable Environment** checkbox will be disabled if an Organization has not been added to the Gateway.
 
 Your API is now listed on the [API Directory](https://api.gov.bc.ca/devportal/api-directory).

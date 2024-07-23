@@ -9,10 +9,10 @@ A user's IP address is considered part of PII (Personally Identifiable Informati
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
   - name: gwa-ip-anonymity
-    tags: [ _NS_ ]
+    tags: [ ns.<gatewayId> ]
     enabled: true
     config:
       ipv4_mask: 0

@@ -2,7 +2,7 @@
 title: Plugins
 ---
 
-This article explains the basics of Plugins, and how they work to extend the functionality of your [Services](/concepts/services.md).
+This article explains the basics of Plugins, and how they work to extend the functionality of your [Gateway Services](/concepts/services.md).
 
 ## Purpose
 

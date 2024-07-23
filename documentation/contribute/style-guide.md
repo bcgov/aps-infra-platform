@@ -53,7 +53,7 @@ found in Tutorial and Explanation pages. Follow this alongside using UpperCamelC
 | Do | Don't |
 | -- | ----- |
 | *Products* bundle one or more GatewayServices. | "Products" bundle one or more GatewayServices. |
-| Namespaces must be associated with an *Organization*. | Namespaces must be associated with an **Organization**. |
+| Gateways must be associated with an *Organization*. | Gateways must be associated with an **Organization**. |
 
 ### Use code style (`monospace`) for filenames, directories, and paths
 
@@ -157,11 +157,11 @@ gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 
 | Notation | Description | Example use |
 | -------- | ----------- | ----------- |
-| `Text without brackets or braces` | Items you must type as shown. | `gwa namespace list` |
+| `Text without brackets or braces` | Items you must type as shown. | `gwa gateway list` |
 | `<Text inside angle brackets>` | Placeholder for which you must supply a value. | `gwa get <resource>` |
 | `[Text inside square brackets]` | Optional items. | `gwa status [flags]` |
-| `{Text inside braces}` | Set of required items. You must choose one. | `gwa config get {api_key\|host\|namespace}` |
-| Vertical bar (`\|`) | Separator for mutually exclusive items. You must choose one. | `gwa config get {api_key\|host\|namespace}` |
+| `{Text inside braces}` | Set of required items. You must choose one. | `gwa config get {api_key\|host\|gateway}` |
+| Vertical bar (`\|`) | Separator for mutually exclusive items. You must choose one. | `gwa config get {api_key\|host\|gateway}` |
 | Ellipsis (`...`) | Items that can be repeated and used multiple times. | `gwa publish-gateway <filename...>` |
 
 ### Use angle brackets for placeholders
@@ -172,7 +172,7 @@ Use meaningful variable names for the context.
 | Do | Don't |
 | -- | ----- |
 | `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` |
-| `tags: [ ns.<namespace> ]` | `tags: [ _NS_ ]` |
+| `tags: [ ns.<gatewayId> ]` | `tags: [ _NS_ ]` |
 | `gwa get <resource>` | `gwa get <foo>` |
 | `curl https://<MYSERVICE>.api.gov.bc.ca/headers` | `curl https://*MYSERVICE*.api.gov.bc.ca/headers` |
 

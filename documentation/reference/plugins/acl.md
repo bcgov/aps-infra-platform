@@ -11,10 +11,10 @@ Typically this is used when your Environment configuration uses the flow `kong-a
 ```
 services:
 - name: MY_REST_API
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   plugins:
   - name: acl
-    tags: [ _NS_ ]
+    tags: [ ns.<gatewayId> ]
     config:
       allow:
       - pir-dev

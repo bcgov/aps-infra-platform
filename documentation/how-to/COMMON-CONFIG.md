@@ -12,7 +12,7 @@ sidebar of this page.
 ```yaml
 plugins:
 - name: pre-function
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     access:
     - "kong.response.exit(307, 'site moved - redirecting...', {['Location'] = 'https://my-new-url.site'})"
@@ -23,7 +23,7 @@ plugins:
 ```yaml
 plugins:
 - name: request-termination
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     status_code: 400
     message: API not implemented yet!
@@ -34,7 +34,7 @@ plugins:
 ```yaml
 plugins:
 - name: response-transformer
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     add:
       headers:
@@ -56,7 +56,7 @@ This provides the most accurate because it uses a centralized Cache that all Kon
 ```yaml
 plugins:
 - name: rate-limiting
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     fault_tolerant: true
     hide_client_headers: false
@@ -76,7 +76,7 @@ This provides the fastest rate limiting option, with minimal latency (~1ms). The
 ```yaml
 plugins:
 - name: rate-limiting
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     policy: local
     fault_tolerant: true
@@ -92,9 +92,9 @@ plugins:
 
 ## Two-tiered access setup
 
-The `key-auth` and `jwt-keycloak` plugins support the concept of allowing "anonymous" access, which allows you to define a "free" service which might have limits around it (like only allowing 100 requests/minute), and then an "elevated" access where the Consumer would get an improved level of service, such as higher rate limits.
+The `key-auth` and `jwt-keycloak` plugins support the concept of allowing "anonymous" access, which allows you to define a "free" service which might have limits around it (like only allowing 100 requests/minute), in addition to an "elevated" access where the Consumer would get an improved level of service, such as higher rate limits.
 
-There is a global "anonymous" consumer that is identified as "ce26955a-cf08-4907-9427-12d01c8bd94c" in both our Test and Production environments.
+There is a global "anonymous" consumer that is identified as `ce26955a-cf08-4907-9427-12d01c8bd94c` in both our Test and Production environments.
 
 To enable anonymous access to your API, update your plugin configuration with:
 
@@ -102,7 +102,7 @@ To enable anonymous access to your API, update your plugin configuration with:
 
 ```yaml
 - name: key-auth
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     ...
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
@@ -112,7 +112,7 @@ To enable anonymous access to your API, update your plugin configuration with:
 
 ```yaml
 - name: jwt-keycloak
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     ...
     consumer_match: true
@@ -157,7 +157,7 @@ Finally, add the string to the plugin:
 ```yaml
 plugins:
 - name: pre-function
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     access:
     - "<OUTPUT FROM ABOVE>"
@@ -186,7 +186,7 @@ If this transformation is not desired, you can override it by including the foll
 ```yaml
 plugins:
 - name: post-function
-  tags: [ _NS_ ]
+  tags: [ns.<gatewayId>]
   config:
     rewrite:
     - "--"

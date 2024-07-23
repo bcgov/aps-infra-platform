@@ -5,10 +5,10 @@
 ```yaml
 services:
   - name: MY_REST_API
-    tags: [_NS_]
+    tags: [ns.<gatewayId>]
     plugins:
       - name: jwt-keycloak
-        tags: [_NS_]
+        tags: [ns.<gatewayId>]
         enabled: true
         config:
           allowed_iss:
@@ -57,7 +57,7 @@ An example configuration that uses RBAC and verification of User Tokens using th
 ```yaml
 services:
   - name: MY_REST_API
-    tags: [_NS_]
+    tags: [ns.<gatewayId>]
 
     routes:
       - name: MY_REST_API_READS
@@ -66,7 +66,7 @@ services:
         paths: [/]
         plugins:
           - name: jwt-keycloak
-            tags: [_NS_]
+            tags: [ns.<gatewayId>]
             enabled: true
             config:
               allowed_iss:
@@ -82,7 +82,7 @@ services:
         paths: [/]
         plugins:
           - name: jwt-keycloak
-            tags: [_NS_]
+            tags: [ns.<gatewayId>]
             enabled: true
             config:
               allowed_iss:
