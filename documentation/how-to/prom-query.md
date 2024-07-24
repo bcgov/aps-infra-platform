@@ -4,7 +4,9 @@ title: "Query Kong Metrics"
 
 ## Overview
 
-Using a service account generated within your Gateway, you can send Prometheus queries to retrieve Kong metrics. Some examples will be provided, but any [PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/) query can be sent.
+Using a service account generated within your Gateway, you can send Prometheus queries to retrieve Kong metrics. 
+Some examples will be provided, but any [PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/) 
+query can be sent.
 
 ## Prerequisites
 
@@ -20,9 +22,9 @@ Generate an access token with your Service Account. Use the token to send PromQL
 curl -v -H "Authorization: Bearer <access-token>" "<prom-query-url>/api/v1/<query>"
 ```
 
-## Detailed Instructions
+## Detailed instructions
 
-### Getting an Access Token
+### Getting an access token
 
 Using your Service Account credentials, generate an access token:
 
@@ -42,7 +44,7 @@ Copy and save the access token:
 export TOK=my-copied-access-token
 ```
 
-### Running Queries
+### Running queries
 
 Once you have an access token, you can run queries using:
 
@@ -50,7 +52,7 @@ Once you have an access token, you can run queries using:
 curl -v -H "Authorization: Bearer $TOK" "<prom-query-url>/api/v1/<query>"
 ```
 
-## Example Queries
+## Example queries
 
 Reminder that if you wish to modify the PromQL queries, it should be URL encoded before sending the request.
 
@@ -87,7 +89,7 @@ export STEP=300 # Number of seconds the query steps before evaluating. Eg: evalu
 curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
 ```
 
-### Rate per Second per route/service by Status Code
+### Rate per second per route/service by status code
 
 ```sh
 # Raw PromQL Query:
@@ -105,9 +107,9 @@ export QUERY=sum%28rate%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D
 export QUERY=sum%28increase%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%7D%5B5m%5D%29%29%20by%20%28service%2Ccode%29%20%21%3D%200
 ```
 
-### Request time per Service
+### Request time per service
 
-**Raw PromQL Query:**
+**Raw PromQL query:**
 
 ```sh
 # Raw PromQL Query:
@@ -117,7 +119,7 @@ export QUANTILE=0.95
 export QUERY=histogram_quantile%280.95%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Cle%29%29
 ```
 
-### Total Non-200 requests per second by route, code
+### Total non-200 requests per second by route, code
 
 ```sh
 # Raw PromQL Query:
@@ -147,7 +149,7 @@ Check out the [Prometheus querying documentation](https://prometheus.io/docs/pro
 
 [This video](https://youtu.be/hvACEDjHQZE) is also a good introduction.
 
-## Grafana and Additional Queries
+## Grafana and additional queries
 
 The panels in the [Grafana dashboards](/how-to/monitoring.md) available to
 API Providers make use of PromQL data sources. Here a few of the metrics seen on

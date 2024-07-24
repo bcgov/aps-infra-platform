@@ -1,5 +1,5 @@
 ---
-title: Create a Service
+title: Create a Gateway Service
 ---
 
 <!-- overview -->
@@ -28,7 +28,7 @@ that can be added to Kong to add new features or alter the behavior of existing 
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Gateway](/reference/gwa-commands.md#namespacecreate)
+- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
 
 ## Define service configuration
 
@@ -178,7 +178,7 @@ substituting a unique service subdomain for your API which will be part of your 
     You can opt to either maintain your OpenAPI spec and execute the steps above when
     necessary, or convert your OpenAPI spec once and maintain the generated Kong configuration.
 
-## Verify Routes
+## Verify routes
 
 To verify that the Gateway can access the upstream services, run the command `gwa status`.
 

@@ -10,9 +10,9 @@ This guide walks through the steps to protect your Application using Keycloak SS
 
 Go to the Common Hosted SSO (CSS) site (https://bcgov.github.io/sso-requests) and request a new confidential client.
 
-After the client has been provisioned, you can go to the Role Management tab to configure the Roles you want to use to protect resources in your Application.
+After the client has been provisioned, you can go to the **Role Management** tab to configure the Roles you want to use to protect resources in your Application.
 
-The `Assign Users to Roles` can be used to administer User permissions.
+The **Assign Users to Roles** action can be used to administer User permissions.
 
 ## 2. Configure the APS Kong Gateway
 
@@ -26,7 +26,7 @@ The `Assign Users to Roles` can be used to administer User permissions.
 
 To protect your application, there are two plugins that need to be configured: `oidc` and `acl`.
 
-**oidc**
+**`oidc`**
 
 > Update `discovery` if you are using SSO other than `dev` or if using a non-standard realm
 
@@ -102,7 +102,7 @@ An example to get `idir_username` and `email` passed, would be:
   header_names: [ X-Idir-Username, X-User-Email ]
 ```
 
-**acl**
+**`acl`**
 
 The `acl` plugin will enforce that the user's `client_roles` includes the roles defined in the `allow` list.
 
@@ -134,7 +134,7 @@ If your upstream service is stateless, then you can remove the cookie before the
               - Cookie
 ```
 
-## Outcome
+## Outcomes
 
 - Vanity url: `my-application.apps.gov.bc.ca`
 - Protected by SSL `*.apps.gov.bc.ca` certificate

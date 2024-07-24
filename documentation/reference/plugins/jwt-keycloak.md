@@ -5,10 +5,10 @@
 ```yaml
 services:
   - name: MY_REST_API
-    tags: [ns.<gatewayId>]
+    tags: [ ns.<gatewayId> ]
     plugins:
       - name: jwt-keycloak
-        tags: [ns.<gatewayId>]
+        tags: [ ns.<gatewayId> ]
         enabled: true
         config:
           allowed_iss:
@@ -50,14 +50,17 @@ services:
 
 ## Multiple Issuers
 
-When you have an API that is consumed by your own frontend and potentially by some internal processes, and you would also like to give limited access to the API to external parties, such as other Ministry services, then you can use the API Gateway to protect the API.
+When you have an API that is consumed by your own frontend and potentially by some internal processes, and you would
+also like to give limited access to the API to external parties, such as other Ministry services, then you can use the
+API Gateway to protect the API.
 
-An example configuration that uses RBAC and verification of User Tokens using the SSO Standard Realm and Service Account Tokens using APS's Shared IdP:
+An example configuration that uses RBAC and verification of User Tokens using the SSO Standard Realm and Service Account
+Tokens using APS's Shared IdP:
 
 ```yaml
 services:
   - name: MY_REST_API
-    tags: [ns.<gatewayId>]
+    tags: [ ns.<gatewayId> ]
 
     routes:
       - name: MY_REST_API_READS
@@ -66,7 +69,7 @@ services:
         paths: [/]
         plugins:
           - name: jwt-keycloak
-            tags: [ns.<gatewayId>]
+            tags: [ ns.<gatewayId> ]
             enabled: true
             config:
               allowed_iss:
@@ -82,7 +85,7 @@ services:
         paths: [/]
         plugins:
           - name: jwt-keycloak
-            tags: [ns.<gatewayId>]
+            tags: [ ns.<gatewayId> ]
             enabled: true
             config:
               allowed_iss:

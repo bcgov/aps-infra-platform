@@ -6,7 +6,7 @@ title: "Signed JWT w/ Hosted JWKS"
 
 The following example uses NodeJS code to show how to prepare for signed JWT authentication to an API on the BC Government API Gateway.
 
-## 1. Generate a Certificate Key Pair
+## 1. Generate a Certificate Key pair
 
 ```
 npm install --save node-jose ms
@@ -52,9 +52,11 @@ For testing, an easy option is to use Github Pages and publish the JWKS JSON fil
 https://ikethecoder.github.io/temp-place/certs.json
 ```
 
-## 3. Request Access to an API
+## 3. Request access to an API
 
-Go to the API Services Portal and request access to an API that is configured with the Signed JWT protection. After selecting the environment, you will be prompted to provide a "JWKS URL", which will be the URL of the JWKS file that you published in step 2. After requesting access, you will be provided with some secrets.
+Go to the API Services Portal and request access to an API that is configured with the Signed JWT protection. After
+selecting the environment, you will be prompted to provide a "JWKS URL", which will be the URL of the JWKS file that you
+published in step 2. After requesting access, you will be provided with some secrets.
 
 Make a note of the `Client ID`, `Issuer` and `Token Endpoint`.
 
@@ -64,9 +66,9 @@ export ISS=""
 export TURL=""
 ```
 
-## 4. Request a Client JWT Token
+## 4. Request a Client JWT token
 
-Requesting a Client JWT Token is a two-step process:
+Requesting a Client JWT token is a two-step process:
 
 a) Build a Client Assertion Token that is signed with the private key you generated earlier.
 

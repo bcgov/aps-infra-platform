@@ -26,7 +26,7 @@ Some common types of Kong plugins include:
 
 If you would like to dive deeper or start using plugins on your gateway services, check out the following resources:
 
-How-to guides
+How-to Guides
 
 - [Common Controls](how-to/COMMON-CONFIG.md)
 
@@ -34,7 +34,7 @@ Reference
 
 - [Supported Plugins](/reference/plugins/AVAILABLE-PLUGINS.md)
 
-External resources
+External Resources
 
 - [Kong: Plugins](https://docs.konghq.com/gateway/latest/key-concepts/plugins/)
 

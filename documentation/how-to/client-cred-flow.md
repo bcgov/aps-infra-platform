@@ -4,7 +4,7 @@ title: Client Credential Protection
 
 This page shows how to protect and call an API using the OAuth2 Client Credential flow.
 
-Here is overview of the process (numbers reference steps in the table of contents):
+Here is an overview of the process (numbers reference steps in the table of contents):
 
 ![Client Credential flow](/artifacts/oauth2.png "Client Credential flow")
 
@@ -16,12 +16,12 @@ Here is overview of the process (numbers reference steps in the table of content
 - [Share an API in the API Directory](/how-to/api-discovery.md)
 - [Create a Service Account](/how-to/generate-service-account.md) (optional)
 
-## 1. Configure a Service on the Gateway
+## 1. Configure a service on the Gateway
 
 Complete the steps listed above in **Before you begin**. This includes
 setting up an unprotected Gateway Service pointing to your service.
 
-## 2. Grant Access to the Identity Provider
+## 2. Grant access to the identity provider
 
 This step varies depending on your identity provider (IdP).
 If you're unsure which path to follow, use the shared IdP pattern.
@@ -183,7 +183,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
     > `resourceAccessScope` - The API Services Portal has not completed the implementation for the scenario where the User is the Resource Owner (`resourceAccessScope` is left blank). It uses the `Token Exchange` capability but it's an optional service available on Keycloak and has numerous caveats around it. Please contact the APS team if interested to know more.
 
-## 3. Request Access (API Consumer)
+## 3. Request access (API Consumer)
 
 At this point the API is protected with a Client Credential grant. The next
 steps show how to validate the flow.
@@ -195,7 +195,7 @@ The Portal will use the credentials setup in the Authorization Profile to
 create a disabled Client on the IdP (with any applicable Client Mappers) and
 return the credentials to the Requesting user.
 
-## 4. Approve Access (API Provider)
+## 4. Approve access (API Provider)
 
 An Access Manager reviews the access request, sets any additional controls,
 grants the relevant permissions (such as scopes and roles), and approves. The
@@ -204,7 +204,7 @@ Portal will enable the Client and apply the permissions on the IdP.
 The Portal sends a notification to the Requester letting them know that API
 Access has been approved (or rejected).
 
-## 5. Retrieve the Access Token (Client)
+## 5. Retrieve the access token (Client)
 
 Using the Credentials generated in step 3, the Requester calls the Token
 endpoint to get a new JWT token.
@@ -237,7 +237,7 @@ The API Gateway's `jwt-keycloak` plugin will use the IdP's public keys to
 validate the token and depending on the plugin configuration, validate the
 scopes or roles.
 
-## 7. Gateway Proxying to Upstream
+## 7. Gateway proxying to upstream
 
 A technical, but important step in the integration is the Gateway proxying the
 request to the Upstream Service API and deciding on the different options for

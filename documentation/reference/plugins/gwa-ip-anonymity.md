@@ -1,8 +1,9 @@
 # GWA IP Anonymity
 
-## Use Cases
+## Use cases
 
-A user's IP address is considered part of PII (Personally Identifiable Information). This is a custom plugin that was created to mask the last segment of the IP address before it is sent to the Upstream Service.
+A user's IP address is considered part of PII (Personally Identifiable Information). This is a custom plugin that was
+created to mask the last segment of the IP address before it is sent to the Upstream Service.
 
 ## Example
 

@@ -7,10 +7,10 @@ Reference: https://docs.konghq.com/hub/kong-inc/proxy-cache/
 ```yaml
 services:
   - name: MY_REST_API
-    tags: [ns.<gatewayId>]
+    tags: [ ns.<gatewayId> ]
     plugins:
       - name: proxy-cache
-        tags: [ns.<gatewayId>]
+        tags: [ ns.<gatewayId> ]
         config:
           response_code:
             - 200

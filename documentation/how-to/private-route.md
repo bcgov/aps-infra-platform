@@ -40,7 +40,7 @@ An example Gateway Service configuration for an upstream API deployed in the Sil
 services:
   - name: <MY-SERVICE>
     host: httpbin.org
-    tags: [ns.<gatewayId>]
+    tags: [ ns.<gatewayId >]
     port: 443
     protocol: https
     retries: 0

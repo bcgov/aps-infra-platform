@@ -2,7 +2,7 @@
 title: Protect an API
 ---
 
-This article explains the basics of adding protection to your GatewayService, and how it works in
+This article explains the basics of adding protection to your Gateway Service, and how it works in
 conjunction with supported plugins.
 
 Protecting your API is crucial for several reasons:

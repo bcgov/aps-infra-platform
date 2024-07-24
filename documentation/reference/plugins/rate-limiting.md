@@ -31,4 +31,5 @@ services:
 
 If you want to apply 2 global rate limits, you can use the plugin: `rate-limiting_902`.
 
-For example, one control with `limit_by = service` that provides an umbrella max requests per minute and another control with `limit_by = credential` that ensures each authenticated user plays nice.
+For example, one control with `limit_by = service` that provides an umbrella max requests per minute and another control
+with `limit_by = credential` that ensures each authenticated user plays nice.

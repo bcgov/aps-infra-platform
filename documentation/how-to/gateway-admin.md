@@ -2,7 +2,7 @@
 title: Manage Team Access
 ---
 
-## Grant Access to Other Users
+## Grant access to other users
 
 To grant access to other members of your team, you need to grant them the appropriate Scopes. You can do this from the **API Services Portal** by selecting the relevant **Gateway** and selecting **Administration Access** page from the Actions list. From there, you can grant users access to the Gateway.
 
@@ -28,7 +28,7 @@ Service Accounts are credentials that can be used to access the APS Directory an
 
 > NOTE: Make sure to save the generated Client ID and Secret as they will not be retrievable once the dialog is closed.
 
-## Available Permissions
+## Available permissions
 
 The following list describes the permissions:
 

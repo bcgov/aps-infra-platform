@@ -4,11 +4,13 @@ title: "Share an Externally Protected API"
 
 # Share an Externally Protected API
 
-This page shows how to share externally protected APIs on the API Directory, without setting up any Gateway Services in the API Services Portal. 
+This page shows how to share externally protected APIs on the API Directory, without setting up any Gateway Services in
+the API Services Portal. 
 
 ## Before you begin
 
-You need to have the `gwa` command line interface (CLI) installed. Download it from [GitHub](https://github.com/bcgov/gwa-cli/releases) and add to `PATH` for the session.
+You need to have the `gwa` command line interface (CLI) installed. Download it from
+[GitHub](https://github.com/bcgov/gwa-cli/releases) and add to `PATH` for the session.
 
 On Linux, run this command to get set up:
 
@@ -26,11 +28,13 @@ gwa config set host api.gov.bc.ca
 gwa login
 ```
 
-Alternatively run `gwa config set host api-gov-bc-ca.test.api.gov.bc.ca` to work on the Test/Training instance of the API Services Portal. 
+Alternatively run `gwa config set host api-gov-bc-ca.test.api.gov.bc.ca` to work on the Test/Training instance of the
+API Services Portal. 
 
 ## Create a Gateway
 
-First, create a new *Gateway*. Gateways provide a mechanism for isolating groups of resources and can be managed by multiple users on a team.
+First, create a new *Gateway*. Gateways provide a mechanism for isolating groups of resources and can be managed by
+multiple users on a team.
 
 ``` linenums="0"
 gwa gateway create -g
@@ -44,9 +48,11 @@ gwa gateway current
 
 ## Add a Dataset
 
-Now, add a *Dataset* with metadata about the API to display in the API Directory. This information helps consumers find your API in the Directory. Typically, each Dataset would describe one API.
+Now, add a *Dataset* with metadata about the API to display in the API Directory. This information helps consumers find
+your API in the Directory. Typically, each Dataset would describe one API.
 
-If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to [Add a Product](#create-a-product).
+If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/), skip ahead to 
+[Add a Product](#create-a-product).
 
 Start by writing up a DraftDataset in a local YAML file. Here is the schema, omitting some optional fields:
 
@@ -132,21 +138,26 @@ Then publish the product:
 gwa apply -i <product.yaml>
 ```
 
-## Preview your API Listing
+## Preview your API listing
 
-Preview your new API listing by signing in to the [API Services Portal](https://api.gov.bc.ca/), opening the **API Directory**, and clicking the **Your Products** tab. Confirm everything is as desired.
+Preview your new API listing by signing in to the [API Services Portal](https://api.gov.bc.ca/), opening the 
+**API Directory**, and clicking the **Your Products** tab. Confirm everything is as desired.
 
 ## Add your Organization
 
-On top of the API Directory, you will see a banner notification stating "Your APIs are in preview mode." To make your APIs publicly visible in the Directory, select **Add Organization** and follow the instructions in the dialogue.
+On top of the API Directory, you will see a banner notification stating "Your APIs are in preview mode." To make your
+APIs publicly visible in the Directory, select **Add Organization** and follow the instructions in the dialogue.
 
-An Organization Administrator will receive your request and should approve it or follow up for more information within 2 business days. At this time, there is no approval notification.
+An Organization Administrator will receive your request and should approve it or follow up for more information within 2
+business days. At this time, there is no approval notification.
 
 ## Enable Product environments
 
 After receiving organization approval, the final step is to enable the Product environment(s).
 
-Enable environments by either updating the Product environment configuration YAML to `active: true`, or navigate to the API Services Portal > **Gateway** > **Products** > **Edit** in the table > **Configure environment** > select **Enable Environment**.
+Enable environments by either updating the Product environment configuration YAML to `active: true`, or navigate to the
+API Services Portal > **Gateway** > **Products** > **Edit** in the table > **Configure environment** > select **Enable
+Environment**.
 
 !!! note Enable Environment
     The **Enable Environment** checkbox will be disabled if an Organization has not been added to the Gateway.

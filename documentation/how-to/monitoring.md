@@ -2,7 +2,7 @@
 title: Monitor your Services
 ---
 
-## View Metrics
+## View metrics
 
 You can view the following metrics in real-time for the Services that you configure on the Gateway:
 
@@ -11,7 +11,7 @@ You can view the following metrics in real-time for the Services that you config
 - **Bandwidth**: Ingress/egress bandwidth (by Service/Route)
 - **Total Requests**: In 5 minute windows (by Consumer, by User Agent, by Service, by HTTP Status)
 
-All metrics can be viewed by an arbitrary time window; default is `Last 24 Hours`.
+All metrics can be viewed by an arbitrary time window; default is **Last 24 Hours**.
 
 Go to `Grafana` to view metrics for your configured services.
 
@@ -23,4 +23,4 @@ Go to `Grafana` to view metrics for your configured services.
 You can also access summarized metrics from the API Services Portal by going to the **Gateways** tab, selecting the desired **Gateway**, clicking **Gateway Services**, and expanding the accordion of the Service in **7 Day Metrics**.
 
 !!! note Grafana access
-    A shortcut to Grafana is provided from the `Gateway Services` page by clicking `View metrics in real-time`.
+    A shortcut to Grafana is provided from the **Gateway Services** page by clicking **View metrics in real-time**.

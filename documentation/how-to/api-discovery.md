@@ -132,12 +132,12 @@ Now it's time to publish the Dataset:
 
 === "CLI"
     1. Login - `gwa login`
-    2. Set the namespace - `gwa config set gateway <gatewayId>`
+    2. Set the Gateway - `gwa config set gateway <gatewayId>`
     3. Publish the DraftDataset - `gwa apply -i <draft-dataset.yaml>`
 
     You should see `✔ [DraftDataset] <dataset-name>: created`
 
-## Link Your Dataset to a Product
+## Link your Dataset to a Product
 
 It's time to create a Product, which describes the type of protection on the
 API. Products are used to bundle Gateway Services and manage consumer access.
@@ -190,14 +190,14 @@ the descriptive metadata in the Dataset:
     !!! warning
         Search is exact. Be mindful of spaces and upper vs lowercase.
 
-## Preview Your API Listing
+## Preview your API listing
 
 Preview your new listing by signing in to the [API Services Portal](https://api.gov.bc.ca/), opening the **API Directory**, and clicking the
 **Your Products** tab. Confirm everything is as desired.
 
 ![New API card](/artifacts/new-api-directory-card.png)
 
-## Enabling for Discovery
+## Enabling for discovery
 
 Once the content is complete and you have applied the appropriate controls to
 your API, you are ready to make it available on the API Directory.
@@ -220,7 +220,7 @@ in the table > **Configure environment** > select **Enable Environment**.
 !!! note Enable Environment
     The **Enable Environment** checkbox will be disabled if an Organization has not been added to the Gateway.
 
-## View Your Product in the API Directory
+## View your Product in the API Directory
 
 Find your API in the **API Directory**.
 
