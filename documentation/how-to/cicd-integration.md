@@ -2,17 +2,20 @@
 title: "Add to a CI/CD Pipeline"
 ---
 
-Update your CI/CD pipelines to run the `gwa-cli` to keep your services updated on the Gateway.
+Update your CI/CD pipelines to run the `gwa-cli` to keep your services updated
+on the Gateway.
 
-**Github Actions Example**
+## Github Actions Example
 
-In the repository where you maintain your CI/CD Pipeline configuration, use the Service Account details from `Section 2` to set up two `Secrets`:
+In the repository where you maintain your CI/CD Pipeline configuration, use the
+Service Account details from `Section 2` to set up two `Secrets`:
 
 - GWA_ACCT_ID
 
 - GWA_ACCT_SECRET
 
-Add a `.gwa` folder (can be called anything) that will be used to hold your gateway configuration.
+Add a `.gwa` folder (can be called anything) that will be used to hold your
+gateway configuration.
 
 Github Workflow example:
 

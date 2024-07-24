@@ -12,7 +12,8 @@ discovery by developers and other API consumers, across BC Government and beyond
 - [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
-  - API Providers with externally protected APIs should follow [this guide](/how-to/protected-externally.md) instead
+  - API Providers with externally protected APIs should follow [this guide](/how-to/protected-externally.md)
+  instead
 - [Protect an API](/concepts/protect-api.md) (optional)
 
 You should also be familiar with these Concepts:
@@ -24,10 +25,12 @@ You should also be familiar with these Concepts:
 API listings in the Directory can be created and managed via:
 
 - ⭐ **Command Line Interface (CLI)**
-- **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/) and login as an API Provider.
+- **Web user interface (UI)**: Visit the [API Services Portal](https://api.gov.bc.ca/)
+and login as an API Provider.
 
 !!! warning "Web UI limitations"
-    At this time, not all steps required to create an API listing are possible through the web UI. Using the CLI is recommended.
+    At this time, not all steps required to create an API listing are possible
+    through the web UI. Using the CLI is recommended.
 
 ## Environments
 
@@ -39,8 +42,8 @@ Directory.
 
 | Environment     | API Services Portal Directory Link                               |
 | --------------- | ---------------------------------------------------------------- |
-| TEST / TRAINING | https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory |
-| PRODUCTION      | https://api.gov.bc.ca/devportal/api-directory                    |
+| TEST / TRAINING | <https://api-gov-bc-ca.test.api.gov.bc.ca/devportal/api-directory> |
+| PRODUCTION      | <https://api.gov.bc.ca/devportal/api-directory>                    |
 
 If using the `test` environment, set the host before logging in with `gwa`:
 
@@ -61,6 +64,7 @@ CLI.
 Here is the schema with example data, omitting some optional fields:
 
 === "YAML Template"
+
     ```yaml
     kind: DraftDataset
     name: dataset-name
@@ -76,21 +80,30 @@ Here is the schema with example data, omitting some optional fields:
     ```
 
 === "YAML Template (w/ field descriptions)"
+
     ```yaml
     kind: DraftDataset # object type for gwa-cli use
     name: dataset-name # unique dataset name, not displayed
     title: Useful API # API title shown on the Directory
     notes: A handy API with *many* uses. # API description, supports Markdown formatting
     tags: [useful, data, openapi] # keywords, may be used for search in future
-    organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the namespace
-    organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
-    license_title: Open Government Licence - British Columbia # see https://bcgov.github.io/data-publication/pages/dps_licences.html for licensing options
+    organization: ministry-of-citizens-services # ministry or agency associated
+    with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options)
+    - this must match the organization associated with the namespace
+    organizationUnit: databc # organization business sub-unit (see
+    https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
+    license_title: Open Government Licence - British Columbia # see
+    https://bcgov.github.io/data-publication/pages/dps_licences.html for
+    licensing options
     view_audience: Government # who can access the API
-    security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
+    security_class: PUBLIC # OCIO Information Security Classification Standard,
+    see
+    https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
     record_publish_date: "2021-05-27" # date when the API was published
     ```
 
 === "JSON Template"
+
     ```json
     {
     "name": "dataset-name",
@@ -115,17 +128,20 @@ code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules
 for up-to-date data rules for DraftDatasets.
 
 !!! note "Link to your API"
-    In the `notes` field, be sure to add a link to your API to allow interested consumers to find out more.
-    Specifically, ensure there are links to the API specification and developer guide. 
+    In the `notes` field, be sure to add a link to your API to allow interested
+    consumers to find out more.
+    Specifically, ensure there are links to the API specification and developer
+    guide.
     Use Markdown for formatting.
     For example:
 
     ```md
     notes: |
-      Useful API is a versatile toolset for developers, offering a comprehensive suite of functions 
-      and endpoints to streamline application development.
+      Useful API is a versatile toolset for developers, offering a comprehensive
+      suite of functions and endpoints to streamline application development.
 
-      Visit the [Useful API page](https://api.useful.com) to view the API spec and read the developer guide.
+      Visit the [Useful API page](https://api.useful.com) to view the API spec 
+      and read the developer guide.
     ```
 
 Now it's time to publish the Dataset:
@@ -142,9 +158,8 @@ Now it's time to publish the Dataset:
 It's time to create a Product, which describes the type of protection on the
 API. Products are used to bundle Gateway Services and manage consumer access.
 
-If you've already worked through the [Quick Start
-tutorial](/tutorials/quick-start.md) or set up a Gateway Service, you may already
-have a Product.
+If you've already worked through the [Quick Start tutorial](/tutorials/quick-start.md)
+or set up a Gateway Service, you may already have a Product.
 
 Follow these steps to create a Product (if necessary) and link the Product with
 the descriptive metadata in the Dataset:
@@ -152,7 +167,6 @@ the descriptive metadata in the Dataset:
 === "CLI"
     1. Create a Product configuration using the YAML template below
       (or modify an existing configuration).
-      
       Specify your Dataset by `name` in the configuration: `dataset: <dataset-name>`.
 
       If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/),
@@ -170,12 +184,12 @@ the descriptive metadata in the Dataset:
       ```
     
     2. Publish the Product: `gwa apply -i <product.yaml>`
-    
 
 === "Web UI"
     #### Create a Product
 
-    1. Navigate to **Gateways**, select your **Gateway** from the list, then click the **Products** card.
+    1. Navigate to **Gateways**, select your **Gateway** from the list, then 
+    click the **Products** card.
     2. Click **New Product** in the top right.
    
     #### Link a BC Data Catalogue Dataset
@@ -183,8 +197,10 @@ the descriptive metadata in the Dataset:
     Once you have a Product, associate the Product with a Dataset:
 
     1. Select your **Gateway** and navigate to **Products**.
-    2. Click the Actions ellipsis (**...**) next to **Add Env** and select **Edit Product**.
-    3. In the **Link to BC Data Catalogue** text field, enter the `title` of your newly created or existing BCDC dataset.
+    2. Click the Actions ellipsis (**...**) next to **Add Env** and select 
+    **Edit Product**.
+    3. In the **Link to BC Data Catalogue** text field, enter the `title` of 
+    your newly created or existing BCDC dataset.
     4. Click **Update**.
       
     !!! warning
@@ -192,8 +208,9 @@ the descriptive metadata in the Dataset:
 
 ## Preview your API listing
 
-Preview your new listing by signing in to the [API Services Portal](https://api.gov.bc.ca/), opening the **API Directory**, and clicking the
-**Your Products** tab. Confirm everything is as desired.
+Preview your new listing by signing in to the [API Services Portal](https://api.gov.bc.ca/)
+, opening the **API Directory**, and clicking the **Your Products** tab. Confirm
+everything is as desired.
 
 ![New API card](/artifacts/new-api-directory-card.png)
 
@@ -214,11 +231,13 @@ Enable an environment to display the API in the API Directory. You can
 individually enable each environment (`dev`, `test`, `prod`).
 
 Enable environments by either updating the Product Environment configuration
-YAML to `active: true`, or on the API Services Portal > **Gateway** > **Products** > **Edit**
-in the table > **Configure environment** > select **Enable Environment**.
+YAML to `active: true`, or on the API Services Portal > **Gateway** >
+**Products** > **Edit** in the table > **Configure environment** > select
+**Enable Environment**.
 
 !!! note Enable Environment
-    The **Enable Environment** checkbox will be disabled if an Organization has not been added to the Gateway.
+    The **Enable Environment** checkbox will be disabled if an Organization has
+    not been added to the Gateway.
 
 ## View your Product in the API Directory
 
