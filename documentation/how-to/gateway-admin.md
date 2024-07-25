@@ -4,33 +4,44 @@ title: Manage Team Access
 
 ## Grant access to other users
 
-To grant access to other members of your team, you need to grant them the appropriate Scopes. You can do this from the **API Services Portal** by selecting the relevant **Gateway** and selecting **Administration Access** page from the Actions list. From there, you can grant users access to the Gateway.
+To grant access to other members of your team, you need to grant them the
+appropriate Scopes. You can do this from the API Services Portal by navigating
+to **Gateways**, clicking the relevant **Gateway**, and selecting
+**Administration Access** from the Actions list. From there, you can grant users
+access to the Gateway.
 
 !!! note
-    Users must sign in to the API Services Portal at least once before you can grant them access to a Gateway.
+    Users must sign in to the API Services Portal at least once before you can
+    grant them access to a Gateway.
 
 | Environment     | API Services Portal Link                 |
 | --------------- | ---------------------------------------- |
-| TEST / TRAINING | https://api-gov-bc-ca.test.api.gov.bc.ca |
-| PRODUCTION      | https://api.gov.bc.ca                    |
+| TEST / TRAINING | <https://api-gov-bc-ca.test.api.gov.bc.ca> |
+| PRODUCTION      | <https://api.gov.bc.ca>                    |
 
 ## Using Service Accounts
 
-Service Accounts are credentials that can be used to access the APS Directory and Gateway APIs.
+Service Accounts are credentials that can be used to access the APS Directory
+and Gateway APIs.
 
 ### Generate a Service Account
 
-1. Login to the API Services Portal, select your Gateway, and navigate to the **Gateway** details.
+1. Login to the API Services Portal, navigate to **Gateways**, and select the
+   relevant **Gateway**.
 
-2. Select **Service Accounts**, then click **Create New Service Account**.
+2. Select **Service Accounts** from the Actions list, then click **Create New
+   Service Account**.
 
-3. Select the **GatewayConfig.Publish** checkbox for the Service Account and click `Share`. A new credential will be created - make a note of the `Client ID` and `Client Secret`.
+3. Select the **GatewayConfig.Publish** checkbox for the Service Account and
+   click **Share**. A new credential will be created. Make a note of the `Client
+   ID` and `Client Secret`.
 
-> NOTE: Make sure to save the generated Client ID and Secret as they will not be retrievable once the dialog is closed.
+> Make sure to save the Client ID and Secret as they will not be
+> retrievable once the dialog is closed.
 
 ## Available permissions
 
-The following list describes the permissions:
+The following list describes the access permissions:
 
 | Scope                    | Permission                                                                                                                                                                               |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -43,47 +54,61 @@ The following list describes the permissions:
 
 ## About the Admin APIs
 
+! note
+    The Admin APIs are used internally by the CLI and API Services Portal
+    to manage Gateway settings and operations. They provide endpoints to
+    configure Services, Products, and access control.
+
 ### Directory API
 
 | Environment     | Directory API Swagger Console Link                                                                 |
 | --------------- | -------------------------------------------------------------------------------------------------- |
-| TEST / TRAINING | https://openapi.apps.gov.bc.ca?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/openapi.yaml |
-| PRODUCTION      | https://openapi.apps.gov.bc.ca?url=https://api.gov.bc.ca/ds/api/v2/openapi.yaml                    |
+| TEST / TRAINING | <https://openapi.apps.gov.bc.ca?url=https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v2/openapi.yaml> |
+| PRODUCTION      | <https://openapi.apps.gov.bc.ca?url=https://api.gov.bc.ca/ds/api/v2/openapi.yaml>                    |
 
 ### Kong Gateway API
 
 | Environment     | Kong Gateway API Swagger Console Link                                                                |
 | --------------- | ---------------------------------------------------------------------------------------------------- |
-| TEST / TRAINING | https://openapi.apps.gov.bc.ca?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml |
-| PRODUCTION      | https://openapi.apps.gov.bc.ca?url=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml                    |
+| TEST / TRAINING | <https://openapi.apps.gov.bc.ca?url=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml> |
+| PRODUCTION      | <https://openapi.apps.gov.bc.ca?url=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml>                    |
 
 #### Swagger Console
 
-Go to the `gwa-api` **Swagger Console** and select the `PUT` `/gateways/{gw}/gateway` API.
+Go to the `gwa-api` **Swagger Console** and navigate to the `PUT` `/gateways/{gw}/gateway`
+API.
 
-The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the **Lock** action on the right and enter the Service Account credentials generated in Section 2.
+The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the
+**Lock** action on the right and enter the Service Account credentials obtained
+from [Generate a Service Account](/how-to/gateway-admin.md/#generate-a-service-account).
 
-For the **Parameter Gateway**, enter the Gateway you created in Section 1.
+Close the modal dialog and click **Try it out**.
 
-Set `dryRun` to `true`.
+Under **Parameters**, provide the **Gateway**.
+
+Set **dryRun** to `true`.
 
 Select a `configFile` file.
 
-Send the request.
+Click **Execute** to send the request.
 
 #### Postman
 
-From the Postman App, click **Import**. Go to the **Link** tab and enter one of the below URLs.
+From the Postman App, click **Import**. Go to the **Link** tab and enter one of
+the below URLs.
 
 | Environment     | Kong Gateway API Postman URL                                                                                  |
 | --------------- | ------------------------------------------------------------------------------------------------------------- |
-| TEST / TRAINING | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore} |
-| PRODUCTION      | https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}                    |
+| TEST / TRAINING | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}> |
+| PRODUCTION      | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}>                    |
 
-After creation, go to **Collections** and right-click on the **Gateway Administration (GWA) API** collection and select **Edit**.
+After creation, go to **Collections** and right-click on the
+**Gateway Administration API** collection and select **Edit**.
 
-Go to the **Authorization** tab, enter your `<Client ID>` and `<Client Secret>`, and click **Get New Access Token**.
+Go to the **Authorization** tab, enter your `<Client ID>` and `<Client Secret>`,
+and click **Get New Access Token**.
 
 You should get a successful dialog to proceed. Click **Proceed** and **Use Token**.
 
-You can verify that the token works by going to the Collection **Return key information about authenticated identity** and clicking **Send**.
+You can verify that the token works by going to the Collection
+**Return key information about authenticated identity** and clicking **Send**.

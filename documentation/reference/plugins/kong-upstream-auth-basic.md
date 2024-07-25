@@ -1,10 +1,10 @@
 # Kong Upstream Auth Basic
 
-Reference: https://docs.konghq.com/hub/revolution_systems/upstream-auth-basic/
+Reference: <https://docs.konghq.com/hub/revolution_systems/upstream-auth-basic/>
 
 ## Example
 
-```
+```yaml
 services:
 - name: MY_REST_API
   tags: [ ns.<gatewayId> ]

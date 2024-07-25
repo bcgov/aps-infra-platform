@@ -1,8 +1,9 @@
 # Waiting Queue
 
-This uses the cloned plugin: `jwt-keycloak_1010`.
+## Use case
 
-It is to support Waiting Queue solutions, such as https://github.com/bcgov/WaitingQueue
+This uses the cloned plugin: `jwt-keycloak_1010` to support Waiting Queue
+solutions, such as <https://github.com/bcgov/WaitingQueue>
 
 ## Example
 
@@ -76,14 +77,14 @@ plugins:
 
 If the Waiting Queue token is invalid, then the response will be:
 
-```
+```http
 HTTP/1.1 401 Unauthorized
 WWW-Authenticate: Bearer realm="waitingqueue"
 ```
 
 If the User's token is invalid, then the response will be:
 
-```
+```http
 HTTP/1.1 401 Unauthorized
 WWW-Authenticate: Bearer realm="apigw"
 ```

@@ -34,7 +34,8 @@ format: `<api-name>.cluster.local`. When the configuration is published to Kong,
 an OpenShift Service is created with a corresponding Service Serving Certificate
 (SSC), which is routeable from within the OpenShift cluster.
 
-An example Gateway Service configuration for an upstream API deployed in the Silver cluster would be:
+An example Gateway Service configuration for an upstream API deployed in the
+Silver cluster would be:
 
 ```yaml
 services:
@@ -62,7 +63,8 @@ the following format:
 | Gold TEST   | `https://gw-<MY-SERVICE>.b8840c-test.svc.cluster.local` |
 | Gold PROD   | `https://gw-<MY-SERVICE>.b8840c-prod.svc.cluster.local` |
 
-The route can be viewed by running `gwa status --json` and looking at the value of `env_host`.
+The route can be viewed by running `gwa status --json` and looking at the value
+of `env_host`.
 
 ## Validation
 

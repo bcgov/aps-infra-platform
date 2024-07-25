@@ -4,26 +4,31 @@ title: Create a Gateway Service
 
 <!-- overview -->
 
-In Kong, the API gateway which underlies the API Services Portal, a {{ glossary_tooltip term_id="gateway-service" text="Gateway Service" }}
-is an entity representing an external upstream API or microservice. 
-Service configuration allows Kong to manage, route, and handle requests to upstream services.
+In Kong, the API gateway which underlies the API Services Portal, a {{
+glossary_tooltip term_id="gateway-service" text="Gateway Service" }}
+is an entity representing an external upstream API or microservice.
+Service configuration allows Kong to manage, route, and handle requests to
+upstream services.
 
 Service configuration is stored in a Gateway Service object in the API Services
 Portal. Gateway Services can be crafted from a template or generated from an
 OpenAPI specification, both of which are explained below.
 
-Once you have created a Gateway Service, its functionality can be extended with our
-[Supported Plugins](/reference/plugins/AVAILABLE-PLUGINS.md). They are essentially modular components 
-that can be added to Kong to add new features or alter the behavior of existing features.
+Once you have created a Gateway Service, its functionality can be extended with
+our [Supported Plugins](/reference/plugins/AVAILABLE-PLUGINS.md). They are
+essentially modular components that can be added to Kong to add new features or
+alter the behavior of existing features.
 
 <!-- ## Declarative Configuration -->
-<!-- this could be a good place to add in a general introduction to declarative syntax -->
+<!-- this could be a good place to add in a general introduction to declarative 
+syntax -->
 
 !!! warning "Upstream service setup"
     If your upstream services run on Platform
     Service's Silver or Gold OpenShift cluster, you will need to
     configure the network polices to allow access from the API Gateway.
-    See the [Upstream service setup](/how-to/upstream-services.md) guide for more information.
+    See the [Upstream service setup](/how-to/upstream-services.md) guide for
+    more information.
 
 ## Before you begin
 
@@ -34,10 +39,12 @@ that can be added to Kong to add new features or alter the behavior of existing 
 
 ### Using a template
 
-There are currently two gateway configuration templates supported by the `gwa` command line interface (CLI).
+There are currently two Gateway configuration templates supported by the `gwa`
+command line interface (CLI).
 
 They are:
-- `kong-httpbin`, which creates a basic, unprotected service, and 
+
+- `kong-httpbin`, which creates a basic, unprotected service, and
 - `client-credentials-shared-idp`, which creates a service protected with
   [Client Credential Protection](/how-to/client-cred-flow.md), as well as a
   CredentialIssuer, DraftDataset, and Product.
@@ -46,9 +53,11 @@ To use one of these templates, follow these steps:
 
 1. Generate Configuration File:
 
-  Run the following command, substituting a unique service subdomain for your API which will be part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`
+  Run the following command, substituting a unique service subdomain for your
+  API which will be part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`
 
   === "kong-httpbin"
+
       ```shell linenums="0"
       gwa generate-config \
         --template kong-httpbin \
@@ -57,6 +66,7 @@ To use one of these templates, follow these steps:
       ```
 
   === "client-credentials-shared-idp"
+
       ```shell linenums="0"
       gwa generate-config \
         --template client-credentials-shared-idp \
@@ -67,23 +77,27 @@ To use one of these templates, follow these steps:
 1. Publish to the API Services Portal:
 
   === "kong-httpbin"
+
       ```shell linenums="0"
       gwa pg gw-config.yml
       ```
   === "client-credentials-shared-idp"
+
       ```shell linenums="0"
       gwa apply -i gw-config.yml
       ```
 
 ### Using an OpenAPI spec
 
-Kong's `deck` command line tool is used to convert an OpenAPI specification to a Kong configuration.
+Kong's `deck` command line tool is used to convert an OpenAPI specification to a
+Kong configuration.
 
-Reference: https://docs.konghq.com/deck/latest/
+Reference: <https://docs.konghq.com/deck/latest/>
 
-Follow the installation instructions here: https://docs.konghq.com/deck/latest/installation/
+Follow the installation instructions here: <https://docs.konghq.com/deck/latest/installation/>
 
-Below is an example of a simple OpenAPI spec that you will use to generate a Kong configuration file.
+Below is an example of a simple OpenAPI spec that you will use to generate a
+Kong configuration file.
 
 ```yaml
 openapi: 3.0.1
@@ -131,7 +145,8 @@ paths:
 ```
 
 1. Add the following Kong specific metadata to the end of your OpenAPI spec,
-substituting a unique service subdomain for your API which will be part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`
+substituting a unique service subdomain for your API which will be part of your
+vanity URL: `<MYSERVICE>.api.gov.bc.ca`
 
   ```yaml
   x-kong-name: <MYSERVICE>
@@ -145,28 +160,27 @@ substituting a unique service subdomain for your API which will be part of your 
 
 3. Generate Kong configuration
 
-    Run the following command, substituting your API Services Portal Gateway in the `--select-tag` option:
+    Run the following command, substituting your API Services Portal Gateway in
+    the `--select-tag` option:
 
     ```shell linenums="0"
     deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.<gatewayId>
     ```
 
   !!! warning "Kong 2.x Incompatibility"
-      Due to an incompatibility between `openapi2kong` and Kong 2 (used by the API Services Portal),
-      you will need to remove the '~' at the beginning of paths.
-      This can be done by manually editing the gw.yaml file, or by
+      Due to an incompatibility between `openapi2kong` and Kong 2 (used by the
+      API Services Portal), you will need to remove the '~' at the beginning of
+      paths. This can be done by manually editing the gw.yaml file, or by
       running `yq -i eval '(.services[].routes[].paths[]) |= sub("~"; "")' gw.yaml`.
       (You may need to install `yq` [here](https://github.com/mikefarah/yq/#install)).
 
   !!! note "Gateway tags"
       A Gateway `tag` with the format `ns.<gatewayId>` is mandatory for each
-      service, route, and plugin object.
-      
-      If you have separate pipelines for your environments (dev, test and prod),
-      you can split your configuration and update the `tags` with the qualifier. 
-      
-      For example, you can use a tag `ns.<gatewayId>.dev` to sync the Kong configuration
-      for `dev` Service and Routes only.
+      service, route, and plugin object. If you have separate pipelines for your
+      environments (`dev`, `test` and `prod`), you can split your configuration and
+      update the `tags` with the qualifier. For example, you can use a tag
+      `ns.<gatewayId>.dev` to sync the Kong configuration for `dev` Service and
+      Routes only.
 
 4. Publish to the API Services Portal:
 
@@ -175,20 +189,24 @@ substituting a unique service subdomain for your API which will be part of your 
   ```
 
 !!! note "OpenAPI spec maintenance"
-    You can opt to either maintain your OpenAPI spec and execute the steps above when
-    necessary, or convert your OpenAPI spec once and maintain the generated Kong configuration.
+    You can opt to either maintain your OpenAPI spec and execute the steps above
+    when necessary, or convert your OpenAPI spec once and maintain the generated
+    Kong configuration.
 
 ## Verify routes
 
-To verify that the Gateway can access the upstream services, run the command `gwa status`.
+To verify that the Gateway can access the upstream services, run the command
+`gwa status`.
 
-In the APS `test` environment, the hosts that you defined in the routes are altered. To see the actual hosts: 
+In the APS `test` environment, the hosts that you defined in the routes are
+altered. To see the actual hosts:
 
-1. Log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca/). 
+1. Log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca/).
 
 2. Go to the **Gateways** tab and select your **Gateway** from the list.
 
-3. Go to **Gateway Services** and expand the accordion of your particular service on the right to get the routing details.
+3. Go to **Gateway Services** and expand the accordion of your particular
+   service on the right to get the routing details.
 
 You can also use `curl` to verify your endpoint, and `ab` for load testing:
 

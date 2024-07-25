@@ -45,13 +45,14 @@ plugins:
       - "Content-Security-Policy: script-src 'self'"
 ```
 
-> For further information on individual headers, see: https://owasp.org/www-project-secure-headers/
+> For further information on individual headers, see: <https://owasp.org/www-project-secure-headers/>
 
 ## Rate limiting
 
 ### Option 1 - Using a distributed cache
 
-This provides the most accurate because it uses a centralized cache that all Kong nodes use. The downside is that there is a 100-200ms latency.
+This provides the most accurate because it uses a centralized cache that all
+Kong nodes use. The downside is that there is a 100-200ms latency.
 
 ```yaml
 plugins:
@@ -71,7 +72,9 @@ plugins:
 
 ### Option 2 - Node local caching
 
-This provides the fastest rate limiting option, with minimal latency (~1ms). The downside is that it is local to each node so calculating the actual load on your upstream is a function of the number of nodes.
+This provides the fastest rate limiting option, with minimal latency (~1ms). The
+downside is that it is local to each node so calculating the actual load on your
+upstream is a function of the number of nodes.
 
 ```yaml
 plugins:
@@ -92,9 +95,15 @@ plugins:
 
 ## Two-tiered access setup
 
-The `key-auth` and `jwt-keycloak` plugins support the concept of allowing "anonymous" access, which allows you to define a "free" service which might have limits around it (like only allowing 100 requests/minute), in addition to an "elevated" access where the Consumer would get an improved level of service, such as higher rate limits.
+The `key-auth` and `jwt-keycloak` plugins support the concept of allowing
+"anonymous" access, which allows you to define a "free" service which might have
+limits around it (like only allowing 100 requests/minute), in addition to an
+"elevated" access where the Consumer would get an improved level of service,
+such as higher rate limits.
 
-There is a global "anonymous" consumer that is identified as `ce26955a-cf08-4907-9427-12d01c8bd94c` in both our Test and Production environments.
+There is a global "anonymous" consumer that is identified as
+`ce26955a-cf08-4907-9427-12d01c8bd94c` in both our Test and Production
+environments.
 
 To enable anonymous access to your API, update your plugin configuration with:
 
@@ -121,7 +130,8 @@ To enable anonymous access to your API, update your plugin configuration with:
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
 
-If you do not want to advertise anonymous access on the API Directory, you can hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
+If you do not want to advertise anonymous access on the API Directory, you can
+hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
 
 ## Event metrics
 
@@ -165,9 +175,10 @@ plugins:
 
 ## Disabling global error handling
 
-APS has a global `post-function` plugin that transforms the response message if the following HTTP status codes are returned by the upstream service:
+APS has a global `post-function` plugin that transforms the response message if
+the following HTTP status codes are returned by the upstream service:
 
-```
+```http
 s408 = "Request timeout",
 s411 = "Length required",
 s412 = "Precondition failed",
@@ -181,7 +192,8 @@ s503 = "The upstream server is currently unavailable",
 s504 = "The upstream server is timing out",
 ```
 
-If this transformation is not desired, you can override it by including the following plugin on your Service:
+If this transformation is not desired, you can override it by including the
+following plugin on your Service:
 
 ```yaml
 plugins:

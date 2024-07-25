@@ -1,10 +1,12 @@
 # OIDC
 
-> NOTE: The `oidc` plugin is only used with endpoints ending with `.apps.gov.bc.ca`, please reach out to the APS team on Rocket.Chat `#aps-ops` to get this permission added to your namespace.
+> NOTE: The `oidc` plugin is only used with endpoints ending with
+> `.apps.gov.bc.ca`, please reach out to the APS team on Rocket.Chat `#aps-ops`
+> to get this permission added to your namespace.
 
 ## Example
 
-```
+```yaml
 services:
 - name: MY_REST_API
   tags: [ ns.<gatewayId> ]

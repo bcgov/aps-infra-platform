@@ -1,10 +1,10 @@
 # Cross-origin Resource Sharing (CORS)
 
-Reference: https://docs.konghq.com/hub/kong-inc/cors/
+Reference: <https://docs.konghq.com/hub/kong-inc/cors/>
 
-Example
+## Example
 
-```
+```yaml
 services:
 - name: MY_REST_API
   tags: [ ns.<gatewayId> ]
@@ -26,5 +26,6 @@ services:
       max_age: 3600
 ```
 
-Additional references:
-* https://github.com/Kong/kong/issues/4859
+## Additional references
+
+<https://github.com/Kong/kong/issues/4859>

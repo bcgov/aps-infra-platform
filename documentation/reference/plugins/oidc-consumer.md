@@ -1,10 +1,13 @@
 # OIDC Consumer
 
-**Description:** This plugin is used in conjunction with the `oidc` plugin to map the JWT Token to a Kong Consumer.
+## Use case
+
+This plugin is used in conjunction with the `oidc` plugin to
+map the JWT Token to a Kong Consumer.
 
 ## Example
 
-```
+```yaml
 services:
 - name: MY_REST_API
   tags: [ ns.<gatewayId> ]

@@ -1,6 +1,6 @@
 # Proxy Cache
 
-Reference: https://docs.konghq.com/hub/kong-inc/proxy-cache/
+Reference: <https://docs.konghq.com/hub/kong-inc/proxy-cache/>
 
 ## Example
 
@@ -33,9 +33,14 @@ services:
 
 > `cache_ttl` : This value is restricted to be between 15 and 60 seconds
 
-> The `strategy` and `memory.dictionary_name` will be set automatically and can not be overridden.
+> The `strategy` and `memory.dictionary_name` will be set automatically and can
+> not be overridden.
 
-> - `vary_headers` : Relevant request headers considered for the cache key. If undefined, none of the headers are taken into consideration.
-> - `vary_query_params` : Relevant query parameters considered for the cache key. If undefined, all params are taken into consideration.
+> - `vary_headers` : Relevant request headers considered for the cache key. If
+>   undefined, none of the headers are taken into consideration.
+> - `vary_query_params` : Relevant query parameters considered for the cache
+>   key. If undefined, all params are taken into consideration.
 
-> The `dictionary_name` is capped at 1Mi to be shared across all services. Recommended practice is to use the cache for targeted files to produce the greatest improvement on overall performance of your application.
+> The `dictionary_name` is capped at 1Mi to be shared across all services.
+> Recommended practice is to use the cache for targeted files to produce the
+> greatest improvement on overall performance of your application.

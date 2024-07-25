@@ -2,37 +2,43 @@
 title: Protect an Application
 ---
 
-This guide walks through the steps to protect your Application using Keycloak SSO and the APS Kong Gateway.
+This guide walks through the steps to protect your Application using Keycloak
+SSO and the APS Kong Gateway.
 
 ![alt text](/artifacts/keycloak-rbac.png "Keycloak RBAC")
 
 ## 1. Configure a confidential client
 
-Go to the Common Hosted SSO (CSS) site (https://bcgov.github.io/sso-requests) and request a new confidential client.
+Go to the Common Hosted SSO (CSS) site (<https://bcgov.github.io/sso-requests>)
+and request a new confidential client.
 
-After the client has been provisioned, you can go to the **Role Management** tab to configure the Roles you want to use to protect resources in your Application.
+After the client has been provisioned, you can go to the **Role Management** tab
+to configure the Roles you want to use to protect resources in your Application.
 
 The **Assign Users to Roles** action can be used to administer User permissions.
 
 ## 2. Configure the APS Kong Gateway
 
-**Pre-requisites:**
+### Prerequisites
 
 - You have your application deployed in the OpenShift Silver cluster
 - You have created a Gateway in the API Services Portal
 - You have a Service Account created with the `GatewayConfig.Publish` permission
 - Your Network Policy has been configured to allow traffic from the APS project space
-- You have completed your minimal service/route configuration and published it to the APS Kong Gateway
+- You have completed your minimal service/route configuration and published it
+  to the APS Kong Gateway
 
-To protect your application, there are two plugins that need to be configured: `oidc` and `acl`.
+To protect your application, there are two plugins that need to be configured:
+`oidc` and `acl`.
 
-**`oidc`**
+#### `oidc`
 
-> Update `discovery` if you are using SSO other than `dev` or if using a non-standard realm
+> Update `discovery` if you are using SSO other than `dev` or if using a
+> non-standard realm
+> The `groups_claim` must be `client_roles` as that is what the SSO service uses
+> for the roles that the user has assigned to it.
 
-> The `groups_claim` must be `client_roles` as that is what the SSO service uses for the roles that the user has assigned to it.
-
-```
+```yaml
     plugins:
       - enabled: true
         name: oidc
@@ -80,9 +86,11 @@ To protect your application, there are two plugins that need to be configured: `
           validate_scope: "yes"
 ```
 
-> If your upstream service needs specific attributes, the `header_claims` and `header_names` config can be used to pass claims as request headers to the upstream service. A subset of the claims available:
+> If your upstream service needs specific attributes, the `header_claims` and
+> `header_names` config can be used to pass claims as request headers to the
+> upstream service. A subset of the claims available:
 
-```
+```json
   "idir_user_guid": "220469E030000000000000000A607C5",
   "identity_provider": "idir",
   "idir_username": "FLAST",
@@ -97,16 +105,17 @@ To protect your application, there are two plugins that need to be configured: `
 
 An example to get `idir_username` and `email` passed, would be:
 
-```
+```yaml
   header_claims: [ idir_username, email ]
   header_names: [ X-Idir-Username, X-User-Email ]
 ```
 
-**`acl`**
+#### `acl`
 
-The `acl` plugin will enforce that the user's `client_roles` includes the roles defined in the `allow` list.
+The `acl` plugin will enforce that the user's `client_roles` includes the roles
+defined in the `allow` list.
 
-```
+```yaml
     plugins:
       - enabled: true
         name: acl
@@ -118,13 +127,15 @@ The `acl` plugin will enforce that the user's `client_roles` includes the roles 
           hide_groups_header: false
 ```
 
-> If `hide_groups_headers` is `false` then `X-Authenticated-Groups` will be a request header with a comma-delimited list of roles that the user belongs to.
+> If `hide_groups_headers` is `false` then `X-Authenticated-Groups` will be a
+> request header with a comma-delimited list of roles that the user belongs to.
 
-**request-transformer (optional)**
+#### request-transformer (optional)
 
-If your upstream service is stateless, then you can remove the cookie before the request is forwarded to it.
+If your upstream service is stateless, then you can remove the cookie before the
+request is forwarded to it.
 
-```
+```yaml
       - name: request-transformer
         protocols: [http]
         tags: [ ns.<gatewayId> ]

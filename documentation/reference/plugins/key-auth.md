@@ -1,10 +1,10 @@
 # Key Auth
 
-Reference: https://docs.konghq.com/hub/kong-inc/key-auth/
+Reference: <https://docs.konghq.com/hub/kong-inc/key-auth/>
 
 ## Example
 
-```
+```yaml
 services:
 - name: MY_REST_API
   tags: [ ns.<gatewayId> ]

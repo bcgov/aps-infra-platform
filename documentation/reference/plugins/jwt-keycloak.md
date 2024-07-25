@@ -47,15 +47,15 @@ services:
 | disable_access_token_header | boolean  | false   | If set to 'true', the access token will not be sent to the upstream service                                                                         |
 | client_roles | string[] | nil | List of Client/Roles in the format `<CLIENT_NAME>:<ROLE_NAME>` where there has to be at least one match. |
 
-
 ## Multiple Issuers
 
-When you have an API that is consumed by your own frontend and potentially by some internal processes, and you would
-also like to give limited access to the API to external parties, such as other Ministry services, then you can use the
+When you have an API that is consumed by your own frontend and potentially by
+some internal processes, and you would also like to give limited access to the
+API to external parties, such as other Ministry services, then you can use the
 API Gateway to protect the API.
 
-An example configuration that uses RBAC and verification of User Tokens using the SSO Standard Realm and Service Account
-Tokens using APS's Shared IdP:
+An example configuration that uses RBAC and verification of User Tokens using
+the SSO Standard Realm and Service Account Tokens using APS's Shared IdP:
 
 ```yaml
 services:

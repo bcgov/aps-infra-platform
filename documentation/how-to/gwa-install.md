@@ -13,7 +13,8 @@ Gateway Services and other resources on the API Services Portal.
 
 The `gwa` command line interface (CLI) is available for Linux, MacOS, and Windows.
 
-However, the commands provided in most of our documentation are for a Unix shell (e.g. `bash`, `zsh`).
+However, the commands provided in most of our documentation are for a Unix shell
+(e.g. `bash`, `zsh`).
 If you are running Windows, it is recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 Visit the [release page](https://github.com/bcgov/gwa-cli/releases) for all versions.
@@ -30,8 +31,8 @@ Visit the [release page](https://github.com/bcgov/gwa-cli/releases) for all vers
 
 === "Windows"
 
-    If you are on Windows, you can install using Command Prompt (CMD) by navigating to the target installation folder 
-    and downloading a compressed archive:
+    If you are on Windows, you can install using Command Prompt (CMD) by 
+    navigating to the target installation folder and downloading a compressed archive:
 
     ```shell
     curl -sL https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Windows_x86_64.zip -o gwa.zip
@@ -50,12 +51,13 @@ gwa --version
 
 ## Next steps
 
-If you would like to dive deeper with the `gwa` command line interface (CLI), check out the
-following resource:
+If you would like to dive deeper with the `gwa` command line interface (CLI),
+check out the following resource:
 
 - [gwa Commands](/reference/gwa-commands.md)
 
-Once you have `gwa` installed, try setting up an API on 
-the {{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }}:
+Once you have `gwa` installed, try setting up an API on
+the
+{{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }}:
 
 - [API Provider Quick Start](/tutorials/quick-start.md)

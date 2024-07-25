@@ -1,10 +1,10 @@
 # Request Transformer
 
-Reference: https://docs.konghq.com/hub/kong-inc/request-transformer/
+Reference: <https://docs.konghq.com/hub/kong-inc/request-transformer/>
 
-## Example:
+## Example
 
-```
+```yaml
 services:
 - name: MY_REST_API
   tags: [ ns.<gatewayId> ]
