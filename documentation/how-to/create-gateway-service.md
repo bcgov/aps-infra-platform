@@ -1,18 +1,18 @@
 ---
-title: Create a Service
+title: Create a Gateway Service
 ---
 
 <!-- overview -->
 
-In Kong, the API gateway which underlies the API Services Portal, a {{ glossary_tooltip term_id="service" text="service" }}
+In Kong, the API gateway which underlies the API Services Portal, a {{ glossary_tooltip term_id="gateway-service" }}
 is an entity representing an external upstream API or microservice. 
 Service configuration allows Kong to manage, route, and handle requests to upstream services.
 
-Service configuration is stored in a GatewayService object in the API Services
-Portal. GatewayServices can be crafted from a template or generated from an
+Service configuration is stored in a Gateway Service object in the API Services
+Portal. Gateway Services can be crafted from a template or generated from an
 OpenAPI specification, both of which are explained below.
 
-Once you have created a GatewayService, its functionality can be extended with our
+Once you have created a Gateway Service, its functionality can be extended with our
 [Supported Plugins](/reference/plugins/AVAILABLE-PLUGINS.md). They are essentially modular components 
 that can be added to Kong to add new features or alter the behavior of existing features.
 

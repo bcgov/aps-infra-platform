@@ -98,20 +98,20 @@ services:
 
 ## Clean up
 
-{Optional: Provide instructions on how to clean up the resources resulting from the tutorial.}
+{Optional: To clean up the resources resulting from this tutorial, complete the following steps:}
 
 {1. On the **Consumers** page, delete any Consumers which were granted access to the service.}
 
 !!! danger
-    This following action is irreversible. Ensure the correct Namespace is active first with:
+    The following action is irreversible. Ensure the correct Gateway is active first with:
     ``` linenums="0"
-    gwa namespace current
+    gwa gateway current
     ```
 
-1. Delete the Namespace and associated services which were set up using during tutorial with this command:
+1. Delete the Gateway and associated services which were set up during the tutorial with this command:
 
   ``` linenums="0"
-  gwa namespace destroy --force
+  gwa gateway destroy --force
   ```
 
 

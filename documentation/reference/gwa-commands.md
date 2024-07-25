@@ -1,8 +1,8 @@
 ---
-title: "GWA Commands"
+title: GWA CLI Commands
 ---
 
-GWA CLI helps manage gateway resources in a declarative fashion.
+GWA command line interface (CLI) helps manage gateway resources in a declarative fashion.
 
 ## apply
 
@@ -39,7 +39,7 @@ This is a convenience getter to print out the currently stored global setting fo
   
 - api_key  
 - host  
-- namespace  
+- gateway  
 
 
 
@@ -50,7 +50,7 @@ This is a convenience getter to print out the currently stored global setting fo
 Exposes some specific config values that can be defined by the user.  
   
 Configurable Settings:  
-  namespace:       The default namespace used  
+  gateway:         The default gateway used  
   token:           Use only if you have a token you know is authenticated  
   host:            The API host you wish to communicate with  
   scheme:          http or https  
@@ -61,18 +61,76 @@ Configurable Settings:
 
 | Flag | Description |
 | ----- | ------ |
+| `--gateway string` | set the gateway |
 | `--host string` | set the host |
-| `--namespace string` | set the namespace |
 | `--scheme string` | set the scheme |
-| `--token string` | set the namespace |
+| `--token string` | set the authentication token |
 
 
 **Examples**
 
 ```shell
-$ gwa config set namespace ns-sampler
-$ gwa config set --namespace ns-sampler
+$ gwa config set gateway ns-sampler
+$ gwa config set --gateway ns-sampler
 ```
+
+
+## gateway
+
+**Usage:** `gwa gateway`
+
+Gateways are used to organize your services.
+
+
+### gateway.create
+
+**Usage:** `gwa gateway create [flags]`
+
+Create a new gateway
+
+**Flags**
+
+| Flag | Description |
+| ----- | ------ |
+| `-d, --display-name string` | optionally set the gateway display name |
+| `-i, --gateway-id string` | optionally specify the gateway ID |
+| `-g, --generate` | generates a unique gateway with the default display name |
+
+
+**Examples**
+
+```shell
+$ gwa gateway create --generate
+$ gwa gateway create --gateway-id my-gateway --display-name="This is my gateway"
+```
+
+
+### gateway.current
+
+**Usage:** `gwa gateway current`
+
+Display the current gateway
+
+
+### gateway.destroy
+
+**Usage:** `gwa gateway destroy [flags]`
+
+Destroy the current gateway
+
+**Flags**
+
+| Flag | Description |
+| ----- | ------ |
+| `--force` | force deletion |
+
+
+
+### gateway.list
+
+**Usage:** `gwa gateway list`
+
+List all your managed gateways
 
 
 ## generate-config
@@ -157,74 +215,6 @@ $ gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 ```
 
 
-## namespace
-
-**Usage:** `gwa namespace`
-
-Namespaces are used to organize your services.
-
-
-### namespace.create
-
-**Usage:** `gwa namespace create [flags]`
-
-Create a new namespace
-
-**Flags**
-
-| Flag | Description |
-| ----- | ------ |
-| `-d, --description string` | optionally add a description |
-| `-g, --generate` | generates a random, unique namespace |
-| `-n, --name string` | optionally define your own namespace |
-
-
-**Examples**
-
-```shell
-$ gwa namespace create --generate
-$ gwa namespace create --name my-namespace --description="This is my namespace"
-```
-
-!!! note "Namespace tags"
-    A namespace `tag` with the format `ns.<NAMESPACE>` is mandatory for each
-    service, route, and plugin object.
-    
-    If you have separate pipelines for your environments (dev, test and prod),
-    you can split your configuration and update the `tags` with the qualifier. 
-    
-    For example, you can use a tag `ns.<NAMESPACE>.dev` to sync the Kong configuration
-    for `dev` Service and Routes only.
-
-
-### namespace.current
-
-**Usage:** `gwa namespace current`
-
-Display the current namespace
-
-
-### namespace.destroy
-
-**Usage:** `gwa namespace destroy [flags]`
-
-Destroy the current namespace
-
-**Flags**
-
-| Flag | Description |
-| ----- | ------ |
-| `--force` | force deletion |
-
-
-
-### namespace.list
-
-**Usage:** `gwa namespace list`
-
-List all your managed namespaces
-
-
 ## publish
 
 > _Command 'publish' is deprecated.  Use apply instead._
@@ -278,6 +268,7 @@ Check the status of your services configured on the Kong gateway
 
 | Flag | Description |
 | ----- | ------ |
+| `--hosts` | Include host information in the output |
 | `--json` | Output status as a JSON string |
 
 
