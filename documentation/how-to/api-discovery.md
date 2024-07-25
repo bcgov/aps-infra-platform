@@ -79,29 +79,6 @@ Here is the schema with example data, omitting some optional fields:
     record_publish_date: "2021-05-27"
     ```
 
-=== "YAML Template (w/ field descriptions)"
-
-    ```yaml
-    kind: DraftDataset # object type for gwa-cli use
-    name: dataset-name # unique dataset name, not displayed
-    title: Useful API # API title shown on the Directory
-    notes: A handy API with *many* uses. # API description, supports Markdown formatting
-    tags: [useful, data, openapi] # keywords, may be used for search in future
-    organization: ministry-of-citizens-services # ministry or agency associated
-    with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options)
-    - this must match the organization associated with the namespace
-    organizationUnit: databc # organization business sub-unit (see
-    https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
-    license_title: Open Government Licence - British Columbia # see
-    https://bcgov.github.io/data-publication/pages/dps_licences.html for
-    licensing options
-    view_audience: Government # who can access the API
-    security_class: PUBLIC # OCIO Information Security Classification Standard,
-    see
-    https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
-    record_publish_date: "2021-05-27" # date when the API was published
-    ```
-
 === "JSON Template"
 
     ```json
@@ -122,6 +99,19 @@ Here is the schema with example data, omitting some optional fields:
     "record_publish_date": "2021-05-27"
     }
     ```
+ | Field     | Description                              |
+ | --------------- | ---------------------------------------------------------------- |
+ | `kind` |     |
+ | `name`      | Unique dataset name, not displayed                  |
+ | `title`      | API title shown in the API Directory                 |
+ |`notes`      | API description, supports Markdown formatting                |
+ |`tags`      | Keywords, may be used for search in the future                 |
+ | `organization`      | Ministry or agency associated with the API ([options](<https://api.gov.bc.ca/ds/api/v2/organizations>)) that must match the organization associated with the Gateway                |
+ | `organizationUnit`      | Organization business sub-unit ([options](https://api.gov.bc.ca/ds/api/v2/organizations/<organization>)) |
+ |`license_title`      | [Licensing options](https://bcgov.github.io/data-publication/pages/dps_licences.html)                |
+ | `view_audience`      | Who can access the API                |
+ | `security_class`      | [OCIO Information Security Classification Standard](https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf)                 |
+ | `record_publish_date`      | Date when the API was published                  |
 
 Check our [source
 code](https://github.com/bcgov/api-services-portal/blob/dev/src/batch/data-rules.js#L116)
@@ -174,7 +164,7 @@ the descriptive metadata in the Dataset:
 
       Add other available environments if desired (e.g. `dev`, `test`, `sandbox`).
         
-      ```yaml title="Product YAML Template"
+      ```yaml title="Product template"
       kind: Product
       name: Useful API # Name shown on the API Directory
       dataset: dataset-name # Dataset name or BC Data Catalogue slug value

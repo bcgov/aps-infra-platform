@@ -54,15 +54,13 @@ Now, add a *Dataset* with metadata about the API to display in the API
 Directory. This information helps consumers find your API in the Directory.
 Typically, each Dataset would describe one API.
 
-If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/)
-, skip ahead to [Add a Product](#create-a-product).
+If your API is already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/),
+skip ahead to [Add a Product](#create-a-product).
 
 Start by writing up a DraftDataset in a local YAML file. Here is the schema,
 omitting some optional fields:
 
-=== "YAML Template"
-
-    ```yaml
+```yaml title="Dataset template"
     kind: DraftDataset
     name: dataset-name
     title: Useful API
@@ -74,39 +72,21 @@ omitting some optional fields:
     view_audience: Government
     security_class: PUBLIC
     record_publish_date: "2021-05-27"
-    ```
+```
 
-=== "Field descriptions"
-
-  | Field     | Description                              |
-  | --------------- | ---------------------------------------------------------------- |
-  | `kind` |     |
-  | `name`      | Unique dataset name, not displayed                  |
-  | `title`      | API title shown in the API Directory                 |
-  | `notes`      | API description, supports Markdown formatting                |
-  | `tags`      | Keywords, may be used for search in the future                 |
-  | `organization`      | Ministry or agency associated with the API ([options](<https://api.gov.bc.ca/ds/api/v2/organizations>)) that must match the organization associated with the Gateway                |
-  | `organizationUnit`      | Organization business sub-unit ([options](https://api.gov.bc.ca/ds/api/v2/organizations/<organization>)) |
-  | `license_title`      | [Licensing options](https://bcgov.github.io/data-publication/pages/dps_licences.html)                |
-  | `view_audience`      | Who can access the API                |
-  | `security_class`      | [OCIO Information Security Classification Standard](https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf)                 |
-  | `record_publish_date`      | Date when the API was published                  |
-
-=== "YAML Template (w/ field descriptions)"
-
-    ```yaml
-    kind: DraftDataset
-    name: dataset-name # unique dataset name, not displayed
-    title: Useful API # API title shown on the API Directory
-    notes: A handy API with many uses. # API description, supports Markdown formatting
-    tags: [useful, data, openapi] # keywords, may be used for search in future
-    organization: ministry-of-citizens-services # ministry or agency associated with the API (see https://api.gov.bc.ca/ds/api/v2/organizations for options) - this must match the organization associated with the Gateway
-    organizationUnit: databc # organization business sub-unit (see https://api.gov.bc.ca/ds/api/v2/organizations/<organization> for options)
-    license_title: Open Government Licence - British Columbia # see https://bcgov.github.io/data-publication/pages/dps_licences.html for licensing options
-    view_audience: Government # who can access the API
-    security_class: PUBLIC # OCIO Information Security Classification Standard, see https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf
-    record_publish_date: "2021-05-27" # date when the API was published
-    ```
+ | Field     | Description                              |
+ | --------------- | ---------------------------------------------------------------- |
+ | `kind` |     |
+ | `name`      | Unique dataset name, not displayed                  |
+ | `title`      | API title shown in the API Directory                 |
+ |`notes`      | API description, supports Markdown formatting                |
+ |`tags`      | Keywords, may be used for search in the future                 |
+ | `organization`      | Ministry or agency associated with the API ([options](<https://api.gov.bc.ca/ds/api/v2/organizations>)) that must match the organization associated with the Gateway                |
+ | `organizationUnit`      | Organization business sub-unit ([options](https://api.gov.bc.ca/ds/api/v2/organizations/<organization>)) |
+ |`license_title`      | [Licensing options](https://bcgov.github.io/data-publication/pages/dps_licences.html)                |
+ | `view_audience`      | Who can access the API                |
+ | `security_class`      | [OCIO Information Security Classification Standard](https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf)                 |
+ | `record_publish_date`      | Date when the API was published                  |
 
 !!! note "Link to your API"
     In the `notes` field, be sure to add a link to your API to allow interested
@@ -140,12 +120,12 @@ here.
 
 Create a Product configuration using the YAML template below. If your API is
 already listed in the [BC Data Catalogue](https://catalogue.data.gov.bc.ca/),
-use the slug value for `dataset` from the Data Catalogue dataset URL,
+use the slug value for `dataset` from the Data Catalogue dataset URL:
 `https://catalogue.data.gov.bc.ca/dataset/<api-slug-value>`.
 
 Add other available environments if desired (e.g. `dev`, `test`, `sandbox`).
 
-```yaml title="Product YAML Template"
+```yaml title="Product template"
 kind: Product
 name: Useful API # Name shown on the API Directory
 dataset: dataset-name # Dataset name or BC Data Catalogue slug value

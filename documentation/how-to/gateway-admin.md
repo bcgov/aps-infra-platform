@@ -54,7 +54,7 @@ The following list describes the access permissions:
 
 ## About the Admin APIs
 
-! note
+!!! note
     The Admin APIs are used internally by the CLI and API Services Portal
     to manage Gateway settings and operations. They provide endpoints to
     configure Services, Products, and access control.
