@@ -4,11 +4,10 @@ title: Create a Gateway Service
 
 <!-- overview -->
 
-In Kong, the API gateway which underlies the API Services Portal, a {{
-glossary_tooltip term_id="gateway-service" text="Gateway Service" }}
-is an entity representing an external upstream API or microservice.
-Service configuration allows Kong to manage, route, and handle requests to
-upstream services.
+In Kong, the API gateway which underlies the API Services Portal, a
+{{ glossary_tooltip term_id="gateway-service" }} is an entity representing an
+external upstream API or microservice. Service configuration allows Kong to
+manage, route, and handle requests to upstream services.
 
 Service configuration is stored in a Gateway Service object in the API Services
 Portal. Gateway Services can be crafted from a template or generated from an
