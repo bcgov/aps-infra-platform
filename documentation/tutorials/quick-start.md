@@ -62,7 +62,7 @@ Templates are available for generating Gateway configuration for popular integra
 
 1. Run `gwa generate-config` to generate configuration for your Gateway from a template.
   
-  First, choose a unique name for your API service to be shown as part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`.
+  First, choose a unique name for your API service to be shown as part of your vanity URL: `<MYSERVICE>.dev.api.gov.bc.ca`.
 
   Then run the following command, substituting your service name for `<MYSERVICE>`:
 
@@ -104,8 +104,8 @@ Templates are available for generating Gateway configuration for popular integra
   ```sh
   ↑ Publishing Gateway Services
   ✓ Gateway Services published
-  creating service basic-example
-  creating route basic-example
+  creating service basic-example-dev
+  creating route basic-example-dev
   Summary:
     Created: 2
     Updated: 0
@@ -136,13 +136,13 @@ Templates are available for generating Gateway configuration for popular integra
   gwa status --hosts
   ```
 
-  The URL will be shown under the `Hosts` column and will be `https://<MYSERVICE>.api.gov.bc.ca/`.
+  The URL will be shown under the `Hosts` column and will be `https://<MYSERVICE>.dev.api.gov.bc.ca/`.
 
 1. Visit the URL in a browser to see your API gateway in action.
    
   You will see the contents of the httpbin.org homepage, but routed through your URL.
 
-1. To see a more typical API response, visit `https://<MYSERVICE>.api.gov.bc.ca/uuid`.
+1. To see a more typical API response, visit `https://<MYSERVICE>.dev.api.gov.bc.ca/uuid`.
    
    You will see a random UUID4 from the upstream `https://httpbin.org/uuid` in JSON format, similar to:
 
