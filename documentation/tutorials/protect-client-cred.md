@@ -98,7 +98,8 @@ Templates are available for generating Gateway configuration for popular integra
   Below the `GatewayService`, you'll find additional resources:
 
   - `CredentialIssuer` supports the Client Credentials flow
-  - `Product` and `DraftDataset` provide metadata about the service for the API Directory
+  - `Product` packages GatewayServices for managing consumer access
+  - `DraftDataset` provides metadata about the service for the API Directory
    
   Don't worry if you don't understand all the details, you will learn more about Gateway configuration and other resources as you continue to work with the API Services Portal.
 
@@ -113,8 +114,8 @@ Templates are available for generating Gateway configuration for popular integra
   ```sh
   ↑ Publishing Gateway Services
   ✓ Gateway Services published
-  creating service one-great-service-dev
-  creating route one-great-service-dev
+  creating service example-protected-service-dev
+  creating route example-protected-service-dev
   creating plugin request-transformer for service e53a89db-03f4-430a-acae-5978ce9551aa
   creating plugin jwt-keycloak for service e53a89db-03f4-430a-acae-5978ce9551aa
   Summary:
@@ -123,8 +124,8 @@ Templates are available for generating Gateway configuration for popular integra
     Deleted: 0
 
   ✓ [CredentialIssuer] gw-de82c default: created
-  ✓ [DraftDataset] one-great-service-dataset: created
-  ✓ [Product] one-great-service API: created
+  ✓ [DraftDataset] example-protected-service-dataset: created
+  ✓ [Product] example-protected-service API: created
   ```
 
 ## Access your API
@@ -147,7 +148,7 @@ At this point, you have successfully configured your Gateway. Before accessing y
 
   ```sh
   Status  Name                   Reason        Upstream
-  UP      one-great-service-dev  200 Response  https://httpbin.org:443/
+  UP      example-protected-service-dev  200 Response  https://httpbin.org:443/
   ```
 
 1. Retrieve the URL of your Gateway Service by adding the `--hosts` flag to the `gwa status` command:

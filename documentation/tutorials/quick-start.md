@@ -13,6 +13,7 @@ By the end of this tutorial, you'll be able to:
 
 - Create a new project, called a Gateway, in the API Services Portal
 - Use templates to generate Gateway Service configuration
+- Publish an API to the {{ glossary_tooltip term_id="api-directory" }} for developers to discover
 
 !!! note "Operating system"
     The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`). If you are running Windows, it is recommended to use WSL2. 
@@ -84,6 +85,11 @@ Templates are available for generating Gateway configuration for popular integra
   -  the upstream service (`url`)
   -  the route that exposes the GatewayService at the new endpoint (`routes.hosts`)
   -  tags on each object with the format `tags: [ ns.<GatewayId> ]`
+  
+  Below the `GatewayService`, you'll find additional resources:
+
+  - `Product` packages GatewayServices for managing consumer access
+  - `DraftDataset` provides metadata about the service for the API Directory
    
   Don't worry if you don't understand all the details, you will learn more about Gateway configuration as you continue to work with the API Services Portal.
 
@@ -98,14 +104,15 @@ Templates are available for generating Gateway configuration for popular integra
   ```sh
   ↑ Publishing Gateway Services
   ✓ Gateway Services published
-  creating service one-great-service
-  creating route one-great-service
+  creating service basic-example
+  creating route basic-example
   Summary:
     Created: 2
     Updated: 0
     Deleted: 0
 
-  1/1 Published, 0 Skipped
+  ✓ [DraftDataset] basic-example-dataset: created
+  ✓ [Product] Basic-Example API: created
   ```
 
 ## Access your API
@@ -119,8 +126,8 @@ Templates are available for generating Gateway configuration for popular integra
   The output is similar to this:
 
   ```sh
-  Status  Name               Reason        Upstream
-  UP      one-great-service  200 Response  https://httpbin.org:443/
+  Status  Name           Reason        Upstream
+  UP      basic-example  200 Response  https://httpbin.org:443/
   ```
 
 1. Retrieve the URL of your Gateway Service by adding the `--hosts` flag to the `gwa status` command:
@@ -145,12 +152,27 @@ Templates are available for generating Gateway configuration for popular integra
   }
   ```
 
-  That's it! You have confirmed the successful configuration of your Gateway Service. 
-  
-  You have set up:
+  That's it! You have confirmed the successful configuration of your Gateway Service.
 
-   - Route to your service, via a vanity URL
-   - Protected by an SSL `*.api.gov.bc.ca` certificate
+## View your API in the API Directory
+
+1. Log into the [API Services Portal](https://api.gov.bc.ca),
+   go to the **Gateways** tab, and select your newly created Gateway.
+   
+   In the **Products** panel, click the **Preview in Directory** link.
+
+1. You will see a card with the service name you chose earlier (`<MYSERVICE>`). This card is a preview of how the service would look when shared to the API Directory.
+
+  For more information on making your API visible to the public, see [Share an API - Enabling for Discovery](/how-to/api-discovery.md#enabling-for-discovery).
+
+<!-- summary -->
+
+## Summary
+
+In this tutorial, you learned how to:
+  
+- Create a route to your service, using a vanity URL
+- List your API in the API Directory (in private preview mode)
 
 <!-- cleanup -->
 
