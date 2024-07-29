@@ -1,0 +1,4 @@
+Non-OK status: 404 --- reference/!plugin-template/index.html --> https://docs.konghq.com/hub/kong-inc/{plugin-name}/{kong-version}/configuration/
+Non-OK status: 400 --- unlisted/owner-journey-v1/index.html --> https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore
+Non-OK status: 400 --- how-to/gateway-admin/index.html --> https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore
+Non-OK status: 400 --- how-to/gateway-admin/index.html --> https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore

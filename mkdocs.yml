@@ -7,6 +7,7 @@ nav:
   - "README.md"
   - Tutorials:
       - "tutorials/quick-start.md"
+      - "tutorials/protect-client-cred.md"
   - How-to Guides:
     - Get Started:
       - "how-to/gwa-install.md"

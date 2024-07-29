@@ -14,7 +14,7 @@ Apply your GatewayService, CredentialIssuer, DraftDataset, and Product resources
 
 | Flag | Description |
 | ----- | ------ |
-| `-i, --input string` | YAML file containing your configuration (default "gw-config.yml") |
+| `-i, --input string` | YAML file containing your configuration (default "gw-config.yaml") |
 
 
 **Examples**
@@ -145,7 +145,7 @@ Generate gateway resources based on pre-defined templates
 | ----- | ------ |
 | `--org string` | Set the organization (default "ministry-of-citizens-services") |
 | `--org-unit string` | Set the organization unit (default "databc") |
-| `-o, --out string` | The file to output the generate config to (default "gw-config.yml") |
+| `-o, --out string` | The file to output the generate config to (default "gw-config.yaml") |
 | `-s, --service string` | A unique service subdomain for your vanity url: https://<service>.api.gov.bc.ca |
 | `-t, --template string` | Name of a pre-defined template (kong-httpbin, client-credentials-shared-idp) |
 | `-u, --upstream string` | The upstream implementation of the API |

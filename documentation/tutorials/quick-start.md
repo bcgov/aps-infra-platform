@@ -1,16 +1,18 @@
 ---
-title: "API Provider Quick Start"
+title: "Quick Start"
 ---
 
 <!-- overview -->
 
-In this tutorial, you'll learn how to get started with the {{ glossary_tooltip term_id="api-services-portal" }} and protect an API endpoint. This tutorial is intended for {{ glossary_tooltip term_id="api-provider" text="API providers" }}.
+In this tutorial, you'll learn how to get started with the {{ glossary_tooltip term_id="api-services-portal" }}
+and create a Gateway to route traffic to an API. This
+tutorial is intended for {{ glossary_tooltip term_id="api-provider" text="API
+providers" }}.
 
 By the end of this tutorial, you'll be able to:
 
 - Create a new project, called a Gateway, in the API Services Portal
 - Use templates to generate Gateway Service configuration
-- Protect an API with an OAuth2 Client Credential Flow
 - Publish an API to the {{ glossary_tooltip term_id="api-directory" }} for developers to discover
 
 !!! note "Operating system"
@@ -36,15 +38,11 @@ By the end of this tutorial, you'll be able to:
 
 Gateway configuration is provided in a declarative configuration {{ glossary_tooltip term_id="yaml-file" text="YAML file" }} that defines the Gateway Services and additional resources for your API.
 
-Templates are available for generating Gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md#2-grant-access-to-the-identity-provider).
+Templates are available for generating Gateway configuration for popular integration patterns. In this tutorial you will use a basic template to route traffic to a custom endpoint URL.
 
 1. Log into the API Services Portal with your IDIR account. 
- 
-  !!! note "API Services Portal environment"
-      For this tutorial, you will use the test/training environment (https://api-gov-bc-ca.test.api.gov.bc.ca), rather than the production environment (https://api.gov.bc.ca).
 
-  ```
-  gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
+  ```sh linenums="0"
   gwa login
   ```
 
@@ -70,7 +68,7 @@ Templates are available for generating Gateway configuration for popular integra
 
   ```
   gwa generate-config \
-    --template client-credentials-shared-idp \
+    --template basic-service \
     --service <MYSERVICE> \
     --upstream https://httpbin.org
   ```
@@ -80,21 +78,25 @@ Templates are available for generating Gateway configuration for popular integra
 
       You can specify an upstream service or leave the example provided (https://httpbin.org).
 
-1. Review the configuration in the `gw-config.yml` file.
+1. Review the configuration in the `gw-config.yaml` file.
 
-  You'll see the `GatewayService` configuration, including the upstream service, the routes that expose the GatewayService, and the plugins that add authentication and authorization. 
-
+  You'll see the `GatewayService` configuration, including:
+  
+  -  the upstream service (`url`)
+  -  the route that exposes the GatewayService at the new endpoint (`routes.hosts`)
+  -  tags on each object with the format `tags: [ ns.<GatewayId> ]`
+  
   Below the `GatewayService`, you'll find additional resources:
 
-  - `CredentialIssuer` supports the Client Credentials flow
-  - `Product` and `DraftDataset` provide metadata about the service for the API Directory
+  - `Product` packages GatewayServices for managing consumer access
+  - `DraftDataset` provides metadata about the service for the API Directory
    
-  Don't worry if you don't understand all the details, you will learn more about Gateway configuration and other resources as you continue to work with the API Services Portal.
+  Don't worry if you don't understand all the details, you will learn more about Gateway configuration as you continue to work with the API Services Portal.
 
 1. Apply the configuration file to send it to the API Services Portal:
 
   ```sh
-  gwa apply -i gw-config.yml
+  gwa apply -i gw-config.yaml
   ```
 
   The output is similar to this:
@@ -102,29 +104,18 @@ Templates are available for generating Gateway configuration for popular integra
   ```sh
   ↑ Publishing Gateway Services
   ✓ Gateway Services published
-  creating service one-great-service-dev
-  creating route one-great-service-dev
-  creating plugin request-transformer for service e53a89db-03f4-430a-acae-5978ce9551aa
-  creating plugin jwt-keycloak for service e53a89db-03f4-430a-acae-5978ce9551aa
+  creating service basic-example
+  creating route basic-example
   Summary:
-    Created: 4
+    Created: 2
     Updated: 0
     Deleted: 0
 
-  ✓ [CredentialIssuer] gw-de82c default: created
-  ✓ [DraftDataset] one-great-service-dataset: created
-  ✓ [Product] one-great-service API: created
+  ✓ [DraftDataset] basic-example-dataset: created
+  ✓ [Product] Basic-Example API: created
   ```
 
 ## Access your API
-
-At this point, you have successfully configured your Gateway. Before accessing your API, let's review what you have setup:
-
-- Route to your service, via a vanity URL
-- Protected by an SSL `*.api.gov.bc.ca` certificate
-- Protected with the Client Credential flow using Pathfinder SSO
-- Separation of concerns for authentication and authorization
-- API Directory listing (in private preview mode)
 
 1. Confirm the health of the connection between the API gateway and the upstream service by running:
 
@@ -135,8 +126,8 @@ At this point, you have successfully configured your Gateway. Before accessing y
   The output is similar to this:
 
   ```sh
-  Status  Name                   Reason        Upstream
-  UP      one-great-service-dev  200 Response  https://httpbin.org:443/
+  Status  Name           Reason        Upstream
+  UP      basic-example  200 Response  https://httpbin.org:443/
   ```
 
 1. Retrieve the URL of your Gateway Service by adding the `--hosts` flag to the `gwa status` command:
@@ -145,74 +136,46 @@ At this point, you have successfully configured your Gateway. Before accessing y
   gwa status --hosts
   ```
 
-  The URL will be shown under the `Hosts` column and will be `https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`.
-  
-  !!! note "Vanity URL"
-      If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>-dev.api.gov.bc.ca`.
+  The URL will be shown under the `Hosts` column and will be `https://<MYSERVICE>.api.gov.bc.ca/`.
 
-1. Try to access your Service without any authentication using this `curl` command:
-
-  ```sh linenums="0"
-  curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid
-  ```
-
-  You will receive an `Unauthorized` 401 response, rather than the expected UUID4 from the upstream `https://httpbin.org/uuid`.
-
-  Gaining access involves obtaining a client secret and ID (as a consumer of your API would), and requesting a JWT token.
-
-1. Log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca)
-   (test instance), go to the **Gateways** tab, and select your newly created
-   Gateway.
+1. Visit the URL in a browser to see your API gateway in action.
    
-   In the **Products** panel, click the **Preview in Directory** link.
+  You will see the contents of the httpbin.org homepage, but routed through your URL.
 
-1. You will see a card with the service name you chose earlier (`<MYSERVICE>`). This card is a preview of how the service would look when shared to the API Directory.
+1. To see a more typical API response, visit `https://<MYSERVICE>.api.gov.bc.ca/uuid`.
+   
+   You will see a random UUID4 from the upstream `https://httpbin.org/uuid` in JSON format, similar to:
 
-  Click the title, then click **Request Access** to generate credentials.
-
-  !!! note "Approval requirements"
-      Though the menu is titled "Access Request", your service currently does not require approval to generate working credentials.
-
-      This can be changed by setting `approval: true` in the Product configuration.
-
-1. Click **Create Application** and provide a client application name.
-
-1. Select the **Dev** API environment, and click **Request Access & Continue**.
-
-1. Click **Generate Secrets** to generate a Client ID and Secret pair with a Token URL. Copy these values into the following command to set as environment variables, then run the command:
-
-  ```sh
-  export CID="<Client ID>"
-  export CSC="<Client Secret>"
-  export URL="<Token Endpoint>"
   ```
-
-1. Run this command to request a JWT token and export it to an environment variable (`TOKEN`):
-
-  ```sh
-  RESPONSE=$(curl -X POST "$URL" \
-    -H "Content-Type: application/x-www-form-urlencoded" \
-    -d "client_id=$CID" \
-    -d "client_secret=$CSC" \
-    -d "grant_type=client_credentials" \
-    -d "scopes=openid")
-
-  echo "$RESPONSE" | jq
-  export TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
+  {
+      "uuid": "16498622-b62b-4070-9467-785107380a47"
+  }
   ```
-
-1. Finally, try the `curl` command again with the token in the header:
-
-  ```sh
-  curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid \
-  -H "Authorization: Bearer $TOKEN"
-  ```
-
-  It should return a random UUID4 similar to the following:
-
-  `{  "uuid": "fb49e86c-7e91-45e7-aca1-d0bf1515252d" }`
 
   That's it! You have confirmed the successful configuration of your Gateway Service.
+
+## View your API in the API Directory
+
+1. Log into the [API Services Portal](https://api.gov.bc.ca).
+1. Go to the **Gateways** tab and select your newly created Gateway.
+1. In the **Products** panel, click the **Preview in Directory** link.
+1. You will see a card with the service name you chose earlier (`<MYSERVICE>`). 
+  This card is a preview of how the service would look when shared to the API Directory.
+   
+  The contents of the card can be customzied by editing the `DraftDataset`
+  resource in the Gateway configuration (`gw-config.yaml`).
+
+  For more information on making your API visible to the public, see
+  [Share an API - Enabling for Discovery](/how-to/api-discovery.md#enabling-for-discovery).
+
+<!-- summary -->
+
+## Summary
+
+In this tutorial, you learned how to:
+  
+- Create a route to your service, using a vanity URL
+- List your API in the API Directory (in private preview mode)
 
 <!-- cleanup -->
 
@@ -220,9 +183,7 @@ At this point, you have successfully configured your Gateway. Before accessing y
 
 To clean up the resources resulting from this tutorial, complete the following steps:
 
-1. On the **Gateways** > **Consumers** page, delete the Consumer which was granted access to the service from the ellipsis (**...**) options.  
-
-2. Delete the Gateway and associated services which were set up during the tutorial with this command:
+1. Delete the Gateway and associated services which were set up during the tutorial with this command:
 
   !!! danger
       The following action is irreversible. Ensure the correct Gateway is active first with:
@@ -236,17 +197,18 @@ To clean up the resources resulting from this tutorial, complete the following s
 
 ## Next steps
 
+Continue to the next tutorial to set up a protected API:
+- [Protect an API with Client Credential Flow](/tutorials/protect-client-cred.md)
+
 Learn more about Gateway Service configuration:
 
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
-- [Client Credential Protection](/how-to/client-cred-flow.md)
 - [Upstream Service Setup](/how-to/upstream-services.md)
 
 Discover other API Services Portal features:
 
 - [Manage Team Access](/how-to/gateway-admin.md)
 - [Share an API](/how-to/api-discovery.md)
-- [Manage Consumer Access](/how-to/api-access.md)
 - [Monitor your Services](/how-to/monitoring.md)
 - [CI/CD Integration](/how-to/cicd-integration.md)
 
