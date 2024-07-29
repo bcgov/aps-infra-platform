@@ -157,7 +157,7 @@ Templates are available for generating Gateway configuration for popular integra
 ## View your API in the API Directory
 
 1. Log into the [API Services Portal](https://api.gov.bc.ca).
-1. Go to the **Gateways** tab, and select your newly created Gateway.
+1. Go to the **Gateways** tab and select your newly created Gateway.
 1. In the **Products** panel, click the **Preview in Directory** link.
 1. You will see a card with the service name you chose earlier (`<MYSERVICE>`). 
   This card is a preview of how the service would look when shared to the API Directory.
