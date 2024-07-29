@@ -1,5 +1,5 @@
 ---
-title: "API Provider Quick Start"
+title: "Quick Start"
 ---
 
 <!-- overview -->
