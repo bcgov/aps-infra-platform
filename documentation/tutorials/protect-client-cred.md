@@ -93,13 +93,13 @@ Templates are available for generating Gateway configuration for popular integra
 
 1. Review the configuration in the `gw-config-client-cred.yaml` file.
 
-  You'll see the GatewayService configuration, including the upstream service (`host`), the route that exposes the GatewayService, and the plugins that add authentication and authorization. 
+  You'll see the *GatewayService* configuration, including the upstream service (`host`), the route that exposes the GatewayService, and the plugins that add authentication and authorization. 
 
-  Below the GatewayService, you'll find additional resources :
+  Below the GatewayService, you'll find additional resources:
 
-  - CredentialIssuer supports the Client Credentials flow
-  - Product packages GatewayServices for managing consumer access
-  - DraftDataset provides metadata about the service for the API Directory
+  - *CredentialIssuer* supports the Client Credentials flow
+  - *Product* packages GatewayServices for managing consumer access
+  - *DraftDataset* provides metadata about the service for the API Directory
    
   Don't worry if you don't understand all the details, you will learn more about Gateway configuration and other resources as you continue to work with the API Services Portal.
 
