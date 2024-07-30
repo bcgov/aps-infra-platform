@@ -80,16 +80,16 @@ Templates are available for generating Gateway configuration for popular integra
 
 1. Review the configuration in the `gw-config.yaml` file.
 
-  You'll see the `GatewayService` configuration, including:
+  You'll see the GatewayService configuration, including: 
   
   -  the upstream service (`url`)
   -  the route that exposes the GatewayService at the new endpoint (`routes.hosts`)
   -  tags on each object with the format `tags: [ ns.<GatewayId> ]`
   
-  Below the `GatewayService`, you'll find additional resources:
+  Below the GatewayService, you'll find additional resources:
 
-  - `Product` packages GatewayServices for managing consumer access
-  - `DraftDataset` provides metadata about the service for the API Directory
+  - Product packages GatewayServices for managing consumer access
+  - DraftDataset provides metadata about the service for the API Directory 
    
   Don't worry if you don't understand all the details, you will learn more about Gateway configuration as you continue to work with the API Services Portal.
 
@@ -162,7 +162,7 @@ Templates are available for generating Gateway configuration for popular integra
 1. You will see a card with the service name you chose earlier (`<MYSERVICE>`). 
   This card is a preview of how the service would look when shared to the API Directory.
    
-  The contents of the card can be customzied by editing the `DraftDataset`
+  The contents of the card can be customzied by editing the DraftDataset
   resource in the Gateway configuration (`gw-config.yaml`).
 
   For more information on making your API visible to the public, see
