@@ -1,5 +1,6 @@
 # Kong Upstream Auth Basic
 
+The `upstream-auth-basic` plugin lets you
 Reference: <https://docs.konghq.com/hub/revolution_systems/upstream-auth-basic/>
 
 ## Example

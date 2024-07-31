@@ -13,7 +13,7 @@ contents):
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway](/how-to/create-gateway.md)
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
 - [Share an API in the API Directory](/how-to/api-discovery.md)
 - [Create a Service Account](/how-to/generate-service-account.md) (optional)

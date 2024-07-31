@@ -1,35 +1,40 @@
 # Proxy Cache
 
-Reference: <https://docs.konghq.com/hub/kong-inc/proxy-cache/>
+The `proxy-cache` plugin provides a reverse proxy cache implementation for Kong Gateway.
 
-## Example
+## Configuration reference
+
+This is a stock plugin from Kong Hub. See the [configuration reference page](https://docs.konghq.com/hub/kong-inc/proxy-cache/)
+for a list of parameters and protocol compatibility notes.
+
+## Common usage example
 
 ```yaml
-services:
-  - name: MY_REST_API
-    tags: [ ns.<gatewayId> ]
-    plugins:
-      - name: proxy-cache
-        tags: [ ns.<gatewayId> ]
-        config:
-          response_code:
-            - 200
-          request_method:
-            - GET
-            - HEAD
-          content_type:
-            - text/html
-            - text/css
-            - application/javascript
-          cache_ttl: 30
-          # vary_headers:
-          #   - header_1
-          # vary_query_params:
-          #   - param_1
-          # strategy: memory
-          # memory:
-          #   dictionary_name: proxy_content_cache
+plugins:
+  - name: proxy-cache
+    service: <SERVICE_NAME>
+    config:
+      response_code:
+        - 200
+      request_method:
+        - GET
+        - HEAD
+      content_type:
+        - text/html
+        - text/css
+        - application/javascript
+      cache_ttl: 30
+      # vary_headers:
+      #   - header_1
+      # vary_query_params:
+      #   - param_1
+      # strategy: memory
+      # memory:
+      #   dictionary_name: proxy_content_cache
 ```
+
+Replace <SERVICE_NAME> with the name of the service that this plugin
+configuration will target.
 
 > `cache_ttl` : This value is restricted to be between 15 and 60 seconds
 

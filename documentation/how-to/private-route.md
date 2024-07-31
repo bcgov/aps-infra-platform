@@ -16,7 +16,7 @@ This page shows how to configure a private route for a service.
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway](/how-to/create-gateway.md)
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
 
 ## Submit a request with APS

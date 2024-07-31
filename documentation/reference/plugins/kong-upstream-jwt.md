@@ -1,20 +1,23 @@
 # Kong Upstream JWT
 
-Reference: <https://docs.konghq.com/hub/optum/kong-upstream-jwt>
+The `kong-upstream-jwt` plugin adds a signed JWT into the HTTP Header `JWT` of
+proxied requests through the Kong Gateway.
 
-## Example
+## Configuration reference
+
+This is a third-party plugin managed by Optum. See the [configuration reference page](https://docs.konghq.com/hub/optum/kong-upstream-jwt)
+for a list of parameters and protocol compatibility notes.
+
+## Common usage example
 
 ```yaml
-services:
-- name: MY_REST_API
-  tags: [ ns.<gatewayId> ]
-  plugins:
-    - enabled: true
-      name: kong-upstream-jwt
-      tags: [ ns.<gatewayId> ]
-      config:
-        header: GW-JWT
-        include_credential_type: false
+plugins:
+  - enabled: true
+    name: kong-upstream-jwt
+    service: <SERVICE_NAME>
+    config:
+      header: GW-JWT
+      include_credential_type: false
 ```
 
 ## JWKS

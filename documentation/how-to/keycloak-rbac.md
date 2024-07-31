@@ -10,7 +10,7 @@ SSO and the APS Kong Gateway.
 ## Before you begin
 
 - You have your application deployed in the OpenShift Silver cluster
-- You have created a Gateway in the API Services Portal
+- You have [created a Gateway](/how-to/create-gateway.md) in the API Services Portal
 - You have a Service Account created with the `GatewayConfig.Publish` permission
 - Your Network Policy has been configured to allow traffic from the APS project space
 - You have completed your minimal service/route configuration and published it

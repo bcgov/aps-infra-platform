@@ -10,7 +10,7 @@ discovery by developers and other API consumers, across BC Government and beyond
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway](/how-to/create-gateway.md)
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
   - API Providers with externally protected APIs should follow [this guide](/how-to/protected-externally.md)
   instead

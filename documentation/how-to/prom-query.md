@@ -11,7 +11,7 @@ query can be sent.
 
 ## Prerequisites
 
-- Gateway in the API Gateway
+- [Created a Gateway](/how-to/create-gateway.md)
 - Service Account associated with the Gateway with `Gateway.View` permission or
   greater
 - Ideally an active service experiencing some traffic
