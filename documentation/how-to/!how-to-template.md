@@ -38,7 +38,7 @@ or [concept](/concepts/api-directory.md).}
 Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway](/how-to/create-gateway.md)
 - [Complete This](/how-to/create-gateway-service.md)
 - [Do That](/how-to/generate-service-account.md)
 

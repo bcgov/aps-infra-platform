@@ -16,7 +16,7 @@ You can read more about key-based authentication on the
 Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway](/how-to/create-gateway.md)
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
 
 <!-- steps -->

@@ -15,7 +15,7 @@ Cope about other benefits.
 
 Before you begin, ensure you:
 
-- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway](/how-to/create-gateway.md)
 
 ## Generate a Service Account
 
