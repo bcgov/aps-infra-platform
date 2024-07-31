@@ -11,8 +11,8 @@ API in the API Services Portal.
 ## Background
 
 Kong is an open-source API gateway and microservices management layer which
-powers the API Services Portal. A Kong gateway configuration is a {{
-glossary_tooltip term_id="yaml-file" text="YAML file" }} used to define the
+powers the API Services Portal. A Kong gateway configuration is a
+{{ glossary_tooltip term_id="yaml-file" text="YAML file" }} used to define the
 configuration settings for Kong, such as routes, services, and plugins, using
 declarative syntax.
 
