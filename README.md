@@ -2,36 +2,11 @@
 
 ## Preview docs locally
 
-> 💡 **Prerequisite:** Make sure the docker is running.
-
-=== "Linux"
-
-    - Change to the folder `aps-infra-platform` in your local clone of the repo
-    ```shell 
-    cd <./<path>/aps-infra-platform>
-    ```
-    - Pull the image in `docker` and use it to preview your content as follows:
-    ```shell
-    docker pull ghcr.io/bcgov/devhub-techdocs-publish
-    docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
-    ```
-=== "Windows"
-    
-    - Open `CMD` in Admin previleges.
-    - Run `Powershell`.  This will help in executing the below commands in powershell.
-    - Change to the folder `aps-infra-platform` in your local clone of the repo
-    ```shell 
-    cd <./<path>/aps-infra-platform>
-    ```
-    - Pull the image in `docker` and use it to preview your content as follows:
-    ```shell
-    docker pull ghcr.io/bcgov/devhub-techdocs-publish
-    docker run -it -p 3000:3000 -v ${pwd}:/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
-    ```
-- Start a "preview" web server on http://localhost:3000 for you to review your content.
-- When the documents configured in the `mkdocs.yml` file are edited, the changes will be live-updated on the local site.
-
-For more help, check [INDEX.MD](https://github.com/bcgov/devhub-techdocs-publish/blob/main/docs/index.md) in DevHub.
+Linux:
+```
+docker pull ghcr.io/bcgov/devhub-techdocs-publish
+docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
+```
 
 ## Validate broken links
 
@@ -49,7 +24,7 @@ Search the build logs for `htmltest` to find the results.
 
 ## Update GWA CLI
 
-> 💡 **Prerequisite:** `golang`
+**Prerequisite: `golang`**
 
 ```
 mkdir _tmp
