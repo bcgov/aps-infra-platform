@@ -32,7 +32,7 @@ syntax -->
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Gateway](/reference/gwa-commands.md#gatewaycreate)
+- [Create a Gateway](/how-to/create-gateway.md)
 
 ## Define service configuration
 

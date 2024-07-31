@@ -7,6 +7,15 @@ SSO and the APS Kong Gateway.
 
 ![alt text](/artifacts/keycloak-rbac.png "Keycloak RBAC")
 
+## Before you begin
+
+- You have your application deployed in the OpenShift Silver cluster
+- You have created a Gateway in the API Services Portal
+- You have a Service Account created with the `GatewayConfig.Publish` permission
+- Your Network Policy has been configured to allow traffic from the APS project space
+- You have completed your minimal service/route configuration and published it
+  to the APS Kong Gateway
+
 ## 1. Configure a confidential client
 
 Go to the Common Hosted SSO (CSS) site (<https://bcgov.github.io/sso-requests>)
@@ -19,19 +28,10 @@ The **Assign Users to Roles** action can be used to administer User permissions.
 
 ## 2. Configure the APS Kong Gateway
 
-### Prerequisites
-
-- You have your application deployed in the OpenShift Silver cluster
-- You have created a Gateway in the API Services Portal
-- You have a Service Account created with the `GatewayConfig.Publish` permission
-- Your Network Policy has been configured to allow traffic from the APS project space
-- You have completed your minimal service/route configuration and published it
-  to the APS Kong Gateway
-
 To protect your application, there are two plugins that need to be configured:
 `oidc` and `acl`.
 
-#### `oidc`
+### `oidc`
 
 > Update `discovery` if you are using SSO other than `dev` or if using a
 > non-standard realm
@@ -110,7 +110,7 @@ An example to get `idir_username` and `email` passed, would be:
   header_names: [ X-Idir-Username, X-User-Email ]
 ```
 
-#### `acl`
+### `acl`
 
 The `acl` plugin will enforce that the user's `client_roles` includes the roles
 defined in the `allow` list.
@@ -130,7 +130,7 @@ defined in the `allow` list.
 > If `hide_groups_headers` is `false` then `X-Authenticated-Groups` will be a
 > request header with a comma-delimited list of roles that the user belongs to.
 
-#### request-transformer (optional)
+### request-transformer (optional)
 
 If your upstream service is stateless, then you can remove the cookie before the
 request is forwarded to it.

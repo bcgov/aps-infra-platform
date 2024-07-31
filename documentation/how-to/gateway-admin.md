@@ -75,40 +75,40 @@ The following list describes the access permissions:
 
 #### Swagger Console
 
-Go to the `gwa-api` **Swagger Console** and navigate to the `PUT` `/gateways/{gw}/gateway`
+1. Go to the `gwa-api` **Swagger Console** and navigate to the `PUT` `/gateways/{gw}/gateway`
 API.
 
-The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the
+2. The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the
 **Lock** action on the right and enter the Service Account credentials obtained
 from [Generate a Service Account](/how-to/gateway-admin.md/#generate-a-service-account).
 
-Close the modal dialog and click **Try it out**.
+3. Close the modal dialog and click **Try it out**.
 
-Under **Parameters**, provide the **Gateway**.
+4. Under **Parameters**, provide the **Gateway**.
 
-Set **dryRun** to `true`.
+5. Set **dryRun** to `true`.
 
-Select a `configFile` file.
+6. Select a `configFile` file.
 
-Click **Execute** to send the request.
+7. Click **Execute** to send the request.
 
 #### Postman
 
-From the Postman App, click **Import**. Go to the **Link** tab and enter one of
+1. From the Postman App, click **Import**. Go to the **Link** tab and enter one of
 the below URLs.
 
-| Environment     | Kong Gateway API Postman URL                                                                                  |
-| --------------- | ------------------------------------------------------------------------------------------------------------- |
-| TEST / TRAINING | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}> |
-| PRODUCTION      | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}>                    |
+   | Environment     | Kong Gateway API Postman URL                                                                                  |
+   | --------------- | ------------------------------------------------------------------------------------------------------------- |
+   | TEST / TRAINING | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}> |
+   | PRODUCTION      | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}>                    |
 
-After creation, go to **Collections** and right-click on the
+2. After creation, go to **Collections** and right-click on the
 **Gateway Administration API** collection and select **Edit**.
 
-Go to the **Authorization** tab, enter your `<Client ID>` and `<Client Secret>`,
+3. Go to the **Authorization** tab, enter your `<Client ID>` and `<Client Secret>`,
 and click **Get New Access Token**.
 
-You should get a successful dialog to proceed. Click **Proceed** and **Use Token**.
+4. You should get a successful dialog to proceed. Click **Proceed** and **Use Token**.
 
-You can verify that the token works by going to the Collection
+5. You can verify that the token works by going to the Collection
 **Return key information about authenticated identity** and clicking **Send**.

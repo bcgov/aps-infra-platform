@@ -8,7 +8,7 @@ authentication to an API on the BC Government API Gateway.
 
 ## 1. Generate a Certificate Key pair
 
-```javascript
+```sh
 npm install --save node-jose ms
 
 echo "
@@ -42,7 +42,7 @@ with some secrets.
 
 Make a note of the `Client ID`, `Issuer` and `Token Endpoint`.
 
-```shell
+```sh
 export CID=""
 export ISS=""
 export TURL=""
@@ -59,7 +59,7 @@ b) Request a token from the Token Endpoint using the Client Assertion.
 
 The following sample performs both steps:
 
-```javascript
+```sh
 npm install --save njwt node-fetch@v2
 
 echo "
@@ -106,7 +106,7 @@ fetch(process.env.TURL, { method: 'POST', body: params })
 
 Call the API using the newly generated Token returned from the Identity Provider.
 
-```shell
+```sh
 curl -v https://a-protected-api.test.api.gov.bc.ca/headers \
   -H "Authorization: Bearer $TOK"
 

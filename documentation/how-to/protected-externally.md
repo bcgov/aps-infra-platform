@@ -9,15 +9,7 @@ text="Gateway Services" }} in the {{ glossary_tooltip term_id="api-services-port
 
 ## Before you begin
 
-You need to have the `gwa` command line interface (CLI) installed. Download it from
-[GitHub](https://github.com/bcgov/gwa-cli/releases) and add to `PATH` for the session.
-
-On Linux, run this command to get set up:
-
-```sh linenums="0"
-curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
-export PATH=$PATH:$PWD
-```
+- [Install gwa CLI](/how-to/gwa-install.md)
 
 ## Login
 
@@ -81,8 +73,8 @@ omitting some optional fields:
  | `title`      | API title shown in the API Directory                 |
  |`notes`      | API description, supports Markdown formatting                |
  |`tags`      | Keywords, may be used for search in the future                 |
- | `organization`      | Ministry or agency associated with the API ([options](<https://api.gov.bc.ca/ds/api/v2/organizations>)) that must match the organization associated with the Gateway                |
- | `organizationUnit`      | Organization business sub-unit ([options](https://api.gov.bc.ca/ds/api/v2/organizations/<organization>)) |
+ | `organization`      | Ministry or agency associated with the API ([options](https://api.gov.bc.ca/ds/api/v2/organizations)) that must match the organization associated with the Gateway                |
+ | `organizationUnit`      | Organization business sub-unit. See `https://api.gov.bc.ca/ds/api/v2/organizations/<organization>` for options |
  |`license_title`      | [Licensing options](https://bcgov.github.io/data-publication/pages/dps_licences.html)                |
  | `view_audience`      | Who can access the API                |
  | `security_class`      | [OCIO Information Security Classification Standard](https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf)                 |

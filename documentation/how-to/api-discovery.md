@@ -106,8 +106,8 @@ Here is the schema with example data, omitting some optional fields:
  | `title`      | API title shown in the API Directory                 |
  |`notes`      | API description, supports Markdown formatting                |
  |`tags`      | Keywords, may be used for search in the future                 |
- | `organization`      | Ministry or agency associated with the API ([options](<https://api.gov.bc.ca/ds/api/v2/organizations>)) that must match the organization associated with the Gateway                |
- | `organizationUnit`      | Organization business sub-unit ([options](https://api.gov.bc.ca/ds/api/v2/organizations/<organization>)) |
+ | `organization`      | Ministry or agency associated with the API ([options](https://api.gov.bc.ca/ds/api/v2/organizations)) that must match the organization associated with the Gateway                |
+ | `organizationUnit`      | Organization business sub-unit. See `https://api.gov.bc.ca/ds/api/v2/organizations/<organization>` for options |
  |`license_title`      | [Licensing options](https://bcgov.github.io/data-publication/pages/dps_licences.html)                |
  | `view_audience`      | Who can access the API                |
  | `security_class`      | [OCIO Information Security Classification Standard](https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf)                 |
@@ -183,7 +183,7 @@ the descriptive metadata in the Dataset:
     click the **Products** card.
     2. Click **New Product** in the top right.
    
-    #### Link a BC Data Catalogue Dataset
+    #### Link a Dataset
 
     Once you have a Product, associate the Product with a Dataset:
 
@@ -222,7 +222,7 @@ Enable an environment to display the API in the API Directory. You can
 individually enable each environment (`dev`, `test`, `prod`).
 
 Enable environments by either updating the Product Environment configuration
-YAML to `active: true`, or on the API Services Portal > **Gateway** >
+YAML to `active: true`, or on the API Services Portal > **Gateways** >
 **Products** > **Edit** in the table > **Configure environment** > select
 **Enable Environment**.
 

@@ -73,8 +73,8 @@ Table: {Table title which concisely explains the comparison.}
 
 | Option   | Pros                                  | Cons                                  |
 |----------|---------------------------------------|---------------------------------------|
-| {Concept} option 1 | - Pro 1 for Option 1 <br> - Pro 2 for Option 1 | - Con 1 for Option 1 <br> - Con 2 for Option 1 |
-| {Concept} option 2 | - Pro 1 for Option 2 <br> - Pro 2 for Option 2 | - Con 1 for Option 2 <br> - Con 2 for Option 2 |
+| {Concept} option 1 | <ul><li>Pro 1 for Option 1</li><li>Pro 2 for Option 1</li></ul> | <ul><li>Con 1 for Option 1</li><li>Con 2 for Option 1</li></ul> |
+| {Concept} option 2 | <ul><li>Pro 1 for Option 2</li><li>Pro 2 for Option 2</li></ul> | <ul><li>Con 1 for Option 2</li><li>Con 2 for Option 2</li></ul> |
 
 OR
 
