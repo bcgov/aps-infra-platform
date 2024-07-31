@@ -78,12 +78,12 @@ To use one of these templates, follow these steps:
   === "kong-httpbin"
 
       ```shell linenums="0"
-      gwa pg gw-config.yml
+      gwa pg gw-config.yaml
       ```
   === "client-credentials-shared-idp"
 
       ```shell linenums="0"
-      gwa apply -i gw-config.yml
+      gwa apply -i gw-config.yaml
       ```
 
 ### Using an OpenAPI spec

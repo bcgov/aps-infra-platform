@@ -1,13 +1,13 @@
 ---
-title: Services
+title: Gateway Services
 ---
 
 This article explains the basics of Gateway Services, and how they are used to
 set up your API on the API Services Portal.
 
-A Gateway Service represents an external upstream service or API that {{
-glossary_tooltip term_id="kong-gateway" text="Kong" }} manages. This could be a
-service hosted internally within your infrastructure or an external service
+A Gateway Service represents an external upstream service or API that
+{{ glossary_tooltip term_id="kong-gateway" text="Kong" }} manages. This could be
+a service hosted internally within your infrastructure or an external service
 hosted elsewhere, for example, a data transformation microservice, a billing
 API, and so on. Kong acts as a proxy for these services, enabling you to control
 access, manage traffic, apply security policies, and more.
@@ -56,12 +56,12 @@ But when the internal client accesses the service via Kong Gateway using
 
 ## Next steps
 
-If you would like to dive deeper or start implementing Services, check out the
-following resources:
+If you would like to dive deeper or start implementing Gateway Services, check
+out the following resources:
 
 How-to Guides
 
-- [Create a Service](/how-to/create-gateway-service.md)
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
 
 Extend Service functionality with plugins
 
