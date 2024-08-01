@@ -2,6 +2,8 @@
 title: GWA CLI Commands
 ---
 
+<!-- NOTE: This file is generated from gwa-cli, do not edit directly -->
+
 GWA command line interface (CLI) helps manage gateway resources in a declarative fashion.
 
 ## apply
@@ -14,7 +16,7 @@ Apply your GatewayService, CredentialIssuer, DraftDataset, and Product resources
 
 | Flag | Description |
 | ----- | ------ |
-| `-i, --input string` | YAML file containing your configuration (default "gw-config.yaml") |
+| `-i, --input string` | YAML file containing your configuration |
 
 
 **Examples**
@@ -147,14 +149,14 @@ Generate gateway resources based on pre-defined templates
 | `--org-unit string` | Set the organization unit (default "databc") |
 | `-o, --out string` | The file to output the generate config to (default "gw-config.yaml") |
 | `-s, --service string` | A unique service subdomain for your vanity url: https://<service>.api.gov.bc.ca |
-| `-t, --template string` | Name of a pre-defined template (kong-httpbin, client-credentials-shared-idp) |
+| `-t, --template string` | Name of a pre-defined template (quick-start, client-credentials-shared-idp, kong-httpbin) |
 | `-u, --upstream string` | The upstream implementation of the API |
 
 
 **Examples**
 
 ```shell
-$ gwa generate-config --template kong-httpbin \
+$ gwa generate-config --template quick-start \
     --service my-service \
 	--upstream https://httpbin.org
 
