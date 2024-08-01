@@ -1,5 +1,5 @@
 ---
-title: {Production Readiness Checklist}
+title: Production Readiness Checklist
 ---
 
 This guide gives
