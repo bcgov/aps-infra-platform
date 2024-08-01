@@ -9,8 +9,9 @@ requests and approving access to your APIs.
 
 ## Manage Access and Controls
 
-> NOTE: To manage access to your APIs, you must have the `Access.Manage`
-> permission for the Gateway.
+!!! note
+    To manage access to your APIs, you must have the `Access.Manage`
+    permission for the Gateway.
 
 As an Access Manager, you can manage new Consumers by going to the **Gateways**
 tab, selecting a **Gateway**, and clicking the **Consumers** card.

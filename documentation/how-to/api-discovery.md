@@ -16,7 +16,7 @@ discovery by developers and other API consumers, across BC Government and beyond
   instead
 - [Protect an API](/concepts/protect-api.md) (optional)
 
-You should also be familiar with these Concepts:
+You should also be familiar with these concepts:
 
 - [API Directory](/concepts/api-directory.md)
 
