@@ -19,6 +19,7 @@ configuration file:
 plugins:
 - name: key-auth
   service: <SERVICE_NAME>
+  tags: [ ns.<gatewayId> ]
   config:
     key_names:
     - X-API-KEY

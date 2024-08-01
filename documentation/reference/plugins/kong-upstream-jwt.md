@@ -15,6 +15,7 @@ plugins:
   - enabled: true
     name: kong-upstream-jwt
     service: <SERVICE_NAME>
+    tags: [ ns.<gatewayId> ]
     config:
       header: GW-JWT
       include_credential_type: false

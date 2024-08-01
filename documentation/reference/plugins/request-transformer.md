@@ -40,6 +40,7 @@ plugins:
   - https
   - http
   service: <SERVICE_NAME>
+  tags: [ ns.<gatewayId> ]
 ```
 
 Replace <SERVICE_NAME> with the name of the service that this plugin

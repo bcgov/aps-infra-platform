@@ -17,6 +17,7 @@ Upstream Service, add this section to your GatewayService configuration file:
 plugins:
 - name: gwa-ip-anonymity
   service: <SERVICE_NAME>
+  tags: [ ns.<gatewayId> ]
   enabled: true
   config:
     ipv4_mask: 0

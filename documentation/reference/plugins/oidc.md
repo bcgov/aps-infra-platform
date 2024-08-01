@@ -23,6 +23,7 @@ plugins:
   - enabled: true
     name: oidc
     service: <SERVICE_NAME>
+    tags: [ ns.<gatewayId> ]
     config:
       access_token_as_bearer: "no"
       access_token_header_name: X-Access-Token

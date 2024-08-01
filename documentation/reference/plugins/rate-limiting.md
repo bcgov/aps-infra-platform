@@ -23,6 +23,7 @@ To add rate limiting, add this section to your GatewayService configuration file
 plugins:
 - name: rate-limiting
   service: <MY_SERVICE>
+  tags: [ ns.<gatewayId> ]
   config:
     fault_tolerant: true
     hide_client_headers: false

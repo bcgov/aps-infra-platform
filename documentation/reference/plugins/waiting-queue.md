@@ -19,35 +19,33 @@ section:
 ## Common usage example
 
 ```yaml
-services:
-  - name: MY_REST_API
+plugins:
+  - name: jwt-keycloak_1010
+    service: <SERVICE_NAME>
     tags: [ ns.<gatewayId> ]
-    plugins:
-      - name: jwt-keycloak_1010
-        tags: [ ns.<gatewayId> ]
-        enabled: true
-        config:
-          allowed_iss:
-            - https://auth.service.issuer
-          allowed_aud: an-audience-ref
-          access_token_header: AUTH-WAITING-QUEUE
-          realm: waitingqueue
-          disable_access_token_header: true
-          #algorithm: RS256
-          #run_on_preflight: true
-          #iss_key_grace_period: 10
-          #maximum_expiration: 0
-          #claims_to_verify:
-          #- exp
-          #well_known_template: %s/.well-known/openid-configuration
-          #cookie_names: []
-          #uri_param_names: []
-          #scope: null
-          #roles: null
-          #client_roles: null
-          #anonymous: null
-          #realm_roles: null
-          #consumer_match: false
+    enabled: true
+    config:
+      allowed_iss:
+        - https://auth.service.issuer
+      allowed_aud: an-audience-ref
+      access_token_header: AUTH-WAITING-QUEUE
+      realm: waitingqueue
+      disable_access_token_header: true
+      #algorithm: RS256
+      #run_on_preflight: true
+      #iss_key_grace_period: 10
+      #maximum_expiration: 0
+      #claims_to_verify:
+      #- exp
+      #well_known_template: %s/.well-known/openid-configuration
+      #cookie_names: []
+      #uri_param_names: []
+      #scope: null
+      #roles: null
+      #client_roles: null
+      #anonymous: null
+      #realm_roles: null
+      #consumer_match: false
 ```
 
 ## Waiting Queue + User Credentials
@@ -55,6 +53,7 @@ services:
 ```yaml
 plugins:
   - name: jwt-keycloak_1010
+    service: <SERVICE_NAME>
     tags: [ ns.<gatewayId> ]
     enabled: true
     config:

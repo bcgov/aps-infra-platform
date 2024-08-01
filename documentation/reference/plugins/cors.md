@@ -17,6 +17,7 @@ configuration file:
 plugins:
 - name: cors
   service: <SERVICE_NAME>
+  tags: [ ns.<gatewayId> ]
   config:
     origins: ["*"]
     methods: [GET, POST, PUT, PATCH, OPTIONS]

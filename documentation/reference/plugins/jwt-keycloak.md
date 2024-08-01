@@ -24,6 +24,7 @@ GatewayService configuration file:
 plugins:
   - name: jwt-keycloak
     service: <SERVICE_NAME>
+    tags: [ ns.<gatewayId> ]
     enabled: true
     config:
       allowed_iss:
@@ -68,7 +69,6 @@ the SSO Standard Realm and Service Account Tokens using APS's Shared IdP:
 services:
   - name: MY_REST_API
     tags: [ ns.<gatewayId> ]
-
     routes:
       - name: MY_REST_API_READS
         hosts: [myrestapi.api.gov.bc.ca]
