@@ -9,8 +9,8 @@ Services to the {{ glossary_tooltip term_id="api-directory" }}.
 
 ## First time activities
 
-- Learn about and understand the benefits of the [API Services Portal](https://api.gov.bc.ca)
-  by reviewing our [plain language](https://www2.gov.bc.ca/gov/content/data/finding-and-sharing/api-management)
+- Learn about and understand the benefits of the
+  {{ glossary_tooltip term_id="api-services-portal" }} by reviewing our [plain language](https://www2.gov.bc.ca/gov/content/data/finding-and-sharing/api-management)
   and [technical documentation](https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/).
   Reach out to the APS team by opening a [support ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2)
   or on our [Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/)
@@ -23,13 +23,13 @@ Services to the {{ glossary_tooltip term_id="api-directory" }}.
   [Set Up an Upstream Service](/how-to/upstream-services.md)
   guide for more information.
 
-- Get Organizational approval to share your API services. Comply with your
+- Get Organizational approval to share your API service. Comply with your
   Organization’s information management and security guidelines. For BC
   Government, this includes but is not limited to [Privacy Impact Assessments](https://www2.gov.bc.ca/gov/content/governments/services-for-government/information-management-technology/privacy/privacy-impact-assessments)
   (PIA) and [Security Threat and Risk Assessments](https://www2.gov.bc.ca/gov/content/governments/services-for-government/information-management-technology/information-security/security-threat-and-risk-assessment)
   (STRA).
 
-- **Optional**: Document your API in an [OpenAPI specification](https://swagger.io/docs/specification/about/)
+- **Recommended**: Document your API in an [OpenAPI specification](https://swagger.io/docs/specification/about/)
   (OAS, formerly Swagger).
 
 ## Configure a Gateway Service
