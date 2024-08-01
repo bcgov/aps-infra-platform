@@ -35,7 +35,6 @@ nav:
       - "how-to/monitoring.md"
       - "how-to/prom-query.md"
     - "how-to/keycloak-rbac.md"
-    # - Production Readiness Checklist:
     - "how-to/prod-checklist.md"
   - Concepts:
       - "concepts/api-directory.md"
