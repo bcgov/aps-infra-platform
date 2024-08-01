@@ -15,7 +15,7 @@ docker pull ghcr.io/bcgov/devhub-techdocs-publish
 docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
 ```
 ### Windows
-- Open `CMD` in Admin previleges.
+- Open `CMD` with Admin privileges.
 - Run `Powershell`.  This will help in executing the below commands in powershell.
 - Change to the folder `aps-infra-platform` in your local clone of the repo
 ```shell 
