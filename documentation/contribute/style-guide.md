@@ -53,7 +53,7 @@ found in Tutorial and Explanation pages. Follow this alongside using UpperCamelC
 | Do | Don't |
 | -- | ----- |
 | *Products* bundle one or more GatewayServices. | "Products" bundle one or more GatewayServices. |
-| Namespaces must be associated with an *Organization*. | Namespaces must be associated with an **Organization**. |
+| Gateways must be associated with an *Organization*. | Gateways must be associated with an **Organization**. |
 
 ### Use code style (`monospace`) for filenames, directories, and paths
 
@@ -157,11 +157,11 @@ gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 
 | Notation | Description | Example use |
 | -------- | ----------- | ----------- |
-| `Text without brackets or braces` | Items you must type as shown. | `gwa namespace list` |
+| `Text without brackets or braces` | Items you must type as shown. | `gwa gateway list` |
 | `<Text inside angle brackets>` | Placeholder for which you must supply a value. | `gwa get <resource>` |
 | `[Text inside square brackets]` | Optional items. | `gwa status [flags]` |
-| `{Text inside braces}` | Set of required items. You must choose one. | `gwa config get {api_key\|host\|namespace}` |
-| Vertical bar (`\|`) | Separator for mutually exclusive items. You must choose one. | `gwa config get {api_key\|host\|namespace}` |
+| `{Text inside braces}` | Set of required items. You must choose one. | `gwa config get {api_key\|host\|gateway}` |
+| Vertical bar (`\|`) | Separator for mutually exclusive items. You must choose one. | `gwa config get {api_key\|host\|gateway}` |
 | Ellipsis (`...`) | Items that can be repeated and used multiple times. | `gwa publish-gateway <filename...>` |
 
 ### Use angle brackets for placeholders
@@ -172,7 +172,7 @@ Use meaningful variable names for the context.
 | Do | Don't |
 | -- | ----- |
 | `gwa apply --input <gateway-config.yaml>` | `gwa apply --input [file]` |
-| `tags: [ ns.<namespace> ]` | `tags: [ _NS_ ]` |
+| `tags: [ ns.<gatewayId> ]` | `tags: [ _NS_ ]` |
 | `gwa get <resource>` | `gwa get <foo>` |
 | `curl https://<MYSERVICE>.api.gov.bc.ca/headers` | `curl https://*MYSERVICE*.api.gov.bc.ca/headers` |
 
@@ -264,6 +264,7 @@ using the CLI or Portal UI.
     - list item b
 
 === "Tab 3"
+
     ```
     kind: DraftDataset
     name: my-draft-dataset
@@ -275,21 +276,25 @@ using the CLI or Portal UI.
 Use a single empty newline to separate block-level content like headings, lists,
 images, code blocks, and others.
 
-Manually wrap long lines by adding breaks in the Markdown source.
-Since git generates file diffs on a line-by-line basis, manually wrapping long lines
-helps reviewers to easily find the changes made in a PR and provide feedback.
+Manually wrap long lines by adding breaks in the Markdown source. Since git
+generates file diffs on a line-by-line basis, manually wrapping long lines helps
+reviewers to easily find the changes made in a PR and provide feedback.
 
 Rather than doing this manually, find an extension like
-[Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap){:data-proofer-ignore} for
-Visual Studio Code (shortcut `ALT + Q`).
+[Rewrap](https://marketplace.visualstudio.com/items?itemName=stkb.rewrap){:data-proofer-ignore}
+for Visual Studio Code (shortcut `ALT + Q`).
+
+To encourage consistency in authoring this documentation, use the [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+Visual Studio Code extension to help lint Markdown files.
 
 ### Headings and titles {#headings}
 
-People accessing this documentation may use a screen reader or other assistive technology.
-[Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices,
-outputting items on a page one at a time. If there is a lot of content on a page,
-you can use headings to give the page an internal structure. A good page structure
-helps all readers to easily navigate the page or filter topics of interest.
+People accessing this documentation may use a screen reader or other assistive
+technology. [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are
+linear output devices, outputting items on a page one at a time. If there is a
+lot of content on a page, you can use headings to give the page an internal
+structure. A good page structure helps all readers to easily navigate the page
+or filter topics of interest.
 
 | Do | Don't |
 | -- | ----- |
@@ -306,9 +311,10 @@ helps all readers to easily navigate the page or filter topics of interest.
 
 ### Links
 
-Write links using `[link text](URL)`. 
+Write links using `[link text](URL)`.
 
-Write hyperlinks that give you context for the content they link to - avoid "click here."
+Write hyperlinks that give you context for the content they link to - avoid
+"click here."
 
 | Do | Don't |
 | -- | ----- |
@@ -343,13 +349,16 @@ Use root-relative links to support documents moving around without breaking link
 
 ### Diagrams
 
-Use Mermaid to create diagrams by tagging a code block with the `mermaid` language tag. See the [Kubernetes Diagram Guide](https://kubernetes.io/docs/contribute/style/diagram-guide/) more information on creating diagrams with Mermaid (and don't forget about GenAI).
+Use Mermaid to create diagrams by tagging a code block with the `mermaid`
+language tag. See the [Kubernetes Diagram Guide](https://kubernetes.io/docs/contribute/style/diagram-guide/)
+for more information on creating diagrams with Mermaid (and don't forget about GenAI).
 
 !!! Note
-	Mermaid diagrams won't show when using the [devhub-techdocs-publish](https://github.com/bcgov/devhub-techdocs-publish/blob/main/docs/index.md#how-to-use-the-docker-image-to-preview-content-locally) to preview the documentation locally. 
-    They will show up when published to DevHub's preview or production sites.
+    Mermaid diagrams won't show when using the
+    [devhub-techdocs-publish](https://github.com/bcgov/devhub-techdocs-publish/blob/main/docs/index.md#how-to-use-the-docker-image-to-preview-content-locally)
+    to preview the documentation locally. They will show up when published to
+    DevHub's preview or production sites.
 
-````
 ```mermaid
   graph TD;
       A-->B;
@@ -357,7 +366,6 @@ Use Mermaid to create diagrams by tagging a code block with the `mermaid` langua
       B-->D;
       C-->D;
 ```
-````
 
 ```mermaid
   graph TD;

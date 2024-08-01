@@ -4,23 +4,28 @@ title: Set Up an Upstream Service
 
 ## Upstream Services on OCP
 
-API Program Services (APS) has Kong Data Planes running on Platform Service's Silver and Gold Private
-OpenShift clusters. If your upstream services run on one of these clusters, then
-you will need to configuration the network polices to allow access from the API
-Gateway.
+API Program Services (APS) has Kong Data Planes running on Platform Service's
+Silver and Gold Private OpenShift clusters. If your upstream services run on one
+of these clusters, then you will need to configure the network polices to
+allow access from the API Gateway.
 
 Additionally, you can set up [private routing](/how-to/private-route.md) to
 limit consumer access to that cluster.
 
 ### Network Policies
 
-> If your service is running on the OpenShift platform, you should specify the Kubernetes Service in the `Service.host`. It must have the format: `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your Kubernetes Service Port. Any Security Policies for egress from the Gateway will be setup automatically on the API Gateway side.
+> If your service is running on the OpenShift platform, you should specify the
+> Kubernetes Service in the `Service.host`. It must have the format:
+> `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your
+> Kubernetes Service Port. Any Security Policies for egress from the Gateway
+> will be setup automatically on the API Gateway side.
 
 The Kong Gateway runs Data Planes in both Silver and Gold clusters.
 
-**Silver Cluster**
+#### Silver Cluster
 
-You will need to create a Network Policy on your side similar to the following to allow the Gateway's test and prod environments to route traffic to your API:
+You will need to create a Network Policy on your side similar to the following
+to allow the Gateway's test and prod environments to route traffic to your API:
 
 ```yaml
 kind: NetworkPolicy
@@ -44,9 +49,12 @@ spec:
               name: 264e6f
 ```
 
-**Gold Cluster**
+#### Gold Cluster
 
-If your service is running on Gold, you will need to contact the APS team to have your Namespace provisioned on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Gold.
+If your service is running on Gold, you will need to contact the APS team to
+have your Gateway provisioned on the correct Kong Data Plane and ensure the
+correct DNS is setup for your routes. The following is the Network Policy on
+Gold.
 
 ```yaml
 kind: NetworkPolicy
@@ -72,13 +80,16 @@ spec:
 
 ## Upstream Services with mTLS
 
-> **Require mTLS between the Gateway and your Upstream Service?** To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the `ca_certificates` and `tls_verify` is required as well. Example:
+> **Require mTLS between the Gateway and your Upstream Service?** To support
+> mTLS on your Upstream Service, you will need to provide client certificate
+> details and if you want to verify the upstream endpoint then the
+> `ca_certificates` and `tls_verify` is required as well. Example:
 
 ```yaml
 services:
   - name: my-upstream-service
     host: my-upstream.site
-    tags: [_NS_]
+    tags: [ns.<gatewayId>]
     port: 443
     protocol: https
     tls_verify: true
@@ -88,12 +99,18 @@ services:
 certificates:
   - cert: "<PEM FORMAT>"
     key: "<PEM FORMAT>"
-    tags: [_NS_]
+    tags: [ns.<gatewayId>]
     id: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
 ```
 
-> NOTE: `ca_certificates` (Root CAs) must be installed by the `APS` team - please reach out to us on Rocket.Chat `#aps-ops` to request setup of your Root CA.  A `ca_certificates` `UUID` will be provided to you, to add to your `services` details.
+> NOTE: `ca_certificates` (Root CAs) must be installed by the `APS` team -
+> please reach out to us on Rocket.Chat `#aps-ops` to request setup of your Root
+> CA.  A `ca_certificates` `UUID` will be provided to you, to add to your
+> `services` details.
 
-> NOTE: You must generate a UUID (`python -c 'import uuid; print(uuid.uuid4())'`) for each certificate you create (set the `id`) and reference it in your `services` details.
+> NOTE: You must generate a UUID (`python -c 'import uuid;
+> print(uuid.uuid4())'`) for each certificate you create (set the `id`) and
+> reference it in your `services` details.
 
-> HELPER: Python command to get a PEM file on one line: `python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem`
+> HELPER: Python command to get a PEM file on one line:
+> `python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))'my.pem`
