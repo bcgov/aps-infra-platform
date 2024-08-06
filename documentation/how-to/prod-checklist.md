@@ -76,12 +76,12 @@ developers and consumers in BC Government and beyond:
 These steps are not required to enable your Gateway Services for discovery but
 may be useful for Gateway administrators.
 
-### Integrate DevOps
+- [] Integrate DevOps
 
-- [ ] Learn how to keep your Gateway Services updated by
-[adding the `gwa` CLI  to existing CI/CD pipelines](/how-to/cicd-integration.md).
+  - Learn how to keep your Gateway Services updated by
+  [adding the `gwa` CLI  to existing CI/CD pipelines](/how-to/cicd-integration.md).
 
-### Monitor your Gateway Services
+- [ ] Monitor your Gateway Services
 
-- [ ] Understand how to [view request metrics](/how-to/monitoring.md) in
-real-time for your Gateway Services.
+  - Understand how to [view request metrics](/how-to/monitoring.md) in
+  real-time for your Gateway Services.
