@@ -5,38 +5,43 @@ title: Production Readiness Checklist
 This guide gives
 {{ glossary_tooltip term_id="api-provider" text="API Providers" }} a quick
 reference of actions they need to complete before publishing their Gateway
-Services to the {{ glossary_tooltip term_id="api-directory" }}.
+Services to the {{ glossary_tooltip term_id="api-directory" }} for discovery by
+consumers.
 
 ## First time activities
 
-- Learn about and understand the benefits of the
-  {{ glossary_tooltip term_id="api-services-portal" }} by reviewing our [plain language](https://www2.gov.bc.ca/gov/content/data/finding-and-sharing/api-management)
+Learn about and understand the benefits of the
+{{ glossary_tooltip term_id="api-services-portal" }}.
+
+- Review our [plain language](https://www2.gov.bc.ca/gov/content/data/finding-and-sharing/api-management)
   and [technical documentation](https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/).
-  Reach out to the APS team by opening a [support ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2)
+  
+- Reach out to the APS team by opening a [support ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2)
   or on our [Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/)
   channel (#aps-ops) if you can’t find the information you’re looking for.
 
-- Have access to a production-ready API. This could be a public or private
-  service. If your API service runs on BC Government [Platform Service’s](https://digital.gov.bc.ca/cloud/services/)
-  Silver or Gold Private OpenShift clusters, you will need to configure the network
-  policies to allow access from your API gateway. View our
-  [Set Up an Upstream Service](/how-to/upstream-services.md)
-  guide for more information.
+Have access to a production-ready API.
 
-- Get Organizational approval to share your API service. Comply with your
-  Organization’s information management and security guidelines. For BC
-  Government, this includes but is not limited to [Privacy Impact Assessments](https://www2.gov.bc.ca/gov/content/governments/services-for-government/information-management-technology/privacy/privacy-impact-assessments)
+- This could be a public or private service. If your API service runs on BC
+  Government [Platform Service’s](https://digital.gov.bc.ca/cloud/services/)
+  Silver or Gold Private OpenShift clusters, you will need to configure the
+  network policies to allow access from your API gateway. View our [Set Up an
+  Upstream Service](/how-to/upstream-services.md) guide for more information.
+
+Get Organizational approval to share your API service.
+
+- Comply with your Organization’s information management and security
+  guidelines. For BC Government, this includes but is not limited to
+  [Privacy Impact Assessments](https://www2.gov.bc.ca/gov/content/governments/services-for-government/information-management-technology/privacy/privacy-impact-assessments)
   (PIA) and [Security Threat and Risk Assessments](https://www2.gov.bc.ca/gov/content/governments/services-for-government/information-management-technology/information-security/security-threat-and-risk-assessment)
   (STRA).
 
-- **Recommended**: Document your API in an [OpenAPI specification](https://swagger.io/docs/specification/about/)
-  (OAS, formerly Swagger).
+**Recommended**: Document your API in an [OpenAPI specification](https://swagger.io/docs/specification/about/)
+(OAS, formerly Swagger).
 
 ## Configure a Gateway Service
 
-- [Install the `gwa` CLI](/how-to/gwa-install.md).
-
-- Create a [Gateway](/how-to/create-gateway.md) and [Gateway Service](/how-to/create-gateway-service.md).
+Create a [Gateway Service](/how-to/create-gateway-service.md).
 
 ## Protect your API
 
@@ -46,8 +51,8 @@ data they handle.
 - Implement [authentication](/how-to/client-cred-flow) to control who can
   interact with your services.
 
-- Manage [consumer access](/how-to/api-access) and configure rate limiting to
-  prevent abuse of your resources.
+- Manage [consumer access](/how-to/api-access) and configure [rate limiting](/how-to/COMMON-CONFIG.md#ratelimiting)
+  to prevent abuse of your resources.
 
 ## Share your API
 
@@ -72,10 +77,10 @@ may be useful for Gateway administrators.
 
 ### Integrate DevOps
 
-- Learn how to keep your Gateway Services updated by
+Learn how to keep your Gateway Services updated by
 [adding the `gwa` CLI  to existing CI/CD pipelines](/how-to/cicd-integration.md)
 
 ### Monitor your Gateway Services
 
-- Understand how to [view request metrics](/how-to/monitoring.md) in real-time
-  for your Gateway Services
+Understand how to [view request metrics](/how-to/monitoring.md) in real-time
+for your Gateway Services
