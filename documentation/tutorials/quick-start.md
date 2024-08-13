@@ -16,9 +16,10 @@ By the end of this tutorial, you'll be able to:
 - Publish an API to the {{ glossary_tooltip term_id="api-directory" }} for developers to discover
 
 !!! note "Operating system"
-    The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`). If you are running Windows, it is recommended to use WSL2. 
+    The commands provided in this tutorial are compatible with Linux, MacOS, and Windows.
 
-    Alternatively, if you have access to a Platform Services OpenShift cluster, you can use the OpenShift commmand line [terminal](https://console.apps.silver.devops.gov.bc.ca/terminal) from any operating system.
+    However, the commands provided in most of our documentation are for a Unix shell (e.g. `bash`, `zsh`).
+    If you are running Windows, it is recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 <!-- prerequisites -->
 <!-- NONE - this is a beginner tutorial -->
@@ -27,12 +28,29 @@ By the end of this tutorial, you'll be able to:
 
 ## Download the `gwa` CLI
 
-1. Download the `gwa` cli and add to `PATH` for the session:
+1. Download the `gwa` cli and add to `PATH`:
 
-  ```sh
-  curl -L https://github.com/bcgov/gwa-cli/releases/download/v3.0.0/gwa_Linux_x86_64.tgz | tar -zxf -
-  export PATH=$PATH:$PWD
-  ```
+  === "Linux"
+
+      If you are on Linux, you can install by downloading a compressed archive:
+
+      ```shell
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.0/gwa_Linux_x86_64.tgz -o gwa.tar.gz
+      tar -xf gwa.tar.gz -C /tmp
+      sudo cp /tmp/gwa /usr/local/bin/
+      ```
+
+  === "Windows"
+
+      If you are on Windows, you can install using Command Prompt (CMD) by 
+      navigating to the target installation folder and downloading a compressed archive:
+
+      ```shell
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.0/gwa_Windows_x86_64.zip -o gwa.zip
+      mkdir gwa
+      tar -xf gwa.zip -C gwa
+      powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory() + '\gwa', 'User')"
+      ```
 
 ## Prepare and apply Gateway configuration
 
@@ -67,10 +85,7 @@ Templates are available for generating Gateway configuration for popular integra
   Then run the following command, substituting your service name for `<MYSERVICE>`:
 
   ```
-  gwa generate-config \
-    --template basic-service \
-    --service <MYSERVICE> \
-    --upstream https://httpbin.org
+  gwa generate-config --template quick-start --service <MYSERVICE> --upstream https://httpbin.org
   ```
 
   !!! note "Upstream service"
