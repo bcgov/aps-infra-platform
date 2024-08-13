@@ -84,7 +84,7 @@ Templates are available for generating Gateway configuration for popular integra
 
   Then run the following command, substituting your service name for `<MYSERVICE>`:
 
-  ```
+  ```sh linenums="0"
   gwa generate-config --template quick-start --service <MYSERVICE> --upstream https://httpbin.org
   ```
 
