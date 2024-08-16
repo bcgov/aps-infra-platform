@@ -35,7 +35,7 @@ By the end of this tutorial, you'll be able to:
       If you are on Linux, you can install by downloading a compressed archive:
 
       ```shell
-      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.0/gwa_Linux_x86_64.tgz -o gwa.tar.gz
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Linux_x86_64.tgz -o gwa.tar.gz
       tar -xf gwa.tar.gz -C /tmp
       sudo cp /tmp/gwa /usr/local/bin/
       ```
@@ -46,7 +46,7 @@ By the end of this tutorial, you'll be able to:
       navigating to the target installation folder and downloading a compressed archive:
 
       ```shell
-      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.0/gwa_Windows_x86_64.zip -o gwa.zip
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
       mkdir gwa
       tar -xf gwa.zip -C gwa
       powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory() + '\gwa', 'User')"

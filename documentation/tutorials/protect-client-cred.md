@@ -38,7 +38,7 @@ There are no prerequisites for this tutorial. For a more basic introduction to t
 1. Download the `gwa` cli and add to `PATH` for the session:
 
   ```sh
-  curl -L https://github.com/bcgov/gwa-cli/releases/download/v3.0.0/gwa_Linux_x86_64.tgz | tar -zxf -
+  curl -L https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Linux_x86_64.tgz | tar -zxf -
   export PATH=$PATH:$PWD
   ```
 
