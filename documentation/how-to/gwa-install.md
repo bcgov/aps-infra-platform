@@ -9,15 +9,7 @@ Gateway Services and other resources on the API Services Portal.
 
 `gwa` runs from a single executable file for convenient installation.
 
-## Compatibility
-
-The `gwa` command line interface (CLI) is available for Linux, MacOS, and Windows.
-
-However, the commands provided in most of our documentation are for a Unix shell
-(e.g. `bash`, `zsh`).
-If you are running Windows, it is recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
-
-Visit the [release page](https://github.com/bcgov/gwa-cli/releases) for all versions.
+## Installation
 
 === "Linux"
 
@@ -35,11 +27,21 @@ Visit the [release page](https://github.com/bcgov/gwa-cli/releases) for all vers
     navigating to the target installation folder and downloading a compressed archive:
 
     ```shell
-    curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
     mkdir gwa
-    tar -xf gwa.zip -C gwa
-    powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory() + '\gwa', 'User')"
+    cd gwa
+    curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
+    tar -xf gwa.zip
+    powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
     ```
+
+!!! note "Operating system compatibility"
+    The `gwa` command line interface (CLI) is available for Linux, MacOS, and Windows.
+
+    However, the commands provided in most of our documentation are for a Unix shell
+    (e.g. `bash`, `zsh`).
+    If you are running Windows, it is recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+    Visit the [release page](https://github.com/bcgov/gwa-cli/releases) for all versions.
 
 ## Confirm installation
 

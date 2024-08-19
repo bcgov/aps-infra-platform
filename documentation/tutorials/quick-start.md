@@ -15,7 +15,7 @@ By the end of this tutorial, you'll be able to:
 - Use templates to generate Gateway Service configuration
 - Publish an API to the {{ glossary_tooltip term_id="api-directory" }} for developers to discover
 
-!!! note "Operating system"
+!!! note "Operating system compatibility"
     The commands provided in this tutorial are compatible with Linux, MacOS, and Windows.
 
     However, the commands provided in most of our documentation are for a Unix shell (e.g. `bash`, `zsh`).
@@ -46,10 +46,11 @@ By the end of this tutorial, you'll be able to:
       navigating to the target installation folder and downloading a compressed archive:
 
       ```shell
-      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
       mkdir gwa
-      tar -xf gwa.zip -C gwa
-      powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory() + '\gwa', 'User')"
+      cd gwa
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
+      tar -xf gwa.zip
+      powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
       ```
 
 ## Prepare and apply Gateway configuration
