@@ -51,6 +51,7 @@ By the end of this tutorial, you'll be able to:
       curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
       tar -xf gwa.zip
       powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
+      
       ```
 
 ## Prepare and apply Gateway configuration

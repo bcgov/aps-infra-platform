@@ -32,6 +32,7 @@ Gateway Services and other resources on the API Services Portal.
     curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
     tar -xf gwa.zip
     powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
+    
     ```
 
 !!! note "Operating system compatibility"
