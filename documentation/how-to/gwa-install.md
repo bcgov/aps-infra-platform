@@ -16,7 +16,7 @@ Gateway Services and other resources on the API Services Portal.
     If you are on Linux, you can install by downloading a compressed archive:
 
     ```shell
-    curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Linux_x86_64.tgz -o gwa.tar.gz
+    curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Linux_x86_64.tgz -o gwa.tar.gz
     tar -xf gwa.tar.gz -C /tmp
     sudo cp /tmp/gwa /usr/local/bin/
     ```
@@ -29,7 +29,7 @@ Gateway Services and other resources on the API Services Portal.
     ```shell
     mkdir gwa
     cd gwa
-    curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.1/gwa_Windows_x86_64.zip -o gwa.zip
+    curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Windows_x86_64.zip -o gwa.zip
     tar -xf gwa.zip
     powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
     ```
