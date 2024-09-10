@@ -48,7 +48,7 @@ Gateway configuration is provided in a declarative configuration {{ glossary_too
 
 Templates are available for generating Gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md#2-grant-access-to-the-identity-provider).
 
-1. Log into the API Services Portal with your IDIR account. 
+1. Log in with your IDIR via the CLI. Follow the prompts provided in the terminal to complete the login process.
  
   !!! note "API Services Portal environment"
       For this tutorial, you will use the test/training environment (https://api-gov-bc-ca.test.api.gov.bc.ca), rather than the production environment (https://api.gov.bc.ca).

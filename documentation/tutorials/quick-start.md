@@ -59,7 +59,7 @@ Gateway configuration is provided in a declarative configuration {{ glossary_too
 
 Templates are available for generating Gateway configuration for popular integration patterns. In this tutorial you will use a basic template to route traffic to a custom endpoint URL.
 
-1. Log into the API Services Portal with your IDIR account. 
+1. Log in with your IDIR via the CLI. Follow the prompts provided in the terminal to complete the login process.
 
   ```sh linenums="0"
   gwa login

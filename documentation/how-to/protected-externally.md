@@ -13,7 +13,7 @@ text="Gateway Services" }} in the {{ glossary_tooltip term_id="api-services-port
 
 ## Login
 
-Log into the API Services Portal with your IDIR account:
+Log in with your IDIR via the CLI. Follow the prompts provided in the terminal to complete the login process.
 
 ``` linenums="0"
 gwa config set host api.gov.bc.ca

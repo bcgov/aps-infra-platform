@@ -4,9 +4,9 @@ The OpenID Connect `oidc` plugin allows for integration with a third party
 identity provider in a standardized way.
 
 !!! note
-  The `oidc` plugin is only used with endpoints ending with
-  `.apps.gov.bc.ca`, please reach out to the APS team on Rocket.Chat `#aps-ops`
-  to get this permission added to your namespace.
+    The `oidc` plugin is only used with endpoints ending with
+    `.apps.gov.bc.ca`, please reach out to the APS team on Rocket.Chat `#aps-ops`
+    to get this permission added to your namespace.
 
 ## Configuration reference
 
