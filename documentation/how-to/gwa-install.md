@@ -34,8 +34,18 @@ Gateway Services and other resources on the API Services Portal.
     powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
     ```
 
+=== "macOS"
+
+    If you are on macOS, you can install by downloading a compressed archive:
+
+    ```shell
+    curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Darwin_x86_64.zip -o gwa.zip
+    tar -xf gwa.zip -C /tmp
+    sudo cp /tmp/gwa /usr/local/bin/
+    ```
+
 !!! note "Operating system compatibility"
-    The `gwa` command line interface (CLI) is available for Linux, MacOS, and Windows.
+    The `gwa` command line interface (CLI) is available for Linux, macOS, and Windows.
 
     However, the commands provided in most of our documentation are for a Unix shell
     (e.g. `bash`, `zsh`).

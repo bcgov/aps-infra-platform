@@ -30,9 +30,9 @@ By the end of this tutorial, you'll be able to:
 
 1. Download the `gwa` cli and add to `PATH`:
 
-  === "Linux"
+  === "Linux / WSL"
 
-      If you are on Linux, you can install by downloading a compressed archive:
+      If you are on Linux or WSL, you can install by downloading a compressed archive:
 
       ```shell
       curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Linux_x86_64.tgz -o gwa.tar.gz
@@ -51,6 +51,16 @@ By the end of this tutorial, you'll be able to:
       curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Windows_x86_64.zip -o gwa.zip
       tar -xf gwa.zip
       powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
+      ```
+
+  === "macOS"
+
+      If you are on macOS, you can install by downloading a compressed archive:
+
+      ```shell
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Darwin_x86_64.zip -o gwa.zip
+      tar -xf gwa.zip -C /tmp
+      sudo cp /tmp/gwa /usr/local/bin/
       ```
 
 ## Prepare and apply Gateway configuration

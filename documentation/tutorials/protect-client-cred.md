@@ -35,12 +35,40 @@ There are no prerequisites for this tutorial. For a more basic introduction to t
 
 ## Download the `gwa` CLI
 
-1. Download the `gwa` cli and add to `PATH` for the session:
+1. Download the `gwa` cli and add to `PATH`:
 
-  ```sh
-  curl -L https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Linux_x86_64.tgz | tar -zxf -
-  export PATH=$PATH:$PWD
-  ```
+  === "Linux / WSL"
+
+      If you are on Linux or WSL, you can install by downloading a compressed archive:
+
+      ```shell
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Linux_x86_64.tgz -o gwa.tar.gz
+      tar -xf gwa.tar.gz -C /tmp
+      sudo cp /tmp/gwa /usr/local/bin/
+      ```
+
+  === "Windows"
+
+      If you are on Windows, you can install using Command Prompt (CMD) by 
+      navigating to the target installation folder and downloading a compressed archive:
+
+      ```shell
+      mkdir gwa
+      cd gwa
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Windows_x86_64.zip -o gwa.zip
+      tar -xf gwa.zip
+      powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
+      ```
+
+  === "macOS"
+
+      If you are on macOS, you can install by downloading a compressed archive:
+
+      ```shell
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.4/gwa_Darwin_x86_64.zip -o gwa.zip
+      tar -xf gwa.zip -C /tmp
+      sudo cp /tmp/gwa /usr/local/bin/
+      ```
 
 ## Prepare and apply Gateway configuration
 
