@@ -70,6 +70,32 @@ spec:
               name: b8840c
 ```
 
+**Emerald Cluster**
+
+If your service is running on Emerald, you will need to contact the APS team to have your Namespace provisioned on the correct Kong Data Plane and ensure the correct DNS is setup for your routes. The following is the Network Policy on Emerald.
+
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: cc9a8a
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: cc9a8a
+```
+
 ## Upstream Services with mTLS
 
 > **Require mTLS between the Gateway and your Upstream Service?** To support mTLS on your Upstream Service, you will need to provide client certificate details and if you want to verify the upstream endpoint then the `ca_certificates` and `tls_verify` is required as well. Example:
