@@ -1,42 +1,10 @@
 # JWT Keycloak
 
-## Example
+## Configuration reference
 
-```yaml
-services:
-  - name: MY_REST_API
-    tags: [_NS_]
-    plugins:
-      - name: jwt-keycloak
-        tags: [_NS_]
-        enabled: true
-        config:
-          allowed_iss:
-            - https://keycloak/auth/realms/REALM
-          allowed_aud: an-audience-ref
-          #access_token_header: Authorization
-          #realm: kong
-          #disable_access_token_header: false
-          #run_on_preflight: true
-          #iss_key_grace_period: 10
-          #maximum_expiration: 0
-          #claims_to_verify:
-          #- exp
-          #algorithm: RS256
-          #well_known_template: %s/.well-known/openid-configuration
-          #cookie_names: []
-          #scope: null
-          #realm_roles: null
-          uri_param_names: []
-          client_roles: null
-          anonymous: null
-          consumer_match: true
-          #consumer_match_claim: azp
-          #consumer_match_ignore_not_found: false
-          #consumer_match_claim_custom_id: false
-```
+This is a custom plugin managed by the API Program Services team.
 
-## Key Fields
+Here is a list of the parameters which can be used in this plugin's `config` section:
 
 | Field                       | Type     | Default | Description                                                                                                                                         |
 | --------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -47,18 +15,60 @@ services:
 | disable_access_token_header | boolean  | false   | If set to 'true', the access token will not be sent to the upstream service                                                                         |
 | client_roles | string[] | nil | List of Client/Roles in the format `<CLIENT_NAME>:<ROLE_NAME>` where there has to be at least one match. |
 
+## Common usage example
 
-## Multiple Issuers
+To validate access tokens issued by Keycloak, add this section to your
+GatewayService configuration file:
 
-When you have an API that is consumed by your own frontend and potentially by some internal processes, and you would also like to give limited access to the API to external parties, such as other Ministry services, then you can use the API Gateway to protect the API.
+```yaml
+plugins:
+  - name: jwt-keycloak
+    service: <SERVICE_NAME>
+    tags: [ ns.<gatewayId> ]
+    enabled: true
+    config:
+      allowed_iss:
+        - https://keycloak/auth/realms/REALM
+      allowed_aud: an-audience-ref
+      #access_token_header: Authorization
+      #realm: kong
+      #disable_access_token_header: false
+      #run_on_preflight: true
+      #iss_key_grace_period: 10
+      #maximum_expiration: 0
+      #claims_to_verify:
+      #- exp
+      #algorithm: RS256
+      #well_known_template: %s/.well-known/openid-configuration
+      #cookie_names: []
+      #scope: null
+      #realm_roles: null
+      uri_param_names: []
+      client_roles: null
+      anonymous: null
+      consumer_match: true
+      #consumer_match_claim: azp
+      #consumer_match_ignore_not_found: false
+      #consumer_match_claim_custom_id: false
+```
 
-An example configuration that uses RBAC and verification of User Tokens using the SSO Standard Realm and Service Account Tokens using APS's Shared IdP:
+Replace <SERVICE_NAME> with the name of the service that this plugin
+configuration will target.
+
+### Multiple Issuers
+
+When you have an API that is consumed by your own frontend and potentially by
+some internal processes, and you would also like to give limited access to the
+API to external parties, such as other Ministry services, then you can use the
+API Gateway to protect the API.
+
+An example configuration that uses RBAC and verification of User Tokens using
+the SSO Standard Realm and Service Account Tokens using APS's Shared IdP:
 
 ```yaml
 services:
   - name: MY_REST_API
-    tags: [_NS_]
-
+    tags: [ ns.<gatewayId> ]
     routes:
       - name: MY_REST_API_READS
         hosts: [myrestapi.api.gov.bc.ca]
@@ -66,7 +76,7 @@ services:
         paths: [/]
         plugins:
           - name: jwt-keycloak
-            tags: [_NS_]
+            tags: [ ns.<gatewayId> ]
             enabled: true
             config:
               allowed_iss:
@@ -82,7 +92,7 @@ services:
         paths: [/]
         plugins:
           - name: jwt-keycloak
-            tags: [_NS_]
+            tags: [ ns.<gatewayId> ]
             enabled: true
             config:
               allowed_iss:

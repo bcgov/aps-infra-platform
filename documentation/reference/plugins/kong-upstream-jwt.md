@@ -1,28 +1,32 @@
 # Kong Upstream JWT
 
-Reference: https://docs.konghq.com/hub/optum/kong-upstream-jwt
+The `kong-upstream-jwt` plugin adds a signed JWT into the HTTP Header `JWT` of
+proxied requests through the Kong Gateway.
 
-## Example
+## Configuration reference
 
-```
-services:
-- name: MY_REST_API
-  tags: [ _NS_ ]
-  plugins:
-    - enabled: true
-      name: kong-upstream-jwt
-      tags: [ _NS_ ]
-      config:
-        header: GW-JWT
-        include_credential_type: false
+This is a third-party plugin managed by Optum. See the [configuration reference page](https://docs.konghq.com/hub/optum/kong-upstream-jwt)
+for a list of parameters and protocol compatibility notes.
+
+## Common usage example
+
+```yaml
+plugins:
+  - enabled: true
+    name: kong-upstream-jwt
+    service: <SERVICE_NAME>
+    tags: [ ns.<gatewayId> ]
+    config:
+      header: GW-JWT
+      include_credential_type: false
 ```
 
 ## JWKS
 
 | Environment   | URL                                                                  |
 | ------------- | -------------------------------------------------------------------- |
-| Test/Training | https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca/certs |
-| Production    | https://aps-jwks-upstream-jwt.api.gov.bc.ca/certs                    |
+| Test/Training | <https://aps-jwks-upstream-jwt-api-gov-bc-ca.test.api.gov.bc.ca/certs> |
+| Production    | <https://aps-jwks-upstream-jwt.api.gov.bc.ca/certs>                    |
 
 ## Clients
 
@@ -110,4 +114,6 @@ AUDIENCE=<SERVICE-NAME> \
 uvicorn server:app --reload
 ```
 
-> NOTE: If you are trying to run this on a Mac and you get `unable to get local issuer certificate`, you may need to run: `open /Applications/Python\ 3.11/Install\ Certificates.command` to install the latest CA certificates.
+> NOTE: If you are trying to run this on a Mac and you get `unable to get local
+> issuer certificate`, you may need to run: `open /Applications/Python\
+> 3.11/Install\ Certificates.command` to install the latest CA certificates.

@@ -1,18 +1,21 @@
 # Kong Upstream Auth Basic
 
-Reference: https://docs.konghq.com/hub/revolution_systems/upstream-auth-basic/
+## Configuration reference
 
-## Example
+Reference: <https://docs.konghq.com/hub/revolution_systems/upstream-auth-basic/>
 
+## Common usage example
+
+```yaml
+plugins:
+  - enabled: true
+    name: upstream-auth-basic
+    service: <SERVICE_NAME>
+    tags: [ ns.<gatewayId> ]
+    config:
+      username: user
+      password: password
 ```
-services:
-- name: MY_REST_API
-  tags: [ _NS_ ]
-  plugins:
-    - enabled: true
-      name: upstream-auth-basic
-      tags: [ _NS_ ]
-      config:
-        username: user
-        password: password
-```
+
+Replace <SERVICE_NAME> with the name of the service that this plugin
+configuration will target.

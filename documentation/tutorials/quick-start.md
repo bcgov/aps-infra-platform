@@ -1,162 +1,250 @@
 ---
-title: "API Provider Quick Start"
+title: "Quick Start"
 ---
 
-The following steps guide an {{ glossary_tooltip term_id="api-provider" }} through setting up an API on the {{ glossary_tooltip term_id="api-services-portal" text="API Services Portal" }} in a Test/Training instance. 
-At the end of the guide, you will have a public API endpoint that is protected using the OAuth2 Client Credential Grant.
+<!-- overview -->
 
-## 1. Download the `gwa` CLI
+In this tutorial, you'll learn how to get started with the {{ glossary_tooltip term_id="api-services-portal" }}
+and create a Gateway to route traffic to an API. This
+tutorial is intended for {{ glossary_tooltip term_id="api-provider" text="API
+providers" }}.
 
-The `gwa` command line interface (CLI) is available for Linux, MacOS, and Windows at https://github.com/bcgov/gwa-cli/releases. 
+By the end of this tutorial, you'll be able to:
 
-The commands provided in this tutorial are for a Unix shell (e.g. `bash`, `zsh`). If you are running Windows, it is recommended to use WSL2. 
+- Create a new project, called a Gateway, in the API Services Portal
+- Use templates to generate Gateway Service configuration
+- Publish an API to the {{ glossary_tooltip term_id="api-directory" }} for developers to discover
 
-Alternatively, if you have access to a Platform Services OpenShift cluster, you can use the OpenShift commmand line [terminal](https://console.apps.silver.devops.gov.bc.ca/terminal) from any operating system.
+!!! note "Operating system compatibility"
+    The commands provided in this tutorial are compatible with Linux, MacOS, and Windows.
 
-Start by downloading the `gwa` cli and adding to `PATH` for the session:
+    However, the commands provided in most of our documentation are for a Unix shell (e.g. `bash`, `zsh`).
+    If you are running Windows, it is recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
-```sh
-curl -L https://github.com/bcgov/gwa-cli/releases/download/v2.0.15/gwa_Linux_x86_64.tgz | tar -zxf -
-export PATH=$PATH:$PWD
-```
+<!-- prerequisites -->
+<!-- NONE - this is a beginner tutorial -->
 
-## 2. Login
+<!-- steps -->
 
-Log into the API Services Portal with your IDIR account.
+## Download the `gwa` CLI
 
-```
-gwa config set host api-gov-bc-ca.test.api.gov.bc.ca
-gwa login
-```
+1. Download the `gwa` cli and add to `PATH`:
 
-## 3. Apply Configuration
+  === "Linux / WSL"
 
-Templates are available for generating gateway configuration for popular integration patterns. In this tutorial you will use a template to protect an API with an [Oauth 2.0 Client Credentials flow](/how-to/client-cred-flow.md) using a [Shared Identity Provider](/how-to/client-cred-flow.md#2-grant-access-to-the-identity-provider).
+      If you are on Linux or WSL, you can install by downloading a compressed archive:
 
-First, create a new Namespace. 
+      ```shell
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.5/gwa_Linux_x86_64.tgz -o gwa.tar.gz
+      tar -xf gwa.tar.gz -C /tmp
+      sudo cp /tmp/gwa /usr/local/bin/
+      ```
 
-```
-gwa namespace create -g
-```
+  === "Windows"
 
-`-g` generates a random, unique Namespace name which is displayed in response and set as the current Namespace.
+      If you are on Windows, you can install using Command Prompt (CMD) by 
+      navigating to the target installation folder and downloading a compressed archive:
 
-Second, choose a unique name for your API to be shown as part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`.
+      ```shell
+      mkdir gwa
+      cd gwa
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.5/gwa_Windows_x86_64.zip -o gwa.zip
+      tar -xf gwa.zip
+      powershell -command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path', 'User') + [IO.Path]::PathSeparator + [System.IO.Directory]::GetCurrentDirectory(), 'User')"
+      ```
 
-You can also specify an upstream service or leave the example provided (`https://httpbin.org`).
+  === "macOS"
 
-Then run the following command, substituting your service name for `<MYSERVICE>`:
+      If you are on macOS, you can install by downloading a compressed archive:
 
-```
-gwa generate-config \
-  --template client-credentials-shared-idp \
-  --service <MYSERVICE> \
-  --upstream https://httpbin.org
-```
+      ```shell
+      curl -sL https://github.com/bcgov/gwa-cli/releases/download/v3.0.5/gwa_Darwin_x86_64.zip -o gwa.zip
+      tar -xf gwa.zip -C /tmp
+      sudo cp /tmp/gwa /usr/local/bin/
+      ```
 
-Apply the configuration file:
+## Prepare and apply Gateway configuration
 
-```
-gwa apply -i gw-config.yml
-```
+Gateway configuration is provided in a declarative configuration {{ glossary_tooltip term_id="yaml-file" text="YAML file" }} that defines the Gateway Services and additional resources for your API.
 
-You can confirm the health of the connection between the API Gateway and the upstream service by running:
+Templates are available for generating Gateway configuration for popular integration patterns. In this tutorial you will use a basic template to route traffic to a custom endpoint URL.
 
-```
-gwa status
-```
+1. Log in with your IDIR via the CLI. Follow the prompts provided in the terminal to complete the login process.
 
-## 4. Review Setup
+  ```sh linenums="0"
+  gwa login
+  ```
 
-To review what configuration has been setup, log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca), go to the **Namespaces** tab, and select the newly created Namespace.
+1. Create a new {{ glossary_tooltip term_id="gateway"}}:
 
-From here, go to **Activity** and select **More details** next to "published gateway configuration" to review what the configuration.
+  ```sh linenums="0"
+  gwa gateway create
+  ```
 
-What you have setup:
+  You'll be prompted to provide a display name to help you identify the Gateway.
 
-- Route to your service, via the vanity URL: `<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/`
-  - Retrieve the URL directly with this command: `gwa status --json | jq -r '.[].env_host'`
-  - If this service were created on the production instance of the API Services Portal, the vanity URL would be `<MYSERVICE>.dev.api.gov.bc.ca`
-- Protected by an SSL `*.api.gov.bc.ca` certificate
-- Protected with the Client Credential grant using Pathfinder SSO
-- Separation of concerns for authentication and authorization
+  The output is similar to this:
 
-## 5. Access your API
+  ```sh linenums="0"
+  Gateway created. Gateway ID: gw-cf97b, display name: My New Gateway
+  ```
 
-If you try to access your service now without any authentication, you will receive an `Unauthorized` 401 response. Try:
+1. Run `gwa generate-config` to generate configuration for your Gateway from a template.
+  
+  First, choose a unique name for your API service to be shown as part of your vanity URL: `<MYSERVICE>.dev.api.gov.bc.ca`.
 
-```sh
-curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid
-```
+  Then run the following command, substituting your service name for `<MYSERVICE>`:
 
-This command returns an error `{  "message": "Unauthorized" }`, rather than a UUID4 from the upstream `https://httpbin.org/uuid`.
+  ```sh linenums="0"
+  gwa generate-config --template quick-start --service <MYSERVICE> --upstream https://httpbin.org
+  ```
 
-Gaining access involves requesting access (as a consumer of your API would), obtaining a client secret and ID, and requesting a JWT token.
+  !!! note "Upstream service"
+      The "upstream service" refers to the backend service that the API Gateway forwards client requests to.
 
-Start by going to the **Namespaces** tab in the API Services Portal and click the **Preview in Directory** link in the **Products** panel.
+      You can specify an upstream service or leave the example provided (https://httpbin.org).
 
-You will see a card with the service name you chose earlier (`<MYSERVICE>`). This card is a preview of how the service would look when shared to the {{ glossary_tooltip term_id="api-directory" }}.
+1. Review the configuration in the `gw-config.yaml` file.
 
-Click the title, then click **Request Access**.
+  You'll see the *GatewayService* configuration, including: 
+  
+  -  the upstream service (`url`)
+  -  the route that exposes the GatewayService at the new endpoint (`routes.hosts`)
+  -  tags on each object with the format `tags: [ ns.<GatewayId> ]`
+  
+  Below the GatewayService, you'll find additional resources:
 
-Choose or create an **Application**, select the **Dev** environment, and click **Request Access & Continue**.
+  - *Product* packages GatewayServices for managing consumer access
+  - *DraftDataset* provides metadata about the service for the API Directory 
+   
+  Don't worry if you don't understand all the details, you will learn more about Gateway configuration as you continue to work with the API Services Portal.
 
-Click **Generate Secrets** to generate a Client ID and Secret pair with a Token URL. Copy these values into the following command to set as environment variables.
+1. Apply the configuration file to send it to the API Services Portal:
 
-```sh
-export CID="<Client ID>"
-export CSC="<Client Secret>"
-export URL="<Token Endpoint>"
-```
+  ```sh
+  gwa apply -i gw-config.yaml
+  ```
 
-Then run the following command to request a JWT token and export it to an environment variable (`TOKEN`):
+  The output is similar to this:
 
-```sh
-RESPONSE=$(curl -X POST "$URL" \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "client_id=$CID" \
-  -d "client_secret=$CSC" \
-  -d "grant_type=client_credentials" \
-  -d "scopes=openid")
+  ```sh
+  ↑ Publishing Gateway Services
+  ✓ Gateway Services published
+  creating service basic-example-dev
+  creating route basic-example-dev
+  Summary:
+    Created: 2
+    Updated: 0
+    Deleted: 0
 
-echo "$RESPONSE" | jq
-export TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
-```
+  ✓ [DraftDataset] basic-example-dataset: created
+  ✓ [Product] Basic-Example API: created
+  ```
 
-Finally, try the `curl` command again with the token in the header:
+## Access your API
 
-```sh
-curl https://<MYSERVICE>-dev-api-gov-bc-ca.test.api.gov.bc.ca/uuid -H "Authorization: Bearer $TOKEN"
-```
+1. Confirm the health of the connection between the API gateway and the upstream service by running:
 
-It should return a random UUID4 similar to the following:
+  ```sh linenums="0"
+  gwa status
+  ```
 
-`{  "uuid": "fb49e86c-7e91-45e7-aca1-d0bf1515252d" }`
+  The output is similar to this:
 
+  ```sh
+  Status  Name           Reason        Upstream
+  UP      basic-example  200 Response  https://httpbin.org:443/
+  ```
 
-## 6. What to try next?
+1. Retrieve the URL of your Gateway Service by adding the `--hosts` flag to the `gwa status` command:
+   
+  ```sh linenums="0"
+  gwa status --hosts
+  ```
 
-### Connect with the BC Government API Community
+  The URL will be shown under the `Hosts` column and will be `https://<MYSERVICE>.dev.api.gov.bc.ca/`.
 
-Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops).
+1. Visit the URL in a browser to see your API gateway in action.
+   
+  You will see the contents of the httpbin.org homepage, but routed through your URL.
 
-### Read Our Other Guides and Resources
+1. To see a more typical API response, visit `https://<MYSERVICE>.dev.api.gov.bc.ca/uuid`.
+   
+   You will see a random UUID4 from the upstream `https://httpbin.org/uuid` in JSON format, similar to:
 
-Find information about authentication and authorization patterns, reference implementations, plugin usage and much more.
+  ```
+  {
+      "uuid": "16498622-b62b-4070-9467-785107380a47"
+  }
+  ```
 
-- [Monitor your Services](/how-to/monitoring.md) : View metrics for performance, traffic and trends.
-- [Gateway Administration](/how-to/gateway-admin.md) : Add team members and create service accounts.
-- [Customize Gateway Controls](/how-to/create-gateway-service.md)
+  That's it! You have confirmed the successful configuration of your Gateway Service.
+
+## View your API in the API Directory
+
+1. Log into the [API Services Portal](https://api.gov.bc.ca).
+1. Go to the **Gateways** tab and select your newly created Gateway.
+1. In the **Products** panel, click the **Preview in Directory** link.
+1. You will see a card with the service name you chose earlier (`<MYSERVICE>`). 
+  This card is a preview of how the service would look when shared to the API Directory.
+   
+  The contents of the card can be customzied by editing the DraftDataset
+  resource in the Gateway configuration (`gw-config.yaml`).
+
+  For more information on making your API visible to the public, see
+  [Share an API - Enabling for Discovery](/how-to/api-discovery.md#enabling-for-discovery).
+
+<!-- summary -->
+
+## Summary
+
+In this tutorial, you learned how to:
+  
+- Create a route to your service, using a vanity URL
+- List your API in the API Directory (in private preview mode)
+
+<!-- cleanup -->
+
+## Clean up
+
+To clean up the resources resulting from this tutorial, complete the following steps:
+
+1. Delete the Gateway and associated services which were set up during the tutorial with this command:
+
+  !!! danger
+      The following action is irreversible. Ensure the correct Gateway is active first with:
+      ``` linenums="0"
+      gwa gateway current
+      ```
+      
+  ```sh linenums="0"
+  gwa gateway destroy --force
+  ```
+
+## Next steps
+
+Continue to the next tutorial to set up a protected API:
+- [Protect an API with Client Credential Flow](/tutorials/protect-client-cred.md)
+
+Learn more about Gateway Service configuration:
+
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
 - [Upstream Service Setup](/how-to/upstream-services.md)
-- [Share your API](/how-to/api-discovery.md) : Setup metadata about your APIs for discovery.
-- [API Access](/how-to/api-access.md) : Approve and administer controls for consumer access to your APIs.
+
+Discover other API Services Portal features:
+
+- [Manage Team Access](/how-to/gateway-admin.md)
+- [Share an API](/how-to/api-discovery.md)
+- [Monitor your Services](/how-to/monitoring.md)
 - [CI/CD Integration](/how-to/cicd-integration.md)
-- [Add Client Credential Protection](/how-to/client-cred-flow.md)
 
-### Ready for Production?
+## Get help
 
-Our production instance supports all your environments, so once you know what
-you are building and are ready to deploy your "dev" environment, you can setup
-the API gateway in our production instance.
+Create an account on
+[Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/) and join
+the [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel to
+connect with the API Program Services team and user community. Alternatively, [open a support
+ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2) and
+we’ll get back to you via email in 3-5 business days.  
 
-To get started, go to the API Services Portal at https://api.gov.bc.ca.
+Either way, the API Program Services team is here to answer your questions.

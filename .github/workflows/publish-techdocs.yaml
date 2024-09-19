@@ -2,7 +2,7 @@ name: Publish TechDocs
 
 on:
   push:
-    branches: [ test, main ]
+    branches: [ test, main, ns-to-gw ]
     paths:
       - "documentation/**"
       - "mkdocs.yml"

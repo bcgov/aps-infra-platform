@@ -7,9 +7,11 @@ nav:
   - "README.md"
   - Tutorials:
       - "tutorials/quick-start.md"
+      - "tutorials/protect-client-cred.md"
   - How-to Guides:
     - Get Started:
       - "how-to/gwa-install.md"
+      - "how-to/create-gateway.md"
       - "how-to/gateway-admin.md"
     - Configure a Gateway Service:
       - "how-to/create-gateway-service.md"
@@ -33,6 +35,7 @@ nav:
       - "how-to/monitoring.md"
       - "how-to/prom-query.md"
     - "how-to/keycloak-rbac.md"
+    - "how-to/prod-checklist.md"
   - Concepts:
       - "concepts/api-directory.md"
       - "concepts/gateway-config.md"
@@ -59,13 +62,6 @@ nav:
       - "reference/glossary.md"
       - "reference/releases/index.md"
       - "reference/SSL.md"
-      - Portal User Cases:
-        - "reference/portal-use-cases/login.md"
-        - "reference/portal-use-cases/create-service-account.md"
-        - "reference/portal-use-cases/switch-namespace.md"
-        - "reference/portal-use-cases/access.md"
-        - "reference/portal-use-cases/consumer-maintenance.md"
-        - "reference/portal-use-cases/websequencediagrams.md"
       - "reference/presentations.md"
   - Contribute:
       - "contribute/style-guide.md"
@@ -81,5 +77,5 @@ markdown_extensions:
   - toc:
       toc_depth: 3
   - pymdownx.tasklist:
-    #   custom_checkbox: true
+      custom_checkbox: true
       clickable_checkbox: true
