@@ -52,7 +52,7 @@ This is a convenience getter to print out the currently stored global setting fo
 Exposes some specific config values that can be defined by the user.  
   
 Configurable Settings:  
-  gateway:         The default gateway used  
+  gateway:         The default Gateway (ID) used   
   token:           Use only if you have a token you know is authenticated  
   host:            The API host you wish to communicate with  
   scheme:          http or https  
@@ -63,7 +63,7 @@ Configurable Settings:
 
 | Flag | Description |
 | ----- | ------ |
-| `--gateway string` | set the gateway |
+| `--gateway string` | set the Gateway (ID) |
 | `--host string` | set the host |
 | `--scheme string` | set the scheme |
 | `--token string` | set the authentication token |
