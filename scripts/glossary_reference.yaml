@@ -59,6 +59,14 @@ terms:
     name: Environment
     def: An environment in software development is the collection of hardware and software a system uses to run applications and services. These include development, testing, and production environments.
     url: 
+  gateway:
+    name: Gateway
+    def: A Gateway is the top-level entitiy in the API Services Portal. It is a collection of Kong Gateway Services and Routes, generally managed by a single team or business unit.
+    url: 
+  gateway-service:
+    name: Gateway Service
+    def: A Gateway Service represents an external upstream API or microservice consisting of a URL, which listens for incoming requests.
+    url: {DOCS_URL}/concepts/services
   gwa-command-line-interface:
     name: "`gwa` Command Line Interface"
     def: The `gwa` command line interface (CLI) is a tool for creating and publishing Gateway Services and other resources on the API Services Portal. Resources are defined in YAML configuration files. The `gwa` CLI helps support automated Gateway management through scripting.
@@ -69,7 +77,7 @@ terms:
     url: 
   namespace:
     name: Namespace
-    def: A namespace is a collection of Kong Gateway Services and Routes, generally managed by a single team or business unit.
+    def: Renamed "Gateway" in version 3. A Gateway is the top-level entitiy in the API Services Portal. It is a collection of Kong Gateway Services and Routes, generally managed by a single team or business unit.
     url: 
   organization:
     name: Organization
@@ -95,10 +103,6 @@ terms:
     name: Route
     def: A route is a means of exposing a service to users. It is the path used to send requests to its respective service after reaching the Gateway. A single service can have multiple routes.
     url: 
-  service:
-    name: Service
-    def: A service represents an external upstream API or microservice consisting of a URL, which listens for incoming requests.
-    url: {DOCS_URL}/concepts/services
   scope:
     name: Scope
     def: Scope is a method used to specify authorization, or a set of permissions that grant access to specified systems and actions. Scopes can be applied to both users and service accounts.

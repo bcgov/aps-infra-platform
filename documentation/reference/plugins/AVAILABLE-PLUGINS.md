@@ -4,11 +4,13 @@ title: "Supported Plugins"
 
 Current list of plugins available on the API Gateway.
 
-> NOTE: The `httplog` is not available for individual teams to use as it is used at a global level to feed logs to other systems for audit/monitoring/etc.
+> NOTE: The `httplog` is not available for individual teams to use as it is used
+> at a global level to feed logs to other systems for audit/monitoring/etc.
 
-> If there are other plugins that you would like to have added to the Gateway, please reach out to us at our Rocket.Chat channel `#aps-ops`.
+> If there are other plugins that you would like to have added to the Gateway,
+> please reach out to us at our Rocket.Chat channel `#aps-ops`.
 
-For information about execution order, see: https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order
+For information about execution order, see: <https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order>
 
 ```json
     "available_on_server": {
@@ -57,6 +59,6 @@ For information about execution order, see: https://docs.konghq.com/gateway/late
     }
 ```
 
-# Plugin Priorities
+## Plugin Priorities
 
-https://docs.konghq.com/gateway/2.8.x/plugin-development/custom-logic/#plugins-execution-order
+<https://docs.konghq.com/gateway/2.8.x/plugin-development/custom-logic/#plugins-execution-order>

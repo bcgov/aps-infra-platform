@@ -4,9 +4,10 @@ title: Kong API Key
 
 <!-- overview -->
 
-This guide explains how to add key-based authentication to your GatewayService.
+This guide explains how to add key-based authentication to your Gateway Service.
 
-You can read more about key-based authentication in the [Protect an API](/concepts/protect-api.md) concept page.
+You can read more about key-based authentication on the
+[Protect an API](/concepts/protect-api.md) Concept page.
 
 <!-- prerequisites -->
 
@@ -15,19 +16,20 @@ You can read more about key-based authentication in the [Protect an API](/concep
 Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
-- [Create a Service](/how-to/create-gateway-service.md)
+- [Create a Gateway](/how-to/create-gateway.md)
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
 
 <!-- steps -->
 
 ## Key-auth plugin
 
-You can add the following plugin to your Gateway Configuration file to add key-based authentication to your GatewayService:
+You can add the following plugin to your Gateway Configuration file to add
+key-based authentication to your Gateway Service:
 
 ```yaml
   plugins:
   - name: key-auth
-    tags: [ ns.<YOUR_NAMESPACE> ]
+    tags: [ ns.<gatewayId> ]
     protocols: [ http, https ]
     config:
       key_names: ["X-API-KEY"]
@@ -36,7 +38,8 @@ You can add the following plugin to your Gateway Configuration file to add key-b
       key_in_body: false
 ```
 
-It is recommended to [share your API](/how-to/api-discovery.md) for discovery so that consumers of your API can request an API key.
+It is recommended to [share your API](/how-to/api-discovery.md) for discovery so
+that consumers of your API can request an API key.
 
 ## Next steps
 

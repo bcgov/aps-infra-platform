@@ -4,26 +4,30 @@ title: "Query Kong Metrics"
 
 ## Overview
 
-Using a service account generated within your namespace, you can send Prometheus queries to retrieve Kong metrics. Some examples will be provided, but any [PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/) query can be sent.
+Using a service account generated within your Gateway, you can send Prometheus
+queries to retrieve Kong metrics. Some examples will be provided, but any
+[PromQL (Prometheus Query Language)](https://prometheus.io/docs/prometheus/latest/querying/basics/)
+query can be sent.
 
 ## Prerequisites
 
-- Namespace in the API Gateway
-- Service Account associated with the namespace
-  - Service Account should have at least `Namespace.View` permissions
+- [Created a Gateway](/how-to/create-gateway.md)
+- Service Account associated with the Gateway with `Gateway.View` permission or
+  greater
 - Ideally an active service experiencing some traffic
 
 ## TL;DR
 
-Generate an access token with your Service Account. Use the token to send PromQL queries with the following command. Note that queries should be URL encoded.
+Generate an access token with your Service Account. Use the token to send PromQL
+queries with the following command. Note that queries should be URL encoded.
 
 ```sh
 curl -v -H "Authorization: Bearer <access-token>" "<prom-query-url>/api/v1/<query>"
 ```
 
-## Detailed Instructions
+## Detailed instructions
 
-### Getting an Access Token
+### Getting an access token
 
 Using your Service Account credentials, generate an access token:
 
@@ -43,7 +47,7 @@ Copy and save the access token:
 export TOK=my-copied-access-token
 ```
 
-### Running Queries
+### Running queries
 
 Once you have an access token, you can run queries using:
 
@@ -51,9 +55,10 @@ Once you have an access token, you can run queries using:
 curl -v -H "Authorization: Bearer $TOK" "<prom-query-url>/api/v1/<query>"
 ```
 
-## Example Queries
+## Example queries
 
-Reminder that if you wish to modify the PromQL queries, it should be URL encoded before sending the request.
+Reminder that if you wish to modify the PromQL queries, it should be URL encoded
+before sending the request.
 
 Run the following before running the example queries below:
 
@@ -65,7 +70,8 @@ export PQ_URL=https://gw-pql.api.gov.bc.ca/api/v1
 
 ### To execute queries
 
-Run one of the `export QUERY=...` example blocks, then run one of the `Execute ...` blocks below to execute that query:
+Run one of the `export QUERY=...` example blocks, then run one of the `Execute
+...` blocks below to execute that query:
 
 ```sh
 # Execute at current server timestamp:
@@ -88,7 +94,7 @@ export STEP=300 # Number of seconds the query steps before evaluating. Eg: evalu
 curl -v -H "Authorization: Bearer $TOK" "$PQ_URL/query_range?query=$QUERY&start=$START&end=$END&step=$STEP"
 ```
 
-### Rate per Second per route/service by Status Code
+### Rate per second per route/service by status code
 
 ```sh
 # Raw PromQL Query:
@@ -106,9 +112,9 @@ export QUERY=sum%28rate%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D
 export QUERY=sum%28increase%28kong_http_status%7Bservice%3D~%22.%2A%22%2C%20route%3D~%22.%2A%22%7D%5B5m%5D%29%29%20by%20%28service%2Ccode%29%20%21%3D%200
 ```
 
-### Request time per Service
+### Request time per service
 
-**Raw PromQL Query:**
+**Raw PromQL query:**
 
 ```sh
 # Raw PromQL Query:
@@ -118,7 +124,7 @@ export QUANTILE=0.95
 export QUERY=histogram_quantile%280.95%2C%20sum%28rate%28kong_latency_bucket%7Btype%3D%22request%22%2C%20service%20%3D~%20%22.%2A%22%2Croute%3D~%22.%2A%22%7D%5B1m%5D%29%29%20by%20%28service%2Cle%29%29
 ```
 
-### Total Non-200 requests per second by route, code
+### Total non-200 requests per second by route, code
 
 ```sh
 # Raw PromQL Query:
@@ -131,24 +137,28 @@ export QUERY=sum%28rate%28kong_http_status%7Bcode%21%3D%22200%22%2Ccode%21%3D%22
 
 ### Prometheus HTTP API Documentation
 
-View the [Prometheus HTTP API Documentation](https://prometheus.io/docs/prometheus/latest/querying/api/) for additional information on sending requests to the Prometheus API.
+View the [Prometheus HTTP API Documentation](https://prometheus.io/docs/prometheus/latest/querying/api/)
+for additional information on sending requests to the Prometheus API.
 
 Some helpful takeaways:
 
 - Send a GET request to the `/metadata` endpoint to list all available metrics.
-  - You can limit the number of results using the `?limit=<number>` query string parameter
+  - You can limit the number of results using the `?limit=<number>` query string
+    parameter
   - Use the `?metric=<string>` qsp to get information about a specific metric.
 - Use `/labels` to get a list of available labels.
 - Use `/label/<label_value>/values` to get possible values for a given `label_value`
-- Use `/series` to get a list of time series that match a given label set. View Prometheus API docs for more info.
+- Use `/series` to get a list of time series that match a given label set. View
+  Prometheus API docs for more info.
 
 ### PromQL
 
-Check out the [Prometheus querying documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/) for the basics of forming PromQL queries.
+Check out the [Prometheus querying documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/)
+for the basics of forming PromQL queries.
 
 [This video](https://youtu.be/hvACEDjHQZE) is also a good introduction.
 
-## Grafana and Additional Queries
+## Grafana and additional queries
 
 The panels in the [Grafana dashboards](/how-to/monitoring.md) available to
 API Providers make use of PromQL data sources. Here a few of the metrics seen on

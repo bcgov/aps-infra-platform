@@ -7,34 +7,34 @@ The following are sample Gateway controls for common scenarios.
 To learn about other available plugins, navigate to `References > Plugins` on the
 sidebar of this page.
 
-## Returning an HTTP Redirect
+## Returning an HTTP redirect
 
 ```yaml
 plugins:
 - name: pre-function
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     access:
     - "kong.response.exit(307, 'site moved - redirecting...', {['Location'] = 'https://my-new-url.site'})"
 ```
 
-## Request Termination
+## Request termination
 
 ```yaml
 plugins:
 - name: request-termination
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     status_code: 400
     message: API not implemented yet!
 ```
 
-## Adding Headers For Best Security Practices
+## Adding headers for best security practices
 
 ```yaml
 plugins:
 - name: response-transformer
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     add:
       headers:
@@ -45,18 +45,19 @@ plugins:
       - "Content-Security-Policy: script-src 'self'"
 ```
 
-> For further information on individual headers, see: https://owasp.org/www-project-secure-headers/
+> For further information on individual headers, see: <https://owasp.org/www-project-secure-headers/>
 
-## Rate Limit
+## Rate limiting
 
-### Option 1 - Using a Distributed Cache
+### Option 1 - Using a distributed cache
 
-This provides the most accurate because it uses a centralized Cache that all Kong nodes use. The downside is that there is a 100-200ms latency.
+This provides the most accurate because it uses a centralized cache that all
+Kong nodes use. The downside is that there is a 100-200ms latency.
 
 ```yaml
 plugins:
 - name: rate-limiting
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     fault_tolerant: true
     hide_client_headers: false
@@ -69,14 +70,16 @@ plugins:
     year: null
 ```
 
-### Option 2 - Node Local Caching
+### Option 2 - Node local caching
 
-This provides the fastest rate limiting option, with minimal latency (~1ms). The downside is that it is local to each node so calculating the actual load on your upstream is a function of the number of nodes.
+This provides the fastest rate limiting option, with minimal latency (~1ms). The
+downside is that it is local to each node so calculating the actual load on your
+upstream is a function of the number of nodes.
 
 ```yaml
 plugins:
 - name: rate-limiting
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     policy: local
     fault_tolerant: true
@@ -92,27 +95,33 @@ plugins:
 
 ## Two-tiered access setup
 
-The `key-auth` and `jwt-keycloak` plugins support the concept of allowing "anonymous" access, which allows you to define a "free" service which might have limits around it (like only allowing 100 requests/minute), and then an "elevated" access where the Consumer would get an improved level of service, such as higher rate limits.
+The `key-auth` and `jwt-keycloak` plugins support the concept of allowing
+"anonymous" access, which allows you to define a "free" service which might have
+limits around it (like only allowing 100 requests/minute), in addition to an
+"elevated" access where the Consumer would get an improved level of service,
+such as higher rate limits.
 
-There is a global "anonymous" consumer that is identified as "ce26955a-cf08-4907-9427-12d01c8bd94c" in both our Test and Production environments.
+There is a global "anonymous" consumer that is identified as
+`ce26955a-cf08-4907-9427-12d01c8bd94c` in both our Test and Production
+environments.
 
 To enable anonymous access to your API, update your plugin configuration with:
 
-### key-auth
+### `key-auth`
 
 ```yaml
 - name: key-auth
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     ...
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
 
-### jwt-keycloak
+### `jwt-keycloak`
 
 ```yaml
 - name: jwt-keycloak
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     ...
     consumer_match: true
@@ -121,11 +130,12 @@ To enable anonymous access to your API, update your plugin configuration with:
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
 
-If you do not want to advertise anonymous access on the API Directory, you can hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
+If you do not want to advertise anonymous access on the API Directory, you can
+hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
 
-## Event Metric
+## Event metrics
 
-This `pre-function` allows you to collect arbitrary metrics that you can then
+The `pre-function` plugin allows you to collect arbitrary metrics that you can then
 track in [Grafana](/how-to/monitoring.md) on the **X Events** dashboard.
 
 First define your event conditions and desired `x-event` headers in Lua. Here is
@@ -157,7 +167,7 @@ Finally, add the string to the plugin:
 ```yaml
 plugins:
 - name: pre-function
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     access:
     - "<OUTPUT FROM ABOVE>"
@@ -165,9 +175,10 @@ plugins:
 
 ## Disabling global error handling
 
-APS has a global `post-function` plugin that transforms the response message if the following HTTP status codes are returned by the upstream service:
+APS has a global `post-function` plugin that transforms the response message if
+the following HTTP status codes are returned by the upstream service:
 
-```
+```http
 s408 = "Request timeout",
 s411 = "Length required",
 s412 = "Precondition failed",
@@ -181,12 +192,13 @@ s503 = "The upstream server is currently unavailable",
 s504 = "The upstream server is timing out",
 ```
 
-If this transformation is not desired, you can override it by including the following plugin on your Service:
+If this transformation is not desired, you can override it by including the
+following plugin on your Service:
 
 ```yaml
 plugins:
 - name: post-function
-  tags: [ _NS_ ]
+  tags: [ ns.<gatewayId> ]
   config:
     rewrite:
     - "--"
