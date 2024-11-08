@@ -148,26 +148,26 @@ will be setup automatically on the API Gateway side.
 A Gateway can be created on (or migrated to) the Gold or Emerald clusters to
 support upstream services on these clusters.
 
-**Gold** Gateways route traffic through a data plane on the Gold cluster and support Disaster Recovery (DR) failover
+**Gold Gateways** route traffic through a data plane on the Gold cluster and support Disaster Recovery (DR) failover
 to the Gold DR cluster in Calgary.
 
-**Emerald** Gateways route traffic through a data plane on the Emerald cluster with `DataClass: Medium`. 
-Emerald Gateways with can route traffic to pods on the Emerald cluster which are 
+**Emerald Gateways** route traffic through a data plane on the Emerald cluster with `DataClass: Medium`. 
+Emerald Gateways can route traffic to pods on the Emerald cluster which are 
 otherwise inaccessible due to network restrictions.
 
 If your service is running on the Gold or Emerald cluster, you will need to [contact the APS team](README.md#need-a-hand)
 to have your Gateway provisioned on the correct Kong data plane and to configure DNS for your routes.
 
-The process looks like this:
+The process to create a Gateway on the Gold or Emerald clusters looks like this:
 
 1. **API provider creates an empty Gateway**
-  1. To migrate an existing Gateway, first clears the configuration by running `gwa pg` with a yaml file with: `services: []`
+  1. To migrate an existing Gateway, first clear the configuration by running `gwa pg` with a yaml file with: `services: []`
 1. **API provider contacts APS team** to request a Gateway on the desired cluster
 1. APS updates the Gateway to use the Kong data plane on the desired cluster
 1. **API provider updates the Gateway configuration** (`GatewayService.host`) to point to Gold or Emerald service and advises the APS team when configuration is applied
   1. Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<data-class>`)
 1. APS updates DNS for the new Routes
-1. **API provider updates [NetworkPolicy](#network-policies)** to allow traffic to the service from the approriate APS namespace
+1. **API provider updates [NetworkPolicies](#network-policies)** to allow traffic to the service from the approriate APS namespace
 1. **API provider tests connectivity**
 
 ## Upstream Services with mTLS
@@ -199,15 +199,19 @@ certificates:
 ```
 
 !!! warning "Root CA installation"
-    `ca_certificates` (Root CAs) must be installed by the `APS` team -
-    please reach out to us on Rocket.Chat `#aps-ops` to request setup of your Root
+    `ca_certificates` (Root CAs) must be installed by the APS team -
+    please [contact the APS team](README.md#need-a-hand) to request setup of your Root
     CA.  A `ca_certificates` `UUID` will be provided to you, to add to your
     `services` details.
 
 !!! warning "Certificate UUIDs"
-    You must generate a UUID (`python -c 'import uuid; print(uuid.uuid4())'`) 
-    for each certificate you create (set the `id`) and
-    reference it in your `services` details.
+    You must generate a UUID for each certificate you create. Here is a Python command to get a UUID:
+    
+    ```python linenums="0"
+    python -c 'import uuid; print(uuid.uuid4())'
+    ```
+    
+    Set the `id` and reference it in your `services` details (`services.client_certificate` and `certificate.id`).
 
 !!! note "PEM file parsing"
     Here's a handyPython command to get a PEM file on one line:
