@@ -165,6 +165,7 @@ The process to create a Gateway on the Gold or Emerald clusters looks like this:
 1. **API provider contacts APS team** to request a Gateway on the desired cluster
 1. APS updates the Gateway to use the Kong data plane on the desired cluster
 1. **API provider updates the Gateway configuration** (`GatewayService.host`) to point to Gold or Emerald service and advises the APS team when configuration is applied
+  1. Carefully consider the Route hosts (`*.api.gov.bc.ca`) because a manual DNS update is required for any changes
   1. Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<data-class>`)
 1. APS updates DNS for the new Routes
 1. **API provider updates [NetworkPolicies](#network-policies)** to allow traffic to the service from the approriate APS namespace
