@@ -22,31 +22,36 @@ alter the behavior of existing features.
 <!-- this could be a good place to add in a general introduction to declarative 
 syntax -->
 
-!!! warning "Upstream service setup"
-    If your upstream services run on Platform
-    Service's Silver or Gold OpenShift cluster, you will need to
-    configure the network polices to allow access from the API Gateway.
-    See the [Upstream service setup](/how-to/upstream-services.md) guide for
-    more information.
+!!! warning "Upstream service setup" 
+    If your upstream services run on the BC
+    Government Private Cloud OpenShift platform, you will need to configure the
+    network polices to allow access from the API Gateway. Additional steps are 
+    required for services on the Gold and Emerald clusters.
+    
+    See the [Upstream service setup](/how-to/upstream-services.md) guide for more information.
 
 ## Before you begin
 
 - [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Gateway](/how-to/create-gateway.md)
+- [Set Up an Upstream Service](/how-to/upstream-services.md)
 
 ## Define service configuration
 
 ### Using a template
 
-There are currently two Gateway configuration templates supported by the `gwa`
+There are currently three Gateway configuration templates supported by the `gwa`
 command line interface (CLI).
 
 They are:
 
-- `kong-httpbin`, which creates a basic, unprotected service, and
+- `quick-start`, which creates a basic, unprotected service, as well as a
+  DraftDataset and Product which can be used to share your API in the API
+  Directory
 - `client-credentials-shared-idp`, which creates a service protected with
   [Client Credential Protection](/how-to/client-cred-flow.md), as well as a
-  CredentialIssuer, DraftDataset, and Product.
+  CredentialIssuer, DraftDataset, and Product
+- `kong-httpbin`, which creates a basic, unprotected service
 
 To use one of these templates, follow these steps:
 
@@ -55,11 +60,11 @@ To use one of these templates, follow these steps:
   Run the following command, substituting a unique service subdomain for your
   API which will be part of your vanity URL: `<MYSERVICE>.api.gov.bc.ca`
 
-  === "kong-httpbin"
+  === "quick-start"
 
       ```shell linenums="0"
       gwa generate-config \
-        --template kong-httpbin \
+        --template quick-start \
         --service <MYSERVICE> \
         --upstream https://httpbin.org
       ```
@@ -75,16 +80,9 @@ To use one of these templates, follow these steps:
 
 1. Publish to the API Services Portal:
 
-  === "kong-httpbin"
-
-      ```shell linenums="0"
-      gwa pg gw-config.yaml
-      ```
-  === "client-credentials-shared-idp"
-
-      ```shell linenums="0"
-      gwa apply -i gw-config.yaml
-      ```
+    ```shell linenums="0"
+    gwa apply -i gw-config.yaml
+    ```
 
 ### Using an OpenAPI spec
 
@@ -198,14 +196,7 @@ To verify that the Gateway can access the upstream services, run the command
 `gwa status`.
 
 In the APS `test` environment, the hosts that you defined in the routes are
-altered. To see the actual hosts:
-
-1. Log into the [API Services Portal](https://api-gov-bc-ca.test.api.gov.bc.ca/).
-
-2. Go to the **Gateways** tab and select your **Gateway** from the list.
-
-3. Go to **Gateway Services** and expand the accordion of your particular
-   service on the right to get the routing details.
+altered. To see the actual hosts, use `gwa status --hosts`.
 
 You can also use `curl` to verify your endpoint, and `ab` for load testing:
 
