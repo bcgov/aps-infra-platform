@@ -37,7 +37,7 @@ host: <ocp-service-name>.<ocp-namespace>.svc
 port: <ocp-service-port>
 protocol: http
 routes:
-...
+  ...
 ```
 
 !!! note "DataClass tags for Emerald Gateways"
@@ -45,18 +45,17 @@ routes:
     This tag should be included in the `tags` field of the Service and will be applied to all Routes created for the Service.
     Acceptable values for `<data-class>` are: `low`, `medium`, and `high`.
     
-    For more information on the Emerald cluster, see the
+    For more information on the Emerald cluster and security classifications, see the
     [Guide for Emerald teams](https://digital.gov.bc.ca/cloud/services/private/internal-resources/emerald/) 
     (IDIR-restricted) from Platform Services.
 
 ### Network policies
 
-You will need to create a Network Policy on your side similar to the following
-to allow the Gateway's test and prod environments to route traffic to your API.
+You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
 
 Follow the template below based on the cluster you are using: 
 
-!!! note
+!!! note "Namespace selector"
     Ensure you do not change the `namepsaceSelector` names - this is the APS namespace which hosts the API Gateway, not your namespace.
 
 === "Silver"
@@ -108,9 +107,9 @@ Follow the template below based on the cluster you are using:
     ```
 
     !!! warning "Contact APS"
-    If your service is running on the Gold cluster, you will need to [contact the APS team](README.md#need-a-hand)
-    to have your Gateway provisioned on the correct Kong data plane 
-    and to configure DNS for your routes. 
+        If your service is running on the Gold cluster, you will need to [contact the APS team](README.md#need-a-hand)
+        to have your Gateway provisioned on the correct Kong data plane 
+        and to configure DNS for your routes. 
 
 === "Emerald"
 
@@ -137,9 +136,9 @@ Follow the template below based on the cluster you are using:
     ```
     
     !!! warning "Contact APS"
-    If your service is running on the Emerald cluster, you will need to [contact the APS team](README.md#need-a-hand)
-    to have your Gateway provisioned on the correct Kong data plane 
-    and to configure DNS for your routes. 
+        If your service is running on the Emerald cluster, you will need to [contact the APS team](README.md#need-a-hand)
+        to have your Gateway provisioned on the correct Kong data plane 
+        and to configure DNS for your routes. 
 
 Any Security Policies for egress from the Gateway
 will be setup automatically on the API Gateway side.
