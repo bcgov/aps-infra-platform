@@ -209,7 +209,7 @@ certificates:
     You must generate a UUID for each certificate you create. Here is a Python command to get a UUID:
     
     ```python linenums="0"
-    python -c 'import uuid; print(uuid.uuid4())'
+    python3 -c 'import uuid; print(uuid.uuid4())'
     ```
     
     Set the `id` and reference it in your `services` details (`services.client_certificate` and `certificate.id`).
@@ -218,5 +218,5 @@ certificates:
     Here's a handyPython command to get a PEM file on one line:
     
     ```python linenums="0"
-    python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))'my.pem
+    python3 -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem
     ```
