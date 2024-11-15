@@ -193,7 +193,7 @@ For upstream services that are running outside of one of the private Openshift
 clusters, there are a few different approaches for securing the traffic between
 the Gateway and the upstream service. One option is mTLS, which is detailed below.
 
-#### Upstream Services with mTLS
+### Verify upstream services with mTLS
 
 To support mTLS between the API Gateway and your upstream service, you will need
 to provide client certificate and Root CA details along with your Gateway
