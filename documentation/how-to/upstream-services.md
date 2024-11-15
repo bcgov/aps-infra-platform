@@ -33,10 +33,7 @@ routes:
 
 You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
 
-Follow the template below, adjusting the `podSelector` as needed: 
-
-!!! note "Namespace selector"
-    Do not change the `namepsaceSelector` names - `264e6f` is the APS namespace which hosts the API Gateway on Silver, not your namespace.
+Follow this template: 
 
 ```yaml
 kind: NetworkPolicy
@@ -59,6 +56,10 @@ spec:
               environment: prod
               name: 264e6f
 ```
+
+Where:
+- `podSelector` is a selector that matches your upstream service.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`264e6f`), not your namespace. Don't change this.
 
 ### Gold cluster
 
@@ -84,10 +85,7 @@ routes:
 
 You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
 
-Follow the template below, adjusting the `podSelector` as needed: 
-
-!!! note "Namespace selector"
-    Do not change the `namepsaceSelector` names - `b8840c` is the APS namespace which hosts the API Gateway on Gold/GoldDR, not your namespace.
+Follow this template:
 
 ```yaml
 kind: NetworkPolicy
@@ -110,6 +108,10 @@ spec:
               environment: prod
               name: b8840c
 ```
+
+Where:
+- `podSelector` is a selector that matches your upstream service.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Gold and Gold DR (`b8840c`), not your namespace. Don't change this.
 
 #### DNS
 
@@ -145,14 +147,11 @@ For more information on the Emerald cluster and security classifications, see th
 
 #### Network policies
 
-For services on Emerald cluster, both `egress` and `ingress` Network Policies are required. 
-You will need to create an `ingress` Network Policy in your OpenShift project and 
-APS will also create an `egress` Network Policy to send traffic from the Gateawy to the upstream service.
+For services on Emerald cluster, both `ingress` and `egress` Network Policies are required. 
 
-Follow the template below for the `ingress` policy, adjusting the `podSelector` as needed: 
+**Ingress policy**: You will need to create an `ingress` Network Policy in your OpenShift project. 
 
-!!! note "Namespace selector"
-    Do not change the `namepsaceSelector` names - `cc9a8a` is the APS namespace which hosts the API Gateway on Emerald, not your namespace.
+Follow this template:
 
 ```yaml
 kind: NetworkPolicy
@@ -176,7 +175,13 @@ spec:
               name: cc9a8a
 ```
 
-[Contact the APS team](README.md#need-a-hand) to have an `egress` policy created allowing traffic from the Gateway to your upstream service.  
+Where:
+- `podSelector` is a selector that matches your upstream service.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`b8840c`), not your namespace. Don't change this.
+
+**Egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateawy to the upstream service.
+
+[Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
 You will need to provide the `namespaceSelector` details for the projects that will be receiving traffic.
 
 #### DNS
