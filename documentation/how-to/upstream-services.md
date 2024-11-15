@@ -9,9 +9,9 @@ Emerald clusters of the BC Government Private Cloud OpenShift platform.
 
 ### Silver cluster
 
-By default, new Gateways are created on the Silver cluster.  Setting up a Gateway is completely self-serve.
+By default, new Gateways are created on the Silver cluster. Setting up a Gateway on Silver is completely self-serve.
 
-The following steps are required to configure the gateway for your API:
+The following steps are required to configure the Gateway for your API:
 
 #### Service configuration
 
@@ -33,35 +33,32 @@ routes:
 
 You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
 
-Follow the template below based on the cluster you are using: 
+Follow the template below, adjusting the `podSelector` as needed: 
 
 !!! note "Namespace selector"
-    Ensure you do not change the `namepsaceSelector` names - this is the APS namespace which hosts the API Gateway, not your namespace.
+    Do not change the `namepsaceSelector` names - `264e6f` is the APS namespace which hosts the API Gateway on Silver, not your namespace.
 
-=== "Silver"
-
-    ```yaml
-    kind: NetworkPolicy
-    apiVersion: networking.k8s.io/v1
-    metadata:
-      name: allow-traffic-from-gateway-to-your-api
-    spec:
-      podSelector:
-        matchLabels:
-          name: my-upstream-api
-      ingress:
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  environment: test
-                  name: 264e6f
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  environment: prod
-                  name: 264e6f
-    ```
-
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: 264e6f
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: 264e6f
+```
 
 ### Gold cluster
 
@@ -85,29 +82,34 @@ routes:
 
 #### Network policies
 
-=== "Gold"
+You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
 
-    ```yaml
-    kind: NetworkPolicy
-    apiVersion: networking.k8s.io/v1
-    metadata:
-      name: allow-traffic-from-gateway-to-your-api
-    spec:
-      podSelector:
-        matchLabels:
-          name: my-upstream-api
-      ingress:
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  environment: test
-                  name: b8840c
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  environment: prod
-                  name: b8840c
-    ```
+Follow the template below, adjusting the `podSelector` as needed: 
+
+!!! note "Namespace selector"
+    Do not change the `namepsaceSelector` names - `b8840c` is the APS namespace which hosts the API Gateway on Gold/GoldDR, not your namespace.
+
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: b8840c
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: b8840c
+```
 
 #### DNS
 
@@ -123,7 +125,7 @@ Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<dat
 
 This tag should be included in the `tags` field of the Service and will be applied to all Routes created for the Service.
 
-Example Gateway Service with `medium` data class:
+Here is an example Gateway Service with `medium` data class:
 
 ```yaml
 kind: GatewayService
@@ -143,54 +145,64 @@ For more information on the Emerald cluster and security classifications, see th
 
 #### Network policies
 
-For services on Emerald cluster, both `egress` and `ingress` network policies are required, which means that the APS side needs to create a network policy to send traffic to the upstream service, and your Openshift project will need to create an `ingress` network policy.
+For services on Emerald cluster, both `egress` and `ingress` Network Policies are required. 
+You will need to create an `ingress` Network Policy in your OpenShift project and 
+APS will also create an `egress` Network Policy to send traffic from the Gateawy to the upstream service.
 
-=== "Emerald" Ingress Policy
+Follow the template below for the `ingress` policy, adjusting the `podSelector` as needed: 
 
-    ```yaml
-    kind: NetworkPolicy
-    apiVersion: networking.k8s.io/v1
-    metadata:
-      name: allow-traffic-from-gateway-to-your-api
-    spec:
-      podSelector:
-        matchLabels:
-          name: my-upstream-api
-      ingress:
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  environment: test
-                  name: cc9a8a
-        - from:
-            - namespaceSelector:
-                matchLabels:
-                  environment: prod
-                  name: cc9a8a
-    ```
+!!! note "Namespace selector"
+    Do not change the `namepsaceSelector` names - `cc9a8a` is the APS namespace which hosts the API Gateway on Emerald, not your namespace.
 
-You will need to [contact the APS team](README.md#need-a-hand) to have your Gateway provisioned for allowing traffic from the Gateway to your upstream service.  The information required will be the `namespaceSelector` details for the projects that will be receiving traffic.
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: cc9a8a
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: cc9a8a
+```
+
+[Contact the APS team](README.md#need-a-hand) to have an `egress` policy created allowing traffic from the Gateway to your upstream service.  
+You will need to provide the `namespaceSelector` details for the projects that will be receiving traffic.
 
 #### DNS
 
 For domains that will be routing to the Emerald cluster, a manual DNS entry must be setup by APS.
 
-You will need to [contact the APS team](README.md#need-a-hand) to have your Gateway provisioned for DNS.  The information required will be the `Route.hosts` endpoints that will be configured on your Gateway.
+[Contact the APS team](README.md#need-a-hand) to have DNS configured for your Gateway. 
+You will need to provide the `Route.hosts` endpoints that will be configured on your Gateway.
 
 
 ## Public cloud and on-premise
 
-For upstream services that are running outside of one of the private Openshift clusters, there are a few different approaches for securing the traffic between the Gateway and the upstream service.
+For upstream services that are running outside of one of the private Openshift
+clusters, there are a few different approaches for securing the traffic between
+the Gateway and the upstream service. One option is mTLS, which is detailed below.
 
 #### Upstream Services with mTLS
 
-Do you require mTLS between the API Gateway and your upstream service? 
+To support mTLS between the API Gateway and your upstream service, you will need
+to provide client certificate and Root CA details along with your Gateway
+Service configuration.
 
-To support mTLS on your Upstream Service, you will need to provide client
-certificate details. If you want to verify the upstream endpoint the
-`ca_certificates` and `tls_verify` is required as well. 
+If using mTLS, publish your Gateway Service configuration using 
+`gwa pg <gateway-config.yaml>` rather `gwa apply`.
 
-Example:
+Example configuration:
 
 ```yaml
 services:
@@ -210,23 +222,29 @@ certificates:
     id: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
 ```
 
-!!! warning "Root CA installation"
-    `ca_certificates` (Root CAs) must be installed by the APS team -
-    please [contact the APS team](README.md#need-a-hand) to request setup of your Root
-    CA.  A `ca_certificates` `UUID` will be provided to you, to add to your
-    `services` details.
+Where:
 
-!!! warning "Certificate UUIDs"
-    You must generate a UUID for each certificate you create. Here is a Python command to get a UUID:
-    
-    ```python linenums="0"
-    python3 -c 'import uuid; print(uuid.uuid4())'
-    ```
-    
-    Set the `id` and reference it in your `services` details (`services.client_certificate` and `certificate.id`).
+- `service.tls_verify` is set to `true` to enable mTLS.
+- `service.ca_certificates` contains the UUID of the Root CA for the certificate chain.
 
-!!! note "PEM file parsing"
-    Here's a handyPython command to get a PEM file on one line:
+  Root CAs must be installed by the APS team -
+  please [contact the APS team](README.md#need-a-hand) to request setup of your Root
+  CA.  A UUID will be provided to you.
+
+- `service.client_certificate` contains the UUID of the client certificate, which matches the `certificate.id`.
+  
+  You must generate a UUID4 for each certificate you create. 
+  
+  Use this Python command to get a UUID4:
+    
+  ```python linenums="0"
+  python3 -c 'import uuid; print(uuid.uuid4())'
+  ```    
+- `certificates.cert` and `certificates.key` contain the PEM formatted certificate and key, respectively.
+  
+  These values are most easily included in the YAML configuration in a single line. 
+  
+  Use this Python command to get a PEM file on one line:
     
     ```python linenums="0"
     python3 -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem
