@@ -58,6 +58,7 @@ spec:
 ```
 
 Where:
+
 - `podSelector` is a selector that matches your upstream service.
 - `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`264e6f`), not your namespace. Don't change this.
 
@@ -110,6 +111,7 @@ spec:
 ```
 
 Where:
+
 - `podSelector` is a selector that matches your upstream service.
 - `namespaceSelector` is the APS namespace which hosts the API Gateway on Gold and Gold DR (`b8840c`), not your namespace. Don't change this.
 
@@ -176,6 +178,7 @@ spec:
 ```
 
 Where:
+
 - `podSelector` is a selector that matches your upstream service.
 - `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`b8840c`), not your namespace. Don't change this.
 
