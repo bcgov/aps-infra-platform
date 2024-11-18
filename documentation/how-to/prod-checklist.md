@@ -22,9 +22,9 @@ consumers.
 
 - [ ] Have access to a production-ready API:
 
-  - This could be a public or private service. If your API service runs on BC
-    Government [Platform Service’s](https://digital.gov.bc.ca/cloud/services/)
-    Silver or Gold Private OpenShift clusters, you will need to configure the
+  - This could be a public or private service. If your API service runs the BC
+    Government [Private Cloud OpenShift platform](https://digital.gov.bc.ca/cloud/services/),
+    you will need to configure the
     network policies to allow access from your API gateway. View our
     [Set Up an Upstream Service](/how-to/upstream-services.md) guide for more
     information.

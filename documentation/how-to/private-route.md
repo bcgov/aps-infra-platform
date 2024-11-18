@@ -56,12 +56,14 @@ A new service endpoint with SSL termination (using Service Serving Certificates)
 is then created in the APS project space for the given OpenShift cluster, with
 the following format:
 
-| Cluster     | Endpoint                                               |
-| ----------- | ------------------------------------------------------ |
-| Silver TEST | `https://gw-<MY-SERVICE>.264e6f-test.svc.cluster.local` |
-| Silver PROD | `https://gw-<MY-SERVICE>.264e6f-prod.svc.cluster.local` |
-| Gold TEST   | `https://gw-<MY-SERVICE>.b8840c-test.svc.cluster.local` |
-| Gold PROD   | `https://gw-<MY-SERVICE>.b8840c-prod.svc.cluster.local` |
+| Cluster      | Endpoint                                                |
+| ------------ | ------------------------------------------------------- |
+| Silver TEST  | `https://gw-<MY-SERVICE>.264e6f-test.svc.cluster.local` |
+| Silver PROD  | `https://gw-<MY-SERVICE>.264e6f-prod.svc.cluster.local` |
+| Gold TEST    | `https://gw-<MY-SERVICE>.b8840c-test.svc.cluster.local` |
+| Gold PROD    | `https://gw-<MY-SERVICE>.b8840c-prod.svc.cluster.local` |
+| Emerald TEST | `https://gw-<MY-SERVICE>.cc9a8a-test.svc.cluster.local` |
+| Emerald PROD | `https://gw-<MY-SERVICE>.cc9a8a-prod.svc.cluster.local` |
 
 The route can be viewed by running `gwa status --json` and looking at the value
 of `env_host`.

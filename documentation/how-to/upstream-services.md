@@ -2,30 +2,38 @@
 title: Set Up an Upstream Service
 ---
 
-## Upstream Services on OCP
+## Upstream Services on OpenShift
 
-API Program Services (APS) has Kong Data Planes running on Platform Service's
-Silver and Gold Private OpenShift clusters. If your upstream services run on one
-of these clusters, then you will need to configure the network polices to
-allow access from the API Gateway.
+API Program Services (APS) has Kong data planes running on the Silver, Gold, and
+Emerald clusters of the BC Government Private Cloud OpenShift platform.
 
-Additionally, you can set up [private routing](/how-to/private-route.md) to
-limit consumer access to that cluster.
+### Silver cluster
 
-### Network Policies
+By default, new Gateways are created on the Silver cluster. Setting up a Gateway on Silver is completely self-serve.
 
-> If your service is running on the OpenShift platform, you should specify the
-> Kubernetes Service in the `Service.host`. It must have the format:
-> `<name>.<ocp-namespace>.svc`. Also, make sure your `Service.port` matches your
-> Kubernetes Service Port. Any Security Policies for egress from the Gateway
-> will be setup automatically on the API Gateway side.
+The following steps are required to configure the Gateway for your API:
 
-The Kong Gateway runs Data Planes in both Silver and Gold clusters.
+#### Service configuration
 
-#### Silver Cluster
+Specify the OpenShift/Kubernetes service in your [Gateway Service configuration](concepts/gateway-config.md)
+using the following format:
 
-You will need to create a Network Policy on your side similar to the following
-to allow the Gateway's test and prod environments to route traffic to your API:
+```yaml
+kind: GatewayService
+name: example-service-dev
+tags: [ ns.<gatewayId> ]
+host: <ocp-service-name>.<ocp-namespace>.svc
+port: <ocp-service-port>
+protocol: http
+routes:
+  ...
+```
+
+#### Network policies
+
+You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
+
+Follow this template: 
 
 ```yaml
 kind: NetworkPolicy
@@ -49,12 +57,40 @@ spec:
               name: 264e6f
 ```
 
-#### Gold Cluster
+Where:
 
-If your service is running on Gold, you will need to contact the APS team to
-have your Gateway provisioned on the correct Kong Data Plane and ensure the
-correct DNS is setup for your routes. The following is the Network Policy on
-Gold.
+- `podSelector` is a selector that matches your upstream service.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`264e6f`), not your namespace. Don't change this.
+
+#### DNS
+
+If the consumers of your API are going to all be on the Silver cluster, you can consider setting up [private routing](/how-to/private-route.md) to limit consumer access using an Openshift Service.
+
+### Gold cluster
+
+The Gold cluster has some additional considerations related to DNS and the expectations around when failover to Calgary (Gold DR) occurs.
+
+#### Service configuration
+
+Specify the OpenShift/Kubernetes service in your [Gateway Service configuration](concepts/gateway-config.md)
+using the following format:
+
+```yaml
+kind: GatewayService
+name: example-service-dev
+tags: [ ns.<gatewayId> ]
+host: <ocp-service-name>.<ocp-namespace>.svc
+port: <ocp-service-port>
+protocol: http
+routes:
+  ...
+```
+
+#### Network policies
+
+You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
+
+Follow this template:
 
 ```yaml
 kind: NetworkPolicy
@@ -78,12 +114,109 @@ spec:
               name: b8840c
 ```
 
-## Upstream Services with mTLS
+Where:
 
-> **Require mTLS between the Gateway and your Upstream Service?** To support
-> mTLS on your Upstream Service, you will need to provide client certificate
-> details and if you want to verify the upstream endpoint then the
-> `ca_certificates` and `tls_verify` is required as well. Example:
+- `podSelector` is a selector that matches your upstream service.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Gold and Gold DR (`b8840c`), not your namespace. Don't change this.
+
+#### DNS
+
+By default the wildcard `*.api.gov.bc.ca` domain resolves to the Silver cluster (`142.34.194.118`).  For domains that will be routing to the Gold cluster, a manual DNS entry must be setup by APS.
+
+You will need to [contact the APS team](README.md#need-a-hand) to have your Gateway provisioned for DNS.  The information required will be the `Route.hosts` endpoints that will be configured on your Gateway.
+
+If the consumers of your API are going to all be on the Gold cluster, you can consider setting up [private routing](/how-to/private-route.md) to limit consumer access using an Openshift Service.
+
+### Emerald cluster
+
+#### Service configuration
+
+Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<data-class>`).  Acceptable values for `<data-class>` are: `low`, `medium`, and `high`.
+
+This tag should be included in the `tags` field of the Service and will be applied to all Routes created for the Service.
+
+Here is an example Gateway Service with `medium` data class:
+
+```yaml
+kind: GatewayService
+name: example-service-dev
+tags: [ ns.<gatewayId>, aps.route.dataclass.medium ]
+host: <ocp-service-name>.<ocp-namespace>.svc
+port: <ocp-service-port>
+protocol: http
+routes:
+  ...
+```
+
+
+For more information on the Emerald cluster and security classifications, see the
+[Guide for Emerald teams](https://digital.gov.bc.ca/cloud/services/private/internal-resources/emerald/) (IDIR-restricted) from Platform Services.
+
+#### Network policies
+
+For services on Emerald cluster, both `ingress` and `egress` Network Policies are required. 
+
+**Ingress policy**: You will need to create an `ingress` Network Policy in your OpenShift project. 
+
+Follow this template:
+
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-from-gateway-to-your-api
+spec:
+  podSelector:
+    matchLabels:
+      name: my-upstream-api
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: test
+              name: cc9a8a
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: cc9a8a
+```
+
+Where:
+
+- `podSelector` is a selector that matches your upstream service.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`b8840c`), not your namespace. Don't change this.
+
+**Egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateway to the upstream service.
+
+[Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
+You will need to provide the `namespaceSelector` details for the Openshift projects that will be receiving traffic.  APS will use this information to configure an `egress` Network Policy and a rule to ensure that it is not possible for traffic to be routed to your Openshift project using a different Gateway.
+
+#### DNS
+
+For domains that will be routing to the Emerald cluster, a manual DNS entry must be setup by APS.
+
+[Contact the APS team](README.md#need-a-hand) to have DNS configured for your Gateway. 
+You will need to provide the `Route.hosts` endpoints that will be configured on your Gateway.
+
+If the consumers of your API are going to all be on the Emerald cluster, you can consider setting up [private routing](/how-to/private-route.md) to limit consumer access using an Openshift Service.
+
+## Public cloud and on-premise
+
+For upstream services that are running outside of one of the private Openshift
+clusters, there are a few different approaches for securing the traffic between
+the Gateway and the upstream service. One option is mTLS, which is detailed below.
+
+### Verify upstream services with mTLS
+
+To support mTLS between the API Gateway and your upstream service, you will need
+to provide client certificate and Root CA details along with your Gateway
+Service configuration.
+
+If using mTLS, publish your Gateway Service configuration using 
+`gwa pg <gateway-config.yaml>` rather `gwa apply`.
+
+Example configuration:
 
 ```yaml
 services:
@@ -103,14 +236,30 @@ certificates:
     id: 8fc131ef-9752-43a4-ba70-eb10ba442d4e
 ```
 
-> NOTE: `ca_certificates` (Root CAs) must be installed by the `APS` team -
-> please reach out to us on Rocket.Chat `#aps-ops` to request setup of your Root
-> CA.  A `ca_certificates` `UUID` will be provided to you, to add to your
-> `services` details.
+Where:
 
-> NOTE: You must generate a UUID (`python -c 'import uuid;
-> print(uuid.uuid4())'`) for each certificate you create (set the `id`) and
-> reference it in your `services` details.
+- `service.tls_verify` is set to `true` to enable mTLS.
+- `service.ca_certificates` contains the UUID of the Root CA for the certificate chain.
 
-> HELPER: Python command to get a PEM file on one line:
-> `python -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))'my.pem`
+  Root CAs must be installed by the APS team -
+  please [contact the APS team](README.md#need-a-hand) to request setup of your Root
+  CA.  A UUID will be provided to you.
+
+- `service.client_certificate` contains the UUID of the client certificate, which matches the `certificate.id`.
+  
+  You must generate a UUID4 for each certificate you create. 
+  
+  Use this Python command to get a UUID4:
+    
+  ```python linenums="0"
+  python3 -c 'import uuid; print(uuid.uuid4())'
+  ```    
+- `certificates.cert` and `certificates.key` contain the PEM formatted certificate and key, respectively.
+  
+  These values are most easily included in the YAML configuration in a single line. 
+  
+  Use this Python command to get a PEM file on one line:
+    
+    ```python linenums="0"
+    python3 -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem
+    ```

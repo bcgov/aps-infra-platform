@@ -280,7 +280,7 @@ Learn more about Gateway Service configuration:
 
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
 - [Client Credential Protection](/how-to/client-cred-flow.md)
-- [Upstream Service Setup](/how-to/upstream-services.md)
+- [Set Up an Upstream Service](/how-to/upstream-services.md)
 
 Discover other API Services Portal features:
 

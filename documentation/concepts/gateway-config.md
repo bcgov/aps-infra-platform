@@ -18,7 +18,7 @@ declarative syntax.
 
 ## Use case
 
-In a Gateway Configuration file, you can specify details like:
+In a Gateway configuration file, you can specify details like:
 
 1. [Services](/concepts/services.md): These represent the backend services that
 Kong will proxy requests to.
