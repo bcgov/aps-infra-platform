@@ -10,8 +10,7 @@ identity provider in a standardized way.
 
 ## Configuration reference
 
-This is a stock plugin from Kong Hub. See the [configuration reference page](https://docs.konghq.com/hub/kong-inc/openid-connect/configuration/)
-for a list of parameters and protocol compatibility notes.
+This is a custom plugin managed by the API Program Services team.
 
 ## Common usage example
 
