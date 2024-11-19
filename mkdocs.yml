@@ -17,6 +17,7 @@ nav:
       - "how-to/create-gateway-service.md"
       - "how-to/upstream-services.md"
       - "how-to/private-route.md"
+      - "how-to/custom-domain.md"
     - Protect a Gateway Service:
       - "how-to/COMMON-CONFIG.md"
       - "how-to/kong-api-key.md"
