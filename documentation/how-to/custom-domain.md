@@ -19,7 +19,9 @@ Before you begin, ensure you:
 
 ## Create a Gateway Service with a Custom Domain
 
-If you have already created a Gateway Service in [Create a Gateway Service](/how-to/create-gateway-service.md) using the `gwa generate-config` command, you will need to extract the Gateway Service information into a separate YAML file and reformat as shown below.
+If you have already created a Gateway Service in [Create a Gateway Service](/how-to/create-gateway-service.md) 
+or [Quick Start](/tutorials/quick-start.md) using the `gwa generate-config` command, you will need to extract 
+the Gateway Service information into a separate YAML file and reformat as shown below.
 
 Example configuration:
 
@@ -69,7 +71,10 @@ Where:
 
 ## Publish Gateway Service with Custom Domain
 
-When using a custom domain, you will need to maintain two separate YAML files. One will contain the certificate details and Gateway Service configuration (seen above), and will be applied using the `gwa pg` command. The other will contain any Portal resources (Product, Dataset, etc.) you define, and will be applied using the `gwa apply` command.
+When using a custom domain, you will need to maintain two separate YAML files. One will contain the 
+certificate details and Gateway Service configuration (seen above), and will be applied using the `gwa pg` 
+command. The other will contain any Portal resources (Product, Dataset, etc.) you define, and will be 
+applied using the `gwa apply` command.
 
 Publish your Gateway Service with custom domain using the following command:
 
