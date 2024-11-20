@@ -164,10 +164,11 @@ For more information on the Emerald cluster and security classifications, see th
 
 Emerald cluster route hosts will be assigned an IP address depending on the data class that was specified in the Gateway Service.
 
-To get the IP address, contact
+You will need to [contact the APS team](README.md#need-a-hand) to get the IP address that was assigned for your routes.  This IP address will not change for the route unless the data class changes.
+
 #### Network policies for upstream
 
-For services on Emerald cluster, at a minimum both `ingress` and `egress` Network Policies are required to connect the Kong gateway with your upstream service. 
+For services on Emerald cluster, both `ingress` and `egress` Network Policies are required to connect the Kong gateway with your upstream service. 
 
 **Upstream ingress policy**: You will need to create an `ingress` Network Policy in your OpenShift project. 
 
