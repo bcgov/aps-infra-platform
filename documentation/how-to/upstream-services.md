@@ -29,6 +29,10 @@ routes:
   ...
 ```
 
+#### IP Addresses
+
+Silver cluster route hosts will always resolve to `142.34.194.118` - silver's ingress IP.
+
 #### Network policies
 
 You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
@@ -85,6 +89,10 @@ protocol: http
 routes:
   ...
 ```
+
+#### IP Addresses
+
+Gold cluster route hosts will always resolve to `142.34.229.4` or  `142.34.64.4`  depending on whether the APS service is in Gold (Kamloops) or for disaster recovery in Gold DR (Calgary).
 
 #### Network policies
 
@@ -152,11 +160,17 @@ routes:
 For more information on the Emerald cluster and security classifications, see the
 [Guide for Emerald teams](https://digital.gov.bc.ca/cloud/services/private/internal-resources/emerald/) (IDIR-restricted) from Platform Services.
 
-#### Network policies
+#### IP Addresses
 
-For services on Emerald cluster, both `ingress` and `egress` Network Policies are required. 
+Emerald cluster route hosts will be assigned an IP address depending on the data class that was specified in the Gateway Service.
 
-**Ingress policy**: You will need to create an `ingress` Network Policy in your OpenShift project. 
+You will need to [contact the APS team](README.md#need-a-hand) to get the IP address that was assigned for your routes.  This IP address will not change for the route unless the data class changes.
+
+#### Network policies for upstream
+
+For services on Emerald cluster, both `ingress` and `egress` Network Policies are required to connect the Kong gateway with your upstream service. 
+
+**Upstream ingress policy**: You will need to create an `ingress` Network Policy in your OpenShift project. 
 
 Follow this template:
 
@@ -187,10 +201,42 @@ Where:
 - `podSelector` is a selector that matches your upstream service.
 - `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`b8840c`), not your namespace. Don't change this.
 
-**Egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateway to the upstream service.
+**Upstream egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateway to the upstream service.
 
 [Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
 You will need to provide the `namespaceSelector` details for the Openshift projects that will be receiving traffic.  APS will use this information to configure an `egress` Network Policy and a rule to ensure that it is not possible for traffic to be routed to your Openshift project using a different Gateway.
+
+#### Network policies for consumers
+
+Consumers may require network policies to access your API, depending on how the route has been setup.
+
+| Consumer    | Service Route     | Data Class   | Network policies                                                                                                                                                                                                                          |
+| ----------- | ----------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| On cluster  | `*.cluster.local` | Low/Med/High | The Consumer will require an `egress policy` with a `to namespaceSelector` to the Kong API Gateway (see example 1 below).  The API Gateway will require an `ingress` with a `from namespaceSelector` of the Consumer Openshift namespace. |
+| Off cluster | `*.api.gov.bc.ca` | Low/Med/High | The API Gateway has `ingress` policies to allow traffic to the Kong API Gateway.  No additional setup is required.                                                                                                                        |
+
+**Example (1) Egress policy for on-cluster consumer**:
+
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-traffic-to-gateway-service
+spec:
+  podSelector:
+    matchLabels:
+      name: my-consumer-app
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              environment: prod
+              name: cc9a8a
+  policyTypes:
+    - Egress
+```
+
+For on-cluster consumers (consumers that reside on Emerald), [Contact the APS team](README.md#need-a-hand) to have an `ingress` policy created for your Gateway.
 
 #### DNS
 

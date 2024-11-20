@@ -97,6 +97,7 @@ spec:
     metadata:
       labels:
         app: sleeper
+        DataClass: Low
     spec:
       volumes:
         - name: config
