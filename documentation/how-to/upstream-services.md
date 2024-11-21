@@ -284,14 +284,14 @@ certificates:
 
 Where:
 
-- `service.tls_verify` is set to `true` to enable mTLS.
-- `service.ca_certificates` contains the UUID of the Root CA for the certificate chain.
+- `services[n].tls_verify` is set to `true` to enable mTLS.
+- `services[n].ca_certificates` contains the UUID of the Root CA for the certificate chain.
 
   Root CAs must be installed by the APS team -
   please [contact the APS team](README.md#need-a-hand) to request setup of your Root
   CA.  A UUID will be provided to you.
 
-- `service.client_certificate` contains the UUID of the client certificate, which matches the `certificate.id`.
+- `services[n].client_certificate` contains the UUID of the client certificate, which matches the `certificate.id`.
   
   You must generate a UUID4 for each certificate you create. 
   
@@ -300,7 +300,8 @@ Where:
   ```python linenums="0"
   python3 -c 'import uuid; print(uuid.uuid4())'
   ```    
-- `certificates.cert` and `certificates.key` contain the PEM formatted certificate and key, respectively.
+
+- `certificates[n].cert` and `certificates[n].key` contain the PEM formatted certificate and key, respectively.
   
   These values are most easily included in the YAML configuration in a single line. 
   
