@@ -9,11 +9,11 @@ Here is a list of the parameters which can be used in this plugin's `config` sec
 | Field                       | Type     | Default | Description                                                                                                                                         |
 | --------------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | allowed_iss                 | string[] | nil     | A list of allowed issuers for this route/service/api. Can be specified as a `string` or as a Lua pattern. |
-| allowed_aud                 | string   | nil     | Allowed audience for this route/service/api. Can be specified as a `string` or as a Lua pattern. |
+| allowed_aud                 | string   | nil     | Allowed audience for this route/service/api. This must match the `Client ID` shown on the **Client Management** tab for the Authorization Profile. Can be specified as a `string` or as a Lua pattern. | 
 | access_token_header         | string   | nil     | An alternate header to use instead of "Authorization"                                                                                               |
 | realm                       | string   | nil     | In the event of a 401, this value gets populated in the "WWW-Authenticate" response header as `Bearer realm="<realm>"`                              |
 | disable_access_token_header | boolean  | false   | If set to 'true', the access token will not be sent to the upstream service                                                                         |
-| client_roles | string[] | nil | List of Client/Roles in the format `<CLIENT_NAME>:<ROLE_NAME>` where there has to be at least one match. |
+| client_roles | string[] | nil | List of Client/Roles in the format `<CLIENT_ID>:<ROLE_NAME>` where there has to be at least one match. |
 
 ## Common usage example
 
@@ -60,7 +60,7 @@ configuration will target.
 When you have an API that is consumed by your own frontend and potentially by
 some internal processes, and you would also like to give limited access to the
 API to external parties, such as other Ministry services, then you can use the
-API Gateway to protect the API.
+API Gateway to protect the API. Roles are used to define different levels of access to the API.
 
 An example configuration that uses RBAC and verification of User Tokens using
 the SSO Standard Realm and Service Account Tokens using APS's Shared IdP:
@@ -83,7 +83,7 @@ services:
                 - https://loginproxy.gov.bc.ca/auth/realms/standard
                 - https://loginproxy.gov.bc.ca/auth/realms/apigw
               allowed_aud: an-audience-ref
-              client_roles: [Read]
+              client_roles: [an-audience-ref:Read]
               consumer_match: true
 
       - name: MY_REST_API_ADMINS
@@ -99,6 +99,6 @@ services:
                 - https://loginproxy.gov.bc.ca/auth/realms/standard
                 - https://loginproxy.gov.bc.ca/auth/realms/apigw
               allowed_aud: an-audience-ref
-              client_roles: [Admin]
+              client_roles: [an-audience-ref:Admin]
               consumer_match: true
 ```
