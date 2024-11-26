@@ -50,16 +50,6 @@ services:
 
 Where:
 
-- `certificates[n].id` is a UUID4 you will generate.
-- `certificates[n].snis.name` is the hostname on the custom domain
-- `certificates[n].snis.id` is a different UUID4 you will generate.
-
-  Use this Python command to get a UUID4:
-    
-  ```python linenums="0"
-  python3 -c 'import uuid; print(uuid.uuid4())'
-  ```
-
 - `certificates[n].cert` and `certificates[n].key` contain the PEM formatted certificate and key, respectively.
 
   These values are most easily included in the YAML configuration in a single line. 
@@ -69,6 +59,16 @@ Where:
     ```python linenums="0"
     python3 -c 'import sys; import json; print(json.dumps(open(sys.argv[1]).read()))' my.pem
     ```
+
+- `certificates[n].id` is a UUID4 you will generate.
+- `certificates[n].snis.name` is the hostname on the custom domain
+- `certificates[n].snis.id` is a different UUID4 you will generate.
+
+  Use this Python command to get a UUID4:
+    
+  ```python linenums="0"
+  python3 -c 'import uuid; print(uuid.uuid4())'
+  ```
 
 ## Publish Gateway Service with Custom Domain
 
