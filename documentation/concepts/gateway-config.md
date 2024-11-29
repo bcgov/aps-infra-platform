@@ -111,13 +111,15 @@ resource-based format is recommended for its flexibility and support for
 additional resource types.
 
 ### Key differences between formats
-| Attribute                                                                       | Legacy                   | Resource-based |
+
+| Format                                                                       | Legacy                   | Resource-based |
 |------------------------------------------------------------------------------|--------------------------|----------------|
 | Supports GatewayService configuration                                        | ✅                        | ✅              |
 | Supports SSL certificates                                                    | ✅                        | ❌              |
 | Supports additional resource types (Product, DraftDataset, CredentialIssuer) | ❌                        | ✅              |
 | Publish command                                                              | `publish-gateway` (`pg`) | `apply`        |
-| Minimum `gwa` CLI version                                                    | v1.0.0                      | v2.0.4             |
+| Format produced by `gwa generate-config` templates                           | ❌                        | ✅              |
+| Minimum `gwa` CLI version                                                    | N/A                      | v2             |
 
 ## Configuration update behaviour
 

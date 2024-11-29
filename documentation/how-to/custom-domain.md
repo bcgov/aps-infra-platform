@@ -14,16 +14,32 @@ Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Gateway](/how-to/create-gateway.md)
+- Register your custom domain and obtain SSL certificates
 
 <!-- steps -->
 
-## Create a Gateway Service with a Custom Domain
+## Submit a request with APS
 
-If you have already created a Gateway Service in [Create a Gateway Service](/how-to/create-gateway-service.md) 
-or [Quick Start](/tutorials/quick-start.md) using the `gwa generate-config` command, you will need to extract 
-the Gateway Service information into a separate YAML file and reformat as shown below.
+Routing to a custom domain requires special permissions for your Gateway. Reach
+out to the APS team on Rocket.Chat in the
+[#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel or [open a
+support
+ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2). You will need to provide the fully qualified domain name (FQDN) and the `gatewayId` for your Gateway.
 
-Example configuration:
+The APS team will also create a DNS record for your custom domain pointing to
+the OpenShift cluster where your Gateway is deployed. See [Set Up an Upstream
+Service](/how-to/upstream-services) for more information on the available
+clusters.
+
+## Create a Gateway Service
+
+Creating a Gateway Service with a custom domain is much the same as creating a
+Gateway Service without a custom domain. The key difference is the inclusion of
+SSL certficiates in the `certificates` section.
+
+For more general information on creating Gateway Services, see [Create a Gateway Service](/how-to/create-gateway-service.md).
+
+Add the `certificates` section to your Gateway Service configuration as shown in this example:
 
 ```yaml
 certificates:
@@ -70,18 +86,26 @@ Where:
   python3 -c 'import uuid; print(uuid.uuid4())'
   ```
 
-## Publish Gateway Service with Custom Domain
+!!! warning "Gateway configuration formats"
+    There are [two formats for Gateway configuration](/concepts/gateway-config.md#gateway-configuration-formats).
+    To include SSL certificates in your Gateway Service configuration, you must use the **legacy format**, as shown above.   
 
-When using a custom domain, you will need to maintain two separate YAML files. One will contain the 
-certificate details and Gateway Service configuration (seen above), and will be applied using the `gwa pg` 
-command. The other will contain any Portal resources (Product, Dataset, etc.) you define, and will be 
-applied using the `gwa apply` command.
+    To publish other resource types (Product, Dataset, etc.), you can maintain a separate 
+    YAML file using the resource-based format and publish it using the `gwa apply` command. 
+
+## Publish Gateway Service
 
 Publish your Gateway Service with custom domain using the following command:
 
 ```shell linenums="0"
-gwa pg gw.yaml
+gwa pg gw-config.yaml
 ```
+
+## Access your API (Validation)
+
+After publishing your Gateway Service, you can access your API by visiting the URL of your Gateway Service.
+
+You can expect to see upstream API responses in the browser, or if you used the placeholder `httpbin.org` in the Gateway Service configuration, you will see the contents of the httpbin.org homepage.
 
 <!-- whatsnext -->
 
