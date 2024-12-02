@@ -101,11 +101,46 @@ Publish your Gateway Service with custom domain using the following command:
 gwa pg gw-config.yaml
 ```
 
+## Configure DNS for your custom domain
+
+You will need to add a DNS record for your custom domain pointing to the OpenShift cluster where your Gateway is deployed.
+
+### Silver cluster
+
+By default, new Gateways are created on the Silver cluster. Create an A record
+for your custom domain pointing to `142.34.194.118`, Silver's ingress IP
+address.
+
+### Gold cluster
+
+Gold cluster route hosts will resolve to `142.34.229.4` or `142.34.64.4`
+depending on whether the APS service is in Gold (Kamloops) or for disaster
+recovery in Gold DR (Calgary).
+
+To ensure routing to the appropriate cluster, create a CNAME record for your
+custom domain pointing to `ggw.api.gov.bc.ca.glb.gov.bc.ca`, APS's Global Load
+Balancer.
+
+### Emerald cluster
+
+Emerald cluster route hosts will be assigned an IP address depending on the data
+class that was specified in the Gateway Service.
+
+[Contact the APS team](README.md#need-a-hand) to get the IP address for your
+routes. This IP address will not change for the route unless the data class
+changes.
+
+Once you have the IP address, create an A record for your custom domain pointing
+to the IP address.
+
 ## Access your API (Validation)
 
-After publishing your Gateway Service, you can access your API by visiting the URL of your Gateway Service.
+After publishing your Gateway Service and configuring DNS, you can access your
+API by visiting the URL of your Gateway Service.
 
-You can expect to see upstream API responses in the browser, or if you used the placeholder `httpbin.org` in the Gateway Service configuration, you will see the contents of the httpbin.org homepage.
+You can expect to see upstream API responses in the browser, or if you used the
+placeholder `httpbin.org` in the Gateway Service configuration, you will see the
+contents of the httpbin.org homepage.
 
 <!-- whatsnext -->
 
