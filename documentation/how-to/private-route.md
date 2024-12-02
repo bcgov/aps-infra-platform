@@ -21,11 +21,10 @@ This page shows how to configure a private route for a service.
 
 ## Submit a request with APS
 
-Reach out to the APS team on Rocket.Chat in the
+Creating private routes requires special permissions for your Gateway. Reach out to the APS team on Rocket.Chat in the
 [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel or [open a
 support
-ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2) to get
-permission to create a local cluster route.
+ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2). You will need to provide the `gatewayId` for your Gateway.
 
 ## Configure the route
 
