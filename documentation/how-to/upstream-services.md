@@ -199,7 +199,7 @@ spec:
 Where:
 
 - `podSelector` is a selector that matches your upstream service.
-- `namespaceSelector` is the APS namespace which hosts the API Gateway on Silver (`b8840c`), not your namespace. Don't change this.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Emerald (`cc9a8a`), not your namespace. Don't change this.
 
 **Upstream egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateway to the upstream service.
 
