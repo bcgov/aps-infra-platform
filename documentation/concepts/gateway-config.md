@@ -69,7 +69,7 @@ to add custom headers.
 
 There are two Gateway configuration formats that can be used:
 
-- **Legacy format:** Introduced with v1 of the `gwa` CLI. This format supports
+- **Kong format:** Introduced with v1 of the `gwa` CLI. This format supports
   only basic GatewayService configuration.
 
   ```yaml
@@ -112,7 +112,7 @@ additional resource types.
 
 ### Key differences between formats
 
-| Format                                                                       | Legacy                   | Resource-based |
+| Format                                                                       | Kong                   | Resource-based |
 |------------------------------------------------------------------------------|--------------------------|----------------|
 | Supports GatewayService configuration                                        | ✅                        | ✅              |
 | Supports SSL certificates                                                    | ✅                        | ❌              |
@@ -124,7 +124,7 @@ additional resource types.
 ## Configuration update behaviour
 
 The configuration update behaviour depends on the type of resource and applies
-to both legacy and resource-based formats.
+to both Kong and resource-based formats.
 
 ### Gateway Service Configuration
 

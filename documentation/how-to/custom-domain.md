@@ -88,7 +88,7 @@ Where:
 
 !!! warning "Gateway configuration formats"
     There are [two formats for Gateway configuration](/concepts/gateway-config.md#gateway-configuration-formats).
-    To include SSL certificates in your Gateway Service configuration, you must use the **legacy format**, as shown above.   
+    To include SSL certificates in your Gateway Service configuration, you must use the **Kong format**, as shown above.   
 
     To publish other resource types (Product, Dataset, etc.), you can maintain a separate 
     YAML file using the resource-based format and publish it using the `gwa apply` command. 
