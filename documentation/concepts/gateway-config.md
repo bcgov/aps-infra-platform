@@ -65,6 +65,94 @@ This configuration defines a service `example-service-dev` with a corresponding
 route `example-service-route` and applies a `request-transformer` plugin to it
 to add custom headers.
 
+## Gateway configuration formats
+
+There are two Gateway configuration formats that can be used:
+
+- **Kong format:** Introduced with v1 of the `gwa` CLI. This format supports
+  only basic GatewayService configuration.
+
+  ```yaml
+  services:
+    - name: example-service-1
+      host: httpbin.org
+      ...
+    - name: example-service-2
+      host: httpbin.org
+      ...
+  ```
+
+- **Resource-based format:** An updated format introduced with v2 of `gwa`. This
+  format supports additional resource types for the API Services Portal.
+  Individual resources are separated by `---`.
+
+  ```yaml
+  kind: GatewayService
+  name: example-service-1
+  host: httpbin.org
+  ...
+
+  ---
+  kind: GatewayService
+  name: example-service-2
+  host: httpbin.org
+  ...
+
+  ---
+  kind: Product
+  name: example-product
+  ...
+  ```
+
+Unless you need to load SSL certificates to support [custom
+domains](/how-to/custom-domain) or
+[mTLS](/how-to/upstream-services.md#verify-upstream-services-with-mtls), the
+resource-based format is recommended for its flexibility and support for
+additional resource types.
+
+### Key differences between formats
+
+| Format                                                                       | Kong                   | Resource-based |
+|------------------------------------------------------------------------------|--------------------------|----------------|
+| Supports GatewayService configuration                                        | ✅                        | ✅              |
+| Supports SSL certificates                                                    | ✅                        | ❌              |
+| Supports additional resource types (Product, DraftDataset, CredentialIssuer) | ❌                        | ✅              |
+| Publish command                                                              | `publish-gateway` (`pg`) | `apply`        |
+| Format produced by `gwa generate-config` templates                           | ❌                        | ✅              |
+| Minimum `gwa` CLI version                                                    | N/A                      | v2             |
+
+## Configuration update behaviour
+
+The configuration update behaviour depends on the type of resource and applies
+to both Kong and resource-based formats.
+
+### Gateway Service Configuration
+
+For Gateway Services, the configuration is **declarative**:
+- The provided configuration represents the exact state of the Gateway Services
+  that will be set up.
+- In the resource-based format, if no `kind: GatewayService` resources are
+  included, the Gateway Service configuration will remain unchanged.
+
+!!! note "Clearing Gateway Service configuration"
+    To clear all Gateway Service configuration, create a YAML file with the following content:
+    ```yaml
+    services: []
+    ```
+ 
+### Other resource types
+
+For other resource types, such as Product, DraftDataset, or CredentialIssuer:
+
+- If no resource with the same `name` exists, a new resource will be created. 
+- If a resource with the same `name` exists, it will be updated with the provided configuration.
+
+This provides flexibility for managing non-GatewayService resources without
+requiring a complete declaration of their current state.
+
+Deleting other resource types is not supported via the `gwa` CLI. 
+Use the API Services Portal to delete Products, ProductEnvironments, and CredentialIssuers.
+
 ## Next steps
 
 If you would like to dive deeper or start implementing a Gateway Configuration,
