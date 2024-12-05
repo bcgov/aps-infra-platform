@@ -104,11 +104,11 @@ There are two Gateway configuration formats that can be used:
   ...
   ```
 
-Unless you need to load SSL certificates to support [custom
-domains](/how-to/custom-domain) or
-[mTLS](/how-to/upstream-services.md#verify-upstream-services-with-mtls), the
-resource-based format is recommended for its flexibility and support for
-additional resource types.
+In general, the **resource-based format is recommended** for its flexibility and
+support for additional resource types. However, if you need to load SSL
+certificates to support [custom domains](/how-to/custom-domain) or
+[mTLS](/how-to/upstream-services.md#verify-upstream-services-with-mtls), you
+must use the Kong format.
 
 ### Key differences between formats
 
