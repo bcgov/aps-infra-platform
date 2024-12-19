@@ -210,12 +210,12 @@ You will need to provide the `namespaceSelector` details for the Openshift proje
 
 ##### Services external to Emerald cluster
 
-For services that are not on the Emerald cluster, an APS `egress` Network Policy is required to connect the Kong gateway with your upstream service and you will also need to setup firewall rules to allow APS Emerald access to your particular VLAN.
+For services that are not on the Emerald cluster, an APS `egress` Network Policy is required to send traffic from the API Gateway to the upstream service and you will need to setup firewall rules to allow the API Gateway access to your particular VLAN.
 
-When making the firewall request, the IP CIDIR for the Kong Gateway on Emerald is: `10.91.43.128/26`
+When making the firewall request, the IP CIDIR for the API Gateway on Emerald is: `10.91.43.128/26`
 
 [Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
-You will need to provide the network details for APS to configure an `egress` Network Policy and a rule to ensure that it is not possible for traffic to be routed to your service using a different Gateway.
+You will need to provide the network details of your VLAN for APS to configure an `egress` Network Policy and a rule to ensure that it is not possible for traffic to be routed to your service using a different Gateway.
 
 
 #### Network policies for consumers
