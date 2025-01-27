@@ -1,10 +1,16 @@
 # Releases
 
+## 2025
+
+| Release Date | Release                                     |
+| ------------ | ------------------------------------------- |
+| 2025 Jan 27  | [3.0.0 Minor Release](/reference/releases/2025-jan-3.0.0.md)  |
+
 ## 2024
 
 | Release Date | Release                                     |
 | ------------ | ------------------------------------------- |
-| 2024 Sept 19   | [3.0.0 Major Release](/reference/releases/2024-sept-3.0.0.md)  |
+| 2024 Sept 19   | [1.2.22 Major Release](/reference/releases/2024-sept-1.2.22.md)  |
 | 2024 Apr 16   | [1.2.20 Minor Release](/reference/releases/2024-apr-1.2.20.md)  |
 | 2024 Mar 5   | [1.2.18 Minor Release](/reference/releases/2024-mar-1.2.18.md)  |
 
