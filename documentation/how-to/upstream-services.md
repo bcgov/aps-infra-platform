@@ -139,7 +139,7 @@ If the consumers of your API are going to all be on the Gold cluster, you can co
 
 #### Service configuration
 
-Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<data-class>`).  Acceptable values for `<data-class>` are: `low`, `medium`, and `high`.
+Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<data-class>`).  Acceptable values for `<data-class>` are: `public`, `medium`, and `high`.
 
 This tag should be included in the `tags` field of the Service and will be applied to all Routes created for the Service.
 
