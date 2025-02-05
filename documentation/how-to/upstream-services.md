@@ -215,7 +215,8 @@ For services that are not on the Emerald cluster, an APS `egress` Network Policy
 When making the firewall request, the IP CIDIR for the API Gateway on Emerald is: `10.91.43.128/26`
 
 [Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
-You will need to provide the network details of your VLAN for APS to configure an `egress` Network Policy and a rule to ensure that it is not possible for traffic to be routed to your service using a different Gateway.
+You will need to provide the network details of your VLAN.
+APS will also add a rule to prevent traffic from reaching your service through a different Gateway.
 
 
 #### Network policies for consumers
