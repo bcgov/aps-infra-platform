@@ -206,7 +206,8 @@ Where:
 **Upstream egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateway to the upstream service.
 
 [Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
-You will need to provide the `namespaceSelector` details for the Openshift projects that will be receiving traffic.  APS will use this information to configure an `egress` Network Policy and a rule to ensure that it is not possible for traffic to be routed to your Openshift project using a different Gateway.
+You will need to provide the `namespaceSelector` details for the Openshift projects that will be receiving traffic. 
+APS will also add a rule to prevent traffic from reaching your service through a different Gateway.
 
 ##### Services external to Emerald cluster
 
