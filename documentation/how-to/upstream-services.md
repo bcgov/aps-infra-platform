@@ -139,7 +139,7 @@ If the consumers of your API are going to all be on the Gold cluster, you can co
 
 #### Service configuration
 
-Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<data-class>`).  Acceptable values for `<data-class>` are: `low`, `medium`, and `high`.
+Emerald Gateway Services must include a DataClass tag (`aps.route.dataclass.<data-class>`).  Acceptable values for `<data-class>` are: `public`, `medium`, and `high`.
 
 This tag should be included in the `tags` field of the Service and will be applied to all Routes created for the Service.
 
@@ -167,6 +167,8 @@ Emerald cluster route hosts will be assigned an IP address depending on the data
 [Contact the APS team](README.md#need-a-hand) to get the IP address for your routes.  This IP address will not change for the route unless the data class changes.
 
 #### Network policies for upstream
+
+##### Services on Emerald cluster
 
 For services on Emerald cluster, both `ingress` and `egress` Network Policies are required to connect the Kong gateway with your upstream service. 
 
@@ -204,7 +206,19 @@ Where:
 **Upstream egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateway to the upstream service.
 
 [Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
-You will need to provide the `namespaceSelector` details for the Openshift projects that will be receiving traffic.  APS will use this information to configure an `egress` Network Policy and a rule to ensure that it is not possible for traffic to be routed to your Openshift project using a different Gateway.
+You will need to provide the `namespaceSelector` details for the Openshift projects that will be receiving traffic. 
+APS will also add a rule to prevent traffic from reaching your service through a different Gateway.
+
+##### Services external to Emerald cluster
+
+For services that are not on the Emerald cluster, an APS `egress` Network Policy is required to send traffic from the API Gateway to the upstream service and you will need to setup firewall rules to allow the API Gateway access to your particular VLAN.
+
+When making the firewall request, the IP CIDIR for the API Gateway on Emerald is: `10.91.43.128/26`
+
+[Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
+You will need to provide the network details of your VLAN.
+APS will also add a rule to prevent traffic from reaching your service through a different Gateway.
+
 
 #### Network policies for consumers
 
