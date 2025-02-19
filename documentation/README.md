@@ -23,13 +23,7 @@ services. Within the Portal you can:
 The [API Directory](https://api.gov.bc.ca/devportal/api-directory) provides a
 place to share your APIs for developers to discover.
 
-## Need a hand?
+## Getting help
 
-Create an account on
-[Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/) and join
-the [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel to
-connect with our team and user community. Alternatively, [open a support
-ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2) and
-we’ll get back to you via email in 3-5 business days.  
-
-Either way, our team is here to answer your questions.
+Need assistance? Visit our [support page](/how-to/get-support.md) to learn about
+available support channels and hours.
