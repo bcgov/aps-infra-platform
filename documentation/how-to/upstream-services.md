@@ -131,7 +131,7 @@ Where:
 
 By default the wildcard `*.api.gov.bc.ca` domain resolves to the Silver cluster (`142.34.194.118`).  For domains that will be routing to the Gold cluster, a manual DNS entry must be setup by APS.
 
-You will need to [contact the APS team](README.md#need-a-hand) to have your Gateway provisioned for DNS.  The information required will be the `Route.hosts` endpoints that will be configured on your Gateway.
+You will need to [contact the APS team](/how-to/get-support.md) to have your Gateway provisioned for DNS.  The information required will be the `Route.hosts` endpoints that will be configured on your Gateway.
 
 If the consumers of your API are going to all be on the Gold cluster, you can consider setting up [private routing](/how-to/private-route.md) to limit consumer access using an Openshift Service.
 
@@ -164,7 +164,7 @@ For more information on the Emerald cluster and security classifications, see th
 
 Emerald cluster route hosts will be assigned an IP address depending on the data class that was specified in the Gateway Service.
 
-[Contact the APS team](README.md#need-a-hand) to get the IP address for your routes.  This IP address will not change for the route unless the data class changes.
+[Contact the APS team](/how-to/get-support.md) to get the IP address for your routes.  This IP address will not change for the route unless the data class changes.
 
 #### Network policies for upstream
 
@@ -205,7 +205,7 @@ Where:
 
 **Upstream egress policy**: APS will also create an `egress` Network Policy to send traffic from the API Gateway to the upstream service.
 
-[Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
+[Contact the APS team](/how-to/get-support.md) to have an `egress` policy created for your Gateway.
 You will need to provide the `namespaceSelector` details for the Openshift projects that will be receiving traffic. 
 APS will also add a rule to prevent traffic from reaching your service through a different Gateway.
 
@@ -215,7 +215,7 @@ For services that are not on the Emerald cluster, an APS `egress` Network Policy
 
 When making the firewall request, the IP CIDIR for the API Gateway on Emerald is: `10.91.43.128/26`
 
-[Contact the APS team](README.md#need-a-hand) to have an `egress` policy created for your Gateway.
+[Contact the APS team](/how-to/get-support.md) to have an `egress` policy created for your Gateway.
 You will need to provide the network details of your VLAN.
 APS will also add a rule to prevent traffic from reaching your service through a different Gateway.
 
@@ -250,13 +250,13 @@ spec:
     - Egress
 ```
 
-For on-cluster consumers (consumers that reside on Emerald), [Contact the APS team](README.md#need-a-hand) to have an `ingress` policy created for your Gateway.
+For on-cluster consumers (consumers that reside on Emerald), [Contact the APS team](/how-to/get-support.md) to have an `ingress` policy created for your Gateway.
 
 #### DNS
 
 For domains that will be routing to the Emerald cluster, a manual DNS entry must be setup by APS.
 
-[Contact the APS team](README.md#need-a-hand) to have DNS configured for your Gateway. 
+[Contact the APS team](/how-to/get-support.md) to have DNS configured for your Gateway. 
 You will need to provide the `Route.hosts` endpoints that will be configured on your Gateway.
 
 If the consumers of your API are going to all be on the Emerald cluster, you can consider setting up [private routing](/how-to/private-route.md) to limit consumer access using an Openshift Service.
@@ -302,7 +302,7 @@ Where:
 - `services[n].ca_certificates` contains the UUID of the Root CA for the certificate chain.
 
   Root CAs must be installed by the APS team -
-  please [contact the APS team](README.md#need-a-hand) to request setup of your Root
+  please [contact the APS team](/how-to/get-support.md) to request setup of your Root
   CA.  A UUID will be provided to you.
 
 - `services[n].client_certificate` contains the UUID of the client certificate, which matches the `certificate.id`.

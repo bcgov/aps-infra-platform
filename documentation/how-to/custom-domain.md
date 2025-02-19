@@ -126,7 +126,7 @@ Balancer.
 Emerald cluster route hosts will be assigned an IP address depending on the data
 class that was specified in the Gateway Service.
 
-[Contact the APS team](README.md#need-a-hand) to get the IP address for your
+[Contact the APS team](/how-to/get-support.md) to get the IP address for your
 routes. This IP address will not change for the route unless the data class
 changes.
 

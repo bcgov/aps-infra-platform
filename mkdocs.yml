@@ -13,6 +13,8 @@ nav:
       - "how-to/gwa-install.md"
       - "how-to/create-gateway.md"
       - "how-to/gateway-admin.md"
+    # - Get Support:
+    - "how-to/get-support.md"
     - Configure a Gateway Service:
       - "how-to/create-gateway-service.md"
       - "how-to/upstream-services.md"
@@ -39,10 +41,11 @@ nav:
     - "how-to/prod-checklist.md"
   - Concepts:
       - "concepts/api-directory.md"
+      - "concepts/services.md"
       - "concepts/gateway-config.md"
       - "concepts/plugins.md"
       - "concepts/protect-api.md"
-      - "concepts/services.md"
+      - "concepts/geo-redundancy.md"
   - Reference:
       - "reference/gwa-commands.md"
       - Plugins:
@@ -52,7 +55,6 @@ nav:
           - "reference/plugins/gwa-ip-anonymity.md"
           - "reference/plugins/jwt-keycloak.md"
           - "reference/plugins/key-auth.md"
-          - "reference/plugins/kong-upstream-auth-basic.md"
           - "reference/plugins/kong-upstream-jwt.md"
           - "reference/plugins/oidc.md"
           - "reference/plugins/oidc-consumer.md"
