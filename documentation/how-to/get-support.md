@@ -68,4 +68,4 @@ The relevant services are in the **APS - 24/7 Support** group.
 ## Next steps
 
 - [Geographic Redundancy and Failover](/concepts/geo-redundancy.md)
-- [Production Checklist](/how-to/prod-checklist.md) 
+- [Production Readiness Checklist](/how-to/prod-checklist.md) 
