@@ -31,6 +31,7 @@ For real-time support and community discussion:
 3. Post your question or issue
 
 This is the best channel for:
+
 - Quick questions
 - Community discussion
 - Real-time troubleshooting
@@ -45,6 +46,7 @@ For more complex issues or when you need a tracked response:
 3. We'll respond via email within 3-5 business days
 
 This is the best channel for:
+
 - Complex technical issues
 - Security concerns
 - Access requests

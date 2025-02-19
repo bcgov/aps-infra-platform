@@ -9,12 +9,12 @@ nav:
       - "tutorials/quick-start.md"
       - "tutorials/protect-client-cred.md"
   - How-to Guides:
-    # - Get Support:
-    - "how-to/get-support.md"
     - Get Started:
       - "how-to/gwa-install.md"
       - "how-to/create-gateway.md"
       - "how-to/gateway-admin.md"
+    # - Get Support:
+    - "how-to/get-support.md"
     - Configure a Gateway Service:
       - "how-to/create-gateway-service.md"
       - "how-to/upstream-services.md"
