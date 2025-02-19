@@ -61,7 +61,7 @@ For teams with critical services and an extended support SLA:
 ## Monitor platform status
 
 To see our historical uptime and any current incidents, visit the [APS status page](https://uptime.com/s/bcgov-dss). 
-The relevant services are in the "APS - 24/7 Support" group.
+The relevant services are in the **APS - 24/7 Support** group.
 
 ## Next steps
 
