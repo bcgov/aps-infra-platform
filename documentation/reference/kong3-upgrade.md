@@ -2,7 +2,7 @@
 title: Kong 3 Upgrade
 ---
 
-This page will describe the steps to upgrade Gateway configuration to work with Kong 3.
+This page will describe the steps to update your Gateway configuration to work with Kong 3.
 
 Stay tuned for updates.
 
