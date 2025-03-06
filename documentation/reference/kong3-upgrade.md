@@ -1,5 +1,5 @@
 ---
-title: Kong 3 upgrade
+title: Kong 3.0 transition guide
 ---
  
 ## What is happening
