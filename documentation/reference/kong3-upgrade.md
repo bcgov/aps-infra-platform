@@ -34,23 +34,23 @@ for a refresher on Gateway configuration.
 Depending on the [Gateway configuration format](concepts/gateway-config/#gateway-configuration-formats)
 you are using, follow these steps:
 
-    #### Kong format
-    
-    Manually add a `~` prefix to affected `route.path` values or use the decK convert
-    [tool](https://docs.konghq.com/deck/reference/3.0-upgrade/#convert-declarative-configuration-files).
-    Publish the updated configuration files using `gwa pg`.
+#### Kong format
 
-    #### Resource-based format
+Manually add a `~` prefix to affected `route.path` values or use the decK convert
+[tool](https://docs.konghq.com/deck/reference/3.0-upgrade/#convert-declarative-configuration-files).
+Publish the updated configuration files using `gwa pg`.
 
-    Manually add a `~` prefix to affected `route.path` values. Publish the updated
-    configuration files using `gwa apply`.
+#### Resource-based format
+
+Manually add a `~` prefix to affected `route.path` values. Publish the updated
+configuration files using `gwa apply`.
+
+### Update timeline
 
 APS will ensure backwards compatibility with Kong Gateway version 2.8 during
 this transition period. We encourage API provider teams to test their
 configuration updates in `dev` or `test` environments before releasing changes
 to production.
-
-### Update timeline
 
 API provider teams should complete necessary configuration updates by
 **March 25, 2025**.
