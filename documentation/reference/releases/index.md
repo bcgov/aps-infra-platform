@@ -4,6 +4,7 @@
 
 | Release Date | Release                                     |
 | ------------ | ------------------------------------------- |
+| 2025 Mar 12  | [Backend updates](/reference/releases/2025-mar.md)  |
 | 2025 Jan 27  | [3.0.1 Minor Release](/reference/releases/2025-jan-3.0.1.md)  |
 
 ## 2024
