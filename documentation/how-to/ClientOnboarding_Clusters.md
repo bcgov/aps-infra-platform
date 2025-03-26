@@ -28,6 +28,7 @@ The Silver cluster is the default cluster for new clients, and new Gateways are 
 The onboarding process for the Silver cluster is fully self-service and does not require any manual intervention from APS.
 
 ### Flowchart: Silver Onboarding
+![Silver Onboarding](/artifacts/ToSilver.png "Silver Onboarding")
 
 ### Steps:
 1. Client Registration - Client signs up and initiates API Gateway onboarding via the Developer Portal.
@@ -42,7 +43,10 @@ For detailed instructions on configuring the gateway in the Silver cluster, plea
 
 ## Onboarding to Alternate Clusters (Gold & Emerald)
 Gateways can also be created or migrated to Gold or Emerald clusters. This requires coordinated manual steps involving both the API Provider and APS Team.
+
 ### Flowchart: Gold/Emerald Onboarding
+![Gold/Emerald Onboarding](/artifacts/ToGoldEmerald.png "Gold/Emerald Onboarding")
+
 ### Detailed Steps:
 #### Step 1: Remove Silver Config (if migrating)
 For clients transitioning from Silver to Gold/Emerald, it’s critical that the services are removed from Silver before being setup on Gold/Emerald.
