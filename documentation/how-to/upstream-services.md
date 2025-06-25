@@ -274,7 +274,7 @@ to provide client certificate and Root CA details along with your Gateway
 Service configuration.
 
 If using mTLS, publish your Gateway Service configuration using 
-`gwa pg <gateway-config.yaml>` rather `gwa apply`.
+`gwa pg <gateway-config.yaml>` rather than `gwa apply`.
 
 Example configuration:
 
