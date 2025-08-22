@@ -4,9 +4,9 @@
 
 | Release Date | Release                                     |
 | ------------ | ------------------------------------------- |
-| 2025 Aug 22  | [Backend updates](/reference/releases/2025-aug.md)  |
+| 2025 Aug 22  | [Backend Updates](/reference/releases/2025-aug.md)  |
 | 2025 Jul 26  | [Kong 3 Upgrade](/reference/releases/2025-jul-3.0.5.md)  |
-| 2025 Mar 12  | [Backend updates](/reference/releases/2025-mar.md)  |
+| 2025 Mar 12  | [Backend Updates](/reference/releases/2025-mar.md)  |
 | 2025 Jan 27  | [3.0.1 Minor Release](/reference/releases/2025-jan-3.0.1.md)  |
 
 ## 2024
