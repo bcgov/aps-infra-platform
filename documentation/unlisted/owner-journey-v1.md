@@ -2,8 +2,11 @@
 title: "API Provider User Journey V1"
 ---
 
-!!! note
-    This tutorial uses version 1 of the `gwa` CLI, which is no longer recommended.
+!!! warning "Outdated documentation"
+    This tutorial uses version 1 of the `gwa` CLI, which is no longer recommended. 
+    Also, API Services Portal features may have been removed or deprecated since publication.
+
+    Instead, you may want to visit the [Protect an API with Client Credential Flow tutorial](/tutorials/protect-client-cred.md).
 
 The following steps guide an API Provider through setting up an API on the BC Government API Gateway in a Test/Training instance. If you are ready to deploy to the Production instance, use the links available at the end of this document ([here](#production-links)).
 
@@ -352,7 +355,7 @@ Send the request.
 
 From the Postman App, click `Import` and go to the `Link` tab.
 
-Enter the URL: https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}
+Enter the URL: [https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml](https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml){:data-proofer-ignore}
 
 After creation, go to `Collections` and right-click on the `Gateway Administration (GWA) API` collection and select `edit`.
 

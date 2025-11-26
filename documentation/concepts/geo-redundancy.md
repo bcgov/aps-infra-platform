@@ -17,7 +17,7 @@ data centre) and Gold DR (Calgary data centre) OpenShift clusters to provide
 geo-redundancy. In the event of an incident impacting service availability on
 the Gold cluster, traffic will be directed to the Gold DR cluster. Background
 information on the BC Government Private Cloud clusters is available on the
-[Hosting Tiers](https://digital.gov.bc.ca/cloud/services/private/products-tools/hosting-tiers/)
+[Hosting Tiers](https://digital.gov.bc.ca/technology/cloud/private/products-tools/hosting-tiers/)
 article.
 
 Geo-redundancy through an active-passive high availability configuration
