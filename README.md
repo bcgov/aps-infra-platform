@@ -16,8 +16,10 @@ cd <./<path>/aps-infra-platform>
 
 ```shell
 docker pull ghcr.io/bcgov/devhub-techdocs-publish
-docker run -it -p 3000:3000 -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
+docker run -it -p 3000:3000 --user $(id -u):$(id -g) -v $(pwd):/github/workspace ghcr.io/bcgov/devhub-techdocs-publish preview
 ```
+
+> ⚠️ **Note:** The `--user $(id -u):$(id -g)` flag ensures the container runs with your user ID to avoid permission errors when mounting volumes.
 
 ### Windows
 

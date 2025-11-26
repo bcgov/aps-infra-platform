@@ -34,7 +34,7 @@ for a refresher on Gateway configuration.
 
 ### Update resources
 
-Depending on the [Gateway configuration format](concepts/gateway-config/#gateway-configuration-formats)
+Depending on the [Gateway configuration format](concepts/gateway-config.md/#gateway-configuration-formats)
 you are using, follow these steps:
 
 #### Kong format

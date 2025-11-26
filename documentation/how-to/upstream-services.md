@@ -9,7 +9,7 @@ Emerald clusters of the BC Government Private Cloud OpenShift platform. API
 providers must configure their upstream services to allow traffic from the
 Kong data plane running on the same cluster as their services.
 
-!!! warning "Gold or Emerald? Contact APS
+!!! warning "Services on Gold or Emerald? Contact APS"
     Before getting started with Gateway configuration, teams with upstream services
     running on Gold or Emerald clusters must [contact the APS team](/how-to/get-support.md).
     
