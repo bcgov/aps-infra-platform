@@ -50,7 +50,7 @@ By the end of this tutorial, you'll be able to:
 Before you begin, ensure you:
 
 - [Install gwa CLI](/how-to/gwa-install.md)
-- [Create a Namespace](/reference/gwa-commands.md#namespacecreate)
+- [Create a Namespace](/reference/gwa-commands.md#gatewaycreate)
 
 <!-- steps -->
 

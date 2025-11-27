@@ -106,7 +106,7 @@ There are two Gateway configuration formats that can be used:
 
 In general, the **resource-based format is recommended** for its flexibility and
 support for additional resource types. However, if you need to load SSL
-certificates to support [custom domains](/how-to/custom-domain) or
+certificates to support [custom domains](/how-to/custom-domain.md) or
 [mTLS](/how-to/upstream-services.md#verify-upstream-services-with-mtls), you
 must use the Kong format.
 

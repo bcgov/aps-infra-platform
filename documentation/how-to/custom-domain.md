@@ -24,12 +24,8 @@ Routing to a custom domain requires special permissions for your Gateway. Reach
 out to the APS team on Rocket.Chat in the
 [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel or [open a
 support
-ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2). You will need to provide the fully qualified domain name (FQDN) and the `gatewayId` for your Gateway.
-
-The APS team will also create a DNS record for your custom domain pointing to
-the OpenShift cluster where your Gateway is deployed. See [Set Up an Upstream
-Service](/how-to/upstream-services) for more information on the available
-clusters.
+ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2). 
+You will need to provide the fully qualified domain name (FQDN) and the `gatewayId` for your Gateway.
 
 ## Create a Gateway Service
 

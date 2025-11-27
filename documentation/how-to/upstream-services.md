@@ -5,7 +5,17 @@ title: Set Up an Upstream Service
 ## Upstream Services on OpenShift
 
 API Program Services (APS) has Kong data planes running on the Silver, Gold, and
-Emerald clusters of the BC Government Private Cloud OpenShift platform.
+Emerald clusters of the BC Government Private Cloud OpenShift platform. API
+providers must configure their upstream services to allow traffic from the
+Kong data plane running on the same cluster as their services.
+
+!!! warning "Services on Gold or Emerald? Contact APS"
+    Before getting started with Gateway configuration, teams with upstream services
+    running on Gold or Emerald clusters must [contact the APS team](/how-to/get-support.md).
+    
+    Start by creating a Gateway with [`gwa gateway create`](/reference/gwa-commands.md/#gatewaycreate),
+    then contact APS with the new Gateway ID to have your Gateway configured for the
+    appropriate cluster.
 
 ### Silver cluster
 
@@ -72,6 +82,7 @@ If the consumers of your API are going to all be on the Silver cluster, you can 
 
 ### Gold cluster
 
+To create a Gateway on 
 The Gold cluster has some additional considerations related to DNS and the expectations around when failover to Calgary (Gold DR) occurs.
 
 #### Service configuration
@@ -156,9 +167,8 @@ routes:
   ...
 ```
 
-
 For more information on the Emerald cluster and security classifications, see the
-[Guide for Emerald teams](https://digital.gov.bc.ca/cloud/services/private/internal-resources/emerald/) (IDIR-restricted) from Platform Services.
+[Guide for Emerald teams](https://digital.gov.bc.ca/technology/cloud/private/internal-resources/emerald/) (IDIR-restricted) from Platform Services.
 
 #### IP Addresses
 

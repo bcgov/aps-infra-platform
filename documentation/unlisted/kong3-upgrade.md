@@ -2,6 +2,9 @@
 title: Kong 3 Transition Guide
 ---
  
+!!! warning "Outdated documentation"
+    This documentation is no longer relevant.
+
 ## What is happening
 
 API Program Services (APS) is preparing to upgrade Kong Gateway
@@ -31,7 +34,7 @@ for a refresher on Gateway configuration.
 
 ### Update resources
 
-Depending on the [Gateway configuration format](concepts/gateway-config/#gateway-configuration-formats)
+Depending on the [Gateway configuration format](concepts/gateway-config.md/#gateway-configuration-formats)
 you are using, follow these steps:
 
 #### Kong format

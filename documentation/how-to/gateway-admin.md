@@ -99,8 +99,8 @@ the below URLs.
 
    | Environment     | Kong Gateway API Postman URL                                                                                  |
    | --------------- | ------------------------------------------------------------------------------------------------------------- |
-   | TEST / TRAINING | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}> |
-   | PRODUCTION      | <https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}>                    |
+   | TEST / TRAINING | <[https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml](https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa-api-gov-bc-ca.test.api.gov.bc.ca/docs/v2/openapi.yaml){:data-proofer-ignore}> |
+   | PRODUCTION      | <[https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml](https://openapi-to-postman.api.gov.bc.ca/?u=https://gwa.api.gov.bc.ca/docs/v2/openapi.yaml{:data-proofer-ignore}){:data-proofer-ignore}>                    |
 
 2. After creation, go to **Collections** and right-click on the
 **Gateway Administration API** collection and select **Edit**.

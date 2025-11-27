@@ -23,7 +23,7 @@ consumers.
 - [ ] Have access to a production-ready API:
 
   - This could be a public or private service. If your API service runs the BC
-    Government [Private Cloud OpenShift platform](https://digital.gov.bc.ca/cloud/services/),
+    Government [Private Cloud OpenShift platform](https://digital.gov.bc.ca/technology/cloud/private/),
     you will need to configure the
     network policies to allow access from your API gateway. View our
     [Set Up an Upstream Service](/how-to/upstream-services.md) guide for more
@@ -49,10 +49,10 @@ consumers.
 - [ ] Ensure that your Gateway Services are protected to safeguard your APIs and
 the data they handle:
 
-  - Implement [authentication](/how-to/client-cred-flow) to control who can
+  - Implement [authentication](/how-to/client-cred-flow.md) to control who can
     interact with your services.
 
-  - Manage [consumer access](/how-to/api-access) and configure [rate limiting](/how-to/COMMON-CONFIG.md#rate-limiting)
+  - Manage [consumer access](/how-to/api-access.md) and configure [rate limiting](/how-to/COMMON-CONFIG.md#rate-limiting)
     to prevent abuse of your resources.
 
 ## Share your API

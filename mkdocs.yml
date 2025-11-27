@@ -62,7 +62,6 @@ nav:
           - "reference/plugins/rate-limiting.md"
           - "reference/plugins/request-transformer.md"
           - "reference/plugins/waiting-queue.md"
-      - "reference/kong3-upgrade.md"
       - "reference/glossary.md"
       - "reference/releases/index.md"
       - "reference/SSL.md"
