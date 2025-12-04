@@ -82,8 +82,17 @@ If the consumers of your API are going to all be on the Silver cluster, you can 
 
 ### Gold cluster
 
-To create a Gateway on 
-The Gold cluster has some additional considerations related to DNS and the expectations around when failover to Calgary (Gold DR) occurs.
+Before you can create Gateway Services on the Gold cluster, you must
+[contact the APS team](/how-to/get-support.md) to request that your Gateway be
+configured for the Gold cluster Kong data plane.
+
+Start by creating a Gateway with [`gwa gateway create`](/reference/gwa-commands.md/#gatewaycreate),
+then contact APS with the new Gateway ID to have your Gateway configured before
+continuing with your configuration.
+
+The Gold cluster has some additional considerations related to DNS and the
+expectations around when failover to Calgary (Gold DR) occurs, which are
+explained below.
 
 #### Service configuration
 
@@ -103,11 +112,14 @@ routes:
 
 #### IP Addresses
 
-Gold cluster route hosts will always resolve to `142.34.229.4` or  `142.34.64.4`  depending on whether the APS service is in Gold (Kamloops) or for disaster recovery in Gold DR (Calgary).
+Gold cluster route hosts will always resolve to `142.34.229.4` or  `142.34.64.4`
+depending on whether the APS service is in Gold (Kamloops) or for disaster
+recovery in Gold DR (Calgary).
 
 #### Network policies
 
-You will need to create a Network Policy on your side to allow the API Gateway to route traffic to your API.
+You will need to create a Network Policy on your side to allow the API Gateway
+to route traffic to your API.
 
 Follow this template:
 
@@ -136,17 +148,35 @@ spec:
 Where:
 
 - `podSelector` is a selector that matches your upstream service.
-- `namespaceSelector` is the APS namespace which hosts the API Gateway on Gold and Gold DR (`b8840c`), not your namespace. Don't change this.
+- `namespaceSelector` is the APS namespace which hosts the API Gateway on Gold
+  and Gold DR (`b8840c`), not your namespace. Don't change this.
 
 #### DNS
 
-By default the wildcard `*.api.gov.bc.ca` domain resolves to the Silver cluster (`142.34.194.118`).  For domains that will be routing to the Gold cluster, a manual DNS entry must be setup by APS.
+By default the wildcard `*.api.gov.bc.ca` domain resolves to the Silver cluster
+(`142.34.194.118`).  For domains that will be routing to the Gold cluster, a
+manual DNS entry must be setup by APS.
 
-You will need to [contact the APS team](/how-to/get-support.md) to have your Gateway provisioned for DNS.  The information required will be the `Route.hosts` endpoints that will be configured on your Gateway.
+You will need to [contact the APS team](/how-to/get-support.md) to have your
+Gateway provisioned for DNS.  The information required will be the `Route.hosts`
+endpoints that will be configured on your Gateway.
 
-If the consumers of your API are going to all be on the Gold cluster, you can consider setting up [private routing](/how-to/private-route.md) to limit consumer access using an Openshift Service.
+If the consumers of your API are going to all be on the Gold cluster, you can
+consider setting up [private routing](/how-to/private-route.md) to limit
+consumer access using an Openshift Service.
 
 ### Emerald cluster
+
+Before you can create Gateway Services on the Emerald cluster, you must
+[contact the APS team](/how-to/get-support.md) to request that your Gateway be
+configured for the Emerald cluster Kong data plane.
+
+Start by creating a Gateway with [`gwa gateway create`](/reference/gwa-commands.md/#gatewaycreate),
+then contact APS with the new Gateway ID to have your Gateway configured before
+continuing with your configuration.
+
+The Emerald cluster has some additional considerations related to DataClass
+tags, NetworkPolicies, and DNS, which are explained below.
 
 #### Service configuration
 
