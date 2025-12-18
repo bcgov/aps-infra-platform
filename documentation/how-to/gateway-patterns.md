@@ -20,7 +20,8 @@ Refer to the available patterns below to create a `pattern.yaml` file.
 Using the `gwa` command line (version `3.0.7` or higher),
 you can run `gateway-pattern` and pipe it to the `apply` command to apply the configuration:
 
-`gwa gateway-pattern pattern.yaml | gwa apply -i -`
+  ```sh linenums="0"
+  gwa gateway-pattern pattern-input.yaml | gwa apply -i -`
 
 ## Available Patterns
 
