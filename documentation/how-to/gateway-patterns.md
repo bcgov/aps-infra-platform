@@ -35,6 +35,6 @@ Example `pattern.yaml`:
 ```yaml
 pattern: simple-service.r1
 parameters:
-  service_name: test-abc
+  service_name: <SERVICE_NAME>
   service_url: "https://httpbun.com"
 ```
