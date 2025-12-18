@@ -9,6 +9,6 @@ links:
   - text: "Rocket.Chat #aps-ops"
     link: https://chat.developer.gov.bc.ca/channel/aps-ops
   - text: "Status"
-    link: https://uptime.com/s/bcgov-dss
+    link: https://status.api.gov.bc.ca/
 footer:
   copyright: "&copy; Copyright {{ year }}. All rights reserved."
