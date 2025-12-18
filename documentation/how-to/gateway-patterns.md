@@ -17,8 +17,9 @@ Before you begin, ensure you:
 
 Refer to the available patterns below to create a `pattern.yaml` file.
 
-Using the `gwa` command line (version `3.0.7` or higher),
-you can run `gateway-pattern` and pipe it to the `apply` command to apply the configuration:
+1. Generate gateway configuration and apply it. 
+  Using the `gwa` command line (version `3.0.7` or higher),
+  run `gateway-pattern` using your inputs, and pipe the output to the `apply` command:
 
   ```sh linenums="0"
   gwa gateway-pattern pattern-input.yaml | gwa apply -i -`
