@@ -10,13 +10,14 @@ GWA command line interface (CLI) helps manage gateway resources in a declarative
 
 **Usage:** `gwa apply [flags]`
 
-Apply your GatewayService, CredentialIssuer, DraftDataset, and Product resources. Use the `generate-config` command to see examples of these resources.
+Apply your GatewayService, CredentialIssuer, DraftDataset, and Product resources.  Use the `generate-config` command to see examples of these resources.
 
 **Flags**
 
-| Flag                 | Description                             |
-| -------------------- | --------------------------------------- |
+| Flag | Description |
+| ----- | ------ |
 | `-i, --input string` | YAML file containing your configuration |
+
 
 **Examples**
 
@@ -24,42 +25,49 @@ Apply your GatewayService, CredentialIssuer, DraftDataset, and Product resources
 $ gwa apply --input gw-config.yaml
 ```
 
+
 ## config
 
 **Usage:** `gwa config`
 
 Configuration commands
 
+
 ### config.get
 
 **Usage:** `gwa config get [key]`
 
-This is a convenience getter to print out the currently stored global setting for the following arguments
+This is a convenience getter to print out the currently stored global setting for the following arguments  
+  
+- api_key  
+- host  
+- gateway  
 
-- api_key
-- host
-- gateway
+
 
 ### config.set
 
 **Usage:** `gwa config set [key] [value] [flags]`
 
-Exposes some specific config values that can be defined by the user.
-
+Exposes some specific config values that can be defined by the user.  
+  
 Configurable Settings:  
- gateway: The default Gateway (ID) used  
- token: Use only if you have a token you know is authenticated  
- host: The API host you wish to communicate with  
- scheme: http or https
+  gateway:         The default Gateway (ID) used   
+  token:           Use only if you have a token you know is authenticated  
+  host:            The API host you wish to communicate with  
+  scheme:          http or https  
+  
+    
 
 **Flags**
 
-| Flag               | Description                  |
-| ------------------ | ---------------------------- |
-| `--gateway string` | set the Gateway (ID)         |
-| `--host string`    | set the host                 |
-| `--scheme string`  | set the scheme               |
-| `--token string`   | set the authentication token |
+| Flag | Description |
+| ----- | ------ |
+| `--gateway string` | set the Gateway (ID) |
+| `--host string` | set the host |
+| `--scheme string` | set the scheme |
+| `--token string` | set the authentication token |
+
 
 **Examples**
 
@@ -68,11 +76,13 @@ $ gwa config set gateway ns-sampler
 $ gwa config set --gateway ns-sampler
 ```
 
+
 ## gateway
 
 **Usage:** `gwa gateway`
 
 Gateways are used to organize your services.
+
 
 ### gateway.create
 
@@ -82,11 +92,12 @@ Create a new gateway
 
 **Flags**
 
-| Flag                        | Description                                              |
-| --------------------------- | -------------------------------------------------------- |
-| `-d, --display-name string` | optionally set the gateway display name                  |
-| `-i, --gateway-id string`   | optionally specify the gateway ID                        |
-| `-g, --generate`            | generates a unique gateway with the default display name |
+| Flag | Description |
+| ----- | ------ |
+| `-d, --display-name string` | optionally set the gateway display name |
+| `-i, --gateway-id string` | optionally specify the gateway ID |
+| `-g, --generate` | generates a unique gateway with the default display name |
+
 
 **Examples**
 
@@ -95,11 +106,13 @@ $ gwa gateway create --generate
 $ gwa gateway create --gateway-id my-gateway --display-name="This is my gateway"
 ```
 
+
 ### gateway.current
 
 **Usage:** `gwa gateway current`
 
 Display the current gateway
+
 
 ### gateway.destroy
 
@@ -109,9 +122,11 @@ Destroy the current gateway
 
 **Flags**
 
-| Flag      | Description    |
-| --------- | -------------- |
+| Flag | Description |
+| ----- | ------ |
 | `--force` | force deletion |
+
+
 
 ### gateway.list
 
@@ -119,23 +134,20 @@ Destroy the current gateway
 
 List all your managed gateways
 
+
 ## gateway-pattern
 
-**Usage:** `gwa gateway-pattern [flags] [input_yaml]`
+**Usage:** `gwa gateway-pattern input`
 
-Use pre-defined patterns to create gateway configuration
-
-**Flags**
-
-| Flag   | Description |
-| ------ | ----------- |
-| `none` |             |
+Generate gateway configuration based on pattern
 
 **Examples**
 
 ```shell
-$ gwa gateway-pattern pattern.yaml
+$ gwa gateway-pattern
+$ gwa gateway-pattern path/to/config1.yaml
 ```
+
 
 ## generate-config
 
@@ -145,14 +157,15 @@ Generate gateway resources based on pre-defined templates
 
 **Flags**
 
-| Flag                    | Description                                                                               |
-| ----------------------- | ----------------------------------------------------------------------------------------- |
-| `--org string`          | Set the organization (default "ministry-of-citizens-services")                            |
-| `--org-unit string`     | Set the organization unit (default "databc")                                              |
-| `-o, --out string`      | The file to output the generate config to (default "gw-config.yaml")                      |
-| `-s, --service string`  | A unique service subdomain for your vanity url: https://<service>.api.gov.bc.ca           |
+| Flag | Description |
+| ----- | ------ |
+| `--org string` | Set the organization (default "ministry-of-citizens-services") |
+| `--org-unit string` | Set the organization unit (default "databc") |
+| `-o, --out string` | The file to output the generate config to (default "gw-config.yaml") |
+| `-s, --service string` | A unique service subdomain for your vanity url: https://<service>.api.gov.bc.ca |
 | `-t, --template string` | Name of a pre-defined template (quick-start, client-credentials-shared-idp, kong-httpbin) |
-| `-u, --upstream string` | The upstream implementation of the API                                                    |
+| `-u, --upstream string` | The upstream implementation of the API |
+
 
 **Examples**
 
@@ -166,19 +179,21 @@ $ gwa generate-config --template client-credentials-shared-idp \
 	--upstream https://httpbin.org
 ```
 
+
 ## get
 
 **Usage:** `gwa get [type] <flags> [flags]`
 
-Get gateway resources. Retrieve a table of datasets, issuers, organizations, org-units or products.
+Get gateway resources.  Retrieve a table of datasets, issuers, organizations, org-units or products.
 
 **Flags**
 
-| Flag           | Description                       |
-| -------------- | --------------------------------- |
-| `--json`       | Return output as JSON             |
+| Flag | Description |
+| ----- | ------ |
+| `--json` | Return output as JSON |
 | `--org string` | Organization to filter results by |
-| `--yaml`       | Return output as YAML             |
+| `--yaml` | Return output as YAML |
+
 
 **Examples**
 
@@ -188,9 +203,11 @@ $ gwa get datasets --json
 $ gwa get datasets --yaml
 ```
 
+
 ## init
 
-> _Command 'init' is deprecated. .env files are no longer used, see config command_
+> _Command 'init' is deprecated.  .env files are no longer used, see config command_
+
 
 ## login
 
@@ -200,10 +217,11 @@ You can login via device login or by using client credentials.
 
 **Flags**
 
-| Flag                     | Description                  |
-| ------------------------ | ---------------------------- |
-| `--client-id string`     | Your gateway's client ID     |
+| Flag | Description |
+| ----- | ------ |
+| `--client-id string` | Your gateway's client ID |
 | `--client-secret string` | Your gateway's client secret |
+
 
 **Examples**
 
@@ -212,34 +230,38 @@ $ gwa login
 $ gwa login --client-id <YOUR_CLIENT_ID> --client-secret <YOUR_CLIENT_SECRET>
 ```
 
+
 ## publish
 
-> _Command 'publish' is deprecated. Use apply instead._
+> _Command 'publish' is deprecated.  Use apply instead._
+
 
 ## publish-gateway
 
 **Usage:** `gwa publish-gateway [inputs...] [flags]`
 
-Once you have a gateway configuration file ready to publish, you can run the following command to reflect your changes in the gateway:
+Once you have a gateway configuration file ready to publish, you can run the following command to reflect your changes in the gateway:  
+  
+  $ gwa pg sample.yaml  
+  
+If you want to see the expected changes but not actually apply them, you can run:  
+  
+  $ gwa pg --dry-run sample.yaml  
+  
+inputs accepts a wide variety of formats, for example:  
+  
+  1. Empty, which means find all the possible YAML files in the current directory and publish them  
+  2. A space-separated list of specific YAML files in the current directory, or  
+  3. A directory relative to the current directory  
 
-$ gwa pg sample.yaml
-
-If you want to see the expected changes but not actually apply them, you can run:
-
-$ gwa pg --dry-run sample.yaml
-
-inputs accepts a wide variety of formats, for example:
-
-1. Empty, which means find all the possible YAML files in the current directory and publish them
-2. A space-separated list of specific YAML files in the current directory, or
-3. A directory relative to the current directory
 
 **Flags**
 
-| Flag                 | Description                                                                                            |
-| -------------------- | ------------------------------------------------------------------------------------------------------ |
-| `--dry-run`          | Dry run your API changes before committing to them                                                     |
+| Flag | Description |
+| ----- | ------ |
+| `--dry-run` | Dry run your API changes before committing to them |
 | `--qualifier string` | Sets a tag qualifier, which specifies that the gateway configuration is a partial set of configuration |
+
 
 **Examples**
 
@@ -251,6 +273,7 @@ $ gwa publish-gateway path/to/config.yaml --dry-run
 $ gwa publish-gateway path/to/config.yaml --qualifier dev
 ```
 
+
 ## status
 
 **Usage:** `gwa status [flags]`
@@ -259,10 +282,11 @@ Check the status of your services configured on the Kong gateway
 
 **Flags**
 
-| Flag      | Description                            |
-| --------- | -------------------------------------- |
+| Flag | Description |
+| ----- | ------ |
 | `--hosts` | Include host information in the output |
-| `--json`  | Output status as a JSON string         |
+| `--json` | Output status as a JSON string |
+
 
 **Examples**
 
@@ -270,3 +294,5 @@ Check the status of your services configured on the Kong gateway
 $ gwa status
 $ gwa status --json
 ```
+
+
