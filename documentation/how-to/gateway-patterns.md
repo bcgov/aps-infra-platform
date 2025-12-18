@@ -1,5 +1,5 @@
 ---
-title: Gateway Patterns
+title: Using Gateway Patterns
 ---
 
 This guide explains how to generate configuration using predefined patterns.
@@ -15,12 +15,12 @@ Before you begin, ensure you:
 
 ## Use a predefined pattern
 
-Prepare a `pattern.yaml` file using one of the available patterns described below.
+Refer to the available patterns below to create a `pattern.yaml` file.
 
 Using the `gwa` command line (version `3.0.7` or higher),
-you can run `generate-pattern` and pipe it to the `apply` command to apply the configuration:
+you can run `gateway-pattern` and pipe it to the `apply` command to apply the configuration:
 
-`gwa generate-pattern pattern.yaml | gwa apply -i -`
+`gwa gateway-pattern pattern.yaml | gwa apply -i -`
 
 ## Available Patterns
 
