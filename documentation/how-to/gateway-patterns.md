@@ -30,7 +30,7 @@ you can run `gateway-pattern` and pipe it to the `apply` command to apply the co
 
 ### `simple-service.r1`
 
-Example `pattern.yaml`:
+Example `pattern-input.yaml`:
 
 ```yaml
 pattern: simple-service.r1
