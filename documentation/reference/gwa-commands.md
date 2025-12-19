@@ -135,6 +135,19 @@ Destroy the current gateway
 List all your managed gateways
 
 
+## gateway-pattern
+
+**Usage:** `gwa gateway-pattern input`
+
+Generate gateway configuration based on pattern
+
+**Examples**
+
+```shell
+$ gwa gateway-pattern path/to/config1.yaml
+```
+
+
 ## generate-config
 
 **Usage:** `gwa generate-config [flags]`

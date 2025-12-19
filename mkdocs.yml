@@ -9,36 +9,37 @@ nav:
       - "tutorials/quick-start.md"
       - "tutorials/protect-client-cred.md"
   - How-to Guides:
-    - Get Started:
-      - "how-to/gwa-install.md"
-      - "how-to/create-gateway.md"
-      - "how-to/gateway-admin.md"
-    # - Get Support:
-    - "how-to/get-support.md"
-    - Configure a Gateway Service:
-      - "how-to/create-gateway-service.md"
-      - "how-to/upstream-services.md"
-      - "how-to/private-route.md"
-      - "how-to/custom-domain.md"
-    - Protect a Gateway Service:
-      - "how-to/COMMON-CONFIG.md"
-      - "how-to/kong-api-key.md"
-      - "how-to/client-cred-flow.md"
-      - "how-to/intro-signed-jwt.md"
-      - "how-to/intro-signed-jwt-pubkey.md"
-    - Share an API:
-      - "how-to/api-discovery.md"
-      - "how-to/protected-externally.md"
-    # - Manage Consumer Access:
-    - "how-to/api-access.md"
-    - Integrate DevOps:
-      - "how-to/cicd-integration.md"
-      - "how-to/generate-service-account.md"
-    - Monitor a Gateway:
-      - "how-to/monitoring.md"
-      - "how-to/prom-query.md"
-    - "how-to/keycloak-rbac.md"
-    - "how-to/prod-checklist.md"
+      - Get Started:
+          - "how-to/gwa-install.md"
+          - "how-to/create-gateway.md"
+          - "how-to/gateway-admin.md"
+      # - Get Support:
+      - "how-to/get-support.md"
+      - Configure a Gateway Service:
+          - "how-to/create-gateway-service.md"
+          - "how-to/upstream-services.md"
+          - "how-to/private-route.md"
+          - "how-to/custom-domain.md"
+          - "how-to/gateway-patterns.md"
+      - Protect a Gateway Service:
+          - "how-to/COMMON-CONFIG.md"
+          - "how-to/kong-api-key.md"
+          - "how-to/client-cred-flow.md"
+          - "how-to/intro-signed-jwt.md"
+          - "how-to/intro-signed-jwt-pubkey.md"
+      - Share an API:
+          - "how-to/api-discovery.md"
+          - "how-to/protected-externally.md"
+      # - Manage Consumer Access:
+      - "how-to/api-access.md"
+      - Integrate DevOps:
+          - "how-to/cicd-integration.md"
+          - "how-to/generate-service-account.md"
+      - Monitor a Gateway:
+          - "how-to/monitoring.md"
+          - "how-to/prom-query.md"
+      - "how-to/keycloak-rbac.md"
+      - "how-to/prod-checklist.md"
   - Concepts:
       - "concepts/api-directory.md"
       - "concepts/services.md"
@@ -69,7 +70,6 @@ nav:
   - Contribute:
       - "contribute/style-guide.md"
   - "external-resources.md"
-
 
 plugins:
   - techdocs-core
