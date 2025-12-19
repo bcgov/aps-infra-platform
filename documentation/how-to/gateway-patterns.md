@@ -52,6 +52,6 @@ Example `pattern-input.yaml`:
 ```yaml
 pattern: simple-service.r1
 parameters:
-service_name: <SERVICE_NAME>
-service_url: "https://httpbun.com"
+  service_name: <SERVICE_NAME>
+  service_url: "https://httpbun.com"
 ```

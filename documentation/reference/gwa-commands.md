@@ -144,7 +144,6 @@ Generate gateway configuration based on pattern
 **Examples**
 
 ```shell
-$ gwa gateway-pattern
 $ gwa gateway-pattern path/to/config1.yaml
 ```
 
