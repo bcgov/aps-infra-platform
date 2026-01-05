@@ -10,7 +10,7 @@ An administrator has the flexibility of configuring the resources
 to fulfill their particular requirements.
 
 There is now an option for an administrator to use predefined configurations,
-making setup faster and ensures the config is based around proven security
+making setup faster and ensuring the configuration is based around proven security
 and gateway standards.
 
 This guide explains how to generate configuration using predefined patterns.
