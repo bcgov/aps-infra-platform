@@ -6,17 +6,19 @@ title: Secure Data Exchange (SDX)
 
 Secure Data Exchange (SDX) is a service designed to facilitate secure, reliable transfer of data between government agencies and external partners. As data sharing becomes increasingly critical to service delivery, SDX provides a standardized, policy-compliant mechanism that reduces security risks while simplifying integration. This document covers the fundamental concepts of SDX, how it complements the API Gateway within the platform architecture, and the core mechanisms that enable safe data exchange.
 
-**Clients**: Clients invoke services and can be either an SDX member organization or a subsystem within that organization.
+![SDX Architecture](/artifacts/SDX.png)
 
-**Services**: Services are API implementations described using an OpenAPI specification. They belong to a subsystem and expose functionality to SDX clients.
-
-The SDX is a forward proxy for the clients and a reverse proxy for the services. Each proxy interaction provides an opportunity to apply policies, such as:
+The Edge Server is a forward proxy for the service consumer (IS client) and a reverse proxy for the service provider (IS service). Each proxy interaction provides an opportunity to apply policies, such as:
 
 - privacy zone identity token exchange
 - timestamping
 - legal entity signatures (electronic seals)
 - logging
-- policy enforcement
+- access control policy enforcement
+
+**Clients**: Clients invoke services and can be either an SDX member organization or a subsystem within that organization.
+
+**Services**: Services are API implementations described using an OpenAPI specification. They belong to a subsystem and expose functionality to SDX clients.
 
 ## Next steps
 
