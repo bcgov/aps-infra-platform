@@ -6,11 +6,11 @@ This page shows how to onboard onto the Secure Data Exchange.
 
 The steps described in this page are performed by the following roles:
 
-| Role               | Function                                                                    |
-| ------------------ | --------------------------------------------------------------------------- |
-| SDX Operator       | Establish member organization and grant legal representative org admin role |
-| Organization Admin | Manage System Owner role assignment for the organization                    |
-| System Owner       | Manages systems and service catalog entries for the particular organization |
+| Role               | Function                                                                       |
+| ------------------ | ------------------------------------------------------------------------------ |
+| SDX Operator       | Establish member organizations and assign legal representatives Org Admin role |
+| Organization Admin | Manage System Owner role assignment for the organization                       |
+| System Owner       | Manage systems and service catalog entries for the particular organization     |
 
 Use cases:
 
@@ -22,12 +22,12 @@ Use cases:
 
 Available environments:
 
-| Environment | Swagger Console                                                                                                                                                                                                                                      |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `FEATURE`   | [API Console](https://api-services-portal-feature-sdx-service.apps.silver.devops.gov.bc.ca/ds/api/sdx/v1/console/), [OpenAPI Specification](https://api-services-portal-feature-sdx-service.apps.silver.devops.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) |
-| `DEV`       | Coming soon                                                                                                                                                                                                                                          |
-| `TEST`      | Coming soon                                                                                                                                                                                                                                          |
-| `PROD`      | Coming soon                                                                                                                                                                                                                                          |
+| Environment | Links                                                                                                                                                                                                                                                                                                                                                               |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `FEATURE`   | [API Console](https://api-services-portal-feature-sdx-service.apps.silver.devops.gov.bc.ca/ds/api/sdx/v1/console/), [OpenAPI Specification](https://api-services-portal-feature-sdx-service.apps.silver.devops.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-services-portal-feature-sdx-service.apps.silver.devops.gov.bc.ca/login?identity=provider) |
+| `DEV`       | Coming soon                                                                                                                                                                                                                                                                                                                                                         |
+| `TEST`      | Coming soon                                                                                                                                                                                                                                                                                                                                                         |
+| `PROD`      | Coming soon                                                                                                                                                                                                                                                                                                                                                         |
 
 ## Register new organization
 
@@ -52,7 +52,7 @@ Parameters: `{org}=ca.bc.gov`
 
 ## System Owner role assignment
 
-This is performed by the SDX Operator to assign system owners access to manage
+This is performed by the Organization Admin to assign system owners access to manage
 their systems and services.
 
 The `System Owner` is able to register new subsystems and services
@@ -60,7 +60,7 @@ and browse the service catalog.
 
 > **API** `PUT /organizations/{org}/access`
 
-Parameters: `{org}=ca.bc.gov`
+Parameters: `{org}=ministry-of-food`
 
 ```json
 {
@@ -101,6 +101,8 @@ Specify the subsystem and choose a file for the OpenAPI Spec
 ## View service catalog
 
 > **API** `GET /catalog/services`
+
+Example response:
 
 ```json
 [
