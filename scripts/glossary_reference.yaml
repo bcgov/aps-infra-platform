@@ -61,7 +61,7 @@ terms:
     url: 
   gateway:
     name: Gateway
-    def: A Gateway is the top-level entitiy in the API Services Portal. It is a collection of Kong Gateway Services and Routes, generally managed by a single team or business unit.
+    def: A Gateway is the top-level entity in the API Services Portal. It is a collection of Kong Gateway Services and Routes, generally managed by a single team or business unit.
     url: 
   gateway-service:
     name: Gateway Service
