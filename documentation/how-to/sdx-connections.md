@@ -13,39 +13,43 @@ The steps described in this page are performed by the following roles:
 
 Use cases:
 
-- Assign your subsystem to an Edge Server
+- Assign your subsystem to a runtime group
 - TBC: Open a connection on SDX
 
-## Assign your subsystem to an Edge Server
+## Assign your subsystem to a runtime group
 
-This is performed by the System Owner so that you can configure
-routing policies for connecting to other systems.
+As a System Owner, you perform this task. Once complete, you can set up routing
+policies for connecting to other systems on SDX.
 
-To find available Edge Servers for your organization, use the following API:
+To find available runtime groups for your organization, use the following API:
 
 - **API** `GET /organizations/{org}/runtime-groups?filter=available`
 
 Parameters:
 
-- `{org}=<YOUR-ORGANIZATION>`
+- `{org}=<your-organization>`
 
-Make a note of the Runtime Group name.
+After choosing a runtime group, make a note of the name.
 
-You can now call the API to assign your subsystem to the Edge Server.
+!!! note
+If there are none returned, reach out to the SDX Operator to find out
+information for onboarding your organization onto SDX.
+
+You can now call the API to assign your subsystem to the runtime group.
 
 - **API** `PUT /organizations/{org}/subsystems/{name}/gateway`
 
 Parameters:
 
-- `{org}=<YOUR-ORGANIZATION>`
-- `{name}=<YOUR SUBSYSTEM>`
+- `{org}=<your-organization>`
+- `{name}=<subsystem-name>`
 
-```json
+```json title="Request Body"
 {
-  "runtimeGroupName": "<RUNTIME_GROUP_NAME>"
+  "runtimeGroupName": "<runtime-group-name>"
 }
 ```
 
 ## Open a connection on SDX
 
-Coming soon..
+Documentation for this feature is in progress.

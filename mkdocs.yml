@@ -43,6 +43,7 @@ nav:
       - Secure Data Exchange:
           - "how-to/sdx-onboarding.md"
           - "how-to/sdx-edge-servers.md"
+          - "how-to/sdx-connections.md"
   - Concepts:
       - "concepts/api-directory.md"
       - "concepts/services.md"
