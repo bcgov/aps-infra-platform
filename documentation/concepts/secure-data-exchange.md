@@ -20,6 +20,8 @@ The Edge Server is a forward proxy for the service consumer (IS client) and a re
 
 **Services**: Services are API implementations described using an OpenAPI specification. They belong to a subsystem and expose functionality to SDX clients.
 
+Edge Servers sit in an organization's DMZ, where they are able to communicate with other Edge Servers in a secure and auditable way.
+
 ## Next steps
 
 If you would like to dive deeper or start implementing services on SDX, check out the
@@ -28,3 +30,5 @@ following resources:
 How-to guides
 
 - [Onboarding onto SDX](/how-to/sdx-onboarding.md)
+- [Provision a new Edge Server](/how-to/sdx-edge-servers.md)
+- [Connecting a Service](/how-to/sdx-connections.md)

@@ -40,7 +40,9 @@ nav:
           - "how-to/prom-query.md"
       - "how-to/keycloak-rbac.md"
       - "how-to/prod-checklist.md"
-      - "how-to/sdx-onboarding.md"
+      - Secure Data Exchange:
+          - "how-to/sdx-onboarding.md"
+          - "how-to/sdx-edge-servers.md"
   - Concepts:
       - "concepts/api-directory.md"
       - "concepts/services.md"

@@ -18,7 +18,7 @@ Use cases:
 - System Owner role assignment
 - Register a subsystem
 - Register a service
-- View service catalog
+- View IS (Information System) service catalog
 
 Available environments:
 
@@ -98,7 +98,7 @@ Parameters: `{org}=ministry-of-food`
 Specify the subsystem and choose a file for the OpenAPI Spec
 (YAML format) of your API.
 
-## View service catalog
+## View IS service catalog
 
 > **API** `GET /catalog/services`
 
