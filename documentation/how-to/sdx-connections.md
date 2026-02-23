@@ -14,7 +14,8 @@ The steps described in this page are performed by the following roles:
 Use cases:
 
 - Assign your subsystem to a runtime group
-- TBC: Open a connection on SDX
+- Open a connection on SDX (Consumer)
+- Open a connection on SDX (Provider)
 
 ## Assign your subsystem to a runtime group
 
@@ -31,9 +32,8 @@ Parameters:
 
 After choosing a runtime group, make a note of the name.
 
-!!! note
-If there are none returned, reach out to the SDX Operator to find out
-information for onboarding your organization onto SDX.
+> If there are none returned, reach out to the SDX Operator to find out
+> information for onboarding your organization onto SDX.
 
 You can now call the API to assign your subsystem to the runtime group.
 
@@ -52,4 +52,57 @@ Parameters:
 
 ## Open a connection on SDX
 
-Documentation for this feature is in progress.
+You can now call the API to preview and then publish the routing rules for opening
+a connection between two systems.
+
+- **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
+
+Parameters:
+
+- `{org}=<your-organization>`
+- values for `action`: `preview` and `apply`
+
+For `action=apply` you can specify `dryRun=true` if you want to see what changes
+will be applied without the changes actually being made.
+
+### `sdx-p2p-consumer.r1`
+
+```json
+{
+  "pattern": "sdx-p2p-consumer.r1",
+  "parameters": {
+    "client_id": "<client-id>",
+    "service_id": "<service-id>"
+  }
+}
+```
+
+### `sdx-p2p-provider.r1`
+
+```json
+{
+  "pattern": "sdx-p2p-provider.r1",
+  "parameters": {
+    "client_id": "<client-id>",
+    "service_id": "<service-id>",
+    "upstream_url": "<upstream-url>"
+  }
+}
+```
+
+### Upgrades
+
+```json
+{
+  "upgrade_config": {
+    "edge_sign": {},
+    "edge_verify": {},
+    "token_exchange": {
+      "client_id": "<sso-client-id>",
+      "token_endpoint": "<sso-token-url>",
+      "scopes": [],
+      "audience": ""
+    }
+  }
+}
+```
