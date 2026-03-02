@@ -93,19 +93,17 @@ plugins:
     year: null
 ```
 
-## Two-tiered access setup
+## Two-tiered access
 
-The `key-auth` and `jwt-keycloak` plugins support the concept of allowing
-"anonymous" access, which allows you to define a "free" service which might have
-limits around it (like only allowing 100 requests/minute), in addition to an
-"elevated" access where the Consumer would get an improved level of service,
-such as higher rate limits.
+The `key-auth` and `jwt-keycloak` plugins let you enable "anonymous" access
+alongside authenticated access, potentially offering two-tiers of service access:
 
-There is a global "anonymous" consumer that is identified as
-`ce26955a-cf08-4907-9427-12d01c8bd94c` in both our Test and Production
-environments.
+- "free" service tier with restrictions (such as allowing only 100 requests per
+minute).
+- "elevated" service tier for authenticated Consumers (such as higher rate limits).
 
-To enable anonymous access to your API, update your plugin configuration with:
+To enable anonymous access to your API, add the global `anonymous` consumer with
+the ID `ce26955a-cf08-4907-9427-12d01c8bd94c` to your plugin configuration:
 
 ### `key-auth`
 
@@ -129,6 +127,11 @@ To enable anonymous access to your API, update your plugin configuration with:
     consumer_match_claim_custom_id: false
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
+
+In the API Directory, Products with two-tiered access will display this notice
+regarding elevated access:
+
+![New API card](/artifacts/api-directory-product-two-tiered.png)
 
 If you do not want to advertise anonymous access on the API Directory, you can
 hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
