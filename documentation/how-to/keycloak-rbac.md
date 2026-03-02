@@ -18,7 +18,7 @@ SSO and the APS Kong Gateway.
 
 ## 1. Configure a confidential client
 
-Go to the Common Hosted SSO (CSS) site (<https://bcgov.github.io/sso-requests>)
+Go to the Common Hosted SSO (CSS) site (<https://sso-requests.apps.gold.devops.gov.bc.ca/>)
 and request a new confidential client.
 
 After the client has been provisioned, you can go to the **Role Management** tab
