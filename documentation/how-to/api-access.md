@@ -24,3 +24,15 @@ You can administer **Controls** such as rate limiting and IP restrictions.
 
 You can administer **Authorization** by toggling access to the particular
 Product and Environment.
+
+## Export Gateway Report
+
+On the **Gateways** tab on the API Services Portal, click **Export Gateway
+Report**  to generate an Excel report for your Gateways, including data on:
+
+- Gateways (permitted hosts, data plane, organization)
+- Gateway access (user and service account permissions)
+- Gateway metrics (total requests in the last 30 days)
+- Gateway controls (plugin configuration)
+- Consumer requests (requestor, application, status)
+- Consumer access, metrics, and controls
