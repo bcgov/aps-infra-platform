@@ -45,14 +45,23 @@ plugins:
       - "Content-Security-Policy: script-src 'self'"
 ```
 
-> For further information on individual headers, see: <https://owasp.org/www-project-secure-headers/>
+For further information on individual headers, see: <https://owasp.org/www-project-secure-headers/>
 
 ## Rate limiting
 
-### Option 1 - Using a distributed cache
+### Rate limiting strategies
 
-This provides the most accurate because it uses a centralized cache that all
-Kong nodes use. The downside is that there is a 100-200ms latency.
+Rate limiting policies in Kong can be configured to use either a distributed
+cache (such as Redis) or local node memory. A short explanation of each option
+and example configuration is provided below. More information can be found in the
+[Kong Rate Limiting plugin
+docs](https://developer.konghq.com/plugins/rate-limiting/#strategies).
+
+#### Option 1 - Using a distributed cache (`redis`)
+
+Use when every transation counts. `redis` provides the most accurate rate limiting
+because it uses a centralized cache for traffic to all all Kong nodes. The
+downside is that there is 100-200 ms added latency.
 
 ```yaml
 plugins:
@@ -70,11 +79,12 @@ plugins:
     year: null
 ```
 
-### Option 2 - Node local caching
+#### Option 2 - Node local caching
 
-This provides the fastest rate limiting option, with minimal latency (~1ms). The
-downside is that it is local to each node so calculating the actual load on your
-upstream is a function of the number of nodes.
+Use for basic backend protection. `local` provides the fastest rate limiting
+option, with minimal latency (~1 ms). The downside is that it is local to each
+Kong node so the number of requests allowed to your upstream is a function of
+the number of Kong nodes (which scale based on total gateway traffic).
 
 ```yaml
 plugins:
@@ -93,19 +103,19 @@ plugins:
     year: null
 ```
 
-## Two-tiered access
+### Two-tiered access
 
 The `key-auth` and `jwt-keycloak` plugins let you enable "anonymous" access
 alongside authenticated access, potentially offering two-tiers of service access:
 
 - "free" service tier with restrictions (such as allowing only 100 requests per
 minute).
-- "elevated" service tier for authenticated Consumers (such as higher rate limits).
+- "elevated" service tier for authenticated consumers (such as higher rate limits).
 
 To enable anonymous access to your API, add the global `anonymous` consumer with
-the ID `ce26955a-cf08-4907-9427-12d01c8bd94c` to your plugin configuration:
+the ID `ce26955a-cf08-4907-9427-12d01c8bd94c` to your auth plugin configuration:
 
-### `key-auth`
+#### `key-auth`
 
 ```yaml
 - name: key-auth
@@ -115,7 +125,7 @@ the ID `ce26955a-cf08-4907-9427-12d01c8bd94c` to your plugin configuration:
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
 
-### `jwt-keycloak`
+#### `jwt-keycloak`
 
 ```yaml
 - name: jwt-keycloak
@@ -127,6 +137,10 @@ the ID `ce26955a-cf08-4907-9427-12d01c8bd94c` to your plugin configuration:
     consumer_match_claim_custom_id: false
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
+
+Provide elevated access for authenticated consumers via the Consumers page on
+the API Services Portal. Elevated access must be configured on a
+consumer-by-consumer basis.
 
 In the API Directory, Products with two-tiered access will display this notice
 regarding elevated access:
