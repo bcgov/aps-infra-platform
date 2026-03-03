@@ -1,5 +1,11 @@
 # Releases
 
+## 2026
+
+| Release Date | Release                                     |
+| ------------ | ------------------------------------------- |
+| 2026 Feb 26  | [3.0.6 Minor Release](/reference/releases/2026-feb-26.md)  |
+
 ## 2025
 
 | Release Date | Release                                     |
