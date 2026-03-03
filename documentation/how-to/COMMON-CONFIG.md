@@ -60,7 +60,7 @@ docs](https://developer.konghq.com/plugins/rate-limiting/#strategies).
 #### Option 1 - Using a distributed cache (`redis`)
 
 Use when every transation counts. `redis` provides the most accurate rate limiting
-because it uses a centralized cache for traffic to all all Kong nodes. The
+because it uses a centralized cache for traffic to all Kong nodes. The
 downside is that there is 100-200 ms added latency.
 
 ```yaml
