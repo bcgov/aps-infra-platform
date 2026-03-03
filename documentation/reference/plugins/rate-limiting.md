@@ -77,3 +77,33 @@ plugins:
     hide_client_headers: true # users DO NOT need to see these headers
     minute: 10000
 ```
+
+### Rate limiting by JWT credential
+
+Teams using a single-page application (SPA) can protect their backend
+API service with per-user rate limiting.
+
+A common auth pattern for SPAs is for the SPA to authenticate a user, obtain a
+JWT from an authorization server, and then include that JWT in API requests in
+the `Authorization: Bearer <token>` header. The `jwt-keycloak` plugin can be
+used to validate the token at the gateway, potentially in addition to validation
+on the backend.
+
+To rate limit per authenticated user, set `consumer_match = true` in the
+`jwt-keycloak` config - the plugin will find the Kong consumer `id` matching the
+`consumer_match_claim` (default `azp`). In the `rate-limiting` plugin, use
+`limit_by = credential`, like so:
+
+```yaml
+plugins:
+- name: jwt-keycloak
+  config:
+    allowed_iss:
+    - https://<KEYCLOAK>/auth/realms/<REALM>
+    consumer_match: true
+- name: rate-limiting
+  config:
+    limit_by: credential
+    policy: redis
+    minute: 600
+```
