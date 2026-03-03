@@ -59,15 +59,16 @@ docs](https://developer.konghq.com/plugins/rate-limiting/#strategies).
 
 #### Option 1 - Using a distributed cache (`redis`)
 
-Use when every transation counts. `redis` provides the most accurate rate limiting
-because it uses a centralized cache for traffic to all Kong nodes. The
-downside is that there is 100-200 ms added latency.
+Use when *every transation counts*. `policy = redis` provides the most accurate
+rate limiting because it uses a centralized cache for traffic to all Kong nodes.
+The downside is that there is 100-200 ms added latency.
 
 ```yaml
 plugins:
 - name: rate-limiting
   tags: [ ns.<gatewayId> ]
   config:
+    policy: redis
     fault_tolerant: true
     hide_client_headers: false
     limit_by: ip
@@ -81,7 +82,7 @@ plugins:
 
 #### Option 2 - Node local caching
 
-Use for basic backend protection. `local` provides the fastest rate limiting
+Use for *basic backend protection*. `policy = local` provides the fastest rate limiting
 option, with minimal latency (~1 ms). The downside is that it is local to each
 Kong node so the number of requests allowed to your upstream is a function of
 the number of Kong nodes (which scale based on total gateway traffic).
