@@ -10,12 +10,15 @@ for a list of parameters and protocol compatibility notes.
 
 Here are some of the parameters which can be used in the plugin's `config` section:
 
-- **policy**: `local` | `redis`
+- **policy**: default: `local` | `redis`
+  
+  See [rate limiting strategies](/how-to/COMMON-CONFIG.md#rate-limiting-strategies)
+  for more information.
 - **limit_by**: `consumer` | `credential` | `ip` | `service` | `header` | `path`
 - **fault_tolerant**: Applies when Kong is connecting to Redis - if Redis is
   down, do you want to block traffic, or allow it through without limiting
 
-## Common usage example
+## Common usage examples
 
 To add rate limiting, add this section to your GatewayService configuration file:
 
@@ -39,11 +42,38 @@ plugins:
 Replace <SERVICE_NAME> with the name of the service that this plugin
 configuration will target.
 
-## Alternatives
+### Two-tiered access
 
-If you want to apply 2 global rate limits, you can use the plugin:
-`rate-limiting_902`.
+If using an authentication plugin alongside rate limiting, you can enable
+anonymous and authenticated access with different rate limits. See [two-tiered
+access](/how-to/COMMON-CONFIG.md/#two-tiered-access).
 
-For example, one control with `limit_by = service` that provides an umbrella max
-requests per minute and another control with `limit_by = credential` that
-ensures each authenticated user plays nice.
+### Backend service protection
+
+Often rate limiting is applied on a per-user basis (using `limit_by = ip`,
+`credential`, or `consumer`. To provide a global limit to the number of requests
+to a service to ensure a backend service is not overwhelmed, you can use
+`limit_by = service`.
+
+To apply a second rate limit to a service (or route), you can use the plugin
+`rate-limiting_902`, which will run with higher priority - that is, before - the
+regular `rate-limiting` plugin.
+
+Here is example configuration showing per-user and global (service) rate
+limiting:
+
+```yaml
+plugins:
+- name: rate-limiting
+  config:
+    limit_by: consumer
+    policy: redis
+    hide_client_headers: false # users need to see these headers
+    minute: 600
+- name: rate-limiting_902
+  config:
+    limit_by: service
+    policy: local
+    hide_client_headers: true # users DO NOT need to see these headers
+    minute: 10000
+```
