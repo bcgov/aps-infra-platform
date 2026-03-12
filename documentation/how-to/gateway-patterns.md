@@ -46,7 +46,7 @@ gwa gateway-pattern pattern-input.yaml | gwa apply -i -
 | `simple-service.r1`    | Minimal configuration     |
 | `sdx-runtime-group.r1` | SDX Edge Server           |
 | `sdx-p2p-consumer.r1`  | SDX Peer-to-Peer Consumer |
-| `sdx-p2p-provider.r1`  | SDX Peer-to-Peer Consumer |
+| `sdx-p2p-provider.r1`  | SDX Peer-to-Peer Provider |
 
 Example `pattern-input.yaml` inputs:
 
@@ -57,13 +57,4 @@ pattern: simple-service.r1
 parameters:
   service_name: <SERVICE_NAME>
   service_url: "https://httpbun.com"
-```
-
-### `sdx-runtime-group.r1`
-
-```yaml
-pattern: sdx-runtime-group.r1
-parameters:
-  gateway_id: gw-01833
-  runtime_group_name: <NAME>
 ```

@@ -22,11 +22,12 @@ Use cases:
 
 Available environments:
 
-| Environment | Links                                                                                                                                                                                                                                                                                                                                                               |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DEV`   | [API Console](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/console), [OpenAPI Specification](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-gov-bc-ca.dev.api.gov.bc.ca/login?identity=provider) |
-| `TEST`      | Coming soon                                                                                                                                                                                                                                                                                                                                                         |
-| `PROD`      | Coming soon                                                                                                                                                                                                                                                                                                                                                         |
+| Environment | Links                                                                                                                                                                                                                                                           |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LAB`       | [API Console](https://api-gov-bc-ca-lab.dev.api.gov.bc.ca/ds/api/sdx/v1/console), [OpenAPI Specification](https://api-gov-bc-ca-lab.dev.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-gov-bc-ca-lab.dev.api.gov.bc.ca/login?identity=provider) |
+| `DEV`       | [API Console](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/console), [OpenAPI Specification](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-gov-bc-ca.dev.api.gov.bc.ca/login?identity=provider)             |
+| `TEST`      | Coming soon                                                                                                                                                                                                                                                     |
+| `PROD`      | Coming soon                                                                                                                                                                                                                                                     |
 
 ## Register new organization
 
