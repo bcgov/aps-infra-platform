@@ -97,7 +97,7 @@ will be applied without the changes actually being made.
 Running the following should return 400 No required SSL certificate was sent.
 
 ```sh
-curl -v --cacert root.crt --resolve ${DOMAIN}:443:${IP} \
+curl -v -k --resolve ${DOMAIN}:443:${IP} \
   https://${DOMAIN}
 ```
 
