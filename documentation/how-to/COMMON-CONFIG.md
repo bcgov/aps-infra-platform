@@ -45,20 +45,30 @@ plugins:
       - "Content-Security-Policy: script-src 'self'"
 ```
 
-> For further information on individual headers, see: <https://owasp.org/www-project-secure-headers/>
+For further information on individual headers, see: <https://owasp.org/www-project-secure-headers/>
 
 ## Rate limiting
 
-### Option 1 - Using a distributed cache
+### Rate limiting strategies
 
-This provides the most accurate because it uses a centralized cache that all
-Kong nodes use. The downside is that there is a 100-200ms latency.
+Rate limiting policies in Kong can be configured to use either a distributed
+cache (such as Redis) or local node memory. A short explanation of each option
+and example configuration is provided below. More information can be found in the
+[Kong Rate Limiting plugin
+docs](https://developer.konghq.com/plugins/rate-limiting/#strategies).
+
+#### Option 1 - Using a distributed cache (`redis`)
+
+Use when *every transation counts*. `policy = redis` provides the most accurate
+rate limiting because it uses a centralized cache for traffic to all Kong nodes.
+The downside is that there is 100-200 ms added latency.
 
 ```yaml
 plugins:
 - name: rate-limiting
   tags: [ ns.<gatewayId> ]
   config:
+    policy: redis
     fault_tolerant: true
     hide_client_headers: false
     limit_by: ip
@@ -70,11 +80,12 @@ plugins:
     year: null
 ```
 
-### Option 2 - Node local caching
+#### Option 2 - Node local caching
 
-This provides the fastest rate limiting option, with minimal latency (~1ms). The
-downside is that it is local to each node so calculating the actual load on your
-upstream is a function of the number of nodes.
+Use for *basic backend protection*. `policy = local` provides the fastest rate limiting
+option, with minimal latency (~1 ms). The downside is that it is local to each
+Kong node so the number of requests allowed to your upstream is a function of
+the number of Kong nodes (which scale based on total gateway traffic).
 
 ```yaml
 plugins:
@@ -93,21 +104,19 @@ plugins:
     year: null
 ```
 
-## Two-tiered access setup
+### Two-tiered access
 
-The `key-auth` and `jwt-keycloak` plugins support the concept of allowing
-"anonymous" access, which allows you to define a "free" service which might have
-limits around it (like only allowing 100 requests/minute), in addition to an
-"elevated" access where the Consumer would get an improved level of service,
-such as higher rate limits.
+The `key-auth` and `jwt-keycloak` plugins let you enable "anonymous" access
+alongside authenticated access, potentially offering two-tiers of service access:
 
-There is a global "anonymous" consumer that is identified as
-`ce26955a-cf08-4907-9427-12d01c8bd94c` in both our Test and Production
-environments.
+- "free" service tier with restrictions (such as allowing only 100 requests per
+minute).
+- "elevated" service tier for authenticated consumers (such as higher rate limits).
 
-To enable anonymous access to your API, update your plugin configuration with:
+To enable anonymous access to your API, add the global `anonymous` consumer with
+the ID `ce26955a-cf08-4907-9427-12d01c8bd94c` to your auth plugin configuration:
 
-### `key-auth`
+#### `key-auth`
 
 ```yaml
 - name: key-auth
@@ -117,7 +126,7 @@ To enable anonymous access to your API, update your plugin configuration with:
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
 
-### `jwt-keycloak`
+#### `jwt-keycloak`
 
 ```yaml
 - name: jwt-keycloak
@@ -129,6 +138,15 @@ To enable anonymous access to your API, update your plugin configuration with:
     consumer_match_claim_custom_id: false
     anonymous: ce26955a-cf08-4907-9427-12d01c8bd94c
 ```
+
+Provide elevated access for authenticated consumers via the Consumers page on
+the API Services Portal. Elevated access must be configured on a
+consumer-by-consumer basis.
+
+In the API Directory, Products with two-tiered access will display this notice
+regarding elevated access:
+
+![New API card](/artifacts/api-directory-product-two-tiered.png)
 
 If you do not want to advertise anonymous access on the API Directory, you can
 hide it by adding the `aps.two-tiered-hidden` tag to your plugin configuration.
