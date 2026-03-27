@@ -54,6 +54,7 @@ nav:
       - "concepts/secure-data-exchange.md"
   - Reference:
       - "reference/gwa-commands.md"
+      - "reference/restish-cli.md"
       - Plugins:
           - "reference/plugins/AVAILABLE-PLUGINS.md"
           - "reference/plugins/acl.md"
