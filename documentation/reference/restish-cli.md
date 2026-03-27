@@ -15,27 +15,29 @@ Key capabilities include:
 
 In practice, Restish works well as a lightweight alternative to GUI API tools when you want terminal-native, script-friendly API access.
 
+Homepage: https://rest.sh
+
 ## Installation
 
 === "Linux"
 
     If you are on Linux, you can install by downloading a compressed archive:
 
-```sh
-curl -LO https://github.com/rest-sh/restish/releases/download/v0.21.2/restish-0.21.2-linux-amd64.tar.gz
-tar -xf restish-0.21.2-linux-amd64.tar.gz
-sudo mv restish /usr/local/bin/.
-```
+    ```sh
+    curl -LO https://github.com/rest-sh/restish/releases/download/v0.21.2/restish-0.21.2-linux-amd64.tar.gz
+    tar -xf restish-0.21.2-linux-amd64.tar.gz
+    sudo mv restish /usr/local/bin/.
+    ```
 
 === "macOS"
 
     If you are on macoS, you can install by downloading a compressed archive:
 
-```sh
-curl -LO https://github.com/rest-sh/restish/releases/download/v0.21.2/restish-0.21.2-darwin-amd64.tar.gz
-tar -xf restish-0.21.2-darwin-amd64.tar.gz
-sudo mv restish /usr/local/bin/.
-```
+    ```sh
+    curl -LO https://github.com/rest-sh/restish/releases/download/v0.21.2/restish-0.21.2-darwin-amd64.tar.gz
+    tar -xf restish-0.21.2-darwin-amd64.tar.gz
+    sudo mv restish /usr/local/bin/.
+    ```
 
 ## Usage with SDX
 
