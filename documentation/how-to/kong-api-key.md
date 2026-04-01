@@ -23,7 +23,7 @@ Before you begin, ensure you:
 
 ## Key-auth plugin
 
-You can add the following plugin to your Gateway Configuration file to add
+You can add the following plugin to your Gateway configuration file to add
 key-based authentication to your Gateway Service:
 
 ```yaml
