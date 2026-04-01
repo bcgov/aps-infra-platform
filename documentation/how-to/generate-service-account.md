@@ -6,10 +6,8 @@ title: Generate a Service Account
 
 This guide explains how to generate a service account.
 
-{Optional: Specify when and why your user might want to perform the task.} A
-service account can be used instead of IDIR to login to the `gwa` command line
-interface (CLI). This is useful for integrating with CI/CD pipelines. Ask Aidan
-Cope about other benefits.
+A service account can be used instead of IDIR to login to the `gwa` command line
+interface (CLI). This is useful for integrating with CI/CD pipelines.
 
 ## Before you begin
 
