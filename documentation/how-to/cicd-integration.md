@@ -39,7 +39,7 @@ Sample folder structure:
 ```text
 Add a `.gwa` folder that will be used to hold your Gateway configuration.
 
-.gwa
+.gwa/
 └── gw-config.yaml
 ```
 
@@ -100,10 +100,10 @@ Sample folder structure:
 ```text
 Add a `.gwa` folder with subfolders for each environment.
 
-.gwa
-├── dev
+.gwa/
+├── dev/
 │   └── gw-config.yaml # tag Gateway Services with ns.<gatewayId>.dev
-└── prod
+└── prod/
     └── gw-config.yaml # tag Gateway Services with ns.<gatewayId>.prod
 ```
 
