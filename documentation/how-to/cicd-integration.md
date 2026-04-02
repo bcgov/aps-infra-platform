@@ -92,8 +92,8 @@ to separate Gateways for each environment.
 
 The example below shows how to split the configuration by environment using
 branch-based deployment, where the `dev` branch is used to publish the
-configuration to the `dev` Gateway and the `main` branch is used to publish the
-configuration to the `prod` Gateway.
+configuration for `dev` Gateway Services and the `main` branch is used to
+publish the configuration for `prod` Gateway Services.
 
 Sample folder structure:
 
