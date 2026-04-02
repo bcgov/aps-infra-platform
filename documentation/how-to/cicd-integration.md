@@ -102,9 +102,9 @@ Add a `.gwa` folder with subfolders for each environment.
 
 .gwa/
 ├── dev/
-│   └── gw-config.yaml # tag Gateway Services with ns.<gatewayId>.dev
+│   └── gw-config.yaml # tag Gateway Services and Routes with ns.<gatewayId>.dev
 └── prod/
-    └── gw-config.yaml # tag Gateway Services with ns.<gatewayId>.prod
+    └── gw-config.yaml # tag Gateway Services and Routes with ns.<gatewayId>.prod
 ```
 
 Sample Github workflow for branch-based deployment:
