@@ -6,10 +6,8 @@ title: Generate a Service Account
 
 This guide explains how to generate a service account.
 
-{Optional: Specify when and why your user might want to perform the task.} A
-service account can be used instead of IDIR to login to the `gwa` command line
-interface (CLI). This is useful for integrating with CI/CD pipelines. Ask Aidan
-Cope about other benefits.
+A service account can be used instead of IDIR to login to the `gwa` command line
+interface (CLI). This is useful for integrating with CI/CD pipelines.
 
 ## Before you begin
 
@@ -19,18 +17,15 @@ Before you begin, ensure you:
 
 ## Generate a Service Account
 
-1. Login to the [Test](https://api-gov-bc-ca.test.api.gov.bc.ca/)
-or [Production](https://api.gov.bc.ca/) instance of the Portal, whichever you
-are working in.
-
-2. Go to the **Gateways** tab. Select the **Gateway** you would like to create a
+1. Login to the [API Services Portal](https://api.gov.bc.ca/) and navigate to
+   the **Gateways** tab. Select the **Gateway** you would like to create a
    service account for.
 
-3. Click **Service Accounts**, then click **Create New Service Account**.
+1. Click **Service Accounts**, then click **Create New Service Account**.
 
-4. Select the **GatewayConfig.Publish** permission for the Service Account and
-   click **Share**. A new credential will be created - make a note of the
-   `Client ID` and `Client Secret`.
+1. Select the **GatewayConfig.Publish** permission (or other permissions as
+   needed) for the Service Account and click **Share**. A new credential will be
+   created - make a note of the `Client ID` and `Client Secret`.
 
 !!! note
     Make sure to save the generated `Client ID` and `Client Secret` as it will
@@ -46,6 +41,18 @@ The following list describes the permissions:
 | `Content.Publish`        | Permission to update the documentation on the portal                                                                                                                                     |
 | `CredentialIssuer.Admin` | Permission to create Authorization Profiles for integrating with third-party Identity Providers; the profiles are available to be used when configuring Product Environments             |
 | `Access.Manage`          | Permission to approve/reject access requests to your APIs
+
+## v1 Service Accounts
+
+Service accounts created using early versions of the API Services Portal (prior
+to 2022) are only supported by the v1 of the Portal API, and v1.2.1 or less of
+the `gwa` CLI. These v1 service accounts can be identified by a short client ID
+with structure `sa-<gatewayId>-<id>`, whereas new service accounts have
+structure `sa-<gatewayId>-ca853245-<id>`.
+
+If you need to recreate a v1 service account for use in a CI/CD pipeline, you
+will also need to update your workflow to use a newer version of the `gwa` CLI.
+See [CI/CD Integration](/how-to/cicd-integration.md) for example configuration.
 
 ## Next steps
 

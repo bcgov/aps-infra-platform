@@ -11,7 +11,9 @@ manage, route, and handle requests to upstream services.
 
 Service configuration is stored in a Gateway Service object in the API Services
 Portal. Gateway Services can be crafted from a template or generated from an
-OpenAPI specification, both of which are explained below.
+OpenAPI specification, both of which are explained below. API Program Services
+recommends getting started with a template to get familiar with the Gateway
+configuration format, even if you plan to use an OpenAPI specification.
 
 Once you have created a Gateway Service, its functionality can be extended with
 our [Supported Plugins](/reference/plugins/AVAILABLE-PLUGINS.md). They are
@@ -86,14 +88,14 @@ To use one of these templates, follow these steps:
 
 ### Using an OpenAPI spec
 
-Kong's `deck` command line tool is used to convert an OpenAPI specification to a
-Kong configuration.
+Kong's `deck` command line tool can be used to convert an OpenAPI specification
+to Kong configuration.
 
 Reference: <https://docs.konghq.com/deck/latest/>
 
 Follow the installation instructions here: <https://docs.konghq.com/deck/latest/installation/>
 
-Below is an example of a simple OpenAPI spec that you will use to generate a
+Below is an example of a sample OpenAPI spec that you can use to generate a
 Kong configuration file.
 
 ```yaml
@@ -164,21 +166,6 @@ vanity URL: `<MYSERVICE>.api.gov.bc.ca`
     deck file openapi2kong -s openapi.yaml -o gw.yaml --select-tag ns.<gatewayId>
     ```
 
-  !!! warning "Kong 2.x Incompatibility"
-      Due to an incompatibility between `openapi2kong` and Kong 2 (used by the
-      API Services Portal), you will need to remove the '~' at the beginning of
-      paths. This can be done by manually editing the gw.yaml file, or by
-      running `yq -i eval '(.services[].routes[].paths[]) |= sub("~"; "")' gw.yaml`.
-      (You may need to install `yq` [here](https://github.com/mikefarah/yq/#install)).
-
-  !!! note "Gateway tags"
-      A Gateway `tag` with the format `ns.<gatewayId>` is mandatory for each
-      service, route, and plugin object. If you have separate pipelines for your
-      environments (`dev`, `test` and `prod`), you can split your configuration and
-      update the `tags` with the qualifier. For example, you can use a tag
-      `ns.<gatewayId>.dev` to sync the Kong configuration for `dev` Service and
-      Routes only.
-
 4. Publish to the API Services Portal:
 
   ```shell linenums="0"
@@ -189,6 +176,20 @@ vanity URL: `<MYSERVICE>.api.gov.bc.ca`
     You can opt to either maintain your OpenAPI spec and execute the steps above
     when necessary, or convert your OpenAPI spec once and maintain the generated
     Kong configuration.
+
+## Gateway tags
+
+A Gateway `tag` with the format `ns.<gatewayId>` is mandatory for each
+service, route, and plugin object. Both flows above will generate the appropriate tags.
+
+### Use qualifiers to separate environments
+
+If you have separate CI/CD pipelines for your environments (`dev`, `test` and
+`prod`), you can split your configuration and update the `tags` with the
+qualifier. For example, you can use a tag `ns.<gatewayId>.dev` to sync the Kong
+configuration for `dev` Service and Routes only. See [Split configuration by
+environment](/how-to/cicd-integration.md#split-configuration-by-environment) in
+the CI/CD integration guide for more information.
 
 ## Verify routes
 
