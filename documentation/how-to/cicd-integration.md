@@ -8,8 +8,14 @@ configuration alongside your project code.
 API Program Services recommends CI/CD integration to keep your Gateway
 configuration trackable and in sync with your project.
 
-While there is no published GitHub Actions workflow, the `gwa` CLI provides a
-straightforward way to publish your Gateway configuration in CI/CD pipelines.
+The `gwa` CLI provides a concise way to publish your Gateway configuration in
+CI/CD pipelines and is used in the suggested GitHub Actions workflow below.
+
+!!! note "GitHub Action"
+    Another BC government team has created a [GitHub Action](https://github.com/bcgov/action-deployer-api-gateway) 
+    for publishing Gateway configuration.
+    It is not officially supported by API Program Services, but it
+    is another means of achieving the same result.
 
 ## Before you begin
 
@@ -17,7 +23,6 @@ You should be familiar with how to [create a Gateway Service](/how-to/create-gat
 
 Before you begin, ensure you:
 
-- [Install gwa CLI](/how-to/gwa-install.md)
 - [Create a Gateway](/how-to/create-gateway.md)
 - [Generate a Service Account](/how-to/generate-service-account.md)
 
@@ -43,7 +48,7 @@ Add a `.gwa` folder that will be used to hold your Gateway configuration.
 └── gw-config.yaml
 ```
 
-Sample Github workflow:
+Sample GitHub workflow:
 
 ```yaml
 name: Publish Gateway Configuration
@@ -62,7 +67,7 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          GWA_CLI_VERSION=v3.0.6
+          GWA_CLI_VERSION=v3.0.7
           curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
           tar -xf gwa_Linux_x86_64.tgz
 
@@ -107,7 +112,7 @@ Add a `.gwa` folder with subfolders for each environment.
     └── gw-config.yaml # tag Gateway Services and Routes with ns.<gatewayId>.prod
 ```
 
-Sample Github workflow for branch-based deployment:
+Sample GitHub workflow for branch-based deployment:
 
 ```yaml
 name: Publish Gateway Configuration
@@ -126,7 +131,7 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          GWA_CLI_VERSION=v3.0.6
+          GWA_CLI_VERSION=v3.0.7
           curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
           tar -xf gwa_Linux_x86_64.tgz
 

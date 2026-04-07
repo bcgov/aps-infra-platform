@@ -44,8 +44,8 @@ The following list describes the permissions:
 
 ## v1 Service Accounts
 
-Services accounts created using early versions of the API Services Portal (prior
-to 2022) are only supported by the v1 of the Portal API, and v1.2.0 or less of
+Service accounts created using early versions of the API Services Portal (prior
+to 2022) are only supported by the v1 of the Portal API, and v1.2.1 or less of
 the `gwa` CLI. These v1 service accounts can be identified by a short client ID
 with structure `sa-<gatewayId>-<id>`, whereas new service accounts have
 structure `sa-<gatewayId>-ca853245-<id>`.
