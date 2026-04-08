@@ -55,3 +55,12 @@ parameters:
   service_name: <SERVICE_NAME>
   service_url: "https://httpbun.com"
 ```
+
+### `sdx-runtime-group.r1`
+
+```yaml
+pattern: sdx-runtime-group.r1
+parameters:
+  gateway_id: gw-01833
+  runtime_group_name: <NAME>
+```
