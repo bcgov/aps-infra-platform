@@ -58,7 +58,7 @@ Parameters:
 - `{org}=<your-organization>`
 - `{name}=<your-runtime-group-name>`
 
-It will return a `token` which you can be extracted and stored in a local file
+It will return a `token` which can be extracted and stored in a local file
 for the next step.
 
 ## Deploy Runtime Group infrastructure

@@ -1,8 +1,8 @@
 ---
-title: "Onboarding onto the Secure Data Exchange"
+title: "Onboarding an Organization"
 ---
 
-This page shows how to onboard onto the Secure Data Exchange.
+This page shows how to onboard an organization onto the Secure Data Exchange.
 
 The steps described in this page are performed by the following roles:
 

@@ -1,5 +1,5 @@
 ---
-title: "Onboarding onto the Secure Data Exchange"
+title: "Managing systems and services"
 ---
 
 ## Overview
@@ -16,7 +16,7 @@ Use cases:
 
 - Register a subsystem
 - Register a service
-- View IS (Information System) service catalog
+- View API service catalog
 
 ## Prerequisites
 
@@ -26,11 +26,15 @@ Use cases:
 
 === "Restish CLI"
 
-    ```sh
-    -- help information about operation
-    restish dev create-subsystem
+    Help information about the operation:
 
-    -- example
+    ```sh
+    restish dev create-subsystem
+    ```
+
+    Example call:
+
+    ```sh
     restish dev create-subsystem \
       ministry-of-citz \
       name: MY-NEW-SUBSYSTEM
@@ -52,11 +56,16 @@ Use cases:
 
 === "Restish CLI"
 
-    ```sh
-    -- help information about operation
-    restish dev create-oas-service
+    Help information about the operation:
 
-    -- example - does not work currently with restish :(
+    ```sh
+    restish dev create-oas-service
+    ```
+
+    Example:
+
+    ```sh
+    -- does not work currently with restish :(
     restish dev create-oas-service \
       ministry-of-citz \
       subsystem: MY-NEW-SUBSYSTEM, \
@@ -76,12 +85,17 @@ Use cases:
 
 === "Restish CLI"
 
-    ```sh
-    -- list APIs
-    restish dev list-service-catalog
+    List all subsystems:
 
-    -- list only name and title of APIs
+    ```sh
+    restish dev subsystems-list
+    ```
+
+    List only name and title of APIs:
+
+    ```sh
     restish dev list-service-catalog | jq '.[] | .name+"   "+.title'
+    ```
 
 === "Reference"
 
