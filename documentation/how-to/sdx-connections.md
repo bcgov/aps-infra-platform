@@ -13,42 +13,9 @@ The steps described in this page are performed by the following roles:
 
 Use cases:
 
-- Assign your subsystem to a runtime group
-- Open a connection on SDX (Consumer)
-- Open a connection on SDX (Provider)
-
-## Assign your subsystem to a runtime group
-
-As a System Owner, you perform this task. Once complete, you can set up routing
-policies for connecting to other systems on SDX.
-
-To find available runtime groups for your organization, use the following API:
-
-- **API** `GET /organizations/{org}/runtime-groups?filter=available`
-
-Parameters:
-
-- `{org}=<your-organization>`
-
-After choosing a runtime group, make a note of the name.
-
-> If there are none returned, reach out to the SDX Operator (APS Team) to find out
-> information for onboarding your organization onto SDX.
-
-You can now call the API to assign your subsystem to the runtime group.
-
-- **API** `PUT /organizations/{org}/subsystems/{name}/gateway`
-
-Parameters:
-
-- `{org}=<your-organization>`
-- `{name}=<subsystem-name>`
-
-```json title="Request Body"
-{
-  "runtimeGroupName": "<runtime-group-name>"
-}
-```
+- Open a connection on SDX
+  - Consumer side
+  - Provider side
 
 ## Open a connection on SDX
 
