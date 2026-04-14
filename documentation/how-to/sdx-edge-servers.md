@@ -13,6 +13,7 @@ The steps described in this page are performed by the following roles:
 Use cases:
 
 - Register a new Runtime Group
+- Request a one-time-use certificate signing token
 - Deploy Runtime Group infrastructure
 - Initialize default route policies
 - Add public key to registry
@@ -36,24 +37,35 @@ Parameters:
 }
 ```
 
-| Attribute             | Description                                                                            |
-| --------------------- | -------------------------------------------------------------------------------------- |
-| `name`                | Unique identifier (lowercase alphanumeric text between 3 and 8 characters)             |
-| `sdxEndpoint`         | Routable IP-based endpoint from the internet (example above is the Gold ingress IP)    |
-| `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)   |
-| `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runetime Group |
+| Attribute             | Description                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| `name`                | Unique identifier (lowercase alphanumeric text between 3 and 8 characters)            |
+| `sdxEndpoint`         | Routable IP-based endpoint from the internet (example above is the Gold ingress IP)   |
+| `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)  |
+| `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runtime Group |
+
+## Request a one-time-use certificate signing token
+
+The Runtime Group infrastructure uses a token from the CA to bootstrap
+the first certificate.
+
+This is performed by a System Owner to request a new cert signing token.
+
+- **API** `PUT /organizations/{org}/runtime-groups/{name}/tokens`
+
+Parameters:
+
+- `{org}=<your-organization>`
+- `{name}=<your-runtime-group-name>`
+
+It will return a `token` which you can be extracted and stored in a local file
+for the next step.
 
 ## Deploy Runtime Group infrastructure
 
 The runtime group is deployed using a helm chart.
 
-A one-time use token is required for issuing the certificate that the runtime
-group uses.
-
-Reach out to the SDX Operator (APS team) to get a token.
-
 ```sh
-
 export IP="<ip specified in the sdxEndpoint above>"
 export EDGE_ID="<name specified above>"
 export DOMAIN="${EDGE_ID}.servers.sdx"

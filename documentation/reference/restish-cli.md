@@ -76,6 +76,7 @@ restish api edit
 ### Interacting with the API
 
 ```sh
+-- help for all supported operations
 restish sdx
 
 -- listing subsystems from the SDX catalog
@@ -87,12 +88,12 @@ restish sdx organization-list
 -- creation example
 restish sdx create-subsystem ministry-of-books name: BOOKY, description: "Some booky system"
 
--- deletion
+-- deletion example
 restish sdx delete-subsystem ministry-of-books BOOKY --force
 
 -- piping will pass without color, only body, default JSON format
-restish  sdx organization-list | cat
+restish sdx organization-list | cat
 
 -- output YAML
-restish  sdx organization-list -o yaml
+restish sdx organization-list -o yaml
 ```

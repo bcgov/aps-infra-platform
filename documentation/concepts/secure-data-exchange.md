@@ -29,6 +29,7 @@ following resources:
 
 How-to guides
 
-- [Onboarding onto SDX](/how-to/sdx-onboarding.md)
+- [Onboarding an organization onto SDX](/how-to/sdx-org-onboarding.md)
 - [Provision a new Runtime Group (Edge Server)](/how-to/sdx-edge-servers.md)
+- [Managing systems and services](/how-to/sdx-subsystems.md)
 - [Connecting a Service](/how-to/sdx-connections.md)

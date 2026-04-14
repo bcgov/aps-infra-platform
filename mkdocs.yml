@@ -41,8 +41,9 @@ nav:
       - "how-to/keycloak-rbac.md"
       - "how-to/prod-checklist.md"
       - Secure Data Exchange:
-          - "how-to/sdx-onboarding.md"
+          - "how-to/sdx-org-onboarding.md"
           - "how-to/sdx-edge-servers.md"
+          - "how-to/sdx-subsystems.md"
           - "how-to/sdx-connections.md"
   - Concepts:
       - "concepts/api-directory.md"

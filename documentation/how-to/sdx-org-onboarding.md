@@ -16,9 +16,6 @@ Use cases:
 
 - Register new organization
 - System Owner role assignment
-- Register a subsystem
-- Register a service
-- View IS (Information System) service catalog
 
 Available environments:
 
@@ -75,75 +72,4 @@ Parameters: `{org}=ministry-of-food`
     }
   ]
 }
-```
-
-## Register a subsystem
-
-> **API** `PUT /organizations/{org}/subsystems`
-
-Parameters: `{org}=ministry-of-food`
-
-```json
-{
-  "name": "MY-NEW-SUBSYSTEM"
-}
-```
-
-## Register a service
-
-> **API** `PUT /organizations/{org}/oas-service`
-
-Parameters: `{org}=ministry-of-food`
-
-Specify the subsystem and choose a file for the OpenAPI Spec
-(YAML format) of your API.
-
-## View IS service catalog
-
-> **API** `GET /catalog/services`
-
-Example response:
-
-```json
-[
-  {
-    "name": "ministry-of-citizens-services.OAS-SPECTRAL-VALIDATION.v0",
-    "title": "OAS Spectral Validation API",
-    "version": "0.1.0",
-    "summary": null,
-    "description": "A governance API for discovering and using BCGov Spectral rulesets to validate OpenAPI Specification documents.\nRepository: https://github.com/bcgov/csit-api-governance-spectral-style-guide",
-    "subsystem": {
-      "name": "DEF",
-      "organization": {
-        "name": "ministry-of-citizens-services"
-      },
-      "gateway": {
-        "id": "sdx-gw-7053d"
-      }
-    },
-    "operations": [
-      {
-        "operationId": "listVersions",
-        "method": "GET",
-        "path": "/versions",
-        "summary": "List available ruleset versions",
-        "scopes": []
-      },
-      {
-        "operationId": "listRulesetsInVersion",
-        "method": "GET",
-        "path": "/versions/{version}/rulesets",
-        "summary": "List Spectral rulesets in a version",
-        "scopes": []
-      },
-      {
-        "operationId": "createValidation",
-        "method": "POST",
-        "path": "/versions/{version}/rulesets/{ruleset}/validations",
-        "summary": "Validate an OpenAPI document",
-        "scopes": []
-      }
-    ]
-  }
-]
 ```
