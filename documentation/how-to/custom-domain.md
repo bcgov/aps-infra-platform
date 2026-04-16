@@ -115,7 +115,8 @@ recovery in Gold DR (Calgary).
 
 To ensure routing to the appropriate cluster, create a CNAME record for your
 custom domain pointing to `ggw.api.gov.bc.ca.glb.gov.bc.ca`, APS's Global Load
-Balancer.
+Balancer. Alternatively, if your upstream service is only in Gold, target
+`kdc.api.gov.bc.ca`.
 
 ### Emerald cluster
 
