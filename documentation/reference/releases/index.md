@@ -4,6 +4,7 @@
 
 | Release Date | Release                                     |
 | ------------ | ------------------------------------------- |
+| 2026 Mar 31  | [Keycloak 26 Upgrade](/reference/releases/2026-mar-31-3.0.8.md)  |
 | 2026 Feb 26  | [3.0.6 Minor Release](/reference/releases/2026-feb-26.md)  |
 
 ## 2025

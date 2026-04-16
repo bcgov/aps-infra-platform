@@ -28,7 +28,7 @@ Kong will proxy requests to.
 3. [Plugins](/concepts/plugins.md): Plugins are used to add functionalities like
 authentication, rate limiting, logging, etc., to your API endpoints.
 
-Here's an example of what a simple Gateway Configuration might look like:
+Here's an example of what a simple Gateway configuration might look like:
 
 ```yaml
 kind: GatewayService
@@ -129,17 +129,20 @@ to both Kong and resource-based formats.
 ### Gateway Service Configuration
 
 For Gateway Services, the configuration is **declarative**:
+
 - The provided configuration represents the exact state of the Gateway Services
   that will be set up.
 - In the resource-based format, if no `kind: GatewayService` resources are
   included, the Gateway Service configuration will remain unchanged.
 
 !!! note "Clearing Gateway Service configuration"
-    To clear all Gateway Service configuration, create a YAML file with the following content:
+    To clear all Gateway Service configuration, create a YAML file
+    (e.g. `null.yaml`) with the following content:
     ```yaml
     services: []
     ```
- 
+    Then publish the configuration using `gwa pg null.yaml`.
+
 ### Other resource types
 
 For other resource types, such as Product, DraftDataset, or CredentialIssuer:
@@ -155,7 +158,7 @@ Use the API Services Portal to delete Products, ProductEnvironments, and Credent
 
 ## Next steps
 
-If you would like to dive deeper or start implementing a Gateway Configuration,
+If you would like to dive deeper or start implementing a Gateway configuration,
 check out the following resources:
 
 How-to guides

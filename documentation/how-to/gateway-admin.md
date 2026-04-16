@@ -21,23 +21,10 @@ access to the Gateway.
 
 ## Using Service Accounts
 
-Service Accounts are credentials that can be used to access the APS Directory
-and Gateway APIs.
+A service account can be used instead of IDIR to login to the `gwa` command line
+interface (CLI). This is useful for integrating with CI/CD pipelines.
 
-### Generate a Service Account
-
-1. Login to the API Services Portal, navigate to **Gateways**, and select the
-   relevant **Gateway**.
-
-2. Select **Service Accounts** from the Actions list, then click **Create New
-   Service Account**.
-
-3. Select the **GatewayConfig.Publish** checkbox for the Service Account and
-   click **Share**. A new credential will be created. Make a note of the `Client
-   ID` and `Client Secret`.
-
-> Make sure to save the Client ID and Secret as they will not be
-> retrievable once the dialog is closed.
+For more information, see [Generate a Service Account](/how-to/generate-service-account.md).
 
 ## Available permissions
 
@@ -80,7 +67,7 @@ API.
 
 2. The Service Account uses the OAuth2 Client Credentials Grant Flow. Click the
 **Lock** action on the right and enter the Service Account credentials obtained
-from [Generate a Service Account](/how-to/gateway-admin.md/#generate-a-service-account).
+from [Generate a Service Account](/how-to/generate-service-account.md).
 
 3. Close the modal dialog and click **Try it out**.
 

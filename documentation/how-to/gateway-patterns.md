@@ -41,12 +41,9 @@ gwa gateway-pattern pattern-input.yaml | gwa apply -i -
 
 ## Available Patterns
 
-| Pattern                | Description               |
-| ---------------------- | ------------------------- |
-| `simple-service.r1`    | Minimal configuration     |
-| `sdx-runtime-group.r1` | SDX Edge Server           |
-| `sdx-p2p-consumer.r1`  | SDX Peer-to-Peer Consumer |
-| `sdx-p2p-provider.r1`  | SDX Peer-to-Peer Consumer |
+| Pattern             | Description           |
+| ------------------- | --------------------- |
+| `simple-service.r1` | Minimal configuration |
 
 Example `pattern-input.yaml` inputs:
 

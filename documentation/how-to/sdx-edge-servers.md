@@ -13,19 +13,70 @@ The steps described in this page are performed by the following roles:
 Use cases:
 
 - Register a new Runtime Group
+- Request a one-time-use certificate signing token
 - Deploy Runtime Group infrastructure
 - Initialize default route policies
 - Add public key to registry
 
 ## Register a new Runtime Group
 
-!!! note
-    Documentation for this use case is in progress.
+This is performed by a System Owner to create a new runtime group.
+
+- **API** `PUT /organizations/{org}/runtime-groups`
+
+Parameters:
+
+- `{org}=<your-organization>`
+
+```json
+{
+  "name": "abc123",
+  "sdxEndpoint": "https://142.34.194.118:443",
+  "consumerEndpoint": "http://internal.abc123.servers.sdx",
+  "hostedOrganizations": ["ministry-X", "ministry-Y"]
+}
+```
+
+| Attribute             | Description                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------- |
+| `name`                | Unique identifier (lowercase alphanumeric text between 3 and 8 characters)            |
+| `sdxEndpoint`         | Routable IP-based endpoint from the internet (example above is the Gold ingress IP)   |
+| `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)  |
+| `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runtime Group |
+
+## Request a one-time-use certificate signing token
+
+The Runtime Group infrastructure uses a token from the CA to bootstrap
+the first certificate.
+
+This is performed by a System Owner to request a new cert signing token.
+
+- **API** `PUT /organizations/{org}/runtime-groups/{name}/tokens`
+
+Parameters:
+
+- `{org}=<your-organization>`
+- `{name}=<your-runtime-group-name>`
+
+It will return a `token` which can be extracted and stored in a local file
+for the next step.
 
 ## Deploy Runtime Group infrastructure
 
-!!! note
-    Documentation for this use case is in progress.
+The runtime group is deployed using a helm chart.
+
+```sh
+export IP="<ip specified in the sdxEndpoint above>"
+export EDGE_ID="<name specified above>"
+export DOMAIN="${EDGE_ID}.servers.sdx"
+
+helm upgrade --install ${EDGE_ID} \
+  --set tls.client.bootstrap.token=$(cat token) \
+  --set tls.client.cn=${DOMAIN} \
+  --set tls.server.ip=${IP} \
+  --set route.host=${DOMAIN} \
+  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.1.0
+```
 
 ## Initialize default route policies
 
@@ -53,7 +104,27 @@ will be applied without the changes actually being made.
 }
 ```
 
-## Add public key to registry
+## Verification
+
+Running the following should return 400 No required SSL certificate was sent.
+
+```sh
+curl -v -k --resolve ${DOMAIN}:443:${IP} \
+  https://${DOMAIN}
+```
+
+You can verify the consumer internal endpoint by opening a terminal on the
+runtime group Kong pod and running:
+
+```sh
+curl -v --resolve internal.${DOMAIN}:8000:127.0.0.1 \
+  http://internal.${DOMAIN}:8000/hello
+```
+
+## Add public key to the registry
+
+The public key will be used for other runtime groups to verify the integrity
+of the request.
 
 Using the same pattern endpoint from above, you can use the `sdx-keys.r1` pattern
 to add the public key using the certificate from the runtime group.

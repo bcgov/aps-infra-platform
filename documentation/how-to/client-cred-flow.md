@@ -76,7 +76,7 @@ If you're unsure which path to follow, use the shared IdP pattern.
 
     #### c) Update your Gateway Configuration with the Plugin
 
-    Update your Gateway Configuration to include the `jwt-keycloak` plugin.
+    Update your Gateway configuration to include the `jwt-keycloak` plugin.
 
     !!! note
         When you configure the Product Environment, a `Plugin Template` will be 
