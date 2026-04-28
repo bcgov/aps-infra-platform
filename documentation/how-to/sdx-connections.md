@@ -14,6 +14,7 @@ The steps described in this page are performed by the following roles:
 Use cases:
 
 - Request access (as consumer)
+- Review connection access requests
 - Approve access (as provider)
 - Open a connection
   - Consumer side
@@ -40,6 +41,23 @@ Use cases:
       ministry-of-citz \
       clientId: LAB.MIN.CITZ.MY-SUBSYSTEM, \
       serviceId: LAB.MIN.CITZ.SERVICE-A.v1
+    ```
+
+## Review connection access requests
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx list-connections
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx list-connections \
+      ministry-of-citz
     ```
 
 ## Approve access (as provider)

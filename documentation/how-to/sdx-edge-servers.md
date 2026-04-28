@@ -81,8 +81,8 @@ This is performed by a System Owner to request a new cert signing token.
     - `{org}=<your-organization>`
     - `{name}=<your-runtime-group-name>`
 
-    It will return a `token` which can be extracted and stored in a local file
-    for the next step.
+It will return a token which can be extracted and stored in a local file
+for the next step.
 
 ## Deploy Runtime Group infrastructure
 
