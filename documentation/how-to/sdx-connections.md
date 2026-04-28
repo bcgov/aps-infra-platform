@@ -114,8 +114,6 @@ routing rules for opening a channel between the two systems.
     For `action=apply` you can specify `dryRun=true` if you want to see what changes
     will be applied without the changes actually being made.
 
-    ### Consumer-side
-
     Gateway Pattern: `sdx-p2p-consumer.r1`
 
     | Parameter    | Description                                                                                |
@@ -158,7 +156,7 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
     restish sdx generate-config-from-pattern
     ```
 
-    Prepare a pattern input file (`pattern-input.json`) for the Consumer:
+    Prepare a pattern input file (`pattern-input.json`) for the Provider:
 
     ```json
     {
@@ -184,12 +182,17 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
       --dry-run < pattern-input.json
     ```
 
-    restish sdx generate-config-from-pattern \
-      user-om-mishra \
-      --action apply \
-      --dry-run < pattern-input.json
-
 === "Reference"
+
+    - **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - values for `action`: `preview` and `apply`
+
+    For `action=apply` you can specify `dryRun=true` if you want to see what changes
+    will be applied without the changes actually being made.
 
     Gateway Pattern: `sdx-p2p-provider.r1`
 
