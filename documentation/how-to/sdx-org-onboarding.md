@@ -30,22 +30,26 @@ Available environments:
 
 This is performed by the SDX Operator to onboard a new Organization.
 
-- **API** `PUT /organizations/{org}`
+=== "Restish CLI"
 
-Parameters: `{org}=ca.bc.gov`
+=== "Reference"
 
-```json
-{
-  "extForeignKey": "ministry-of-food",
-  "name": "ministry-of-food",
-  "title": "Ministry of Food",
-  "description": "It is a ministry concerned with food",
-  "extSource": "custom",
-  "extRecordHash": "0000",
-  "tags": [],
-  "orgUnits": []
-}
-```
+    - **API** `PUT /organizations/{org}`
+
+    Parameters: `{org}=ca.bc.gov`
+
+    ```json
+    {
+      "extForeignKey": "ministry-of-food",
+      "name": "ministry-of-food",
+      "title": "Ministry of Food",
+      "description": "It is a ministry concerned with food",
+      "extSource": "custom",
+      "extRecordHash": "0000",
+      "tags": [],
+      "orgUnits": []
+    }
+    ```
 
 ## System Owner role assignment
 

@@ -30,13 +30,13 @@ Use cases:
     Help information about the operation:
 
     ```sh
-    restish dev create-subsystem
+    restish sdx create-subsystem
     ```
 
     Example call:
 
     ```sh
-    restish dev create-subsystem \
+    restish sdx create-subsystem \
       ministry-of-citz \
       name: MY-NEW-SUBSYSTEM
     ```
@@ -60,17 +60,17 @@ Use cases:
     Help information about the operation:
 
     ```sh
-    restish dev create-oas-service
+    restish sdx create-oas-service
     ```
 
     Example:
 
     ```sh
-    -- does not work currently with restish :(
-    restish dev create-oas-service \
+    restish sdx create-oas-service \
       ministry-of-citz \
-      subsystem: MY-NEW-SUBSYSTEM, \
-      configFile: @openapi.yaml
+      --subsystem MY-NEW-SUBSYSTEM \
+      --rsh-header "Content-Type: application/yaml" \
+      < openapi.yaml
     ```
 
 === "Reference"
@@ -89,13 +89,13 @@ Use cases:
     List all subsystems:
 
     ```sh
-    restish dev subsystems-list
+    restish sdx subsystems-list
     ```
 
     List only name and title of APIs:
 
     ```sh
-    restish dev list-service-catalog | jq '.[] | .name+"   "+.title'
+    restish sdx list-service-catalog | jq '.[] | .name+": "+.title'
     ```
 
 === "Reference"
@@ -153,33 +153,68 @@ Use cases:
 As a System Owner, you perform this task. Once complete, you can set up routing
 policies for connecting to other systems on SDX.
 
-To find available runtime groups for your organization, use the following API:
+=== "Restish CLI"
 
-- **API** `GET /organizations/{org}/runtime-groups?filter=available`
+    Help information about the operation to list available runtimes:
 
-Parameters:
+    ```sh
+    restish sdx list-runtime-groups
+    ```
 
-- `{org}=<your-organization>`
+    Example:
 
-After choosing a runtime group, make a note of the name.
+    ```sh
+    restish sdx list-runtime-groups \
+      ministry-of-citz \
+      --filter available
+    ```
 
-> If there are none returned, reach out to the SDX Operator (APS Team) to find out
-> information for onboarding your organization onto SDX.
+    Help information about the operation to assign  a runtime group:
 
-You can now call the API to assign your subsystem to the runtime group.
+    ```sh
+    restish sdx register-subsystem-gateway
+    ```
 
-- **API** `PUT /organizations/{org}/subsystems/{name}/gateway`
+    Example:
 
-Parameters:
+    ```sh
+    restish sdx register-subsystem-gateway \
+      ministry-of-citz MY-NEW-SUBSYSTEM \
+      runtimeGroupName: edge1
+    ```
 
-- `{org}=<your-organization>`
-- `{name}=<subsystem-name>`
+    An assigned Gateway ID will be returned. This Gateway can be used to configure
+    routes and controls for services it connects to.
 
-```json title="Request Body"
-{
-  "runtimeGroupName": "<runtime-group-name>"
-}
-```
+=== "Reference"
 
-An assigned Gateway ID will be returned. This Gateway can be used to configure
-routes and controls for services it connects to.
+    To find available runtime groups for your organization, use the following API:
+
+    - **API** `GET /organizations/{org}/runtime-groups?filter=available`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+
+    After choosing a runtime group, make a note of the name.
+
+    > If there are none returned, reach out to the SDX Operator (APS Team) to find out
+    > information for onboarding your organization onto SDX.
+
+    You can now call the API to assign your subsystem to the runtime group.
+
+    - **API** `PUT /organizations/{org}/subsystems/{name}/gateway`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<subsystem-name>`
+
+    ```json title="Request Body"
+    {
+      "runtimeGroupName": "<runtime-group-name>"
+    }
+    ```
+
+    An assigned Gateway ID will be returned. This Gateway can be used to configure
+    routes and controls for services it connects to.

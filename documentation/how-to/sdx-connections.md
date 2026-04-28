@@ -13,11 +13,56 @@ The steps described in this page are performed by the following roles:
 
 Use cases:
 
-- Open a connection on SDX
+- Request access (as consumer)
+- Approve access (as provider)
+- Open a connection
   - Consumer side
   - Provider side
 
-## Open a connection on SDX
+## Prerequisites
+
+- [Install Restish CLI](/reference/restish-cli.md)
+
+## Request access (as consumer)
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx upsert-connection
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx upsert-connection \
+      ministry-of-citz \
+      clientId: LAB.MIN.CITZ.MY-SUBSYSTEM, \
+      serviceId: LAB.MIN.CITZ.SERVICE-A.v1
+    ```
+
+## Approve access (as provider)
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx upsert-connection
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx upsert-connection \
+      ministry-of-citz \
+      clientId: LAB.MIN.CITZ.MY-SUBSYSTEM, \
+      serviceId: LAB.MIN.CITZ.SERVICE-A.v1, \
+      isApproved: true
+    ```
+
+## Open a connection
 
 You can now call the API to preview and then publish the routing rules for opening
 a connection between two systems.
