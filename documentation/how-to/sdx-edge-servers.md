@@ -18,31 +18,37 @@ Use cases:
 - Initialize default route policies
 - Add public key to registry
 
+## Prerequisites
+
+- [Install Restish CLI](/reference/restish-cli.md)
+
 ## Register a new Runtime Group
 
-This is performed by a System Owner to create a new runtime group.
+=== "Reference"
 
-- **API** `PUT /organizations/{org}/runtime-groups`
+    This is performed by a System Owner to create a new runtime group.
 
-Parameters:
+    - **API** `PUT /organizations/{org}/runtime-groups`
 
-- `{org}=<your-organization>`
+    Parameters:
 
-```json
-{
-  "name": "abc123",
-  "sdxEndpoint": "https://142.34.194.118:443",
-  "consumerEndpoint": "http://internal.abc123.servers.sdx",
-  "hostedOrganizations": ["ministry-X", "ministry-Y"]
-}
-```
+    - `{org}=<your-organization>`
 
-| Attribute             | Description                                                                           |
-| --------------------- | ------------------------------------------------------------------------------------- |
-| `name`                | Unique identifier (lowercase alphanumeric text between 3 and 8 characters)            |
-| `sdxEndpoint`         | Routable IP-based endpoint from the internet (example above is the Gold ingress IP)   |
-| `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)  |
-| `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runtime Group |
+    ```json
+    {
+      "name": "abc123",
+      "sdxEndpoint": "https://142.34.194.118:443",
+      "consumerEndpoint": "http://internal.abc123.servers.sdx",
+      "hostedOrganizations": ["ministry-X", "ministry-Y"]
+    }
+    ```
+
+    | Attribute             | Description                                                                           |
+    | --------------------- | ------------------------------------------------------------------------------------- |
+    | `name`                | Unique identifier (lowercase alphanumeric text between 3 and 8 characters)            |
+    | `sdxEndpoint`         | Routable IP-based endpoint from the internet (example above is the Gold ingress IP)   |
+    | `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)  |
+    | `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runtime Group |
 
 ## Request a one-time-use certificate signing token
 
@@ -51,15 +57,32 @@ the first certificate.
 
 This is performed by a System Owner to request a new cert signing token.
 
-- **API** `PUT /organizations/{org}/runtime-groups/{name}/tokens`
+=== "Restish CLI"
 
-Parameters:
+    Help information about the operation:
 
-- `{org}=<your-organization>`
-- `{name}=<your-runtime-group-name>`
+    ```sh
+    restish sdx generate-one-time-use-token
+    ```
 
-It will return a `token` which can be extracted and stored in a local file
-for the next step.
+    Example call:
+
+    ```sh
+    restish sdx generate-one-time-use-token \
+      ministry-of-citz abc123
+    ```
+
+=== "Reference"
+
+    - **API** `PUT /organizations/{org}/runtime-groups/{name}/tokens`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<your-runtime-group-name>`
+
+    It will return a `token` which can be extracted and stored in a local file
+    for the next step.
 
 ## Deploy Runtime Group infrastructure
 
