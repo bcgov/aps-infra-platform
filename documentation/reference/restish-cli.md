@@ -49,7 +49,7 @@ Edit the restish config and add the below "sdx" api shortname details.
 restish api edit
 ```
 
-=== Lab
+=== "Lab"
 
     ```json
     {
@@ -75,7 +75,7 @@ restish api edit
     }
     ```
 
-=== Dev
+=== "Dev"
 
     ```json
     {
