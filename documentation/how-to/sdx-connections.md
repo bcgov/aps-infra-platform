@@ -13,49 +13,147 @@ The steps described in this page are performed by the following roles:
 
 Use cases:
 
-- Open a connection on SDX
+- Request access (as consumer)
+- Review connection access requests
+- Approve access (as provider)
+- Open a connection
   - Consumer side
   - Provider side
 
-## Open a connection on SDX
+## Prerequisites
 
-You can now call the API to preview and then publish the routing rules for opening
-a connection between two systems.
+- [Install Restish CLI](/reference/restish-cli.md)
 
-- **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
+## Request access (as consumer)
 
-Parameters:
+=== "Restish CLI"
 
-- `{org}=<your-organization>`
-- values for `action`: `preview` and `apply`
+    Help information about the operation:
 
-For `action=apply` you can specify `dryRun=true` if you want to see what changes
-will be applied without the changes actually being made.
+    ```sh
+    restish sdx upsert-connection
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx upsert-connection \
+      ministry-of-citz \
+      clientId: LAB.MIN.CITZ.MY-SUBSYSTEM, \
+      serviceId: LAB.MIN.CITZ.SERVICE-A.v1
+    ```
+
+## Review connection access requests
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx list-connections
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx list-connections \
+      ministry-of-citz
+    ```
+
+## Approve access (as provider)
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx upsert-connection
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx upsert-connection \
+      ministry-of-citz \
+      clientId: LAB.MIN.CITZ.MY-SUBSYSTEM, \
+      serviceId: LAB.MIN.CITZ.SERVICE-A.v1, \
+      isApproved: true
+    ```
+
+## Open a connection
+
+Once the connection request has been approved, both sides are able to publish the
+routing rules for opening a channel between the two systems.
 
 ### Consumer-side
 
-Gateway Pattern: `sdx-p2p-consumer.r1`
+=== "Restish CLI"
 
-| Parameter    | Description                                                                                |
-| ------------ | ------------------------------------------------------------------------------------------ |
-| `conn_id`    | Unique identifier for the connection (in future will be reference to an approval workflow) |
-| `client_id`  | Client identifier for authentication                                                       |
-| `service_id` | Service identifier being connected                                                         |
-| `upgrades`   | Optional set of controls that can be added to the routing                                  |
+    Help information about the operation:
 
-Example:
+    ```sh
+    restish sdx generate-config-from-pattern
+    ```
 
-```json
-{
-  "pattern": "sdx-p2p-consumer.r1",
-  "parameters": {
-    "conn_id": "001",
-    "client_id": "LAB.MIN.CITZ.SDG",
-    "service_id": "LAB.MIN.SDPR.CASE-MANAGEMENT.v1",
-    "upgrades": {}
-  }
-}
-```
+    Prepare a pattern input file (`pattern-input.json`) for the Consumer:
+
+    ```json
+    {
+      "pattern": "sdx-p2p-consumer.r1",
+      "parameters": {
+        "conn_id": "1",
+        "client_id": "LAB.MIN.CITZ.MY-SUBSYSTEM",
+        "service_id": "LAB.MIN.CITZ.SERVICE-A.v1",
+        "upgrades": {
+          "sign": {}
+        }
+      }
+    }
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx generate-config-from-pattern \
+      ministry-of-citz \
+      --action apply \
+      --dry-run < pattern-input.json
+    ```
+
+=== "Reference"
+
+    - **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - values for `action`: `preview` and `apply`
+
+    For `action=apply` you can specify `dryRun=true` if you want to see what changes
+    will be applied without the changes actually being made.
+
+    Gateway Pattern: `sdx-p2p-consumer.r1`
+
+    | Parameter    | Description                                                                                |
+    | ------------ | ------------------------------------------------------------------------------------------ |
+    | `conn_id`    | Unique identifier for the connection|
+    | `client_id`  | Client identifier for authentication                                                       |
+    | `service_id` | Service identifier being connected                                                         |
+    | `upgrades`   | Optional set of controls that can be added to the routing                                  |
+
+    Example:
+
+    ```json
+    {
+      "pattern": "sdx-p2p-consumer.r1",
+      "parameters": {
+        "conn_id": "001",
+        "client_id": "LAB.MIN.CITZ.SDG",
+        "service_id": "LAB.MIN.SDPR.CASE-MANAGEMENT.v1",
+        "upgrades": {}
+      }
+    }
+    ```
 
 Available upgrades for the `sdx-p2p-consumer.r1` pattern:
 
@@ -68,30 +166,76 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
 
 ### Provider-side
 
-Gateway Pattern: `sdx-p2p-provider.r1`
+=== "Restish CLI"
 
-| Parameter      | Description                                                                                |
-| -------------- | ------------------------------------------------------------------------------------------ |
-| `conn_id`      | Unique identifier for the connection (in future will be reference to an approval workflow) |
-| `client_id`    | Client identifier for authentication                                                       |
-| `service_id`   | Service identifier being connected                                                         |
-| `upstream_url` | The upstream service implementation endpoint                                               |
-| `upgrades`     | Optional set of controls that can be added to the routing                                  |
+    Help information about the operation:
 
-Example:
+    ```sh
+    restish sdx generate-config-from-pattern
+    ```
 
-```json
-{
-  "pattern": "sdx-p2p-provider.r1",
-  "parameters": {
-    "conn_id": "001",
-    "client_id": "LAB.MIN.CITZ.SDG",
-    "service_id": "LAB.MIN.SDPR.CASE-MANAGEMENT.v1",
-    "upstream_url": "http://<ocp_service>.<ocp_namespace>.svc",
-    "upgrades": {}
-  }
-}
-```
+    Prepare a pattern input file (`pattern-input.json`) for the Provider:
+
+    ```json
+    {
+      "pattern": "sdx-p2p-provider.r1",
+      "parameters": {
+        "conn_id": "1",
+        "client_id": "LAB.MIN.CITZ.MY-SUBSYSTEM",
+        "service_id": "LAB.MIN.CITZ.SERVICE-A.v1",
+        "upstream_url": "https://my-upstream-endpoint.domain",
+        "upgrades": {
+          "sign": {}
+        }
+      }
+    }
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx generate-config-from-pattern \
+      ministry-of-citz \
+      --action apply \
+      --dry-run < pattern-input.json
+    ```
+
+=== "Reference"
+
+    - **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - values for `action`: `preview` and `apply`
+
+    For `action=apply` you can specify `dryRun=true` if you want to see what changes
+    will be applied without the changes actually being made.
+
+    Gateway Pattern: `sdx-p2p-provider.r1`
+
+    | Parameter      | Description                                               |
+    | -------------- | ------------------------------------------------------------------------------------------ |
+    | `conn_id`      | Unique identifier for the connection |
+    | `client_id`    | Client identifier for authentication                                                       |
+    | `service_id`   | Service identifier being connected                                                         |
+    | `upstream_url` | The upstream service implementation endpoint                                               |
+    | `upgrades`     | Optional set of controls that can be added to the routing                                  |
+
+    Example:
+
+    ```json
+    {
+      "pattern": "sdx-p2p-provider.r1",
+      "parameters": {
+        "conn_id": "001",
+        "client_id": "LAB.MIN.CITZ.SDG",
+        "service_id": "LAB.MIN.SDPR.CASE-MANAGEMENT.v1",
+        "upstream_url": "http://<ocp_service>.<ocp_namespace>.svc",
+        "upgrades": {}
+      }
+    }
+    ```
 
 Available upgrades for the `sdx-p2p-provider.r1` pattern:
 
