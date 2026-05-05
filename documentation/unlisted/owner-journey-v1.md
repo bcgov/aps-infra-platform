@@ -729,7 +729,7 @@ It is now ready to receive access requests from the community!
 
 ### 10.1 Connect with the BC Government API Community
 
-Post a message on [Rocket.Chat #aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops).
+Post a message in the [API-ProgramServices-operations](https://teams.microsoft.com/l/channel/19%3Ac81bf553c07647cebeb2aeb034ec0d25%40thread.tacv2/API-ProgramServices-operations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc) Microsoft Teams channel (external clients can [request access](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/5)).
 
 ### 10.2 Read Our Other Guides
 
