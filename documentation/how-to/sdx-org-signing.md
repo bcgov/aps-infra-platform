@@ -40,17 +40,54 @@ Use cases:
       runtimeGroupName: TARGET-RUNTIME-GROUP-NAME
     ```
 
+The inputs for the CSR will be derived from your organization details and the
+runtime group you are registering it on.
+
+You will get back a document in YAML format similar to this:
+
+```yaml
+signing_algorithm: ECDSA_SHA_512
+csr: |
+  -----BEGIN CERTIFICATE REQUEST-----
+  MIIBWTCB/wIBADBgMQswCQYDVQQGEwJDQTFCMEAGA1UECgw5TWluaXN0cnkgb2Yg
+  Q2l0aXplbnMgU2VydmljZXMvc2VyaWFsTnVtYmVyPUxBQi9NSU4vU0hBUkUwMQ0w
+  CwYDVQQDDARDSVRaMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyqHYa+yG6YGE
+  y1fR1gUEaRzhbe3REt1OBC6F9JDstvROUuYBaKYZJbXZ6wQ8q+bwDRzlcGv1Bc/k
+  a73T0xd7XqA9MDsGCSqGSIb3DQEJDjEuMCwwKgYDVR0RBCMwIYIfbGFiLW1pbi1j
+  aXR6LnNoYXJlMC5zZXJ2ZXJzLnNkeDAKBggqhkjOPQQDAgNJADBGAiEA2VFX1pKP
+  OFYl+JNux0Xz+E1CLeCnK9Acy3pJH4e/cmACIQDiOq/xxg598GYBQOc+gQtiCsPL
+  ubWazfkHoChChFcX1g==
+  -----END CERTIFICATE REQUEST-----
+jwk: '{"y":"TlLmAWimGSW12esEPKvm8A0c5XBr9QXP5Gu909MXe14","kid":"RYDlAYlWr184FTwRk21jQzvZSO3UOwoqRKN5lHLe9zE","crv":"P-256","x":"yqHYa-yG6YGEy1fR1gUEaRzhbe3REt1OBC6F9JDstvQ","kty":"EC"}'
+pub_key: |
+  -----BEGIN PUBLIC KEY-----
+  MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyqHYa+yG6YGEy1fR1gUEaRzhbe3R
+  Et1OBC6F9JDstvROUuYBaKYZJbXZ6wQ8q+bwDRzlcGv1Bc/ka73T0xd7Xg==
+  -----END PUBLIC KEY-----
+inputs:
+  org_name: Ministry of Citizens Services
+  requester_name: unknown
+  serial_number: LAB/MIN/SHARE0
+  requester_email: unknown
+  san: lab-min-citz.share0.servers.sdx
+  country: CA
+  common_name: CITZ
+```
+
 ## Get the CSR signed by an approved Certificate Authority
 
 SDX Operator provides a Certificate Authority (CA).
 
 Reach out to the APS team with your CSR to get it reviewed, approved and signed.
 
-## Register CA signed certificate
+## Register the CA signed certificate
 
 Once you receive back the certificate, save the certificate
 (and its intermediate CAs) in a `new.crt` file, and the root
 certificate for the CA in `root.crt`.
+
+You will then be able to use this information to update the
+public key details with the new certificate.
 
 === "Restish CLI"
 
