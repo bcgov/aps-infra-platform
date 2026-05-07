@@ -85,7 +85,7 @@ Use cases:
 Once the connection request has been approved, both sides are able to publish the
 routing rules for opening a channel between the two systems.
 
-### Consumer-side
+### Consumer side
 
 === "Restish CLI"
 
@@ -164,7 +164,7 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
 }
 ```
 
-### Provider-side
+### Provider side
 
 === "Restish CLI"
 
