@@ -155,14 +155,7 @@ routing rules for opening a channel between the two systems.
     }
     ```
 
-Available upgrades for the `sdx-p2p-consumer.r1` pattern:
-
-```json
-{
-  "sign": {},
-  "verify": {}
-}
-```
+For details on configuring the p2p pattern, go to [P2P Gateway Pattern Upgrades](/how-to/sdx-upgrades.md).
 
 ### Provider side
 
@@ -184,9 +177,7 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
         "client_id": "LAB.MIN.CITZ.MY-SUBSYSTEM",
         "service_id": "LAB.MIN.CITZ.SERVICE-A.v1",
         "upstream_url": "https://my-upstream-endpoint.domain",
-        "upgrades": {
-          "sign": {}
-        }
+        "upgrades": {}
       }
     }
     ```
@@ -237,17 +228,4 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
     }
     ```
 
-Available upgrades for the `sdx-p2p-provider.r1` pattern:
-
-```json
-{
-  "sign": {},
-  "verify": {},
-  "token_exchange": {
-    "token_endpoint": "",
-    "client_id": "",
-    "scopes": "",
-    "audience": ""
-  }
-}
-```
+For details on configuring the p2p pattern, go to [P2P Gateway Pattern Upgrades](/how-to/sdx-upgrades.md).

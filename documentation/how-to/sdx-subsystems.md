@@ -218,3 +218,7 @@ policies for connecting to other systems on SDX.
 
     An assigned Gateway ID will be returned. This Gateway can be used to configure
     routes and controls for services it connects to.
+
+## Next steps
+
+- [Connecting a service](/how-to/sdx-connections.md)

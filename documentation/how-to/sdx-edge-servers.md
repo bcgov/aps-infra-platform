@@ -1,8 +1,12 @@
 ---
-title: Provision a new Edge Server
+title: Provision a Runtime Group (Edge Server)
 ---
 
-This page shows how to provision a new Edge Server (Runtime Group) on the SDX Ecosystem.
+This page shows how to provision an Edge Server (Runtime Group) on the SDX Ecosystem.
+
+Before your systems can start to connect with other systems in SDX, your organization must
+either deploy an Edge Server in your own infrastructure (client-hosted), or you must signup
+for using one of the shared Edge Servers (community-hosted).
 
 The steps described in this page are performed by the following roles:
 
@@ -10,7 +14,11 @@ The steps described in this page are performed by the following roles:
 | ------------ | ------------------------------------------------------------------ |
 | System Owner | Request a new edge server, and manage onboarding a new edge server |
 
-Use cases:
+Use cases for community-hosted:
+
+- Signup to a community-hosted Edge Server
+
+Use cases for client-hosted:
 
 - Register a new Runtime Group
 - Request a one-time-use certificate signing token
@@ -21,6 +29,12 @@ Use cases:
 ## Prerequisites
 
 - [Install Restish CLI](/reference/restish-cli.md)
+
+## Signup to a community-hosted Edge Server
+
+There are two community-hosted Edge Server on Silver (edge_s) and Gold (edge_g).
+
+To signup to them, please reach out to the SDX Operation team.
 
 ## Register a new Runtime Group
 
@@ -163,3 +177,7 @@ to add the public key using the certificate from the runtime group.
   }
 }
 ```
+
+## Next steps
+
+- [Setup Organization Signing](/how-to/sdx-org-signing.md)
