@@ -18,6 +18,8 @@ Use cases:
 - Register a service
 - View API service catalog
 - Assign your subsystem to a runtime group
+- Delete a service
+- Delete a subsystem
 
 ## Prerequisites
 
@@ -75,12 +77,70 @@ Use cases:
 
 === "Reference"
 
-    > **API** `PUT /organizations/{org}/oas-service`
+    > **API** `PUT /organizations/{org}/oas-services`
 
     Parameters: `{org}=ministry-of-food`
 
     Specify the subsystem and choose a file for the OpenAPI Spec
     (YAML format) of your API.
+
+## Delete a service
+
+A service can be deleted when there are no active connection requests for it.
+
+=== "Reference"
+
+    > **API** `DELETE /organizations/{org}/oas-services/{name}`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<service-name>`
+
+    The delete request will not proceed if the service has active connection
+    requests.
+
+    After a service is deleted, the same service name can be used again.
+
+## Delete a subsystem
+
+A subsystem can be deleted when it has no active connection requests and no
+gateway configuration.
+
+If deletion succeeds, related OAS services are deleted with the subsystem.
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx delete-subsystem
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx delete-subsystem \
+      ministry-of-citz \
+      MY-NEW-SUBSYSTEM
+    ```
+
+=== "Reference"
+
+    > **API** `DELETE /organizations/{org}/subsystems/{name}`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<subsystem-name>`
+
+    The delete request will not proceed if any of the following are true:
+
+    - the subsystem has active connection requests as a client
+    - a service under the subsystem has active connection requests
+    - subsystem gateway configuration exists
+
+    After a subsystem is deleted, the same subsystem name can be used again.
 
 ## View API service catalog
 
@@ -139,7 +199,7 @@ Use cases:
           {
             "operationId": "createValidation",
             "method": "POST",
-            "path": "/versions/{version}/rulesets/{ruleset}/validations",
+            "path": "/versions/{version}/rulesets/{rule set}/validations",
             "summary": "Validate an OpenAPI document",
             "scopes": []
           }
@@ -169,7 +229,7 @@ policies for connecting to other systems on SDX.
       --filter available
     ```
 
-    Help information about the operation to assign  a runtime group:
+    Help information about the operation to assign a runtime group:
 
     ```sh
     restish sdx register-subsystem-gateway
@@ -218,3 +278,4 @@ policies for connecting to other systems on SDX.
 
     An assigned Gateway ID will be returned. This Gateway can be used to configure
     routes and controls for services it connects to.
+    
