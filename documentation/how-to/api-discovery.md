@@ -106,8 +106,8 @@ Here is the schema with example data, omitting some optional fields:
  | `title`      | API title shown in the API Directory                 |
  |`notes`      | API description, supports Markdown formatting                |
  |`tags`      | Keywords, may be used for search in the future                 |
- | `organization`      | Ministry or agency associated with the API ([options](https://api.gov.bc.ca/ds/api/v2/organizations)) that must match the organization associated with the Gateway                |
- | `organizationUnit`      | Organization business sub-unit. See `https://api.gov.bc.ca/ds/api/v2/organizations/<organization>` for options |
+ | `organization`      | Ministry or agency associated with the API ([options](https://api.gov.bc.ca/ds/api/v3/organizations)) that must match the organization associated with the Gateway                |
+ | `organizationUnit`      | Organization business sub-unit. See `https://api.gov.bc.ca/ds/api/v3/organizations/<organization>` for options |
  |`license_title`      | [Licensing options](https://bcgov.github.io/data-publication/pages/dps_licences.html)                |
  | `view_audience`      | Who can access the API                |
  | `security_class`      | [OCIO Information Security Classification Standard](https://www2.gov.bc.ca/assets/gov/government/services-for-government-and-broader-public-sector/information-technology-services/standards-files/618_information_security_classification_standard.pdf)                 |
@@ -217,6 +217,10 @@ your API, you are ready to make it available on the API Directory.
     Gateways list on the API Service Portal asking you to **Add
     Organization**. You will then need to wait for approval from the
     Organization Administrator.
+
+    Be sure the `organization` and `organizationUnit` in the Dataset match those
+    of your Gateway. 
+    You can retrieve your Gateway's organization and organization unit from https://api.gov.bc.ca/ds/api/v3/gateways/<gatewayId>.
 
 Enable an environment to display the API in the API Directory. You can
 individually enable each environment (`dev`, `test`, `prod`).
