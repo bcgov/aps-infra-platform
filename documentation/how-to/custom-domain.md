@@ -21,8 +21,8 @@ Before you begin, ensure you:
 ## Submit a request with APS
 
 Routing to a custom domain requires special permissions for your Gateway. Reach
-out to the APS team on Rocket.Chat in the
-[#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel or [open a
+out to the APS team in the
+[API-ProgramServices-operations](https://teams.microsoft.com/l/channel/19%3Ac81bf553c07647cebeb2aeb034ec0d25%40thread.tacv2/API-ProgramServices-operations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc) Microsoft Teams channel or [open a
 support
 ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2). 
 You will need to provide the fully qualified domain name (FQDN) and the `gatewayId` for your Gateway.
