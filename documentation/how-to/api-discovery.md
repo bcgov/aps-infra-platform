@@ -220,7 +220,7 @@ your API, you are ready to make it available on the API Directory.
 
     Be sure the `organization` and `organizationUnit` in the Dataset match those
     of your Gateway. 
-    You can retrieve your Gateway's organization and organization unit from https://api.gov.bc.ca/ds/api/v3/gateways/<gatewayId>.
+    You can retrieve your Gateway's organization and organization unit from `https://api.gov.bc.ca/ds/api/v3/gateways/<gatewayId>`.
 
 Enable an environment to display the API in the API Directory. You can
 individually enable each environment (`dev`, `test`, `prod`).
