@@ -17,8 +17,8 @@ consumers.
     and [technical documentation](https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs/).
   
   - Reach out to the APS team by opening a [support ticket](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2)
-    or on our [Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/)
-    channel (#aps-ops) if you can’t find the information you’re looking for.
+    or in the [API-ProgramServices-operations](https://teams.microsoft.com/l/channel/19%3Ac81bf553c07647cebeb2aeb034ec0d25%40thread.tacv2/API-ProgramServices-operations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc)
+    Microsoft Teams channel if you can’t find the information you’re looking for.
 
 - [ ] Have access to a production-ready API:
 

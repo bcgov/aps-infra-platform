@@ -8,7 +8,7 @@ Current list of plugins available on the API Gateway.
 > at a global level to feed logs to other systems for audit/monitoring/etc.
 
 > If there are other plugins that you would like to have added to the Gateway,
-> please reach out to us at our Rocket.Chat channel `#aps-ops`.
+> please reach out to us in the **API-ProgramServices-operations** Microsoft Teams channel (see [Get Support](/how-to/get-support.md)).
 
 For information about execution order, see: <https://docs.konghq.com/gateway/latest/plugin-development/custom-logic/#plugins-execution-order>
 

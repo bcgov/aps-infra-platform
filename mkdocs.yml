@@ -44,6 +44,7 @@ nav:
           - "how-to/sdx-org-onboarding.md"
           - "how-to/sdx-edge-servers.md"
           - "how-to/sdx-subsystems.md"
+          - "how-to/sdx-org-signing.md"
           - "how-to/sdx-connections.md"
   - Concepts:
       - "concepts/api-directory.md"
