@@ -64,7 +64,7 @@ can result in failover. APS aims to minimize these events but maintains a high
 level of sensitivity on the health endpoint to minimize downtime in the event of
 an incident.
 
-In case of failover, a notification will be sent to [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) on Rocket.Chat.
+In case of failover, a notification will be sent to the [API-ProgramServices-alerts](https://teams.microsoft.com/l/channel/19%3A9e361a77b63442ea9726ca560738205c%40thread.tacv2/API-ProgramServices-alerts?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc) Microsoft Teams channel.
 
 ## When will services be restored to Gold after failover?
 
@@ -72,7 +72,7 @@ APS aims to recover services to Gold by the next business day following
 failover. As with failover, there will be no gateway downtime but a short
 maintenance window for gateway administration.
 
-Notifications will be sent to #aps-ops on Rocket.Chat announcing when recovery
+Notifications will be sent to **API-ProgramServices-alerts** on Microsoft Teams announcing when recovery
 will occur and after recovery is complete.
 
 ## What do API provider teams need to do?

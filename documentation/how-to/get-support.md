@@ -11,8 +11,8 @@ our support hours and channels.
 
 Support is available during business hours, 8:30 am to 4:30 pm Pacific Time,
 Monday to Friday, for all teams using the platform. During these hours, you can
-reach out via [Rocket.Chat](https://chat.developer.gov.bc.ca/channel/aps-ops)
-or our [Support Portal](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2).
+reach out via the [API-ProgramServices-operations](https://teams.microsoft.com/l/channel/19%3Ac81bf553c07647cebeb2aeb034ec0d25%40thread.tacv2/API-ProgramServices-operations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc)
+Microsoft Teams channel or our [Support Portal](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2).
 
 Extended/out-of-hours support is available 24/7 for API providers running
 critical services with geo-redundancy. The cost of providing this service is
@@ -22,15 +22,17 @@ Support Portal.
 
 ## Support channels
 
-### Rocket.Chat
+### Microsoft Teams
 
-For real-time support and community discussion:
+API Program Services uses two Microsoft Teams channels:
 
-1. Create an account on [Rocket.Chat](https://docs.developer.gov.bc.ca/join-bc-rocket-chat/)
-2. Join the [#aps-ops](https://chat.developer.gov.bc.ca/channel/aps-ops) channel
-3. Post your question or issue
+**[API-ProgramServices-operations](https://teams.microsoft.com/l/channel/19%3Ac81bf553c07647cebeb2aeb034ec0d25%40thread.tacv2/API-ProgramServices-operations?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc)** — questions and usage guidance about the API Services Portal and API Gateway. Post here for real-time support and community discussion.
 
-This is the best channel for:
+**[API-ProgramServices-alerts](https://teams.microsoft.com/l/channel/19%3A9e361a77b63442ea9726ca560738205c%40thread.tacv2/API-ProgramServices-alerts?groupId=a80418da-c27b-406e-89ab-7695b61924d8&tenantId=6fdb5200-3d0d-4a8a-b036-d3685e359adc)** — time-sensitive, user-impacting notices: incidents, outages, scheduled maintenance, releases, and breaking changes.
+
+The channels are currently restricted to BC Public Service employees. External clients can [request access to a Teams channel](https://dpdd.atlassian.net/servicedesk/customer/portal/1/group/2/create/5?summary=Microsoft+Teams+channel+access+%28API+Program+Services%29&description=Please+grant+access+to+the+API+Program+Services+Microsoft+Teams+channels.%0A%0AInclude%3A%0A%E2%80%A2+Organization+or+ministry+name%0A%E2%80%A2+Email+address%28es%29+to+add+to+Teams%0A%E2%80%A2+Channels%3A+API-ProgramServices-operations+%28support%29%2C+API-ProgramServices-alerts+%28incidents+and+notices%29%2C+or+both%0A%0AAdditional+context+%28optional%29%3A).
+
+**API-ProgramServices-operations** is the best place for:
 
 - Quick questions
 - Community discussion
