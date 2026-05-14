@@ -31,6 +31,7 @@ Use cases for `client-hosted`:
 ## Prerequisites
 
 - [Install Restish CLI](/reference/restish-cli.md)
+- [Install Helm](https://helm.sh/docs/intro/install/) (if deploying the runtime group infrastructure)
 
 ## Register a new runtime group
 
@@ -105,7 +106,7 @@ This is performed by a System Owner to request a new cert signing token.
 
 === "Reference"
 
-    - **API** `PUT /organizations/{org}/runtime-groups/{name}/tokens`
+    - **API** `POST /organizations/{org}/runtime-groups/{name}/tokens`
 
     Parameters:
 
@@ -143,7 +144,7 @@ default routing policies for this runtime group.
 
 === "Restish CLI"
 
-    Help information about the operation to assign  a runtime group:
+    Help information about the operation to assign a runtime group:
 
     ```sh
     restish sdx register-runtime-group-gateway
@@ -156,14 +157,29 @@ default routing policies for this runtime group.
       ministry-of-citz newrg
     ```
 
-    An assigned Gateway ID will be returned. This Gateway can be used to configure
-    default routes and controls for this runtime group.
+=== "Reference"
+
+    - **API** `PUT /organizations/{org}/runtime-groups/{name}/gateway`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<your-runtime-group-name>`
+
+An assigned Gateway ID will be returned. This Gateway can be used to configure
+default routes and controls for this runtime group.
 
 ## Apply default routes and controls
 
+You can now call the API to preview and then publish Gateway configuration
+containing the default routing rules for the runtime group.
+
+For `action=apply` you can specify `dryRun=true` if you want to see what changes
+will be applied without the changes actually being made.
+
 === "Restish CLI"
 
-    Help information about the operation to list available runtimes:
+    Help information about the operation to generate and apply Gateway configuration:
 
     ```sh
     restish sdx generate-config-from-pattern
@@ -180,18 +196,12 @@ default routing policies for this runtime group.
 
 === "Reference"
 
-    You can now call the API to preview and then publish the default routing rules for
-    the runtime group.
-
     - **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
 
     Parameters:
 
     - `{org}=<your-organization>`
     - values for `action`: `preview` and `apply`
-
-    For `action=apply` you can specify `dryRun=true` if you want to see what changes
-    will be applied without the changes actually being made.
 
     ```json
     {
