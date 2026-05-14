@@ -29,8 +29,6 @@ Available environments:
 
 This is performed by the SDX Operator to onboard a new Organization.
 
-=== "Restish CLI"
-
 === "Reference"
 
     - **API** `PUT /organizations/{org}`
@@ -79,4 +77,4 @@ Parameters: `{org}=ministry-of-food`
 
 ## Next steps
 
-- [Provision an edge server](/how-to/sdx-edge-servers.md)
+- [Install a Runtime Group](/how-to/sdx-edge-servers.md)

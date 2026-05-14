@@ -1,5 +1,5 @@
 ---
-title: "Managing systems and services"
+title: "Managing Systems and Services"
 ---
 
 ## Overview
@@ -221,4 +221,4 @@ policies for connecting to other systems on SDX.
 
 ## Next steps
 
-- [Connecting a service](/how-to/sdx-connections.md)
+- [Connecting a Service](/how-to/sdx-connections.md)

@@ -155,7 +155,8 @@ routing rules for opening a channel between the two systems.
     }
     ```
 
-For details on configuring the p2p pattern, go to [P2P Gateway Pattern Upgrades](/how-to/sdx-upgrades.md).
+For details on configuring the `sdx-p2p-consumer.r1` pattern,
+go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
 
 ### Provider side
 
@@ -228,4 +229,5 @@ For details on configuring the p2p pattern, go to [P2P Gateway Pattern Upgrades]
     }
     ```
 
-For details on configuring the p2p pattern, go to [P2P Gateway Pattern Upgrades](/how-to/sdx-upgrades.md).
+For details on configuring the `sdx-p2p-provider.r1` pattern,
+go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).

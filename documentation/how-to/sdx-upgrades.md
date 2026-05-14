@@ -1,24 +1,23 @@
 ---
-title: "P2P Gateway Pattern Upgrades"
+title: "Connection Gateway Patterns"
 ---
 
 Gateway patterns for peer-to-peer will have different rules over time around how
 they should be configured. This page describes the rules for each policy release.
 
-As new feature like token exchange, dpop, and policy enforcement engine get added,
-there will be a new policy version describing what is required for a connection
-between systems.
+## **SDX.R0.00**
 
-## Releases
+This policy makes all controls/upgrades optional - it only opens up the connection
+between the two subsystems. This will be used in development only. Test and
+production will require certain controls to be configured in a particular way.
 
-### SDX.R0.00
-
-#### sdx-p2p-consumer.r1
+### sdx-p2p-consumer.r1
 
 - following parameters MUST be set: `conn_id`, `client_id`, `service_id`
 - following parameters MAY be set: `tls_verify`, `upgrades`, `rg_override`
 - `rg_override` can be `subsystem` (the RG that the client subsystem
-  is associated with) or `pzgw` (Privacy Zone Gateway)
+  is associated with) or `pzgw` (A public-facing RG for handling token
+  requirements, such as token exchange and policy enforcement)
 
 | Parameter     | Type               | Rule                          |
 | ------------- | ------------------ | ----------------------------- |
@@ -30,45 +29,64 @@ between systems.
 
 **upgrades:**
 
-| Parameter         | Type     | Rule                |
-| ----------------- | -------- | ------------------- |
-| `dpop`            | object   | optional            |
-|                   |          |                     |
-| `sign`            | object   | optional            |
-|                   |          |                     |
-| `verify`          | object   | optional            |
-|                   |          |                     |
-| `counter_sign`    | object   | optional            |
-|                   |          |                     |
-| `token_exchange`  | object   | optional            |
-| `.client_id`      | string   | required            |
-| `.token_endpoint` | string   | required, any value |
-| `.scopes`         | string[] | optional            |
-| `.audience`       | string   | optional            |
+| Parameter                          | Type     | Rule                |
+| ---------------------------------- | -------- | ------------------- |
+| `sign`                             | object   | optional            |
+|                                    |          |                     |
+| `verify`                           | object   | optional            |
+|                                    |          |                     |
+| `counter_sign`                     | object   | optional            |
+|                                    |          |                     |
+| `dpop`                             | object   | optional            |
+|                                    |          |                     |
+| `token`                            | object   | optional            |
+| `.allowed_aud`                     | string   | required            |
+| `.allowed_iss`                     | string[] | required            |
+| `.scope`                           | string   | optional            |
+| `.consumer_match`                  | boolean  | optional            |
+| `.consumer_match_claim`            | string   | optional            |
+| `.consumer_match_claim_custom_id`  | boolean  | optional            |
+| `.consumer_match_ignore_not_found` | boolean  | optional            |
+|                                    |          |                     |
+| `token_exchange`                   | object   | optional            |
+| `.client_id`                       | string   | required            |
+| `.token_endpoint`                  | string   | required, any value |
+| `.scopes`                          | string[] | optional            |
+| `.audience`                        | string   | optional            |
 
-#### sdx-p2p-provider.r1
+### sdx-p2p-provider.r1
 
 - following parameters MUST be set: `conn_id`, `client_id`, `service_id`
 - following parameters MAY be set: `tls_verify`, `upgrades`, `rg_override`
 - `rg_override` can be `subsystem` (the RG that the client subsystem
   is associated with) or `pzgw` (Privacy Zone Gateway)
 
-| Parameter     | Type               | Rule                          |
-| ------------- | ------------------ | ----------------------------- |
-| `conn_id`     | string             | required                      |
-| `client_id`   | string             | required                      |
-| `service_id`  | string             | required                      |
-| `rg_override` | `subsystem / pzgw` | optional, default `subsystem` |
-| `upgrades`    | object             | optional                      |
+| Parameter    | Type   | Rule     |
+| ------------ | ------ | -------- |
+| `conn_id`    | string | required |
+| `client_id`  | string | required |
+| `service_id` | string | required |
+| `upgrades`   | object | optional |
 
 **upgrades:**
 
-| Parameter      | Type   | Rule     |
-| -------------- | ------ | -------- |
-| `mtls_auth`    | object | optional |
-|                |        |          |
-| `mtls_acl`     | object | optional |
-|                |        |          |
-| `verify`       | object | optional |
-|                |        |          |
-| `counter_sign` | object | optional |
+| Parameter                          | Type     | Rule     |
+| ---------------------------------- | -------- | -------- |
+| `mtls_auth`                        | object   | optional |
+|                                    |          |          |
+| `mtls_acl`                         | object   | optional |
+|                                    |          |          |
+| `sign`                             | object   | optional |
+|                                    |          |          |
+| `verify`                           | object   | optional |
+|                                    |          |          |
+| `counter_sign`                     | object   | optional |
+|                                    |          |          |
+| `token`                            | object   | optional |
+| `.allowed_aud`                     | string   | required |
+| `.allowed_iss`                     | string[] | required |
+| `.scope`                           | string   | optional |
+| `.consumer_match`                  | boolean  | optional |
+| `.consumer_match_claim`            | string   | optional |
+| `.consumer_match_claim_custom_id`  | boolean  | optional |
+| `.consumer_match_ignore_not_found` | boolean  | optional |
