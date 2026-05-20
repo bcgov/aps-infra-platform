@@ -117,7 +117,7 @@ details so that it can start to receive messages from the publisher.
 
 The RS published an AsyncAPI spec to state all the events it will publish.
 
-The RS will use its local Edge Server consumer endpoint to send a message.
+The RS will use its local runtime group consumer endpoint to send a message.
 It will eventually require a valid token.
 
 ```sh

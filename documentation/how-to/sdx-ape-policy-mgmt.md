@@ -66,8 +66,6 @@ step.
 ```json
 {
     "upgrades": {
-      "sign": {},
-      "_co-sign": {},
       "pep": {
         "policy_name": "authz"
       }
@@ -80,7 +78,7 @@ The data source (policy information point) is a powerful way of pulling in autho
 data to be used in the decision making. The `upstream_url` should be accessible from the
 runtime group that the subsystem is registered on.
 
-```sh
+```json
 {
   "pattern": "opal-data-source.r1",
   "parameters": {
@@ -94,7 +92,7 @@ runtime group that the subsystem is registered on.
 For referencing the data source in your policy, use the `subsystem_id` package convention:
 
 ```sh
-import data.tenant["LAB.USR.ACOPE.APS-KAFKA"] as dat`
+import data.tenant["LAB.USR.ACOPE.APS-KAFKA"] as dat
 
 items := {row |
     row := dat["user-gateways"]

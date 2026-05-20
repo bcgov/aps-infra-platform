@@ -26,7 +26,7 @@ Use cases for `client-hosted`:
 - Deploy the runtime group infrastructure
 - Apply default routes and controls
 - Verification test
-- Add public key to registry
+- Add public key to the registry
 
 ## Prerequisites
 
@@ -229,7 +229,7 @@ curl -v --resolve internal.${DOMAIN}:8000:127.0.0.1 \
   http://internal.${DOMAIN}:8000/hello
 ```
 
-## Add public key to registry
+## Add public key to the registry
 
 The public key will be used for other runtime groups to verify the integrity
 of the request.
