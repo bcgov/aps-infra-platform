@@ -30,7 +30,8 @@ following resources:
 How-to guides
 
 - [Onboarding an organization onto SDX](/how-to/sdx-org-onboarding.md)
-- [Provision a new Runtime Group (Edge Server)](/how-to/sdx-edge-servers.md)
+- [Install a runtime group](/how-to/sdx-edge-servers.md)
 - [Managing systems and services](/how-to/sdx-subsystems.md)
-- [Setup organization signing](/how-to/sdx-org-signing.md)
 - [Connecting a Service](/how-to/sdx-connections.md)
+- [Event Mgmt (preview)](/how-to/sdx-ape-event-mgmt.md)
+- [Policy Mgmt (preview)](/how-to/sdx-ape-policy-mgmt.md)

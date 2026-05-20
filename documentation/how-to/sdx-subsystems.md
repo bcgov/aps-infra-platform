@@ -1,5 +1,5 @@
 ---
-title: "Managing systems and services"
+title: "Managing Systems and Services"
 ---
 
 ## Overview
@@ -278,4 +278,7 @@ policies for connecting to other systems on SDX.
 
     An assigned Gateway ID will be returned. This Gateway can be used to configure
     routes and controls for services it connects to.
-    
+
+## Next steps
+
+- [Connecting a Service](/how-to/sdx-connections.md)

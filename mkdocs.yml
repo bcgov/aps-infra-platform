@@ -43,9 +43,12 @@ nav:
       - Secure Data Exchange:
           - "how-to/sdx-org-onboarding.md"
           - "how-to/sdx-edge-servers.md"
-          - "how-to/sdx-subsystems.md"
           - "how-to/sdx-org-signing.md"
+          - "how-to/sdx-subsystems.md"
           - "how-to/sdx-connections.md"
+          - "how-to/sdx-upgrades.md"
+          - "how-to/sdx-ape-event-mgmt.md"
+          - "how-to/sdx-ape-policy-mgmt.md"
   - Concepts:
       - "concepts/api-directory.md"
       - "concepts/services.md"
