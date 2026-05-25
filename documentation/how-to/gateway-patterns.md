@@ -32,7 +32,7 @@ Before you begin, ensure you:
 
 2. Generate gateway configuration and apply it.
 
-   Using the `gwa` command line (version `3.0.7` or higher),
+   Using the `gwa` command line (version `3.1.1` or higher),
    run `gateway-pattern` using your inputs, and pipe the output to the `apply` command:
 
 ```sh linenums="0"
