@@ -67,7 +67,7 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          GWA_CLI_VERSION=v3.0.7
+          GWA_CLI_VERSION=v3.1.1
           curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
           tar -xf gwa_Linux_x86_64.tgz
 
@@ -131,7 +131,7 @@ jobs:
 
       - name: Get GWA Command Line
         run: |
-          GWA_CLI_VERSION=v3.0.7
+          GWA_CLI_VERSION=v3.1.1
           curl -L -O https://github.com/bcgov/gwa-cli/releases/download/${GWA_CLI_VERSION}/gwa_Linux_x86_64.tgz
           tar -xf gwa_Linux_x86_64.tgz
 

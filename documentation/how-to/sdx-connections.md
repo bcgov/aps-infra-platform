@@ -156,14 +156,8 @@ routing rules for opening a channel between the two systems.
     }
     ```
 
-Available upgrades for the `sdx-p2p-consumer.r1` pattern:
-
-```json
-{
-  "sign": {},
-  "verify": {}
-}
-```
+For details on configuring the `sdx-p2p-consumer.r1` pattern,
+go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
 
 ### Provider side
 
@@ -185,9 +179,7 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
         "client_id": "LAB.MIN.CITZ.MY-SUBSYSTEM",
         "service_id": "LAB.MIN.CITZ.SERVICE-A.v1",
         "upstream_url": "https://my-upstream-endpoint.domain",
-        "upgrades": {
-          "sign": {}
-        }
+        "upgrades": {}
       }
     }
     ```
@@ -238,20 +230,9 @@ Available upgrades for the `sdx-p2p-consumer.r1` pattern:
     }
     ```
 
-Available upgrades for the `sdx-p2p-provider.r1` pattern:
+For details on configuring the `sdx-p2p-provider.r1` pattern,
+go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
 
-```json
-{
-  "sign": {},
-  "verify": {},
-  "token_exchange": {
-    "token_endpoint": "",
-    "client_id": "",
-    "scopes": "",
-    "audience": ""
-  }
-}
-```
 
 ## Delete a connection request
 

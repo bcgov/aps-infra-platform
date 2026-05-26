@@ -3,10 +3,17 @@ title: "Setup Organization Signing"
 ---
 
 Organization signing is used to cryptographically verify that messages were transmitted
-with permission between the involved systems.
+with permission between the involved systems using an authorized Runtime Group.
 
-Before systems can make connections, the organization must register signing keys
-with the Runtime Group that their systems are using to connect to SDX.
+!!! note "Setup is Optional"
+
+    There are various upgrades related to the connection that can be enabled.
+    Performing the counter-sign using the organization keys is one of these upgrades.
+    See [Connection Gateway Patterns](/how-to/sdx-upgrades.md) for more information.
+
+    If policy requires this to be enabled, then follow the steps to setup organization
+    signing. The organization must register signing keys
+    with the Runtime Group that their systems are using to connect to SDX.
 
 | Role               | Function                             |
 | ------------------ | ------------------------------------ |
@@ -16,7 +23,7 @@ Use cases:
 
 - Request a new signing key CSR
 - Get the CSR signed by an approved Certificate Authority
-- Register CA signed certificate
+- Add CA signed certificate to registry
 
 ## Prerequisites
 
@@ -80,14 +87,32 @@ SDX Operator provides a Certificate Authority (CA).
 
 Reach out to the APS team with your CSR to get it reviewed, approved and signed.
 
-## Register the CA signed certificate
+## Add CA signed certificate to registry
 
 Once you receive back the certificate, save the certificate
 (and its intermediate CAs) in a `new.crt` file, and the root
 certificate for the CA in `root.crt`.
 
+Use one of the root certificates from below depending on your environment:
+
+**dev**:
+
+```text
+-----BEGIN CERTIFICATE-----
+MIIBozCCAUqgAwIBAgIRAOqrFxwuBQzATeE2ybv4ci8wCgYIKoZIzj0EAwIwMDEu
+MCwGA1UEAxMlQ1NCQyBTZWN1cmUgRGF0YSBFeGNoYW5nZSBERVYgUm9vdCBDQTAe
+Fw0yNjAzMjEyMDE2MDFaFw0zNjAzMTgyMDE2MDFaMDAxLjAsBgNVBAMTJUNTQkMg
+U2VjdXJlIERhdGEgRXhjaGFuZ2UgREVWIFJvb3QgQ0EwWTATBgcqhkjOPQIBBggq
+hkjOPQMBBwNCAASkZrREActpsjEdst6vKcQmxEeO6OuVnoBQ7luxWymcSosJJCHD
+WEV/2e9EyGPLHpw5RstPgx+Ha5D6+BcKGzjio0UwQzAOBgNVHQ8BAf8EBAMCAQYw
+EgYDVR0TAQH/BAgwBgEB/wIBAjAdBgNVHQ4EFgQUYb2Jz7MuAOKY8bu9NM6tjvS6
+xkYwCgYIKoZIzj0EAwIDRwAwRAIgTFXSb8bq5Z8P8oICO3BVHkHxCm0GRcqL10TL
+GtlsuWYCIBPfZrhbZX4oFhEk0sq7HXlBJuh6Zaa6dcsO3RIUt1Gm
+-----END CERTIFICATE-----
+```
+
 You will then be able to use this information to update the
-public key details with the new certificate.
+public key details with the new certificate in the JWKS registry.
 
 === "Restish CLI"
 

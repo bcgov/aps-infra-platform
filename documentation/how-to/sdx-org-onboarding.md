@@ -19,18 +19,15 @@ Use cases:
 
 Available environments:
 
-| Environment | Links                                                                                                                                                                                                                                                           |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `LAB`       | [API Console](https://api-gov-bc-ca-lab.dev.api.gov.bc.ca/ds/api/sdx/v1/console), [OpenAPI Specification](https://api-gov-bc-ca-lab.dev.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-gov-bc-ca-lab.dev.api.gov.bc.ca/login?identity=provider) |
-| `DEV`       | [API Console](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/console), [OpenAPI Specification](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-gov-bc-ca.dev.api.gov.bc.ca/login?identity=provider)             |
-| `TEST`      | Coming soon                                                                                                                                                                                                                                                     |
-| `PROD`      | Coming soon                                                                                                                                                                                                                                                     |
+| Environment | Links                                                                                                                                                                                                                                               |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DEV`       | [API Console](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/console), [OpenAPI Specification](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-gov-bc-ca.dev.api.gov.bc.ca/login?identity=provider) |
+| `TEST`      | Coming soon                                                                                                                                                                                                                                         |
+| `PROD`      | Coming soon                                                                                                                                                                                                                                         |
 
 ## Register new organization
 
 This is performed by the SDX Operator to onboard a new Organization.
-
-=== "Restish CLI"
 
 === "Reference"
 
@@ -77,3 +74,7 @@ Parameters: `{org}=ministry-of-food`
   ]
 }
 ```
+
+## Next steps
+
+- [Install a Runtime Group](/how-to/sdx-edge-servers.md)
