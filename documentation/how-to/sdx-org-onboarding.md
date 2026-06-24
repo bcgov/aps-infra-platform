@@ -29,6 +29,32 @@ Available environments:
 
 This is performed by the SDX Operator to onboard a new Organization.
 
+=== "Restish CLI"
+
+    Help information about the operation to list available runtimes:
+
+    ```sh
+    restish aps put-organization
+    ```
+
+    Example:
+
+    ```sh
+    echo '
+    {
+      "name": "my-org",
+      "title": "My Org",
+      "description": "It is an organization for me",
+      "extSource": "custom",
+      "extRecordHash": "0000",
+      "tags": [
+        "member_class:MIN", "member_id:MYORG"
+      ],
+      "orgUnits": []
+    }
+    ' | restish aps put-organization ca.bc.gov
+    ```
+
 === "Reference"
 
     - **API** `PUT /organizations/{org}`
@@ -37,13 +63,15 @@ This is performed by the SDX Operator to onboard a new Organization.
 
     ```json
     {
-      "extForeignKey": "ministry-of-food",
       "name": "ministry-of-food",
       "title": "Ministry of Food",
       "description": "It is a ministry concerned with food",
       "extSource": "custom",
       "extRecordHash": "0000",
-      "tags": [],
+      "tags": [
+        { "member_class": "MIN", "member_id": "FOOD" }
+      ],
+      "publicBodyId": null,
       "orgUnits": []
     }
     ```
@@ -56,24 +84,54 @@ their systems and services.
 The `System Owner` is able to register new subsystems and services
 and browse the service catalog.
 
-> **API** `PUT /organizations/{org}/access`
+=== "Restish CLI"
 
-Parameters: `{org}=ministry-of-food`
+    Help information about the operation to list available runtimes:
 
-```json
-{
-  "name": "ministry-of-food",
-  "parent": "/ca.bc.gov",
-  "members": [
+    ```sh
+    restish aps put-organization-access
+    ```
+
+    Example:
+
+    ```sh
+    echo '
     {
-      "member": {
-        "email": "janis@testmail.com"
-      },
-      "roles": ["system-owner"]
+      "name": "my-org",
+      "parent": "/ca.bc.gov",
+      "members": [
+        {
+          "member": {
+            "email": "aidan.cope@gov.bc.ca"
+          },
+          "roles": ["system-owner"]
+        }
+      ]
     }
-  ]
-}
-```
+    ' | restish aps put-organization-access ca.bc.gov
+
+    ```
+
+=== "Reference"
+
+    - API `PUT /organizations/{org}/access`
+
+    Parameters: `{org}=ministry-of-food`
+
+    ```json
+    {
+      "name": "ministry-of-food",
+      "parent": "/ca.bc.gov",
+      "members": [
+        {
+          "member": {
+            "email": "janis@testmail.com"
+          },
+          "roles": ["system-owner"]
+        }
+      ]
+    }
+    ```
 
 ## Next steps
 

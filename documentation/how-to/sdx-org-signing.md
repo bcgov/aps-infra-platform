@@ -43,8 +43,8 @@ Use cases:
 
     ```sh
     restish sdx create-new-key \
-      ministry-of-citz \
-      runtimeGroupName: TARGET-RUNTIME-GROUP-NAME
+      my-org \
+      environment: lab, runtimeGroupName: newrg
     ```
 
 The inputs for the CSR will be derived from your organization details and the
@@ -119,14 +119,14 @@ public key details with the new certificate in the JWKS registry.
     Help information about the operation:
 
     ```sh
-    restish sdx generate-config-from-pattern
+    restish sdx provision-config-from-pattern
     ```
 
     Example call:
 
     ```sh
-    restish sdx generate-config-from-pattern \
-      ministry-of-citz \
-      --action apply --dry-run=false \
-      'pattern:sdx-keys.r1, parameters:{ certificate_pem[0]: @new.crt, ca_certs: @root.crt }'
+    restish sdx provision-config-from-pattern \
+      my-org \
+      --action apply \
+      'pattern:sdx-keys.r1, parameters:{ certificatePem[0]: @new.crt, caCerts: @root.crt }'
     ```

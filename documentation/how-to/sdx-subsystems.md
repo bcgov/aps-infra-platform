@@ -32,14 +32,14 @@ Use cases:
     Help information about the operation:
 
     ```sh
-    restish sdx create-subsystem
+    restish sdx upsert-subsystem
     ```
 
     Example call:
 
     ```sh
-    restish sdx create-subsystem \
-      ministry-of-citz \
+    restish sdx upsert-subsystem \
+      my-org \
       name: MY-NEW-SUBSYSTEM
     ```
 
@@ -69,8 +69,9 @@ Use cases:
 
     ```sh
     restish sdx create-oas-service \
-      ministry-of-citz \
+      my-org \
       --subsystem MY-NEW-SUBSYSTEM \
+      --environment lab \
       --rsh-header "Content-Type: application/yaml" \
       < openapi.yaml
     ```
@@ -83,64 +84,6 @@ Use cases:
 
     Specify the subsystem and choose a file for the OpenAPI Spec
     (YAML format) of your API.
-
-## Delete a service
-
-A service can be deleted when there are no active connection requests for it.
-
-=== "Reference"
-
-    > **API** `DELETE /organizations/{org}/oas-services/{name}`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - `{name}=<service-name>`
-
-    The delete request will not proceed if the service has active connection
-    requests.
-
-    After a service is deleted, the same service name can be used again.
-
-## Delete a subsystem
-
-A subsystem can be deleted when it has no active connection requests and no
-gateway configuration.
-
-If deletion succeeds, related OAS services are deleted with the subsystem.
-
-=== "Restish CLI"
-
-    Help information about the operation:
-
-    ```sh
-    restish sdx delete-subsystem
-    ```
-
-    Example:
-
-    ```sh
-    restish sdx delete-subsystem \
-      ministry-of-citz \
-      MY-NEW-SUBSYSTEM
-    ```
-
-=== "Reference"
-
-    > **API** `DELETE /organizations/{org}/subsystems/{name}`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - `{name}=<subsystem-name>`
-
-    The delete request will not proceed if any of the following are true:
-
-    - the subsystem has active connection requests as a client
-    - a service under the subsystem has active connection requests
-    - subsystem gateway configuration exists
-
-    After a subsystem is deleted, the same subsystem name can be used again.
 
 ## View API service catalog
 
@@ -225,7 +168,7 @@ policies for connecting to other systems on SDX.
 
     ```sh
     restish sdx list-runtime-groups \
-      ministry-of-citz \
+      my-org \
       --filter available
     ```
 
@@ -239,8 +182,8 @@ policies for connecting to other systems on SDX.
 
     ```sh
     restish sdx register-subsystem-gateway \
-      ministry-of-citz MY-NEW-SUBSYSTEM \
-      runtimeGroupName: edge1
+      my-org MY-NEW-SUBSYSTEM \
+      runtimeGroupName: newrg
     ```
 
     An assigned Gateway ID will be returned. This Gateway can be used to configure
@@ -278,6 +221,80 @@ policies for connecting to other systems on SDX.
 
     An assigned Gateway ID will be returned. This Gateway can be used to configure
     routes and controls for services it connects to.
+
+## Subsystem management
+
+### Delete a service
+
+A service can be deleted when there are no active connection requests for it.
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx delete-organization-oas-service
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx delete-organization-oas-service \
+      my-org SERVICE-NAME
+    ```
+
+=== "Reference"
+
+    > **API** `DELETE /organizations/{org}/oas-services/{name}`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<service-name>`
+
+    The delete request will not proceed if the service has active connection
+    requests.
+
+    After a service is deleted, the same service name can be used again.
+
+### Delete a subsystem
+
+A subsystem can be deleted when it has no active connection requests and no
+gateway configuration.
+
+If deletion succeeds, related OAS services are deleted with the subsystem.
+
+=== "Restish CLI"
+
+    Help information about the operation:
+
+    ```sh
+    restish sdx delete-subsystem
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx delete-subsystem \
+      my-org SUBSYSTEM-NAME
+    ```
+
+=== "Reference"
+
+    > **API** `DELETE /organizations/{org}/subsystems/{name}`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<subsystem-name>`
+
+The delete request will not proceed if any of the following are true:
+
+- the subsystem has active connection requests as a client
+- a service under the subsystem has active connection requests
+- subsystem gateway configuration exists
+
+After a subsystem is deleted, the same subsystem name can be used again.
 
 ## Next steps
 

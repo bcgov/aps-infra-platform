@@ -50,8 +50,8 @@ will be used to route traffic to this runtime group.
 
     ```sh
     restish sdx create-runtime-group \
-      ministry-of-citz \
-      'name: newrg, hostedOrganizations: ["ministry-of-citz"], sdxEndpoint: "https://142.34.194.118:443"'
+      my-org \
+      'name: newrg, environment: lab, hostedOrganizations: ["my-org"], sdxEndpoint: "https://142.34.194.118:443"'
     ```
 
 === "Reference"
@@ -67,6 +67,7 @@ will be used to route traffic to this runtime group.
     ```json
     {
       "name": "abc123",
+      "environment": "dev",
       "sdxEndpoint": "https://142.34.194.118:443",
       "consumerEndpoint": "http://internal.abc123.servers.sdx",
       "hostedOrganizations": ["ministry-X", "ministry-Y"]
@@ -76,6 +77,7 @@ will be used to route traffic to this runtime group.
     | Attribute             | Description                                                                           |
     | --------------------- | ------------------------------------------------------------------------------------- |
     | `name`                | Unique identifier (lowercase alphanumeric text between 3 and 8 characters)            |
+    | `environment`         | Target environment |
     | `sdxEndpoint`         | Routable IP-based endpoint from the internet (example above is the Gold ingress IP)   |
     | `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)  |
     | `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runtime Group |
@@ -101,7 +103,7 @@ This is performed by a System Owner to request a new cert signing token.
 
     ```sh
     restish sdx generate-one-time-use-token \
-      ministry-of-citz newrg
+      my-org newrg lab
     ```
 
 === "Reference"
@@ -134,7 +136,7 @@ helm upgrade --install ${EDGE_ID} \
   --set bootstrap.tls.cn=${DOMAIN} \
   --set bootstrap.tls.ip=${IP} \
   --set route.host=${DOMAIN} \
-  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.2.0
+  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.0
 ```
 
 ## Create runtime group gateway
@@ -154,7 +156,7 @@ default routing policies for this runtime group.
 
     ```sh
     restish sdx register-runtime-group-gateway \
-      ministry-of-citz newrg
+      my-org newrg
     ```
 
 === "Reference"
@@ -169,7 +171,7 @@ default routing policies for this runtime group.
 An assigned Gateway ID will be returned. This Gateway can be used to configure
 default routes and controls for this runtime group.
 
-## Apply default routes and controls
+## Provision default routes and controls
 
 You can now call the API to preview and then publish Gateway configuration
 containing the default routing rules for the runtime group.
@@ -182,16 +184,16 @@ will be applied without the changes actually being made.
     Help information about the operation to generate and apply Gateway configuration:
 
     ```sh
-    restish sdx generate-config-from-pattern
+    restish sdx provision-config-from-pattern
     ```
 
     Example:
 
     ```sh
-    restish sdx generate-config-from-pattern \
-      ministry-of-citz \
-      --action apply --dry-run=false \
-      'pattern:sdx-runtime-group.r1, parameters:{ runtime_group_name: "newrg" }'
+    restish sdx provision-config-from-pattern \
+      my-org \
+      --action apply \
+      'pattern:sdx-runtime-group.r1, parameters:{ runtimeGroupName: newrg, environment: lab }'
     ```
 
 === "Reference"
@@ -201,7 +203,7 @@ will be applied without the changes actually being made.
     Parameters:
 
     - `{org}=<your-organization>`
-    - values for `action`: `preview` and `apply`
+    - values for `action`: `preview`, `diff`, `apply` and `delete`
 
     ```json
     {
@@ -242,16 +244,16 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
     Help information about the operation:
 
     ```sh
-    restish sdx generate-config-from-pattern
+    restish sdx provision-config-from-pattern
     ```
 
     Example call:
 
     ```sh
-    restish sdx generate-config-from-pattern \
-      ministry-of-citz \
-      --action apply --dry-run=false \
-      'pattern:sdx-keys.r1, parameters:{ certificate_pem[0]: @tls.crt, runtime_group_name: "newrg" }'
+    restish sdx provision-config-from-pattern \
+      my-org \
+      --action apply \
+      'pattern:sdx-keys.r1, parameters:{ certificatePem[0]: @tls.crt, runtimeGroupName: newrg, environment: lab }'
     ```
 
 === "Reference"
