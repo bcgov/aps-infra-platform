@@ -16,6 +16,7 @@ Use cases:
 
 - Register new organization
 - System Owner role assignment
+- Assign gateway for organization
 
 Available environments:
 
@@ -131,6 +132,27 @@ and browse the service catalog.
         }
       ]
     }
+    ```
+
+## Assign gateway for organization
+
+An organization will have public keys that it will use for organization signing of
+traffic through SDX. Each organization is assigned a unique gateway where the
+public keys are managed.
+
+=== "Restish CLI"
+
+    Help information about the operation to assign a runtime group:
+
+    ```sh
+    restish sdx register-organization-gateway
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx register-organization-gateway \
+      my-org
     ```
 
 ## Next steps

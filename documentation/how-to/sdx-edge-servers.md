@@ -22,11 +22,13 @@ The steps described in this page are performed by the following roles:
 Use cases for `client-hosted`:
 
 - Register a new runtime group
-- Request a one-time-use certificate signing token
-- Deploy the runtime group infrastructure
-- Apply default routes and controls
-- Verification test
-- Add public key to the registry
+- Create runtime group gateway
+- Deploy runtime group infrastructure
+  - Request a one-time-use certificate signing token
+  - Deploy the runtime group infrastructure
+  - Apply default routes and controls
+  - Verification test
+  - Add public key to the registry
 
 ## Prerequisites
 
@@ -82,7 +84,41 @@ will be used to route traffic to this runtime group.
     | `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)  |
     | `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runtime Group |
 
-## Request a one-time-use certificate signing token
+## Create runtime group gateway
+
+As a System Owner, you perform this task. Once complete, you can set up the
+default routing policies for this runtime group.
+
+=== "Restish CLI"
+
+    Help information about the operation to assign a runtime group:
+
+    ```sh
+    restish sdx register-runtime-group-gateway
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx register-runtime-group-gateway \
+      my-org newrg
+    ```
+
+=== "Reference"
+
+    - **API** `PUT /organizations/{org}/runtime-groups/{name}/gateway`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<your-runtime-group-name>`
+
+An assigned Gateway ID will be returned. This Gateway can be used to configure
+default routes and controls for this runtime group.
+
+## Deploy runtime group infrastructure
+
+### Request a one-time-use certificate signing token
 
 The runtime group infrastructure uses a token from the CA to bootstrap
 the first certificate.
@@ -118,7 +154,7 @@ This is performed by a System Owner to request a new cert signing token.
 It will return a token which can be extracted and stored in a local file
 for the next step.
 
-## Deploy the runtime group infrastructure
+### Deploy the runtime group infrastructure
 
 We have a helm chart available for deploying a runtime group into a Kubernetes/Openshift environment.
 
@@ -129,7 +165,8 @@ Please reach out to the APS team to discuss your requirements if the helm chart 
 ```sh
 export IP="<ip specified in the sdxEndpoint above>"
 export EDGE_ID="<name specified above>"
-export DOMAIN="${EDGE_ID}.servers.sdx"
+export ENV=lab
+export DOMAIN="${EDGE_ID}.${ENV}.servers.sdx"
 
 helm upgrade --install ${EDGE_ID} \
   --set bootstrap.tls.token=$(cat token) \
@@ -139,42 +176,17 @@ helm upgrade --install ${EDGE_ID} \
   oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.0
 ```
 
-## Create runtime group gateway
-
-As a System Owner, you perform this task. Once complete, you can set up the
-default routing policies for this runtime group.
-
-=== "Restish CLI"
-
-    Help information about the operation to assign a runtime group:
-
-    ```sh
-    restish sdx register-runtime-group-gateway
-    ```
-
-    Example:
-
-    ```sh
-    restish sdx register-runtime-group-gateway \
-      my-org newrg
-    ```
-
-=== "Reference"
-
-    - **API** `PUT /organizations/{org}/runtime-groups/{name}/gateway`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - `{name}=<your-runtime-group-name>`
-
-An assigned Gateway ID will be returned. This Gateway can be used to configure
-default routes and controls for this runtime group.
-
-## Provision default routes and controls
+### Provision default routes and controls
 
 You can now call the API to preview and then publish Gateway configuration
 containing the default routing rules for the runtime group.
+
+Actions available:
+
+- `preview` : see what configuration the pattern produced
+- `apply` : apply the configuration
+- `diff` : dry run showing what will be updated if the `apply` is used
+- `delete` : deletes the configuration
 
 For `action=apply` you can specify `dryRun=true` if you want to see what changes
 will be applied without the changes actually being made.
@@ -214,7 +226,7 @@ will be applied without the changes actually being made.
     }
     ```
 
-## Verification test
+### Verification test
 
 Running the following should return 400 No required SSL certificate was sent.
 
@@ -231,7 +243,7 @@ curl -v --resolve internal.${DOMAIN}:8000:127.0.0.1 \
   http://internal.${DOMAIN}:8000/hello
 ```
 
-## Add public key to the registry
+### Add public key to the registry
 
 The public key will be used for other runtime groups to verify the integrity
 of the request.
@@ -265,8 +277,9 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
     {
       "pattern": "sdx-keys.r1",
       "parameters": {
-        "runtime_group_name": "<runtime-group-name>",
-        "certificate_pem": "<public-certificate-pem-format>"
+        "runtimeGroupName": "<runtime-group-name>",
+        "environment": "lab|dev|test|prod",
+        "certificatePem": "<public-certificate-pem-format>"
       }
     }
     ```
