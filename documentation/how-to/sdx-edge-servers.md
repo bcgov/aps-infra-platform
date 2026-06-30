@@ -188,9 +188,6 @@ Actions available:
 - `diff` : dry run showing what will be updated if the `apply` is used
 - `delete` : deletes the configuration
 
-For `action=apply` you can specify `dryRun=true` if you want to see what changes
-will be applied without the changes actually being made.
-
 === "Restish CLI"
 
     Help information about the operation to generate and apply Gateway configuration:
@@ -228,7 +225,7 @@ will be applied without the changes actually being made.
 
 ### Verification test
 
-Running the following should return 400 No required SSL certificate was sent.
+Running the following should return `400 No required SSL certificate was sent`.
 
 ```sh
 curl -v -k --resolve ${DOMAIN}:443:${IP} \
@@ -283,6 +280,17 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
       }
     }
     ```
+
+## Decommission Runtime Group
+
+> To be documented..
+
+Steps to decommission:
+
+- uninstall infrastructure
+- remove default routes
+- remove keys
+- delete runtime group
 
 ## Next steps
 

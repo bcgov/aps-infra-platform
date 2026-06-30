@@ -15,11 +15,12 @@ The steps described in this page are performed by the following roles:
 Use cases:
 
 - Register a subsystem
+- Assign your subsystem to a runtime group
 - Register a service
 - View API service catalog
-- Assign your subsystem to a runtime group
-- Delete a service
-- Delete a subsystem
+- Subsystem management
+  - Delete a service
+  - Delete a subsystem
 
 ## Prerequisites
 
@@ -54,6 +55,77 @@ Use cases:
       "name": "MY-NEW-SUBSYSTEM"
     }
     ```
+
+## Assign your subsystem to a runtime group
+
+As a System Owner, you perform this task. Once complete, you can set up routing
+policies for connecting to other systems on SDX.
+
+=== "Restish CLI"
+
+    Help information about the operation to list available runtimes:
+
+    ```sh
+    restish sdx list-runtime-groups
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx list-runtime-groups \
+      my-org \
+      --filter available
+    ```
+
+    Help information about the operation to assign a runtime group:
+
+    ```sh
+    restish sdx register-subsystem-gateway
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx register-subsystem-gateway \
+      my-org MY-NEW-SUBSYSTEM \
+      runtimeGroupName: newrg
+    ```
+
+    An assigned Gateway ID will be returned. This Gateway can be used to configure
+    routes and controls for services it connects to.
+
+=== "Reference"
+
+    To find available runtime groups for your organization, use the following API:
+
+    - **API** `GET /organizations/{org}/runtime-groups?filter=available`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+
+    After choosing a runtime group, make a note of the name.
+
+    > If there are none returned, reach out to the SDX Operator (APS Team) to find out
+    > information for onboarding your organization onto SDX.
+
+    You can now call the API to assign your subsystem to the runtime group.
+
+    - **API** `PUT /organizations/{org}/subsystems/{name}/gateway`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<subsystem-name>`
+
+    ```json title="Request Body"
+    {
+      "runtimeGroupName": "<runtime-group-name>"
+    }
+    ```
+
+    An assigned Gateway ID will be returned. This Gateway can be used to configure
+    routes and controls for services it connects to.
 
 ## Register a service
 
@@ -150,77 +222,6 @@ Use cases:
       }
     ]
     ```
-
-## Assign your subsystem to a runtime group
-
-As a System Owner, you perform this task. Once complete, you can set up routing
-policies for connecting to other systems on SDX.
-
-=== "Restish CLI"
-
-    Help information about the operation to list available runtimes:
-
-    ```sh
-    restish sdx list-runtime-groups
-    ```
-
-    Example:
-
-    ```sh
-    restish sdx list-runtime-groups \
-      my-org \
-      --filter available
-    ```
-
-    Help information about the operation to assign a runtime group:
-
-    ```sh
-    restish sdx register-subsystem-gateway
-    ```
-
-    Example:
-
-    ```sh
-    restish sdx register-subsystem-gateway \
-      my-org MY-NEW-SUBSYSTEM \
-      runtimeGroupName: newrg
-    ```
-
-    An assigned Gateway ID will be returned. This Gateway can be used to configure
-    routes and controls for services it connects to.
-
-=== "Reference"
-
-    To find available runtime groups for your organization, use the following API:
-
-    - **API** `GET /organizations/{org}/runtime-groups?filter=available`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-
-    After choosing a runtime group, make a note of the name.
-
-    > If there are none returned, reach out to the SDX Operator (APS Team) to find out
-    > information for onboarding your organization onto SDX.
-
-    You can now call the API to assign your subsystem to the runtime group.
-
-    - **API** `PUT /organizations/{org}/subsystems/{name}/gateway`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - `{name}=<subsystem-name>`
-
-    ```json title="Request Body"
-    {
-      "runtimeGroupName": "<runtime-group-name>"
-    }
-    ```
-
-    An assigned Gateway ID will be returned. This Gateway can be used to configure
-    routes and controls for services it connects to.
 
 ## Subsystem management
 
