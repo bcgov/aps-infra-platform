@@ -240,4 +240,6 @@ Find your API in the **API Directory**.
 
 It is now ready to receive access requests from the community!
 
-Documentation on how to grant and manage your API consumer access is coming soon.
+## Next steps
+
+- [Manage Consumer Access](/how-to/api-access.md)

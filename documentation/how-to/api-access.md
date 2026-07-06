@@ -2,30 +2,51 @@
 title: Manage Consumer Access
 ---
 
-## Use the Access Approval Process
+This guide explains how API Providers can use the API Services Portal to manage
+access to their APIs.
 
-Enable `approval` for an Environment and act as Access Manager, reviewing
-requests and approving access to your APIs.
+## Before you begin
 
-## Manage Access and Controls
+Before you begin, ensure you:
+
+- [Create a Gateway](/how-to/create-gateway.md)
+- [Create a Gateway Service](/how-to/create-gateway-service.md)
+- Configure a protected Gateway Service with [API Key](/how-to/kong-api-key.md)
+or [Client Credential](/tutorials/protect-client-cred.md)
+- [Share an API](/how-to/api-discovery.md)
+
+## Use the access approval process
+
+1. Enable `approval` for a Product Environment (either via Portal UI or gateway
+   configuration)
+
+2. Consumers can request access via the API Directory after logging in with one
+of the developer identity providers.
+
+3. Access Managers will be notified when access requests are created. To review
+and approve requests, go to the **Gateways** tab, select a **Gateway**, and
+click the **Consumers** card. Pending access requests will be shown at the top
+of the page.
 
 !!! note
     To manage access to your APIs, you must have the `Access.Manage`
     permission for the Gateway.
 
-As an Access Manager, you can manage new Consumers by going to the **Gateways**
+## Manage access and controls
+
+As an Access Manager, you can manage Consumers by going to the **Gateways**
 tab, selecting a **Gateway**, and clicking the **Consumers** card.
 
-Here you should see the newly created Consumer. Click on the `name` in the
-**Name/ID** column to view **Consumer Details** and **Products** they have
-access to.
+Click on the consumer's name in the **Name/ID** column to view **Consumer
+Details** and **Products** they have access to. To modify consumer access, click
+the **Edit** button next to the Product Environment.
 
 You can administer **Controls** such as rate limiting and IP restrictions.
 
 You can administer **Authorization** by toggling access to the particular
 Product and Environment.
 
-## Export Gateway Report
+## Export gateway report
 
 On the **Gateways** tab on the API Services Portal, click **Export Gateway
 Report**  to generate an Excel report for your Gateways, including data on:
