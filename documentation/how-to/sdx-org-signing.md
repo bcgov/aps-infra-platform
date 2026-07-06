@@ -126,7 +126,7 @@ public key details with the new certificate in the JWKS registry.
 
     ```sh
     restish sdx provision-config-from-pattern \
-      my-org \
+      my-org sdx-keys.r1 \
       --action apply \
-      'pattern:sdx-keys.r1, parameters:{ certificatePem[0]: @new.crt, caCerts: @root.crt }'
+      'parameters:{ environment: lab, certificatePem[0]: @new.crt, caCerts: @root.crt }'
     ```

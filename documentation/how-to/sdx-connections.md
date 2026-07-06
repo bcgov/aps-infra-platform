@@ -69,13 +69,13 @@ Use cases:
     Help information about the operation:
 
     ```sh
-    restish sdx upsert-connection
+    restish sdx update-connection-approval
     ```
 
     Example call:
 
     ```sh
-    restish sdx upsert-connection \
+    restish sdx update-connection-approval \
       my-org \
       clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
       serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
@@ -182,23 +182,11 @@ configuration that was used to open the connection, but use `action=remove`.
     removed, then run:
 
     ```sh
-    restish sdx generate-config-from-pattern \
+    restish sdx provision-config-from-pattern \
       ministry-of-citz \
       --action remove \
       --dry-run < pattern-input.json
     ```
-
-=== "Reference"
-
-    - **API** `PUT /organizations/{org}/pattern?action=remove&dryRun=true`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - values for `action`: `preview`, `apply`, and `remove`
-
-    Use `dryRun=true` to see what changes will be removed without actually
-    removing them.
 
 ### Delete the connection request
 

@@ -200,27 +200,9 @@ Actions available:
 
     ```sh
     restish sdx provision-config-from-pattern \
-      my-org \
+      my-org sdx-runtime-group.v1 \
       --action apply \
-      'pattern:sdx-runtime-group.r1, parameters:{ runtimeGroupName: newrg, environment: lab }'
-    ```
-
-=== "Reference"
-
-    - **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - values for `action`: `preview`, `diff`, `apply` and `delete`
-
-    ```json
-    {
-      "pattern": "sdx-runtime-group.r1",
-      "parameters": {
-        "runtime_group_name": "<runtime-group-name>"
-      }
-    }
+      'parameters:{ runtimeGroupName: newrg, environment: lab }'
     ```
 
 ### Verification test
@@ -260,9 +242,9 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
 
     ```sh
     restish sdx provision-config-from-pattern \
-      my-org \
+      my-org sdx-keys.r1 \
       --action apply \
-      'pattern:sdx-keys.r1, parameters:{ certificatePem[0]: @tls.crt, runtimeGroupName: newrg, environment: lab }'
+      'parameters:{ certificatePem[0]: @tls.crt, runtimeGroupName: newrg, environment: lab }'
     ```
 
 === "Reference"
