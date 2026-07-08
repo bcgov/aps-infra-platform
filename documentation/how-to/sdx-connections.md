@@ -11,6 +11,12 @@ The steps described in this page are performed by the following roles:
 | ------------ | -------------------------------------------------------------------------- |
 | System Owner | Manage systems and service catalog entries for the particular organization |
 
+The steps described in this page are performed by users with the following permissions:
+
+| Permission        | Function                                       |
+| ----------------- | ---------------------------------------------- |
+| Connection.Manage | Review and approve/reject connection requests. |
+
 Use cases:
 
 - Request access (as consumer)

@@ -1,10 +1,10 @@
 ---
-title: "Managing Systems and Services"
+title: "Managing Subsystems"
 ---
 
 ## Overview
 
-This page shows how to manage subsystems and services on the Secure Data Exchange.
+This page shows how to manage subsystems on the Secure Data Exchange.
 
 The steps described in this page are performed by the following roles:
 
@@ -16,10 +16,7 @@ Use cases:
 
 - Register a subsystem
 - Assign your subsystem to a runtime group
-- Register a service
-- View API service catalog
 - Subsystem management
-  - Delete a service
   - Delete a subsystem
 
 ## Prerequisites
@@ -127,136 +124,7 @@ policies for connecting to other systems on SDX.
     An assigned Gateway ID will be returned. This Gateway can be used to configure
     routes and controls for services it connects to.
 
-## Register a service
-
-=== "Restish CLI"
-
-    Help information about the operation:
-
-    ```sh
-    restish sdx create-oas-service
-    ```
-
-    Example:
-
-    ```sh
-    restish sdx create-oas-service \
-      my-org \
-      --subsystem MY-NEW-SUBSYSTEM \
-      --environment lab \
-      --rsh-header "Content-Type: application/yaml" \
-      < openapi.yaml
-    ```
-
-=== "Reference"
-
-    > **API** `PUT /organizations/{org}/oas-services`
-
-    Parameters: `{org}=ministry-of-food`
-
-    Specify the subsystem and choose a file for the OpenAPI Spec
-    (YAML format) of your API.
-
-## View API service catalog
-
-=== "Restish CLI"
-
-    List all subsystems:
-
-    ```sh
-    restish sdx subsystems-list
-    ```
-
-    List only name and title of APIs:
-
-    ```sh
-    restish sdx list-service-catalog | jq '.[] | .name+": "+.title'
-    ```
-
-=== "Reference"
-
-    > **API** `GET /catalog/services`
-
-    Example response:
-
-    ```json
-    [
-      {
-        "name": "ministry-of-citizens-services.OAS-SPECTRAL-VALIDATION.v0",
-        "title": "OAS Spectral Validation API",
-        "version": "0.1.0",
-        "summary": null,
-        "description": "A governance API for discovering and using BCGov Spectral rulesets to validate OpenAPI Specification documents.\nRepository: https://github.com/bcgov/csit-api-governance-spectral-style-guide",
-        "subsystem": {
-          "name": "DEF",
-          "organization": {
-            "name": "ministry-of-citizens-services"
-          },
-          "gateway": {
-            "id": "sdx-gw-7053d"
-          }
-        },
-        "operations": [
-          {
-            "operationId": "listVersions",
-            "method": "GET",
-            "path": "/versions",
-            "summary": "List available ruleset versions",
-            "scopes": []
-          },
-          {
-            "operationId": "listRulesetsInVersion",
-            "method": "GET",
-            "path": "/versions/{version}/rulesets",
-            "summary": "List Spectral rulesets in a version",
-            "scopes": []
-          },
-          {
-            "operationId": "createValidation",
-            "method": "POST",
-            "path": "/versions/{version}/rulesets/{rule set}/validations",
-            "summary": "Validate an OpenAPI document",
-            "scopes": []
-          }
-        ]
-      }
-    ]
-    ```
-
 ## Subsystem management
-
-### Delete a service
-
-A service can be deleted when there are no active connection requests for it.
-
-=== "Restish CLI"
-
-    Help information about the operation:
-
-    ```sh
-    restish sdx delete-organization-oas-service
-    ```
-
-    Example:
-
-    ```sh
-    restish sdx delete-organization-oas-service \
-      my-org SERVICE-NAME
-    ```
-
-=== "Reference"
-
-    > **API** `DELETE /organizations/{org}/oas-services/{name}`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - `{name}=<service-name>`
-
-    The delete request will not proceed if the service has active connection
-    requests.
-
-    After a service is deleted, the same service name can be used again.
 
 ### Delete a subsystem
 
@@ -299,4 +167,4 @@ After a subsystem is deleted, the same subsystem name can be used again.
 
 ## Next steps
 
-- [Connecting a Service](/how-to/sdx-connections.md)
+- [Managing services](/how-to/sdx-services.md)
