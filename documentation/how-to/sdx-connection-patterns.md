@@ -25,12 +25,14 @@ they should be configured. This page describes all the parameters that are avail
 
 ### clientResources.gatewayPatterns
 
-| Parameter               | Type    | Rule                      |
-| ----------------------- | ------- | ------------------------- |
-| **sdx-p2p-consumer.r1** | object  | required                  |
-| `.tlsVerify`            | boolean | optional, default `true`  |
-| `.stripPath`            | boolean | optional, default `false` |
-| `.upgrades`             | object  | optional                  |
+| Parameter                      | Type    | Rule                      |
+| ------------------------------ | ------- | ------------------------- |
+| **sdx-p2p-consumer-access.r1** | object  | required                  |
+|                                |         |                           |
+| **sdx-p2p-consumer.r1**        | object  | required                  |
+| `.tlsVerify`                   | boolean | optional, default `true`  |
+| `.stripPath`                   | boolean | optional, default `false` |
+| `.upgrades`                    | object  | optional                  |
 
 **upgrades:**
 
@@ -52,6 +54,8 @@ they should be configured. This page describes all the parameters that are avail
 | `.consumerMatchClaim`          | string   | optional            |
 | `.consumerMatchClaimCustomId`  | boolean  | optional            |
 | `.consumerMatchIgnoreNotFound` | boolean  | optional            |
+|                                |          |                     |
+| **acl**                        | object   | optional            |
 |                                |          |                     |
 | **tokenExchange**              | object   | optional            |
 | `.clientId`                    | string   | required            |
@@ -89,3 +93,5 @@ they should be configured. This page describes all the parameters that are avail
 | `.consumerMatchClaim`          | string   | optional |
 | `.consumerMatchClaimCustomId`  | boolean  | optional |
 | `.consumerMatchIgnoreNotFound` | boolean  | optional |
+|                                |          |          |
+| **acl**                        | object   | optional |

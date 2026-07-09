@@ -31,7 +31,8 @@ How-to guides
 
 - [Onboarding an organization onto SDX](/how-to/sdx-org-onboarding.md)
 - [Install a runtime group](/how-to/sdx-edge-servers.md)
-- [Managing systems and services](/how-to/sdx-subsystems.md)
-- [Connecting a Service](/how-to/sdx-connections.md)
+- [Managing subsystems](/how-to/sdx-subsystems.md)
+- [Managing services](/how-to/sdx-services.md)
+- [Connecting a service](/how-to/sdx-connections.md)
 - [Event Mgmt (preview)](/how-to/sdx-ape-event-mgmt.md)
 - [Policy Mgmt (preview)](/how-to/sdx-ape-policy-mgmt.md)

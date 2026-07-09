@@ -45,6 +45,7 @@ nav:
           - "how-to/sdx-edge-servers.md"
           - "how-to/sdx-org-signing.md"
           - "how-to/sdx-subsystems.md"
+          - "how-to/sdx-services.md"
           - "how-to/sdx-connections.md"
           - "how-to/sdx-upgrades.md"
           - "how-to/sdx-ape-event-mgmt.md"

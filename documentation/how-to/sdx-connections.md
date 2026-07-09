@@ -129,7 +129,7 @@ routing rules for opening a channel between the two systems.
     ```
 
 For details on configuring the `sdx-p2p-consumer.r1` pattern,
-go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
+go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
 
 ### Provider side
 
