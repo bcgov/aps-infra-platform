@@ -36,7 +36,15 @@ Gateway Services and other resources on the API Services Portal.
 
 === "macOS"
 
-    If you are on macOS, you can install by downloading a compressed archive:
+    If you are on macOS, you can install by downloading a compressed archive for Apple Silicon-based Macs (arm64):
+
+    ```shell
+    curl -sL https://github.com/bcgov/gwa-cli/releases/latest/download/gwa_Darwin_arm64.zip -o gwa.zip
+    tar -xf gwa.zip -C /tmp
+    sudo cp /tmp/gwa /usr/local/bin/
+    ```
+
+    Or for older Intel-based Macs (x86_64):
 
     ```shell
     curl -sL https://github.com/bcgov/gwa-cli/releases/latest/download/gwa_Darwin_x86_64.zip -o gwa.zip
