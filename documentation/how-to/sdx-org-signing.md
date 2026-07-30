@@ -9,7 +9,7 @@ with permission between the involved systems using an authorized Runtime Group.
 
     There are various upgrades related to the connection that can be enabled.
     Performing the counter-sign using the organization keys is one of these upgrades.
-    See [Connection Gateway Patterns](/how-to/sdx-upgrades.md) for more information.
+    See [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md) for more information.
 
     If policy requires this to be enabled, then follow the steps to setup organization
     signing. The organization must register signing keys

@@ -167,7 +167,7 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
     ```
 
 For details on configuring the `sdx-p2p-provider.r1` pattern,
-go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
+go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
 
 ## Delete a connection request
 
