@@ -32,7 +32,7 @@ This is performed by the SDX Operator to onboard a new Organization.
 
 === "Restish CLI"
 
-    Help information about the operation to list available runtimes:
+    Help information about the organization creation/update operation:
 
     ```sh
     restish aps put-organization
@@ -70,24 +70,39 @@ This is performed by the SDX Operator to onboard a new Organization.
       "extSource": "custom",
       "extRecordHash": "0000",
       "tags": [
-        { "member_class": "MIN", "member_id": "FOOD" }
+        "member_class:MIN",
+        "member_id:FOOD"
       ],
       "publicBodyId": null,
       "orgUnits": []
     }
     ```
 
+    `tags` is `array<string>`. An array containing an object is rejected by
+    the live request schema.
+
 ## System Owner role assignment
 
 This is performed by the Organization Admin to assign system owners access to manage
 their systems and services.
 
-The `System Owner` is able to register new subsystems and services
-and browse the service catalog.
+The organization-scoped role that grants this access is `system-admin`, which
+carries `System.Manage` for the organization. This is distinct from any
+system-level roles and from `organization-admin`, which carries
+`GroupAccess.Manage`, `Namespace.Assign`, and `Dataset.Manage` instead.
+
+!!! warning
+    Some existing organizations were provisioned before this role was
+    introduced and still use a `system-owner` group instead. `system-owner` is
+    not a currently supported role for newly onboarded organizations; using it
+    returns `204 No Content` but does not create any organization-level group
+    or permission, so the member is granted no access. Use `system-admin` for
+    new organizations, and verify the resulting permission with a fresh token
+    after assignment.
 
 === "Restish CLI"
 
-    Help information about the operation to list available runtimes:
+    Help information about the organization role membership synchronization operation:
 
     ```sh
     restish aps put-organization-access
@@ -105,7 +120,7 @@ and browse the service catalog.
           "member": {
             "email": "aidan.cope@gov.bc.ca"
           },
-          "roles": ["system-owner"]
+          "roles": ["system-admin"]
         }
       ]
     }
@@ -128,7 +143,7 @@ and browse the service catalog.
           "member": {
             "email": "janis@testmail.com"
           },
-          "roles": ["system-owner"]
+          "roles": ["system-admin"]
         }
       ]
     }
