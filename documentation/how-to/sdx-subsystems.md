@@ -124,6 +124,29 @@ policies for connecting to other systems on SDX.
     An assigned Gateway ID will be returned. This Gateway can be used to configure
     routes and controls for services it connects to.
 
+!!! warning "Confirm the runtime currently hosts your organization"
+    Registration currently succeeds with `HTTP 200` even if the chosen
+    runtime group's `hostedOrganizations` no longer includes your
+    organization — for example after a runtime's hosting was changed after
+    you queried `list-runtime-groups`. The resulting gateway is created but
+    is missing the runtime's host domain, which will cause confusing
+    downstream failures when publishing services or provider patterns.
+    After registering, call `get-subsystem-client` and confirm the runtime
+    group actually appears in the returned `runtimeGroups` before
+    proceeding.
+
+!!! warning "Registration is create-only"
+    `register-subsystem-gateway` cannot be used to repair or reconcile an
+    already-registered subsystem namespace — repeating it against an
+    existing namespace returns `HTTP 422 Namespace already exists`, even
+    after the underlying problem (such as the missing hosted-organization
+    relation above) has been corrected. Deleting the gateway to retry is not
+    a safe workaround for a deterministic SDX gateway ID: it removes the
+    resource set and marks the Keycloak namespace group `decommissioned`
+    while the subsystem continues to reference the same gateway ID, and the
+    namespace name will still be rejected as existing on a retry. Contact
+    the APS team for recovery rather than deleting and recreating.
+
 ## Subsystem management
 
 ### Delete a subsystem
