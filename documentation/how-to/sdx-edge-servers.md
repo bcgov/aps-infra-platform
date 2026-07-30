@@ -224,7 +224,7 @@ Actions available:
 
     ```sh
     restish sdx provision-config-from-pattern \
-      my-org sdx-runtime-group.v1 \
+      my-org sdx-runtime-group.r1 \
       --action apply \
       'parameters:{ runtimeGroupName: newrg, environment: lab }'
     ```
