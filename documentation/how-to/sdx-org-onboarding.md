@@ -16,6 +16,7 @@ Use cases:
 
 - Register new organization
 - System Owner role assignment
+- List organizations
 - Assign gateway for organization
 
 Available environments:
@@ -148,6 +149,61 @@ system-level roles and from `organization-admin`, which carries
       ]
     }
     ```
+
+## List organizations
+
+Retrieve the list of organizations available in the SDX catalog, optionally
+including each organization's RBAC role membership.
+
+=== "Restish CLI"
+
+    ```sh
+    restish sdx organization-list
+    ```
+
+    Include role membership:
+
+    ```sh
+    restish sdx organization-list --include-access
+    ```
+
+=== "Reference"
+
+    - **API** `GET /catalog/organizations`
+
+    Query parameters:
+
+    - `includeAccess` (optional, boolean, default `false`) - when `true`,
+      each organization entry includes an `access` array of its RBAC role
+      members (`organization-admin`, `system-admin`).
+
+    ```json title="Response Body (includeAccess=true)"
+    [
+      {
+        "name": "ministry-of-food",
+        "title": "Ministry of Food",
+        "description": "It is a ministry concerned with food",
+        "member": {
+          "memberClass": "MIN",
+          "memberId": "FOOD"
+        },
+        "access": [
+          {
+            "member": { "email": "janis@testmail.com" },
+            "roles": ["system-admin"]
+          }
+        ]
+      }
+    ]
+    ```
+
+!!! note "`includeAccess` does not require authentication"
+    `organization-list` has always been callable without a bearer token, and
+    `includeAccess` does not change that: role membership is resolved using
+    the platform's own Keycloak service credentials, not the caller's - so
+    passing `includeAccess=true` returns every organization's role members
+    to anonymous callers, the same way the base listing already returns
+    every organization's name/title/member details to anonymous callers.
 
 ## Assign gateway for organization
 
