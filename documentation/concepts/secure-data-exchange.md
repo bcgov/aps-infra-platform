@@ -22,6 +22,23 @@ The Edge Server is a forward proxy for the service consumer (IS client) and a re
 
 Edge Servers sit in an organization's DMZ, where they are able to communicate with other Edge Servers in a secure and auditable way.
 
+### The public consumer host (PZGW)
+
+`pzgw` is the shared, community-hosted runtime group that acts as the public
+consumer entry point for member organizations that do not run their own
+Internet-routable edge. It is not a general-purpose provider runtime: a
+consumer application reaches SDX through PZGW's `consumerEndpoint`, PZGW then
+forwards the request edge-to-edge to the **provider's own runtime group**
+(over mTLS, using that runtime's `sdxEndpoint`), and the provider edge
+forwards it to the private provider `upstreamUrl`.
+
+Because PZGW is the only runtime with a widely recognizable public
+(`*.api.gov.bc.ca`) hostname, it is easy to mistake it for the provider
+runtime in a connection. It is not: the provider must still register and
+host its own runtime group (`client-hosted` or another `community-hosted`
+runtime group), and that runtime — not PZGW — must appear in the
+provider's organization `hostedOrganizations`.
+
 ## Next steps
 
 If you would like to dive deeper or start implementing services on SDX, check out the

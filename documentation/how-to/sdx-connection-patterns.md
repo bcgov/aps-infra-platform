@@ -5,6 +5,21 @@ title: "Connection Gateway Patterns"
 Gateway patterns for peer-to-peer will have different rules over time around how
 they should be configured. This page describes all the parameters that are available.
 
+!!! note "These patterns are not invoked directly"
+    `sdx-p2p-consumer.r1`, `sdx-p2p-consumer-access.r1`, `sdx-p2p-provider.r1`,
+    and their `upgrades` are **connection resources**, not gateway patterns
+    invoked through the public `/patterns` endpoint or
+    `provision-config-from-pattern`. You configure them by setting
+    `clientResources.gatewayPatterns` (consumer side) and
+    `serviceResources.gatewayPatterns` (provider side) on a connection via
+    `upsert-connection`, as shown in
+    [Manage Connections](/how-to/sdx-connections.md). The provisioner
+    evaluates them automatically whenever the connection's `isActive` state
+    changes — there is no separate preview/publish/delete step for these
+    patterns, and deleting a peer-to-peer configuration is done by setting
+    `isActive: false` on the connection rather than by deleting the pattern
+    directly.
+
 ## Connection Request
 
 - following parameters MUST by set: `clientId`, `serviceId`

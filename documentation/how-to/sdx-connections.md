@@ -33,6 +33,14 @@ Use cases:
 
 ## Request access (as consumer)
 
+`policyVersion` selects the connection policy that governs how the
+connection is provisioned:
+
+| Policy        | Description                                                                                    |
+| ------------- | ------------------------------------------------------------------------------------------------ |
+| `SDX.R0.00`   | Simple point-to-point connection policy. Requires a `requesterDetails` object (see below).       |
+| `SDX.R1.00`   | Adds integration/token-exchange support; requires additional requester and gateway resources and is not a drop-in default. |
+
 === "Restish CLI"
 
     Help information about the operation:
@@ -48,8 +56,20 @@ Use cases:
       my-org \
       clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
       serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
-      policyVersion: SDX.R0.00
+      policyVersion: SDX.R0.00, \
+      "requesterDetails: { requester: { name: 'Your Name' } }"
     ```
+
+    Under `SDX.R0.00`, `requesterDetails` must be supplied together with
+    `policyVersion` on this initial request — when both are present, the
+    controller replaces `requesterDetails.requester` with the authenticated
+    caller's name and email. Omitting `requesterDetails` leaves an invalid
+    empty default in place that will pass creation but fail activation.
+    `requesterDetails` can only be set on creation; it cannot be repaired
+    afterwards through `upsert-connection` (that field is reserved for the
+    provisioner on update) — if activation fails for a missing requester
+    record, deactivate and delete the connection, then recreate it with
+    `policyVersion` and `requesterDetails` included together.
 
 ## Review connection access requests
 
@@ -167,7 +187,27 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
     ```
 
 For details on configuring the `sdx-p2p-provider.r1` pattern,
-go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
+go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
+
+!!! note "Associating an OAuth integration client with a connection"
+    `requesterDetails.client.clientId` (used above for
+    `sdx-p2p-consumer-access.r1`/ACL and, when configured, `consumerMatch`)
+    is provisioner-managed. It cannot be written directly through the SDX
+    management API — attempting a direct `upsert-connection` update of
+    `requesterDetails` returns `HTTP 400`. Registering an
+    `integrationClientId` on the consumer subsystem (see
+    [Register an SDX Subsystem](/how-to/sdx-subsystems.md)) is only the
+    first half of the relationship: the field is populated by calling the
+    supported `POST /v1/integrations/{clientId}/access-requests` operation
+    on the SDX Partner Authorization Services API, which validates the
+    requested scopes against the registered OAD and writes the requester
+    metadata with trusted provisioner credentials. That API uses a separate
+    base URL and bearer-token audience from the main SDX API — consult the
+    APS team for the current Restish/API configuration for it. Before
+    enabling strict `consumerMatch`, verify that the connection contains the
+    integration client and that the Kong consumer created by
+    `sdx-p2p-consumer-access.r1` exists, since enabling `consumerMatch`
+    ahead of a matching consumer blocks legitimate traffic.
 
 ## Delete a connection request
 

@@ -87,9 +87,9 @@ restish api edit
             "auth": {
               "name": "oauth-authorization-code",
               "params": {
-                "audience": "sdx-bruno-client",
+                "audience": "sdx-cli",
                 "authorize_url": "https://authz-apps-gov-bc-ca.dev.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/auth",
-                "client_id": "sdx-bruno-client",
+                "client_id": "sdx-cli",
                 "scopes": "openid",
                 "token_url": "https://authz-apps-gov-bc-ca.dev.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/token"
               }
@@ -100,6 +100,10 @@ restish api edit
       }
     }
     ```
+
+    The `sdx-bruno-client` OAuth client is not registered in the DEV `aps`
+    realm and returns `Client not found`. Use `sdx-cli` for both `client_id`
+    and `audience` in DEV.
 
 ### Interacting with the API
 
