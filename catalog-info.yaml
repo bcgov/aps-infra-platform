@@ -10,4 +10,4 @@ metadata:
 spec:
   type: documentation
   lifecycle: production
-  owner: "bcgov/databc-aps"
+  owner: group:default/databc-aps
