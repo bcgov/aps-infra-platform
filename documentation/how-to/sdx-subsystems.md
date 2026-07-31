@@ -17,6 +17,7 @@ Use cases:
 - Register a subsystem
 - Assign your subsystem to a runtime group
 - Subsystem management
+  - Administer subsystem RBAC
   - Delete a subsystem
 
 ## Prerequisites
@@ -148,6 +149,116 @@ policies for connecting to other systems on SDX.
     the APS team for recovery rather than deleting and recreating.
 
 ## Subsystem management
+
+### Administer subsystem RBAC
+
+A subsystem's creator is granted all three roles automatically when
+[assigning the subsystem to a runtime group](#assign-your-subsystem-to-a-runtime-group).
+Use this operation afterward to add, change, or remove role membership -
+for example when a colleague joins the team or the creator leaves the
+organization.
+
+The supported roles are:
+
+| Role              | Function                                    |
+| ----------------- | -------------------------------------------- |
+| `system-owner`    | Overall accountable owner for the subsystem |
+| `tech-lead`       | Technical point of contact for the subsystem |
+| `access-manager`  | Manages who has access to the subsystem     |
+
+!!! warning "Updating access replaces the full member list"
+    `put-subsystem-access` is a full sync, not an incremental grant: any
+    member/role combination not included in the request body is **revoked**.
+    To add one person without affecting anyone else, first call
+    `get-subsystem-access` and include its existing members in your update
+    alongside the new one.
+
+=== "Restish CLI"
+
+    Help information about the operation to get current access:
+
+    ```sh
+    restish sdx get-subsystem-access
+    ```
+
+    Example:
+
+    ```sh
+    restish sdx get-subsystem-access \
+      my-org SUBSYSTEM-NAME
+    ```
+
+    Help information about the operation to update access:
+
+    ```sh
+    restish sdx put-subsystem-access
+    ```
+
+    Example - grants Janis all three roles and Mark `access-manager` only
+    (and revokes any other role membership not listed here):
+
+    ```sh
+    echo '
+    {
+      "members": [
+        {
+          "member": { "email": "janis@testmail.com" },
+          "roles": ["system-owner", "tech-lead", "access-manager"]
+        },
+        {
+          "member": { "email": "mark@gmail.com" },
+          "roles": ["access-manager"]
+        }
+      ]
+    }
+    ' | restish sdx put-subsystem-access my-org SUBSYSTEM-NAME
+    ```
+
+    Confirm the change:
+
+    ```sh
+    restish sdx get-subsystem-access \
+      my-org SUBSYSTEM-NAME
+    ```
+
+=== "Reference"
+
+    - **API** `GET /organizations/{org}/subsystems/{name}/access`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<subsystem-name>`
+
+    ```json title="Response Body"
+    [
+      {
+        "member": { "email": "janis@testmail.com" },
+        "roles": ["system-owner", "tech-lead", "access-manager"]
+      }
+    ]
+    ```
+
+    - **API** `PUT /organizations/{org}/subsystems/{name}/access`
+
+    Parameters:
+
+    - `{org}=<your-organization>`
+    - `{name}=<subsystem-name>`
+
+    ```json title="Request Body"
+    {
+      "members": [
+        {
+          "member": { "email": "<user-email>" },
+          "roles": ["system-owner", "tech-lead", "access-manager"]
+        }
+      ]
+    }
+    ```
+
+    Submitting a role name other than `system-owner`, `tech-lead`, or
+    `access-manager` returns a `4xx` naming the unsupported value.
 
 ### Delete a subsystem
 
