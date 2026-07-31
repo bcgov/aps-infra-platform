@@ -168,12 +168,13 @@ This is performed by a System Owner to request a new cert signing token.
 
 === "Reference"
 
-    - **API** `POST /organizations/{org}/runtime-groups/{name}/tokens`
+    - **API** `POST /organizations/{org}/runtime-groups/{name}/environments/{environment}/tokens`
 
     Parameters:
 
     - `{org}=<your-organization>`
     - `{name}=<your-runtime-group-name>`
+    - `{environment}=<target-environment>`
 
 It will return a token which can be extracted and stored in a local file
 for the next step.
