@@ -25,7 +25,8 @@ Use cases:
 - Open a connection
   - Consumer side
   - Provider side
-- Delete a connection request
+- Connection management
+  - Delete a connection request
 
 ## Prerequisites
 
@@ -57,9 +58,10 @@ connection is provisioned:
       clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
       serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
       policyVersion: SDX.R0.00, \
-      "requesterDetails: { requester: { name: 'Your Name' } }"
+      "requesterDetails: {}"
     ```
 
+!!! note "requester details"
     Under `SDX.R0.00`, `requesterDetails` must be supplied together with
     `policyVersion` on this initial request — when both are present, the
     controller replaces `requesterDetails.requester` with the authenticated
@@ -129,8 +131,10 @@ routing rules for opening a channel between the two systems.
     {
       "gatewayPatterns": {
         "sdx-p2p-consumer.r1": {
+          "clientRuntimeOverride": "MIN.CITZ.pzgw",
           "upgrades": {
-            "sign": {}
+            "sign": {},
+            "verify": {}
           }
         }
       }
@@ -158,7 +162,7 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
     Help information about the operation:
 
     ```sh
-    restish sdx generate-config-from-pattern
+    restish sdx upsert-connection
     ```
 
     Prepare a pattern input file (`pattern-input.json`) for the Provider:
@@ -169,6 +173,9 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
         "sdx-p2p-provider.r1": {
           "upstreamUrl": "https://my-upstream-endpoint.domain",
           "upgrades": {
+            "mtlsAuth": {},
+            "sign": {},
+            "verify": {}
           }
         }
       }
@@ -182,7 +189,6 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
       my-org \
       clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
       serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
-      "requesterDetails: { requester: "Joe", client: { clientId: abc }, service: { clientId: def } }", \
       serviceResources: @pattern-input.json
     ```
 
@@ -209,7 +215,7 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
     `sdx-p2p-consumer-access.r1` exists, since enabling `consumerMatch`
     ahead of a matching consumer blocks legitimate traffic.
 
-## Delete a connection request
+## Connection management
 
 Deleting a connection request is the final cleanup step after the consumer and
 provider gateway configurations have been removed.
@@ -234,7 +240,7 @@ configuration that was used to open the connection, but use `action=remove`.
       --dry-run < pattern-input.json
     ```
 
-### Delete the connection request
+### Delete a connection request
 
 After both sides have removed their gateway configuration, a System Owner for
 either organization associated with the connection request can delete it.
