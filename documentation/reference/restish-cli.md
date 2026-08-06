@@ -49,49 +49,23 @@ Edit the restish config and add the below "sdx" api shortname details.
 restish api edit
 ```
 
-=== "Lab"
+=== "Production"
 
     ```json
     {
       "$schema": "https://rest.sh/schemas/apis.json",
       "sdx": {
-        "base": "https://api-gov-bc-ca-lab.dev.api.gov.bc.ca/ds/api/sdx/v1",
-        "profiles": {
-          "default": {
-            "auth": {
-              "name": "oauth-authorization-code",
-              "params": {
-                "audience": "sdx-bruno-client",
-                "authorize_url": "https://authz-apps-gov-bc-ca-lab.dev.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/auth",
-                "client_id": "sdx-bruno-client",
-                "scopes": "openid",
-                "token_url": "https://authz-apps-gov-bc-ca-lab.dev.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/token"
-              }
-            }
-          }
-        },
-        "tls": {}
-      }
-    }
-    ```
-
-=== "Dev"
-
-    ```json
-    {
-      "$schema": "https://rest.sh/schemas/apis.json",
-      "sdx": {
-        "base": "https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1",
+        "base": "https://api.gov.bc.ca/ds/api/sdx/v1",
         "profiles": {
           "default": {
             "auth": {
               "name": "oauth-authorization-code",
               "params": {
                 "audience": "sdx-cli",
-                "authorize_url": "https://authz-apps-gov-bc-ca.dev.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/auth",
+                "authorize_url": "https://authz.apps.gov.bc.ca/auth/realms/aps/protocol/openid-connect/auth",
                 "client_id": "sdx-cli",
                 "scopes": "openid",
-                "token_url": "https://authz-apps-gov-bc-ca.dev.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/token"
+                "token_url": "https://authz.apps.gov.bc.ca/auth/realms/aps/protocol/openid-connect/token"
               }
             }
           }
@@ -100,10 +74,6 @@ restish api edit
       }
     }
     ```
-
-    The `sdx-bruno-client` OAuth client is not registered in the DEV `aps`
-    realm and returns `Client not found`. Use `sdx-cli` for both `client_id`
-    and `audience` in DEV.
 
 ### Interacting with the API
 
