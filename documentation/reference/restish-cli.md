@@ -46,13 +46,18 @@ Homepage: https://rest.sh
 
 ### Configure the API
 
-Edit the restish config and add the below "sdx" api shortname details.
+Edit the restish config and add the below `sdxstg` and `sdx` api shortname details.
 
 ```sh
 restish api edit
 ```
 
 === "Staging"
+
+    Staging environment is for service providers to verify the installation of SDX
+    and test new functionality before promoting it to production.
+
+    > NOTE: There is NO data or service quality in this environment!
 
     ```json
     {
@@ -79,6 +84,10 @@ restish api edit
     ```
 
 === "Production"
+
+    Production environment supports the Test data and Production data SDX instances.
+
+    Data and service quality is the same for both SDX instances.
 
     ```json
     {
