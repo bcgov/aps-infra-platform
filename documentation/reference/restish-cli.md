@@ -39,6 +39,9 @@ Homepage: https://rest.sh
     sudo mv restish /usr/local/bin/.
     ```
 
+    > Note: In the case where the apis.json becomes invalid and the restish cli panics, you can edit
+    > the file configuration file directly at `~/Library/Application Support/restish/apis.json`
+
 ## Usage with SDX
 
 ### Configure the API
@@ -48,6 +51,32 @@ Edit the restish config and add the below "sdx" api shortname details.
 ```sh
 restish api edit
 ```
+
+=== "Staging"
+
+    ```json
+    {
+      "$schema": "https://rest.sh/schemas/apis.json",
+      "sdxstg": {
+        "base": "https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1",
+        "profiles": {
+          "default": {
+            "auth": {
+              "name": "oauth-authorization-code",
+              "params": {
+                "audience": "sdx-cli",
+                "authorize_url": "https://authz-apps-gov-bc-ca.test.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/auth",
+                "client_id": "sdx-cli",
+                "scopes": "openid",
+                "token_url": "https://authz-apps-gov-bc-ca.test.api.gov.bc.ca/auth/realms/aps/protocol/openid-connect/token"
+              }
+            }
+          }
+        },
+        "tls": {}
+      }
+    }
+    ```
 
 === "Production"
 
@@ -78,20 +107,24 @@ restish api edit
 ### Interacting with the API
 
 ```sh
+
+-- resync the api specification
+restish api sync sdx
+
 -- help for all supported operations
 restish sdx
 
 -- listing subsystems from the SDX catalog
-restish sdx subsystem-list
+restish sdx subsystems-list
 
 -- listing organizations from the SDX catalog
 restish sdx organization-list
 
 -- creation example
-restish sdx create-subsystem ministry-of-books name: BOOKY, description: "Some booky system"
+restish sdx upsert-subsystem ministry-of-books name: BOOKY, description: "Some booky system"
 
 -- deletion example
-restish sdx delete-subsystem ministry-of-books BOOKY --force
+restish sdx delete-subsystem ministry-of-books BOOKY
 
 -- piping will pass without color, only body, default JSON format
 restish sdx organization-list | cat
