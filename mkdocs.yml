@@ -30,8 +30,9 @@ nav:
       - Share an API:
           - "how-to/api-discovery.md"
           - "how-to/protected-externally.md"
-      # - Manage Consumer Access:
-      - "how-to/api-access.md"
+      - Manage Consumer Access:
+          - "how-to/api-access.md"
+          - "how-to/self-issue-credentials.md"
       - Integrate DevOps:
           - "how-to/cicd-integration.md"
           - "how-to/generate-service-account.md"

@@ -40,6 +40,7 @@ The following list describes the permissions:
 | `GatewayConfig.Publish`  | Permission to publish Gateway configuration to Kong and view the status of the upstreams                                                                                                 |
 | `Content.Publish`        | Permission to update the documentation on the portal                                                                                                                                     |
 | `CredentialIssuer.Admin` | Permission to create Authorization Profiles for integrating with third-party Identity Providers; the profiles are available to be used when configuring Product Environments             |
+| `CredentialIssuer.Generate` | Permission to issue and regenerate consumer credentials for services in this Gateway via the Credential Issuer API                                                                    |
 | `Access.Manage`          | Permission to approve/reject access requests to your APIs
 
 ## v1 Service Accounts
