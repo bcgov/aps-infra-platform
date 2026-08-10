@@ -16,6 +16,7 @@ Use cases:
 
 - Register new organization
 - System Owner role assignment
+- List organizations
 - Assign gateway for organization
 
 Available environments:
@@ -32,7 +33,7 @@ This is performed by the SDX Operator to onboard a new Organization.
 
 === "Restish CLI"
 
-    Help information about the operation to list available runtimes:
+    Help information about the organization creation/update operation:
 
     ```sh
     restish aps put-organization
@@ -70,24 +71,39 @@ This is performed by the SDX Operator to onboard a new Organization.
       "extSource": "custom",
       "extRecordHash": "0000",
       "tags": [
-        { "member_class": "MIN", "member_id": "FOOD" }
+        "member_class:MIN",
+        "member_id:FOOD"
       ],
       "publicBodyId": null,
       "orgUnits": []
     }
     ```
 
+    `tags` is `array<string>`. An array containing an object is rejected by
+    the live request schema.
+
 ## System Owner role assignment
 
 This is performed by the Organization Admin to assign system owners access to manage
 their systems and services.
 
-The `System Owner` is able to register new subsystems and services
-and browse the service catalog.
+The organization-scoped role that grants this access is `system-admin`, which
+carries `System.Manage` for the organization. This is distinct from any
+system-level roles and from `organization-admin`, which carries
+`GroupAccess.Manage`, `Namespace.Assign`, and `Dataset.Manage` instead.
+
+!!! warning
+    Some existing organizations were provisioned before this role was
+    introduced and still use a `system-owner` group instead. `system-owner` is
+    not a currently supported role for newly onboarded organizations; using it
+    returns `204 No Content` but does not create any organization-level group
+    or permission, so the member is granted no access. Use `system-admin` for
+    new organizations, and verify the resulting permission with a fresh token
+    after assignment.
 
 === "Restish CLI"
 
-    Help information about the operation to list available runtimes:
+    Help information about the organization role membership synchronization operation:
 
     ```sh
     restish aps put-organization-access
@@ -105,7 +121,7 @@ and browse the service catalog.
           "member": {
             "email": "aidan.cope@gov.bc.ca"
           },
-          "roles": ["system-owner"]
+          "roles": ["system-admin"]
         }
       ]
     }
@@ -128,11 +144,66 @@ and browse the service catalog.
           "member": {
             "email": "janis@testmail.com"
           },
-          "roles": ["system-owner"]
+          "roles": ["system-admin"]
         }
       ]
     }
     ```
+
+## List organizations
+
+Retrieve the list of organizations available in the SDX catalog, optionally
+including each organization's RBAC role membership.
+
+=== "Restish CLI"
+
+    ```sh
+    restish sdx organization-list
+    ```
+
+    Include role membership:
+
+    ```sh
+    restish sdx organization-list --include-access
+    ```
+
+=== "Reference"
+
+    - **API** `GET /catalog/organizations`
+
+    Query parameters:
+
+    - `includeAccess` (optional, boolean, default `false`) - when `true`,
+      each organization entry includes an `access` array of its RBAC role
+      members (`organization-admin`, `system-admin`).
+
+    ```json title="Response Body (includeAccess=true)"
+    [
+      {
+        "name": "ministry-of-food",
+        "title": "Ministry of Food",
+        "description": "It is a ministry concerned with food",
+        "member": {
+          "memberClass": "MIN",
+          "memberId": "FOOD"
+        },
+        "access": [
+          {
+            "member": { "email": "janis@testmail.com" },
+            "roles": ["system-admin"]
+          }
+        ]
+      }
+    ]
+    ```
+
+!!! note "`includeAccess` does not require authentication"
+    `organization-list` has always been callable without a bearer token, and
+    `includeAccess` does not change that: role membership is resolved using
+    the platform's own Keycloak service credentials, not the caller's - so
+    passing `includeAccess=true` returns every organization's role members
+    to anonymous callers, the same way the base listing already returns
+    every organization's name/title/member details to anonymous callers.
 
 ## Assign gateway for organization
 
