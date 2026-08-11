@@ -4,28 +4,18 @@ title: "Onboarding an Organization"
 
 This page shows how to onboard an organization onto the Secure Data Exchange.
 
-The steps described in this page are performed by the following roles:
+The steps described in this page are performed by the following Organization roles:
 
-| Role               | Function                                                                       |
-| ------------------ | ------------------------------------------------------------------------------ |
-| SDX Operator       | Establish member organizations and assign legal representatives Org Admin role |
-| Organization Admin | Manage System Owner role assignment for the organization                       |
-| System Owner       | Manage systems and service catalog entries for the particular organization     |
+- SDX Operator
+- Organization Admin
+- System Admin
 
 Use cases:
 
 - Register new organization
-- System Owner role assignment
+- System Admin role assignment
 - List organizations
 - Assign gateway for organization
-
-Available environments:
-
-| Environment | Links                                                                                                                                                                                                                                               |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DEV`       | [API Console](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/console), [OpenAPI Specification](https://api-gov-bc-ca.dev.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml), [Login](https://api-gov-bc-ca.dev.api.gov.bc.ca/login?identity=provider) |
-| `TEST`      | Coming soon                                                                                                                                                                                                                                         |
-| `PROD`      | Coming soon                                                                                                                                                                                                                                         |
 
 ## Register new organization
 
@@ -82,24 +72,15 @@ This is performed by the SDX Operator to onboard a new Organization.
     `tags` is `array<string>`. An array containing an object is rejected by
     the live request schema.
 
-## System Owner role assignment
+## System Admin role assignment
 
-This is performed by the Organization Admin to assign system owners access to manage
-their systems and services.
+This is performed by the Organization Admin to assign system
+administrators access to manage their systems.
 
 The organization-scoped role that grants this access is `system-admin`, which
-carries `System.Manage` for the organization. This is distinct from any
+carries permission `System.Manage` for the organization. This is distinct from any
 system-level roles and from `organization-admin`, which carries
 `GroupAccess.Manage`, `Namespace.Assign`, and `Dataset.Manage` instead.
-
-!!! warning
-    Some existing organizations were provisioned before this role was
-    introduced and still use a `system-owner` group instead. `system-owner` is
-    not a currently supported role for newly onboarded organizations; using it
-    returns `204 No Content` but does not create any organization-level group
-    or permission, so the member is granted no access. Use `system-admin` for
-    new organizations, and verify the resulting permission with a fresh token
-    after assignment.
 
 === "Restish CLI"
 
@@ -161,12 +142,6 @@ including each organization's RBAC role membership.
     restish sdx organization-list
     ```
 
-    Include role membership:
-
-    ```sh
-    restish sdx organization-list --include-access
-    ```
-
 === "Reference"
 
     - **API** `GET /catalog/organizations`
@@ -186,19 +161,38 @@ including each organization's RBAC role membership.
         "member": {
           "memberClass": "MIN",
           "memberId": "FOOD"
-        },
-        "access": [
-          {
-            "member": { "email": "janis@testmail.com" },
-            "roles": ["system-admin"]
-          }
-        ]
+        }
       }
     ]
     ```
 
+## Get organization details
+
+Retrieve the details of an organization available in the SDX catalog, optionally
+including the organization's RBAC role membership.
+
+=== "Restish CLI"
+Help information about the operation:
+
+    ```sh
+    restish sdx organization-get
+    ```
+
+    Example call:
+
+    ```sh
+    restish sdx organization-get my-org
+    ```
+
+    Include role membership:
+
+    ```sh
+    restish sdx organization-get my-org --include-access
+    ```
+
+<!-- prettier-ignore -->
 !!! note "`includeAccess` does not require authentication"
-    `organization-list` has always been callable without a bearer token, and
+    `organization-get` has always been callable without a bearer token, and
     `includeAccess` does not change that: role membership is resolved using
     the platform's own Keycloak service credentials, not the caller's - so
     passing `includeAccess=true` returns every organization's role members

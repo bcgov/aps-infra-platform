@@ -37,10 +37,11 @@ Use cases:
 `policyVersion` selects the connection policy that governs how the
 connection is provisioned:
 
-| Policy        | Description                                                                                    |
-| ------------- | ------------------------------------------------------------------------------------------------ |
-| `SDX.R0.00`   | Simple point-to-point connection policy. Requires a `requesterDetails` object (see below).       |
-| `SDX.R1.00`   | Adds integration/token-exchange support; requires additional requester and gateway resources and is not a drop-in default. |
+| Policy      | Description                                                                                                                   |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `SDX.R0.00` | Simple point-to-point connection policy. Requires a `requesterDetails` object (see below).                                    |
+| `SDX.R1.00` | Adds Common SSO and token-exchange support; requires additional requester and gateway resources and is not a drop-in default. |
+| `SDX.R1.01` | Adds scopes to token exchange and validation.                                                                                 |
 
 === "Restish CLI"
 
@@ -61,6 +62,7 @@ connection is provisioned:
       "requesterDetails: {}"
     ```
 
+<!-- prettier-ignore -->
 !!! note "requester details"
     Under `SDX.R0.00`, `requesterDetails` must be supplied together with
     `policyVersion` on this initial request — when both are present, the
@@ -195,6 +197,7 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
 For details on configuring the `sdx-p2p-provider.r1` pattern,
 go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
 
+<!-- prettier-ignore -->
 !!! note "Associating an OAuth integration client with a connection"
     `requesterDetails.client.clientId` (used above for
     `sdx-p2p-consumer-access.r1`/ACL and, when configured, `consumerMatch`)
