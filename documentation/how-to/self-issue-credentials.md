@@ -25,7 +25,7 @@ manage.
 
 For interactive API reference, open the
 [Directory API OpenAPI console](https://api.gov.bc.ca/ds/api/v3/console).
-Look for the `issue-gateway-consumer` and
+Look under **Gateway Consumers** for the `issue-gateway-consumer` and
 `regenerate-gateway-consumer` operations.
 
 ## Before you begin
@@ -111,6 +111,12 @@ The `application` object is required. When creating a new Application, include
 `application.name`. When reusing an existing Application, pass
 `application.appId` instead (`name` and `description` are ignored).
 
+Applications created through this endpoint are ownerless. They do not appear in
+**My Access**, but can be viewed on the **Consumers** page.
+
+Optional `labels` appear on the **Consumers** page and can be used to filter the
+list.
+
 Replace:
 
 - `<Environment.appId>`: value from
@@ -170,6 +176,8 @@ For `client-jwt` and `client-jwt-jwks-url` Environments, include the required
 [signing controls](#controls-by-flow) on every issue request, including when
 reusing an Application. Each Environment receives its own credential material.
 
+A duplicate issue request for the same Application and Environment fails.
+
 ## Regenerate credentials
 
 Rotate secrets or keys **in place** (same `clientId`):
@@ -201,16 +209,6 @@ Optional fields such as `defaultClientScopes` and `roles` may also apply.
 Configure Consumer-specific plugins, including
 [rate limiting](/reference/plugins/rate-limiting.md), from the Portal
 **Consumers** page.
-
-## Important behaviors
-
-- **Duplicate issue** for the same Application and Environment fails.
-- Optional **labels** appear on and can be used to filter the Portal
-  **Consumers** page.
-- Ownerless Applications created by the issuer are **excluded from My Access**,
-  but can be viewed on the **Consumers** page.
-- Regenerate rotates secrets/keys in place; the `clientId` does not change.
-- Empty or null response fields are stripped from API responses.
 
 ## Next steps
 
