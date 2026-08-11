@@ -12,11 +12,6 @@ Use this when you want to provision credentials programmatically (for example,
 from your own onboarding system or CI/CD pipeline) for services in a Gateway you
 manage.
 
-| Environment     | Directory API Base URL                         |
-| --------------- | ---------------------------------------------- |
-| TEST / TRAINING | `https://api-gov-bc-ca.test.api.gov.bc.ca`     |
-| PRODUCTION      | `https://api.gov.bc.ca`                        |
-
 **Base path:** `/ds/api/v3/gateways/{gatewayId}/consumers`
 
 | Action     | Method | Path                                                                        | Success |
@@ -28,15 +23,10 @@ manage.
     Revoke is not available on this API yet. Use the Portal **Consumers** page
     to revoke access. See [Manage Consumer Access](/how-to/api-access.md).
 
-For interactive API reference, open the Directory API OpenAPI console:
-
-| Environment     | OpenAPI Console                                                                                              |
-| --------------- | ------------------------------------------------------------------------------------------------------------ |
-| TEST / TRAINING | <https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/v3/console>                                                 |
-| PRODUCTION      | <https://api.gov.bc.ca/ds/api/v3/console>                                                                    |
-
-Look for the `issue-gateway-consumer` and `regenerate-gateway-consumer`
-operations.
+For interactive API reference, open the
+[Directory API OpenAPI console](https://api.gov.bc.ca/ds/api/v3/console).
+Look for the `issue-gateway-consumer` and
+`regenerate-gateway-consumer` operations.
 
 ## Before you begin
 
@@ -45,8 +35,8 @@ Before you begin, ensure you:
 - [Create a Gateway](/how-to/create-gateway.md)
 - Configure Product Environments with a [supported flow](#supported-flows)
   (and an Authorization Profile for client-credentials flows)
-- Publish Kong services and plugins for those Environments (same as a normal
-  API publish) — see [Create a Gateway Service](/how-to/create-gateway-service.md)
+- Publish Gateway Services and plugins for those Environments — see
+  [Create a Gateway Service](/how-to/create-gateway-service.md)
 - [Generate a Service Account](/how-to/generate-service-account.md) (or use a
   user token) with the `CredentialIssuer.Generate` scope on that Gateway
 
@@ -63,32 +53,29 @@ issuing credentials.
 | `client-credentials` | `client-jwt` (generated certificate / key pair)              |
 | `client-credentials` | `client-jwt-jwks-url` (caller supplies JWKS URL or certificate) |
 
-## Permission
-
-Requests require a JWT (service account or user token) with the UMA scope
-`CredentialIssuer.Generate`. In the Portal, that scope maps to the
-`credential-issuer` role:
-
-> Can issue and regenerate consumer credentials for services in this gateway
-> via the Credential Issuer API.
-
-A token without this scope receives `403`.
-
 ## Get `environmentAppId`
 
 The issue request requires `environmentAppId`. This value is **API-only** today
 — it is not shown as a field in the Portal Products UI.
 
-1. Obtain a token with access to the Gateway.
-2. Call:
+1. Sign in to the API Services Portal with `Namespace.Manage` access to the
+   Gateway.
+2. Open the
+   [Directory API OpenAPI console](https://api.gov.bc.ca/ds/api/v3/console).
+3. Find `GET /gateways/{gatewayId}/products`, click **Try it out**, enter the
+   Gateway ID, and click **Execute**.
+4. From the response, copy `[].environments[].appId` for the target
+   Environment. Pass that value as `environmentAppId`.
 
-   ```http
-   GET /ds/api/v3/gateways/{gatewayId}/products
-   Authorization: Bearer <token>
-   ```
+Alternatively, call the endpoint directly with a bearer token:
 
-3. From the response, copy `products[].environments[].appId` for the target
-   Environment. That value is what you pass as `environmentAppId`.
+```http
+GET /ds/api/v3/gateways/{gatewayId}/products
+Authorization: Bearer <token>
+```
+
+See [Getting an access token](/how-to/prom-query.md#getting-an-access-token) for
+an example of generating a bearer token from Service Account credentials.
 
 ## Issue credentials
 
@@ -121,7 +108,7 @@ Replace:
 
 - `<Environment.appId>`: value from
   `GET /ds/api/v3/gateways/{gatewayId}/products` →
-  `products[].environments[].appId`
+  `[].environments[].appId`
 - `<issuer-token>`: access token for a service account (or user) with
   `CredentialIssuer.Generate`
 
@@ -151,6 +138,27 @@ Confirm the Consumer in the Portal **Consumers** page (labels and details), then
 call the protected upstream with the returned `apiKey` or OAuth client
 credentials as appropriate for the flow.
 
+## Reuse an Application across Environments
+
+The issue response does not return `application.appId` as a separate field.
+Derive it from the returned `clientId`, which has the following format:
+
+```text
+{environmentAppId}-{applicationAppId}
+```
+
+Remove the `{environmentAppId}-` prefix from `clientId`, then pass the remaining
+Application ID in a request for another Environment:
+
+```json
+{
+  "environmentAppId": "<another-Environment.appId>",
+  "application": {
+    "appId": "<applicationAppId>"
+  }
+}
+```
+
 ## Regenerate credentials
 
 Rotate secrets or keys **in place** (same `clientId`):
@@ -166,6 +174,10 @@ Authorization: Bearer <issuer-token>
 
 ## `controls` by flow
 
+The optional `controls` object customizes the access granted to the Consumer.
+Available controls vary by Product Environment flow and Authorization Profile.
+Omit `controls` when the flow does not require additional configuration.
+
 | Flow / authenticator   | Typical `controls`                                                                 |
 | ---------------------- | ---------------------------------------------------------------------------------- |
 | `kong-api-key-only`    | Omit or `{}`                                                                       |
@@ -174,19 +186,18 @@ Authorization: Bearer <issuer-token>
 | `client-jwt`           | `clientGenCertificate: true` **or** supply `clientCertificate`                     |
 | `client-jwt-jwks-url`  | `jwksUrl` **or** `clientCertificate`                                               |
 
-Optional fields such as `defaultClientScopes`, `defaultOptionalScopes`,
-`roles`, and `plugins` may also apply depending on the Product Environment and
-Authorization Profile.
+Optional fields such as `defaultClientScopes`, `roles`, and `plugins` may also
+apply. The `plugins` control can apply Consumer-specific plugins, including
+[rate limiting](/reference/plugins/rate-limiting.md), to a Gateway Service or
+route in the Product Environment.
 
 ## Important behaviors
 
-- **Reuse Applications across Environments** by passing `application.appId` from
-  a prior issue response. The Consumer `clientId` is typically
-  `{environmentAppId}-{applicationAppId}`.
 - **Duplicate issue** for the same Application and Environment fails.
 - Optional **labels** appear on and can be used to filter the Portal
   **Consumers** page.
-- Ownerless Applications created by the issuer are **excluded from My Access**.
+- Ownerless Applications created by the issuer are **excluded from My Access**,
+  but can be viewed on the **Consumers** page.
 - Regenerate rotates secrets/keys in place; the `clientId` does not change.
 - Empty or null response fields are stripped from API responses.
 
