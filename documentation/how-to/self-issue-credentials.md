@@ -53,6 +53,10 @@ issuing credentials.
 | `client-credentials` | `client-jwt` (generated certificate / key pair)              |
 | `client-credentials` | `client-jwt-jwks-url` (caller supplies JWKS URL or certificate) |
 
+Client-credentials Environments require an Authorization Profile in `auto` mode
+with `managed` or `iat` client registration. Manual mode and anonymous client
+registration are not supported.
+
 ## Get `environmentAppId`
 
 The issue request requires `environmentAppId`. This value is **API-only** today
@@ -73,6 +77,9 @@ Alternatively, call the endpoint directly with a bearer token:
 GET /ds/api/v3/gateways/{gatewayId}/products
 Authorization: Bearer <token>
 ```
+
+This request requires `Namespace.Manage` access to the Gateway. A token with
+only `CredentialIssuer.Generate` cannot perform this lookup.
 
 See [Getting an access token](/how-to/prom-query.md#getting-an-access-token) for
 an example of generating a bearer token from Service Account credentials.
@@ -159,6 +166,10 @@ Application ID in a request for another Environment:
 }
 ```
 
+For `client-jwt` and `client-jwt-jwks-url` Environments, include the required
+[signing controls](#controls-by-flow) on every issue request, including when
+reusing an Application. Each Environment receives its own credential material.
+
 ## Regenerate credentials
 
 Rotate secrets or keys **in place** (same `clientId`):
@@ -186,10 +197,10 @@ Omit `controls` when the flow does not require additional configuration.
 | `client-jwt`           | `clientGenCertificate: true` **or** supply `clientCertificate`                     |
 | `client-jwt-jwks-url`  | `jwksUrl` **or** `clientCertificate`                                               |
 
-Optional fields such as `defaultClientScopes`, `roles`, and `plugins` may also
-apply. The `plugins` control can apply Consumer-specific plugins, including
-[rate limiting](/reference/plugins/rate-limiting.md), to a Gateway Service or
-route in the Product Environment.
+Optional fields such as `defaultClientScopes` and `roles` may also apply.
+Configure Consumer-specific plugins, including
+[rate limiting](/reference/plugins/rate-limiting.md), from the Portal
+**Consumers** page.
 
 ## Important behaviors
 
