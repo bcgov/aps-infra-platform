@@ -5,6 +5,9 @@ title: Manage Consumer Access
 This guide explains how API Providers can use the API Services Portal to manage
 access to their APIs.
 
+To issue or regenerate credentials programmatically without an Access Request,
+see [Issue Consumer Credentials via API](/how-to/self-issue-credentials.md).
+
 ## Before you begin
 
 Before you begin, ensure you:
