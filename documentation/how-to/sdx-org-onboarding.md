@@ -172,7 +172,8 @@ Retrieve the details of an organization available in the SDX catalog, optionally
 including the organization's RBAC role membership.
 
 === "Restish CLI"
-Help information about the operation:
+
+    Help information about the operation:
 
     ```sh
     restish sdx organization-get
@@ -195,7 +196,7 @@ Help information about the operation:
     `organization-get` has always been callable without a bearer token, and
     `includeAccess` does not change that: role membership is resolved using
     the platform's own Keycloak service credentials, not the caller's - so
-    passing `includeAccess=true` returns every organization's role members
+    passing `includeAccess=true` returns the organization's role members
     to anonymous callers, the same way the base listing already returns
     every organization's name/title/member details to anonymous callers.
 
@@ -222,4 +223,4 @@ public keys are managed.
 
 ## Next steps
 
-- [Install a Runtime Group](/how-to/sdx-edge-servers.md)
+- [Install an Edge Runtime Group](/how-to/sdx-edge-runtime-groups.md)

@@ -126,6 +126,7 @@ policies for connecting to other systems on SDX.
     routes and controls for services it connects to.
 
 !!! warning "Confirm the runtime currently hosts your organization"
+
     Registration currently succeeds with `HTTP 200` even if the chosen
     runtime group's `hostedOrganizations` no longer includes your
     organization — for example after a runtime's hosting was changed after
@@ -137,6 +138,7 @@ policies for connecting to other systems on SDX.
     proceeding.
 
 !!! warning "Registration is create-only"
+
     `register-subsystem-gateway` cannot be used to repair or reconcile an
     already-registered subsystem namespace — repeating it against an
     existing namespace returns `HTTP 422 Namespace already exists`, even
@@ -160,12 +162,13 @@ organization.
 
 The supported roles are:
 
-| Role              | Function                                    |
+| Role              | Function                                     |
 | ----------------- | -------------------------------------------- |
-| `system-owner`    | Overall accountable owner for the subsystem |
+| `subsystem-owner` | Overall accountable owner for the subsystem  |
 | `tech-lead`       | Technical point of contact for the subsystem |
-| `access-manager`  | Manages who has access to the subsystem     |
+| `access-manager`  | Manages who has access to the subsystem      |
 
+<!-- prettier-ignore -->
 !!! warning "Updating access replaces the full member list"
     `put-subsystem-access` is a full sync, not an incremental grant: any
     member/role combination not included in the request body is **revoked**.

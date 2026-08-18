@@ -76,7 +76,7 @@ following resources:
 How-to guides
 
 - [Onboarding an organization onto SDX](/how-to/sdx-org-onboarding.md)
-- [Install a runtime group](/how-to/sdx-edge-servers.md)
+- [Install an edge runtime group](/how-to/sdx-edge-runtime-groups.md)
 - [Managing subsystems](/how-to/sdx-subsystems.md)
 - [Managing services](/how-to/sdx-services.md)
 - [Connecting a service](/how-to/sdx-connections.md)
