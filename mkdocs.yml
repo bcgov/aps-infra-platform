@@ -43,7 +43,7 @@ nav:
       - "how-to/prod-checklist.md"
       - Secure Data Exchange:
           - "how-to/sdx-org-onboarding.md"
-          - "how-to/sdx-edge-servers.md"
+          - "how-to/sdx-edge-runtime-groups.md"
           - "how-to/sdx-org-signing.md"
           - "how-to/sdx-subsystems.md"
           - "how-to/sdx-services.md"
