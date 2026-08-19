@@ -11,6 +11,12 @@ The steps described in this page are performed by the following roles:
 | ------------ | -------------------------------------------------------------------------- |
 | System Owner | Manage systems and service catalog entries for the particular organization |
 
+The steps described in this page are performed by users with the following permissions:
+
+| Permission        | Function                                       |
+| ----------------- | ---------------------------------------------- |
+| Connection.Manage | Review and approve/reject connection requests. |
+
 Use cases:
 
 - Request access (as consumer)
@@ -19,13 +25,23 @@ Use cases:
 - Open a connection
   - Consumer side
   - Provider side
-- Delete a connection request
+- Connection management
+  - Delete a connection request
 
 ## Prerequisites
 
 - [Install Restish CLI](/reference/restish-cli.md)
 
 ## Request access (as consumer)
+
+`policyVersion` selects the connection policy that governs how the
+connection is provisioned:
+
+| Policy      | Description                                                                                                                   |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `SDX.R0.00` | Simple point-to-point connection policy. Requires a `requesterDetails` object (see below).                                    |
+| `SDX.R1.00` | Adds Common SSO and token-exchange support; requires additional requester and gateway resources and is not a drop-in default. |
+| `SDX.R1.01` | Adds scopes to token exchange and validation.                                                                                 |
 
 === "Restish CLI"
 
@@ -39,10 +55,25 @@ Use cases:
 
     ```sh
     restish sdx upsert-connection \
-      ministry-of-citz \
-      clientId: LAB.MIN.CITZ.MY-SUBSYSTEM, \
-      serviceId: LAB.MIN.CITZ.SERVICE-A.v1
+      my-org \
+      clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
+      serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
+      policyVersion: SDX.R0.00, \
+      "requesterDetails: {}"
     ```
+
+<!-- prettier-ignore -->
+!!! note "requester details"
+    Under `SDX.R0.00`, `requesterDetails` must be supplied together with
+    `policyVersion` on this initial request — when both are present, the
+    controller replaces `requesterDetails.requester` with the authenticated
+    caller's name and email. Omitting `requesterDetails` leaves an invalid
+    empty default in place that will pass creation but fail activation.
+    `requesterDetails` can only be set on creation; it cannot be repaired
+    afterwards through `upsert-connection` (that field is reserved for the
+    provisioner on update) — if activation fails for a missing requester
+    record, deactivate and delete the connection, then recreate it with
+    `policyVersion` and `requesterDetails` included together.
 
 ## Review connection access requests
 
@@ -58,7 +89,7 @@ Use cases:
 
     ```sh
     restish sdx list-connections \
-      ministry-of-citz
+      my-org
     ```
 
 ## Approve access (as provider)
@@ -68,16 +99,16 @@ Use cases:
     Help information about the operation:
 
     ```sh
-    restish sdx upsert-connection
+    restish sdx update-connection-approval
     ```
 
     Example call:
 
     ```sh
-    restish sdx upsert-connection \
-      ministry-of-citz \
-      clientId: LAB.MIN.CITZ.MY-SUBSYSTEM, \
-      serviceId: LAB.MIN.CITZ.SERVICE-A.v1, \
+    restish sdx update-connection-approval \
+      my-org \
+      clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
+      serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
       isApproved: true
     ```
 
@@ -93,20 +124,20 @@ routing rules for opening a channel between the two systems.
     Help information about the operation:
 
     ```sh
-    restish sdx generate-config-from-pattern
+    restish sdx upsert-connection
     ```
 
     Prepare a pattern input file (`pattern-input.json`) for the Consumer:
 
     ```json
     {
-      "pattern": "sdx-p2p-consumer.r1",
-      "parameters": {
-        "conn_id": "1",
-        "client_id": "LAB.MIN.CITZ.MY-SUBSYSTEM",
-        "service_id": "LAB.MIN.CITZ.SERVICE-A.v1",
-        "upgrades": {
-          "sign": {}
+      "gatewayPatterns": {
+        "sdx-p2p-consumer.r1": {
+          "clientRuntimeOverride": "MIN.CITZ.pzgw",
+          "upgrades": {
+            "sign": {},
+            "verify": {}
+          }
         }
       }
     }
@@ -115,49 +146,16 @@ routing rules for opening a channel between the two systems.
     Example call:
 
     ```sh
-    restish sdx generate-config-from-pattern \
-      ministry-of-citz \
-      --action apply \
-      --dry-run < pattern-input.json
-    ```
+    restish sdx upsert-connection \
+      my-org \
+      clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
+      serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
+      clientResources: @pattern-input.json
 
-=== "Reference"
-
-    - **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - values for `action`: `preview` and `apply`
-
-    For `action=apply` you can specify `dryRun=true` if you want to see what changes
-    will be applied without the changes actually being made.
-
-    Gateway Pattern: `sdx-p2p-consumer.r1`
-
-    | Parameter    | Description                                                                                |
-    | ------------ | ------------------------------------------------------------------------------------------ |
-    | `conn_id`    | Unique identifier for the connection|
-    | `client_id`  | Client identifier for authentication                                                       |
-    | `service_id` | Service identifier being connected                                                         |
-    | `upgrades`   | Optional set of controls that can be added to the routing                                  |
-
-    Example:
-
-    ```json
-    {
-      "pattern": "sdx-p2p-consumer.r1",
-      "parameters": {
-        "conn_id": "001",
-        "client_id": "LAB.MIN.CITZ.SDG",
-        "service_id": "LAB.MIN.SDPR.CASE-MANAGEMENT.v1",
-        "upgrades": {}
-      }
-    }
     ```
 
 For details on configuring the `sdx-p2p-consumer.r1` pattern,
-go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
+go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
 
 ### Provider side
 
@@ -166,20 +164,22 @@ go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
     Help information about the operation:
 
     ```sh
-    restish sdx generate-config-from-pattern
+    restish sdx upsert-connection
     ```
 
     Prepare a pattern input file (`pattern-input.json`) for the Provider:
 
     ```json
     {
-      "pattern": "sdx-p2p-provider.r1",
-      "parameters": {
-        "conn_id": "1",
-        "client_id": "LAB.MIN.CITZ.MY-SUBSYSTEM",
-        "service_id": "LAB.MIN.CITZ.SERVICE-A.v1",
-        "upstream_url": "https://my-upstream-endpoint.domain",
-        "upgrades": {}
+      "gatewayPatterns": {
+        "sdx-p2p-provider.r1": {
+          "upstreamUrl": "https://my-upstream-endpoint.domain",
+          "upgrades": {
+            "mtlsAuth": {},
+            "sign": {},
+            "verify": {}
+          }
+        }
       }
     }
     ```
@@ -187,54 +187,38 @@ go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
     Example call:
 
     ```sh
-    restish sdx generate-config-from-pattern \
-      ministry-of-citz \
-      --action apply \
-      --dry-run < pattern-input.json
-    ```
-
-=== "Reference"
-
-    - **API** `PUT /organizations/{org}/pattern?action=apply&dryRun=true`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - values for `action`: `preview` and `apply`
-
-    For `action=apply` you can specify `dryRun=true` if you want to see what changes
-    will be applied without the changes actually being made.
-
-    Gateway Pattern: `sdx-p2p-provider.r1`
-
-    | Parameter      | Description                                               |
-    | -------------- | ------------------------------------------------------------------------------------------ |
-    | `conn_id`      | Unique identifier for the connection |
-    | `client_id`    | Client identifier for authentication                                                       |
-    | `service_id`   | Service identifier being connected                                                         |
-    | `upstream_url` | The upstream service implementation endpoint                                               |
-    | `upgrades`     | Optional set of controls that can be added to the routing                                  |
-
-    Example:
-
-    ```json
-    {
-      "pattern": "sdx-p2p-provider.r1",
-      "parameters": {
-        "conn_id": "001",
-        "client_id": "LAB.MIN.CITZ.SDG",
-        "service_id": "LAB.MIN.SDPR.CASE-MANAGEMENT.v1",
-        "upstream_url": "http://<ocp_service>.<ocp_namespace>.svc",
-        "upgrades": {}
-      }
-    }
+    restish sdx upsert-connection \
+      my-org \
+      clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
+      serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
+      serviceResources: @pattern-input.json
     ```
 
 For details on configuring the `sdx-p2p-provider.r1` pattern,
-go to [Connection Gateway Patterns](/how-to/sdx-upgrades.md).
+go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
 
+<!-- prettier-ignore -->
+!!! note "Associating an OAuth integration client with a connection"
+    `requesterDetails.client.clientId` (used above for
+    `sdx-p2p-consumer-access.r1`/ACL and, when configured, `consumerMatch`)
+    is provisioner-managed. It cannot be written directly through the SDX
+    management API — attempting a direct `upsert-connection` update of
+    `requesterDetails` returns `HTTP 400`. Registering an
+    `integrationClientId` on the consumer subsystem (see
+    [Register an SDX Subsystem](/how-to/sdx-subsystems.md)) is only the
+    first half of the relationship: the field is populated by calling the
+    supported `POST /v1/integrations/{clientId}/access-requests` operation
+    on the SDX Partner Authorization Services API, which validates the
+    requested scopes against the registered OAD and writes the requester
+    metadata with trusted provisioner credentials. That API uses a separate
+    base URL and bearer-token audience from the main SDX API — consult the
+    APS team for the current Restish/API configuration for it. Before
+    enabling strict `consumerMatch`, verify that the connection contains the
+    integration client and that the Kong consumer created by
+    `sdx-p2p-consumer-access.r1` exists, since enabling `consumerMatch`
+    ahead of a matching consumer blocks legitimate traffic.
 
-## Delete a connection request
+## Connection management
 
 Deleting a connection request is the final cleanup step after the consumer and
 provider gateway configurations have been removed.
@@ -242,10 +226,10 @@ provider gateway configurations have been removed.
 Remove each side's gateway configuration by generating the same pattern
 configuration that was used to open the connection, but use `action=remove`.
 
-| Side     | Gateway pattern          |
-| -------- | ------------------------ |
-| Consumer | `sdx-p2p-consumer.r1`    |
-| Provider | `sdx-p2p-provider.r1`    |
+| Side     | Gateway pattern       |
+| -------- | --------------------- |
+| Consumer | `sdx-p2p-consumer.r1` |
+| Provider | `sdx-p2p-provider.r1` |
 
 === "Restish CLI"
 
@@ -253,25 +237,13 @@ configuration that was used to open the connection, but use `action=remove`.
     removed, then run:
 
     ```sh
-    restish sdx generate-config-from-pattern \
+    restish sdx provision-config-from-pattern \
       ministry-of-citz \
       --action remove \
       --dry-run < pattern-input.json
     ```
 
-=== "Reference"
-
-    - **API** `PUT /organizations/{org}/pattern?action=remove&dryRun=true`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - values for `action`: `preview`, `apply`, and `remove`
-
-    Use `dryRun=true` to see what changes will be removed without actually
-    removing them.
-
-### Delete the connection request
+### Delete a connection request
 
 After both sides have removed their gateway configuration, a System Owner for
 either organization associated with the connection request can delete it.

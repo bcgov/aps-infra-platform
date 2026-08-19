@@ -3,8 +3,9 @@ title: "Share an Externally Protected API"
 ---
 
 
-This page shows how to share externally protected APIs on the {{ glossary_tooltip
-term_id="api-directory" }}, without setting up any {{ glossary_tooltip term_id="gateway-service"
+This page shows how to share externally protected APIs
+on the {{ glossary_tooltip term_id="api-directory" }},
+without setting up any {{ glossary_tooltip term_id="gateway-service"
 text="Gateway Services" }} in the {{ glossary_tooltip term_id="api-services-portal"}}.
 
 ## Before you begin

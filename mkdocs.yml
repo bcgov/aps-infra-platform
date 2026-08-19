@@ -30,8 +30,9 @@ nav:
       - Share an API:
           - "how-to/api-discovery.md"
           - "how-to/protected-externally.md"
-      # - Manage Consumer Access:
-      - "how-to/api-access.md"
+      - Manage Consumer Access:
+          - "how-to/api-access.md"
+          - "how-to/self-issue-credentials.md"
       - Integrate DevOps:
           - "how-to/cicd-integration.md"
           - "how-to/generate-service-account.md"
@@ -45,8 +46,9 @@ nav:
           - "how-to/sdx-edge-servers.md"
           - "how-to/sdx-org-signing.md"
           - "how-to/sdx-subsystems.md"
+          - "how-to/sdx-services.md"
           - "how-to/sdx-connections.md"
-          - "how-to/sdx-upgrades.md"
+          - "how-to/sdx-connection-patterns.md"
           - "how-to/sdx-ape-event-mgmt.md"
           - "how-to/sdx-ape-policy-mgmt.md"
   - Concepts:
