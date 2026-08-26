@@ -23,7 +23,7 @@ they should be configured. This page describes all the parameters that are avail
 
 ## Connection Request
 
-- following parameters MUST by set: `clientId`, `serviceId`
+- The following parameters MUST be set: `clientId`, `serviceId`
 
 | Parameter          | Type    | Rule                    |
 | ------------------ | ------- | ----------------------- |

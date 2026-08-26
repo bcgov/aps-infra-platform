@@ -153,7 +153,7 @@ default routes and controls for this runtime group.
 The runtime group infrastructure uses a token from the CA to bootstrap
 the first certificate.
 
-The certificate is used from supporting `mTLS` between runtime groups.
+The certificate is used for supporting `mTLS` between runtime groups.
 
 This is performed by a System Admin to request a new cert signing token.
 
@@ -351,7 +351,7 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
     Registering the runtime group's public key with `sdx-keys.r1` is a
     mandatory prerequisite before enabling the `sign` upgrade on a consumer
     connection or the `verify` upgrade on a provider connection (see
-    [Manage Connections](/how-to/sdx-connections.md)). The `trust-sign`
+    [Connecting a Service](/how-to/sdx-connections.md)). The `trust-sign`
     plugin embeds the runtime's JWKS URI in the signature but does not create
     or publish the key set itself — until `sdx-keys.r1` has been applied, the
     JWKS URL will return `404 Key set not found` and traffic relying on

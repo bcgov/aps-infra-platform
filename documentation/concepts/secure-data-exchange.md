@@ -22,7 +22,7 @@ The Edge Server is a forward proxy for the service consumer (IS client) and a re
 
 Edge Servers sit in an organization's DMZ, where they are able to communicate with other Edge Servers in a secure and auditable way.
 
-For information about environments, vist [SDX Environments](/reference/sdx/environments.md).
+For information about environments, visit [SDX Environments](/reference/sdx/environments.md).
 
 ## Roles
 

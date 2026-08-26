@@ -11,9 +11,10 @@ This page shows how to create OPA and CEDAR policies and use them for enforcemen
 
 The steps described in this page are performed by the following roles:
 
-| Role         | Function                                                                   |
-| ------------ | -------------------------------------------------------------------------- |
-| System Owner | Manage systems and service catalog entries for the particular organization |
+| Role            | Function                                                     |
+| --------------- | ------------------------------------------------------------ |
+| System Admin    | Organization-level role for managing subsystems and services |
+| Subsystem Owner | Subsystem-level role for managing services for a subsystem   |
 
 Use cases:
 

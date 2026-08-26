@@ -234,7 +234,7 @@ If the subsystem is going to be a Resource Server (RS) providing a service,
 the subsystem MUST set its privacy zone defined in the Authorization Party (AP)
 and be reviewed by the AP Owner before it can be connected to clients.
 
-For an non-exhaustive list, see: https://id.gov.bc.ca/oauth2/privacy-zones.
+For a non-exhaustive list, see [privacy zones](https://id.gov.bc.ca/oauth2/privacy-zones).
 
 === "Restish CLI"
 

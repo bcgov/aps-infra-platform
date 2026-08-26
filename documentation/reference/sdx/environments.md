@@ -2,17 +2,17 @@
 title: "SDX Environments"
 ---
 
-!!! Playground
+!!! note "Playground"
 
     The Playground environment is for service providers to verify the
     installation of SDX and test new functionality before moving it to production.
     There is NO data or service quality in this environment!
 
-!!! Production
+!!! note "Production"
 
     The Production environment supports the Test data and Production
     data SDX instances. Data and service quality is the same for both SDX
-    instances.  It also supports a `Staging` environment for runtime group
+    instances. It also supports a `Staging` environment for runtime group
     operators to stage infrastructure changes.
 
 ## Useful links
@@ -66,9 +66,11 @@ For access to services in `Non-Prod`, the following token issuers are accepted:
 - https://dev.loginproxy.gov.bc.ca/auth/realms/standard
 - https://test.loginproxy.gov.bc.ca/auth/realms/standard
 
-> NOTE: Regarding the `sub` - for BC Services Card login, both of these environments
-> reference the BCSC Test environment, so they will return the same `sub` when it
-> comes to privacy zones.
+!!! note "BC Services Card `sub`"
+
+    For BC Services Card login, both of these environments reference the
+    BCSC Test environment, so they will return the same `sub` when it
+    comes to privacy zones.
 
 #### Services that are also SDX Clients
 
