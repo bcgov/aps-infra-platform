@@ -228,6 +228,40 @@ The supported roles are:
     Submitting a role name other than `subsystem-owner`, `tech-lead`, or
     `access-manager` returns a `4xx` naming the unsupported value.
 
+### CS Link - Service Provider Privacy Zone
+
+If the subsystem is going to be a Resource Server (RS) providing a service,
+the subsystem MUST set its privacy zone defined in the Authorization Party (AP)
+and be reviewed by the AP Owner before it can be connected to clients.
+
+For an non-exhaustive list, see: https://id.gov.bc.ca/oauth2/privacy-zones.
+
+=== "Restish CLI"
+
+    ```sh
+    restish sdx upsert-subsystem \
+      my-org \
+      name: MY-NEW-SUBSYSTEM, \
+      privacyZone: "urn:ca:bc:gov:buseco:prod"
+    ```
+
+### CS Link - Service Client Integration
+
+If the subsystem is going to be a Relying Party, the subsystem MUST set the
+Authorization Party (AP) Integration ID to identify which access requests
+this subsystem will accept from the AP.
+
+=== "Restish CLI"
+
+    Example setting the integration ID to `22308`.
+
+    ```sh
+    restish sdx upsert-subsystem \
+      my-org \
+      name: MY-NEW-SUBSYSTEM, \
+      'integrations: [{integrationClientId:"22308"}]'
+    ```
+
 ### Delete a subsystem
 
 A subsystem can be deleted when it has no active connection requests and no
