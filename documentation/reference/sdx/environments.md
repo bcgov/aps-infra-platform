@@ -24,6 +24,28 @@ Links to the different services for each environment:
 | OpenAPI Specification | [OpenAPI](https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) | [OpenAPI](https://api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) |
 | API Services Portal   | [APS Portal](https://api-gov-bc-ca.test.api.gov.bc.ca/login?identity=provider) | [APS Portal](https://api.gov.bc.ca/login?identity=provider) |
 
+## Environment labels
+
+| APS Environment | SDX Environment | Purpose                  |
+| --------------- | --------------- | ------------------------ |
+| APS Dev         | `apsdev`        | APS internal development |
+| APS Test        | `apstst`        | SDX Playground           |
+| APS Prod        | `stg`           | SDX Staging              |
+| APS Prod        | `bct`           | SDX Non-Prod             |
+| APS Prod        | `bc`            | SDX Prod                 |
+
+## Playground
+
+Subsystem authentication in SDX is performed using a token that is issued
+by Common SSO.
+
+For access to services in this `Playground` environment, the following token
+issuers are accepted:
+
+- https://dev.sandbox.loginproxy.gov.bc.ca/auth/realms/standard
+- https://test.sandbox.loginproxy.gov.bc.ca/auth/realms/standard
+- https://sandbox.loginproxy.gov.bc.ca/auth/realms/standard
+
 ## Production
 
 Production is split into the following environments:
@@ -39,6 +61,10 @@ For access to services in `Non-Prod`, the following token issuers are accepted:
 
 - https://dev.loginproxy.gov.bc.ca/auth/realms/standard
 - https://test.loginproxy.gov.bc.ca/auth/realms/standard
+
+> NOTE: Regarding the `sub` - for BC Services Card login, both of these environments
+> reference the BCSC Test environment, so they will return the same `sub` when it
+> comes to privacy zones.
 
 For access to services in `Prod`, the following token issuers are accepted:
 

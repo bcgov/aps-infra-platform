@@ -66,8 +66,8 @@ Use cases:
       "requesterDetails: {}"
     ```
 
-<!-- prettier-ignore -->
 !!! note "requester details"
+
     Under `SDX.R0.00`, `requesterDetails` must be supplied together with
     `policyVersion` on this initial request — when both are present, the
     controller replaces `requesterDetails.requester` with the authenticated

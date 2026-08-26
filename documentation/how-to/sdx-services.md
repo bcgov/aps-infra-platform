@@ -53,19 +53,20 @@ For details about the `environment`, visit [SDX Environments](/reference/sdx/env
     ```
 
 !!! note "OAS security scopes are not automatically enforced"
-Distinct OpenAPI `security` scopes declared per-operation (read, create,
-update, delete, etc.) are **not** automatically converted into
-route-level runtime authorization. Registering an OAS that declares
-scopes does not by itself restrict which operations a caller with a
-valid token can reach. Runtime access control must be configured
-explicitly through connection `upgrades` — see the `token`,
-`consumerMatch`, and `tokenExchange` options in
-[Connection Resources](/how-to/sdx-connection-resources.md) and the
-[JWT Keycloak plugin](/reference/plugins/jwt-keycloak.md) — and, as
-deployed today, the JWT guard verifies the token's signature, issuer,
-expiry, and `sub`, but does not itself verify `scope`, audience, or
-authorized party. Treat declared OAS scopes as descriptive metadata
-until per-operation enforcement is explicitly configured.
+
+    Distinct OpenAPI `security` scopes declared per-operation (read, create,
+    update, delete, etc.) are **not** automatically converted into
+    route-level runtime authorization. Registering an OAS that declares
+    scopes does not by itself restrict which operations a caller with a
+    valid token can reach. Runtime access control must be configured
+    explicitly through connection `upgrades` — see the `token`,
+    `consumerMatch`, and `tokenExchange` options in
+    [Connection Resources](/how-to/sdx-connection-resources.md) and the
+    [JWT Keycloak plugin](/reference/plugins/jwt-keycloak.md) — and, as
+    deployed today, the JWT guard verifies the token's signature, issuer,
+    expiry, and `sub`, but does not itself verify `scope`, audience, or
+    authorized party. Treat declared OAS scopes as descriptive metadata
+    until per-operation enforcement is explicitly configured.
 
 ### Troubleshooting service registration
 

@@ -6,9 +6,11 @@ This page shows how to onboard an organization onto the Secure Data Exchange.
 
 The steps described in this page are performed by the following Organization roles:
 
-- SDX Operator
-- Organization Admin
-- System Admin
+| Role               | Function                                                                       |
+| ------------------ | ------------------------------------------------------------------------------ |
+| SDX Operator       | Establish member organizations and assign legal representatives Org Admin role |
+| Organization Admin | Manage System Admin role assignment for the organization                       |
+| System Admin       | Manage subsystem onboarding for the particular organization                    |
 
 Use cases:
 
