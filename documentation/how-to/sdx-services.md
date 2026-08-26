@@ -30,7 +30,7 @@ To register a service, you need to identify the `environment` you are deploying 
 to, the `upstream URL` for routing to where your service is running,
 and the OpenAPI specification itself.
 
-For details about the `environment`, visit [SDX Environments](/reference/sdx/environments.md).
+For details about valid `environment` values, visit [Environments Labels](/reference/sdx/environments.md#environment-labels).
 
 === "Restish CLI"
 

@@ -15,6 +15,8 @@ title: "SDX Environments"
     instances.  It also supports a `Staging` environment for runtime group
     operators to stage infrastructure changes.
 
+## Useful links
+
 Links to the different services for each environment:
 
 | Service               | Playground                                                                     | Production                                                  |
@@ -36,6 +38,8 @@ Links to the different services for each environment:
 
 ## Playground
 
+### SDX Playground
+
 Subsystem authentication in SDX is performed using a token that is issued
 by Common SSO.
 
@@ -48,14 +52,14 @@ issuers are accepted:
 
 ## Production
 
-Production is split into the following environments:
+### SDX Staging
 
-- `Staging` : reserved for runtime group administrators to stage infrastructure
-- `Non-Prod` : functionally equivalent to production, but with connected synthetic data
-- `Prod` : live data
+Subsystem authentication using tokens from Common SSO is not supported in `Staging`.
 
-Subsystem authentication in SDX is performed using a token that is issued
-by Common SSO.
+Clients can use the internal consumer endpoints of the relevant runtime groups
+to call services in this environment.
+
+### SDX Non-Prod
 
 For access to services in `Non-Prod`, the following token issuers are accepted:
 
@@ -66,16 +70,7 @@ For access to services in `Non-Prod`, the following token issuers are accepted:
 > reference the BCSC Test environment, so they will return the same `sub` when it
 > comes to privacy zones.
 
-For access to services in `Prod`, the following token issuers are accepted:
-
-- https://loginproxy.gov.bc.ca/auth/realms/standard
-
-Subsystem authentication using tokens from Common SSO is not supported in `Staging`.
-
-### Services that are also SDX Clients
-
-Services that are running in `Prod` will only be allowed to access services
-running in `Prod`.
+#### Services that are also SDX Clients
 
 Services that are running in `Non-Prod` can choose either `dev` or `test` tokens
 from CSS.
@@ -85,5 +80,11 @@ from CSS.
     For cases where the service is also calling SDX services, the token will be
     passed through as-is, where SDX will perform token exchange.
 
-    The use case of a service provider that is also an SDX client calling another service,
-    is still under construction and not supported at this time.
+    The use case of a service provider that is also an SDX client calling another
+    service, is still under construction and not supported at this time.
+
+### SDX Prod
+
+For access to services in `Prod`, the following token issuers are accepted:
+
+- https://loginproxy.gov.bc.ca/auth/realms/standard
