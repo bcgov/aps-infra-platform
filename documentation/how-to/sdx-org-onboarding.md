@@ -133,8 +133,7 @@ system-level roles and from `organization-admin`, which carries
 
 ## List organizations
 
-Retrieve the list of organizations available in the SDX catalog, optionally
-including each organization's RBAC role membership.
+Retrieve the list of organizations available in the SDX catalog.
 
 === "Restish CLI"
 
@@ -146,13 +145,7 @@ including each organization's RBAC role membership.
 
     - **API** `GET /catalog/organizations`
 
-    Query parameters:
-
-    - `includeAccess` (optional, boolean, default `false`) - when `true`,
-      each organization entry includes an `access` array of its RBAC role
-      members (`organization-admin`, `system-admin`).
-
-    ```json title="Response Body (includeAccess=true)"
+    ```json title="Response Body"
     [
       {
         "name": "ministry-of-food",

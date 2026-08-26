@@ -6,13 +6,12 @@ title: "Managing Services"
 
 This page shows how to manage services on the Secure Data Exchange.
 
-The steps described in this page are performed by users with the following permissions:
+The steps described in this page are performed by users with the following roles:
 
-| Permission             | Function        |
-| ---------------------- | --------------- |
-| GatewayPattern.Publish | Manage services |
-
-The permissions are setup by a System Owner for the organization.
+| Role            | Function                                                     |
+| --------------- | ------------------------------------------------------------ |
+| System Admin    | Organization-level role for managing subsystems and services |
+| Subsystem Owner | Subsystem-level role for managing services for a subsystem   |
 
 Use cases:
 
@@ -27,43 +26,50 @@ Use cases:
 
 ## Register a service
 
+To register a service, you need to identify the `environment` you are deploying the service
+to, the `upstream URL` for routing to where your service is running,
+and the OpenAPI specification itself.
+
+For details about the `environment`, visit [SDX Environments](/reference/sdx/environments.md).
+
 === "Restish CLI"
 
     Help information about the operation:
 
     ```sh
-    restish sdx create-oas-service
+    restish sdx upsert-oas-service
     ```
 
     Example:
 
     ```sh
-    restish sdx create-oas-service \
+    restish sdx upsert-oas-service \
       my-org \
       --subsystem MY-NEW-SUBSYSTEM \
       --environment lab \
+      --upstream-url "https://your-upstream-endpoint" \
       --rsh-header "Content-Type: application/yaml" \
       < openapi.yaml
     ```
 
 !!! note "OAS security scopes are not automatically enforced"
-    Distinct OpenAPI `security` scopes declared per-operation (read, create,
-    update, delete, etc.) are **not** automatically converted into
-    route-level runtime authorization. Registering an OAS that declares
-    scopes does not by itself restrict which operations a caller with a
-    valid token can reach. Runtime access control must be configured
-    explicitly through connection `upgrades` — see the `token`,
-    `consumerMatch`, and `tokenExchange` options in
-    [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md) and the
-    [JWT Keycloak plugin](/reference/plugins/jwt-keycloak.md) — and, as
-    deployed today, the JWT guard verifies the token's signature, issuer,
-    expiry, and `sub`, but does not itself verify `scope`, audience, or
-    authorized party. Treat declared OAS scopes as descriptive metadata
-    until per-operation enforcement is explicitly configured.
+Distinct OpenAPI `security` scopes declared per-operation (read, create,
+update, delete, etc.) are **not** automatically converted into
+route-level runtime authorization. Registering an OAS that declares
+scopes does not by itself restrict which operations a caller with a
+valid token can reach. Runtime access control must be configured
+explicitly through connection `upgrades` — see the `token`,
+`consumerMatch`, and `tokenExchange` options in
+[Connection Resources](/how-to/sdx-connection-resources.md) and the
+[JWT Keycloak plugin](/reference/plugins/jwt-keycloak.md) — and, as
+deployed today, the JWT guard verifies the token's signature, issuer,
+expiry, and `sub`, but does not itself verify `scope`, audience, or
+authorized party. Treat declared OAS scopes as descriptive metadata
+until per-operation enforcement is explicitly configured.
 
 ### Troubleshooting service registration
 
-A `create-oas-service` request can return `HTTP 503`,
+An `upsert-oas-service` request can return `HTTP 503`,
 `validation_service_unavailable`, `OAS validation service unavailable` for
 two different reasons that look identical to the caller:
 

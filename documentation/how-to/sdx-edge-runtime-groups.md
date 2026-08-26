@@ -8,11 +8,15 @@ Before your systems can start to connect with other systems in SDX, your organiz
 either deploy a runtime group in your own infrastructure (`client-hosted`), or you must signup
 for using one of the shared runtime groups (`community-hosted`).
 
+To learn more about the communication protocol between a client Edge Runtime
+Group and a service Edge Runtime Group, visit the
+[SDX Data Access Protocol](/reference/sdx/data-access-protocol.md) document.
+
 The steps described in this page are performed by the following roles:
 
 | Role         | Function                                                               |
 | ------------ | ---------------------------------------------------------------------- |
-| System Owner | Request a new runtime group, and manage onboarding a new runtime group |
+| System Admin | Request a new runtime group, and manage onboarding a new runtime group |
 
 !!! note "Community Hosted"
 
@@ -21,8 +25,8 @@ The steps described in this page are performed by the following roles:
 
 Use cases for `client-hosted`:
 
-- Register a new runtime group
-- Create runtime group gateway
+- Establish a new runtime group
+- Register a runtime group gateway
 - Deploy runtime group infrastructure
   - Request a one-time-use certificate signing token
   - Deploy the runtime group infrastructure
@@ -35,9 +39,9 @@ Use cases for `client-hosted`:
 - [Install Restish CLI](/reference/restish-cli.md)
 - [Install Helm](https://helm.sh/docs/intro/install/) (if deploying the runtime group infrastructure)
 
-## Register a new runtime group
+## Establish a new runtime group
 
-To register a runtime group, you need to know the internet-facing IP address that
+To establish a runtime group, you need to know the internet-facing IP address that
 will be used to route traffic to this runtime group.
 
 === "Restish CLI"
@@ -58,7 +62,7 @@ will be used to route traffic to this runtime group.
 
 === "Reference"
 
-    This is performed by a System Owner to create a new runtime group.
+    This is performed by a System Admin to create a new runtime group.
 
     - **API** `PUT /organizations/{org}/runtime-groups`
 
@@ -84,9 +88,9 @@ will be used to route traffic to this runtime group.
     | `consumerEndpoint`    | Domain that the Runtime Group uses automatically (port 8000, internal.<EDGE_DOMAIN>)  |
     | `hostedOrganizations` | List of all the organizations that are permitted to use this particular Runtime Group |
 
-## Create runtime group gateway
+## Register a runtime group gateway
 
-As a System Owner, you perform this task. Once complete, you can set up the
+As a System Admin, you perform this task. Once complete, you can set up the
 default routing policies for this runtime group.
 
 !!! warning "Registration is not a safe retry"
@@ -149,7 +153,7 @@ the first certificate.
 
 The certificate is used from supporting `mTLS` between runtime groups.
 
-This is performed by a System Owner to request a new cert signing token.
+This is performed by a System Admin to request a new cert signing token.
 
 === "Restish CLI"
 
@@ -203,13 +207,13 @@ helm upgrade --install ${EDGE_ID} \
   --set bootstrap.tls.cn=${DOMAIN} \
   --set bootstrap.tls.ip=${IP} \
   --set route.host=${DOMAIN} \
-  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.6
+  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.7
 
 # If you want to upgrade to a newer helm chart version, you can run
 helm upgrade --install ${EDGE_ID} \
   --reset-then-reuse-values \
   --set bootstrap.tls.token="" \
-  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.6
+  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.7
 ```
 
 ### Provision default routes and controls
@@ -246,7 +250,7 @@ The generated help for `provision-config-from-pattern` lists
 `System.Manage` as the required scope. The effective requirement is
 actually `GatewayPattern.Publish`, resolved against the runtime's
 namespace (for example `<namespace>:GatewayPattern.Publish`), and it is
-granted automatically to the runtime's registering System Owner.
+granted automatically to the runtime's registering System Admin.
 Authorization happens in two stages: `GatewayPattern.Publish` gates the
 `preview`/`diff`/`apply`/`delete` endpoint itself for the human caller,
 and a separate `GatewayConfig.Publish` scope, held by the internal
@@ -347,7 +351,9 @@ or publish the key set itself — until `sdx-keys.r1` has been applied, the
 JWKS URL will return `404 Key set not found` and traffic relying on
 verification will fail.
 
-## Decommission Runtime Group
+## Runtime Group management
+
+### Decommission Runtime Group
 
 > To be documented..
 
