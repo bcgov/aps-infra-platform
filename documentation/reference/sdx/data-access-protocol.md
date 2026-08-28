@@ -19,9 +19,10 @@ validates the token before passing the response to the calling client.
 
 | Header Name      | Type                                                                      |
 | ---------------- | ------------------------------------------------------------------------- |
+| `X-Client-Id`    | Client subsystem identifier                                               |
+| `Authorization`  | Client identity JWT                                                       |
 | `Correlation-Id` | Optional                                                                  |
 | `Content-Digest` | Optional - request content digest (RFC-9530)<br>`sha-512=:<hash-base64>:` |
-| `Authorization`  | Client identity JWT                                                       |
 | `DPoP`           | Optional demonstration of proof of possession (DPoP) JWT                  |
 
 The `Authorization` header MUST contain a token that is issued from an approved
