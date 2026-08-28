@@ -21,7 +21,7 @@ they should be configured. This page describes all the parameters that are avail
     `isActive: false` on the connection rather than by deleting the pattern
     directly.
 
-## Connection Request
+## All Parameters
 
 - The following parameters MUST be set: `clientId`, `serviceId`
 
@@ -38,6 +38,22 @@ they should be configured. This page describes all the parameters that are avail
 | `.gatewayPatterns` | object  | optional                |
 
 `isApproved` is set by a user with the "Access Manager" subsystem role.
+
+### requesterDetails
+
+| Parameter               | Type          | Rule     |
+| ----------------------- | ------------- | -------- |
+| `.client`               | object        | optional |
+| `.client.integrationId` | string        | optional |
+| `.client.clientId`      | string        | optional |
+| `.client.privacyZone`   | string        | optional |
+| `.requester`            | object        | required |
+| `.requester.name`       | string        | required |
+| `.requester.email`      | string        | optional |
+| `.scopes`               | set of string | optional |
+| `.service`              | object        | optional |
+| `.service.clientId`     | string        | optional |
+| `.submissionId`         | string        | optional |
 
 ### clientResources.gatewayPatterns
 
@@ -113,3 +129,37 @@ they should be configured. This page describes all the parameters that are avail
 | `.consumerMatchIgnoreNotFound` | boolean  | optional |
 |                                |          |          |
 | **acl**                        | object   | optional |
+
+## SDX.R1.00 Policy
+
+The `SDX.R1.00` policy adds Common SSO tokens for client authentication,
+token-exchange for crossing privacy zones, and resource scopes.
+
+### Service Client
+
+Both `sdx-p2p-consumer-access.r1` and `sdx-p2p-consumer.r1` patterns are
+required.
+
+The following upgrades to `sdx-p2p-consumer.r1` are required:
+
+| Upgrade         | Purpose                                                                                       |
+| --------------- | --------------------------------------------------------------------------------------------- |
+| `token`         | Verify access token issued by an approved IAM provider (authorized party: client integration) |
+| `acl`           | Verify client represents the SDX client subsystem                                             |
+| `tokenExchange` | Connected Services Link - Initiate token exchange for cross-privacy zone requests             |
+| `sign`          | Standard Edge Runtime token added as an `X-Edge-Token` header                                 |
+| `verify`        | Verification of Edge Runtime token on response from Provider                                  |
+| `counterSign`   | Client organization transaction signature on request                                          |
+
+### Service Provider
+
+`sdx-p2p-provider.r1` pattern is required.
+
+The following upgrades to this pattern are required:
+
+| Upgrade       | Purpose                                                                        |
+| ------------- | ------------------------------------------------------------------------------ |
+| `token`       | Verify access token issued by an approved IAM provider (authorized party: SDX) |
+| `sign`        | Standard Edge Runtime token added as an `X-Edge-Token` response header         |
+| `verify`      | Verification of Edge Runtime token on request from Client                      |
+| `counterSign` | Service organization transaction signature on response                         |
