@@ -77,7 +77,10 @@ nav:
           - "reference/plugins/request-transformer.md"
           - "reference/plugins/waiting-queue.md"
       - "reference/glossary.md"
-      - "reference/releases/index.md"
+      - Releases:
+          - "reference/releases/index.md"
+          - "reference/releases/gateway/index.md"
+          - "reference/releases/sdx/index.md"
       - "reference/SSL.md"
       - "reference/presentations.md"
       - "reference/sdx/data-access-protocol.md"
