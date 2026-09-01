@@ -6,14 +6,14 @@ title: "SDX Environments"
 
     The Playground environment is for service providers to verify the
     installation of SDX and test new functionality before moving it to production.
-    There is NO data or service quality in this environment!
+    This environment provides no data or service quality guarantees.
 
 !!! note "Production"
 
     The Production environment supports the Test data and Production
     data SDX instances. Data and service quality is the same for both SDX
-    instances. It also supports a `Staging` environment for runtime group
-    operators to stage infrastructure changes.
+    instances. The Production environment also supports a `Staging` environment
+    for runtime group operators to stage infrastructure changes.
 
 ## Useful links
 
@@ -46,9 +46,9 @@ by Common SSO.
 For access to services in this `Playground` environment, the following token
 issuers are accepted:
 
-- https://dev.sandbox.loginproxy.gov.bc.ca/auth/realms/standard
-- https://test.sandbox.loginproxy.gov.bc.ca/auth/realms/standard
-- https://sandbox.loginproxy.gov.bc.ca/auth/realms/standard
+- `https://dev.sandbox.loginproxy.gov.bc.ca/auth/realms/standard`
+- `https://test.sandbox.loginproxy.gov.bc.ca/auth/realms/standard`
+- `https://sandbox.loginproxy.gov.bc.ca/auth/realms/standard`
 
 ## Production
 
@@ -63,30 +63,25 @@ to call services in this environment.
 
 For access to services in `Non-Prod`, the following token issuers are accepted:
 
-- https://dev.loginproxy.gov.bc.ca/auth/realms/standard
-- https://test.loginproxy.gov.bc.ca/auth/realms/standard
+- `https://dev.loginproxy.gov.bc.ca/auth/realms/standard`
+- `https://test.loginproxy.gov.bc.ca/auth/realms/standard`
 
 !!! note "BC Services Card `sub`"
 
     For BC Services Card login, both of these environments reference the
-    BCSC Test environment, so they will return the same `sub` when it
+    BCSC Test environment, so they return the same `sub` when it
     comes to privacy zones.
-
-#### Services that are also SDX Clients
 
 Services that are running in `Non-Prod` can choose either `dev` or `test` tokens
 from CSS.
 
-!!! note "Token Exchange"
+!!! note "Token exchange"
 
-    For cases where the service is also calling SDX services, the token will be
-    passed through as-is, where SDX will perform token exchange.
-
-    The use case of a service provider that is also an SDX client calling another
-    service, is still under construction and not supported at this time.
+    For cases where the service is also calling SDX services, the token is
+    passed through as-is, and SDX performs the token exchange.
 
 ### SDX Prod
 
 For access to services in `Prod`, the following token issuers are accepted:
 
-- https://loginproxy.gov.bc.ca/auth/realms/standard
+- `https://loginproxy.gov.bc.ca/auth/realms/standard`
