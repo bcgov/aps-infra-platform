@@ -33,6 +33,7 @@ Use cases for `client-hosted`:
   - Apply default routes and controls
   - Verification test
   - Add public key to the registry
+- Rotate runtime group keys
 
 ## Prerequisites
 
@@ -308,6 +309,14 @@ of the request.
 The helm deployment and bootstrap job will create the sdx-edge secret for the tls certificate
 pair. Save the `tls.crt` contents to a `tls.crt` file locally.
 
+Provisioning keys is done using the same `provision-config-from-pattern`
+operation/endpoint as the default Gateway routes and controls, but using the
+`sdx-keys.r1` pattern. The `sdx-keys.r1` pattern is also used later to rotate keys.
+
+The new public key is appended to the key set, and the key id (`kid`) is `{urn}:{8-hex}`
+(the first eight hex digits of a UUID). Example:
+`urn:ca:bc:sdx:edge:newrg:lab:8875a149`.
+
 === "Restish CLI"
 
     Help information about the operation:
@@ -327,8 +336,7 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
 
 === "Reference"
 
-    Using the same pattern endpoint from above, you can use the `sdx-keys.r1` pattern
-    to add the public key using the certificate from the runtime group.
+    - **API** `PUT /organizations/{org}/patterns/sdx-keys.r1?action={preview|diff|apply|delete}`
 
     ```json
     {
@@ -336,15 +344,39 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
       "parameters": {
         "runtimeGroupName": "<runtime-group-name>",
         "environment": "lab|dev|test|prod",
-        "certificatePem": ["<public-certificate-pem-format>"]
+        "certificatePem": ["<public-certificate-pem-format>"],
+        "operation": "add"
       }
     }
     ```
 
-    `certificatePem` is an array; only the public certificate is supplied
-    here, and the private key must remain mounted in the runtime group's
-    edge. `organization` is derived from the `{org}` path parameter and does
-    not need to be supplied in the body.
+    `certificatePem` is an array; `add`, `rotate`, and `replace` operations accept a
+    single public certificate in that array. The private key must remain
+    mounted in the runtime group's edge.
+
+A successful `apply` or `diff` returns structured `changes` information:
+
+```json
+{
+  "operation": "add",
+  "added": [
+    {
+      "kid": "urn:ca:bc:sdx:edge:newrg:lab:8875a149",
+      "name": "sdx.keys.newrg.lab.edge:8875a149"
+    }
+  ],
+  "removed": [],
+  "retained": []
+}
+```
+
+The same payload's `info` result includes `details.endpoint`, the JWKS URL for
+this key set.
+
+Call `details.endpoint` from that `info` result and confirm the new `kid`
+is in the key set.
+
+The listed `kid`s should include the value from `changes.added`.
 
 !!! warning "Prerequisite for signed connections"
 
@@ -359,6 +391,123 @@ pair. Save the `tls.crt` contents to a `tls.crt` file locally.
 
 ## Runtime Group management
 
+### Rotate runtime group keys
+
+Rotate when the runtime group's edge certificate must change without
+dropping verification of in-flight signed traffic. `rotate` publishes the
+new public key and retains existing keys so both `kid`s appear in JWKS
+until you retire the old one.
+
+Do not restart Kong with the new private key until the rotate `apply` has
+succeeded. If the edge starts signing with a key that is not yet in JWKS,
+verification fails closed and requests are denied.
+
+Query `action` is unchanged (`preview`, `diff`, `apply`, `delete`). Body
+parameter `operation` selects a targeted update:
+
+| `parameters.operation` | Effect                                                                                                                        |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `add`                  | Append a public key. Retries with the same public key are idempotent. Default when `operation` is omitted on a runtime group. |
+| `rotate`               | Append a **new** public key and retain existing keys for overlap.                                                             |
+| `replace`              | Atomically swap `targetKid` for the incoming public key.                                                                      |
+| `delete`               | Remove only `targetKid`. Refuses if it is the last remaining key.                                                             |
+
+`targetKid` is required for `replace` and `delete`. `certificatePem` (one
+entry) or `publicKeyPem` is required for `add`, `rotate`, and `replace`.
+A caller may supply a full `urn:ca:bc:sdx:edge:…` `kid` to address an
+existing key.
+
+!!! warning "Query parameter `action=delete` vs `operation=delete`"
+
+    Do not combine query parameter `action=delete` with body parameter `operation=delete`.
+    Query parameter `action=delete` removes the **entire** key qualifier (key set and all keys). Targeted deletion is `action=apply` with `operation=delete`.
+
+Overlap rotation:
+
+1. Request a new one-time-use certificate signing token, as in
+   [Request a one-time-use certificate signing token](#request-a-one-time-use-certificate-signing-token).
+1. Stage a new runtime-group key and CSR **without restarting** Kong, then
+   sign the CSR with that token. On the sdx-edge chart,
+   `bootstrap.stageSecret=true` writes `{release}-client-next` and skips
+   the rollout restart.
+1. Publish the new public key with `operation=rotate` (below) while
+   retaining the old one. `rotate` of a public key that is already in the
+   set returns `422` — use `add` if you only need to republish existing
+   material.
+1. Confirm JWKS contains **both** kids: call the `endpoint` from the
+   apply response's `info` result (same check as after the initial add).
+   `changes.added` is the new `kid`; `changes.retained` are the previous
+   ones.
+1. Promote the staged secret to the live client/server secrets and rolling
+   restart Kong (`rotation.promote=true` on the sdx-edge chart). Signed
+   `X-Edge-Token` values should now carry the new `kid`.
+1. Wait through the verifier grace period (`iss_key_grace_period`, default
+   300 seconds).
+1. Remove the old `kid` with `operation=delete` (below).
+
+=== "Restish CLI"
+
+    Publish a replacement key and retain the current set:
+
+    ```sh
+    restish sdx provision-config-from-pattern \
+      my-org sdx-keys.r1 \
+      --action apply \
+      'parameters:{ operation: rotate, certificatePem[0]: @tls.crt, runtimeGroupName: newrg, environment: lab }'
+    ```
+
+    After the grace period, remove the outgoing `kid` (use the value from
+    `changes.retained`):
+
+    ```sh
+    restish sdx provision-config-from-pattern \
+      my-org sdx-keys.r1 \
+      --action apply \
+      'parameters:{ operation: delete, targetKid: "urn:ca:bc:sdx:edge:newrg:lab:8875a149", runtimeGroupName: newrg, environment: lab }'
+    ```
+
+=== "Reference"
+
+    Publish a replacement key:
+
+    ```json
+    {
+      "pattern": "sdx-keys.r1",
+      "parameters": {
+        "runtimeGroupName": "newrg",
+        "environment": "lab",
+        "operation": "rotate",
+        "certificatePem": ["<new-public-certificate-pem-format>"]
+      }
+    }
+    ```
+
+    Remove the outgoing `kid`:
+
+    ```json
+    {
+      "pattern": "sdx-keys.r1",
+      "parameters": {
+        "runtimeGroupName": "newrg",
+        "environment": "lab",
+        "operation": "delete",
+        "targetKid": "urn:ca:bc:sdx:edge:newrg:lab:8875a149"
+      }
+    }
+    ```
+
+!!! note "Recovery"
+
+    If rotate `apply` succeeds but restart has not happened, traffic still
+    signs with the old private key and old `kid`. Both public keys are in
+    JWKS, so verification continues. If restart happens before the new
+    public key is published, republish with `operation=rotate` or `add`,
+    then retry the restart. To abandon a staged key before promote, delete
+    `{release}-client-next` and leave the live secret unchanged. After
+    promote, restore the previous TLS secret, restart, then
+    `operation=delete` (or `replace`) the new `kid` once verifiers no
+    longer see it.
+
 ### Decommission Runtime Group
 
 > To be documented..
@@ -367,7 +516,8 @@ Steps to decommission:
 
 - uninstall infrastructure
 - remove default routes
-- remove keys
+- remove keys (`sdx-keys.r1` with query `action=delete` and no `operation`
+  removes the entire key qualifier)
 - delete runtime group
 
 ## Next steps
