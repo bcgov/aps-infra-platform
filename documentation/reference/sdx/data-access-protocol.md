@@ -35,7 +35,7 @@ and controls the client connection to the requested target service.
 
 The Client RG prepares an `X-Edge-Token` JWT signed with its
 private key and adds it to the request headers. The Service RG validates
-the JWT using the specified `jwks_uri`.
+the JWT using the specified `jwks_uri` and checks it is in a defined allow list.
 
 The Client RG creates the content digest if the client does not supply one.
 If the client supplies a digest, the Client RG validates it.
@@ -65,7 +65,7 @@ If the client supplies a digest, the Client RG validates it.
 
 The Service RG prepares an `X-Edge-Token` JWT signed by its
 private key and adds it to the response headers. The Client RG validates
-the JWT using the specified `jwks_uri`.
+the JWT using the specified `jwks_uri` and checks it is in a defined allow list.
 
 | Header Name      | Description                                                     |
 | ---------------- | --------------------------------------------------------------- |
