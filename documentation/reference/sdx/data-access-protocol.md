@@ -23,7 +23,6 @@ token before passing the response to the calling client.
 | `Authorization`  | Client identity JWT                                                       |
 | `Correlation-Id` | Optional                                                                  |
 | `Content-Digest` | Optional - request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:` |
-| `DPoP`           | Optional demonstration of proof of possession (DPoP) JWT                  |
 
 The `Authorization` header MUST contain a token that is issued from an approved
 Identity and Authorization Provider. The `azp` claim maps to an SDX Subsystem
@@ -46,7 +45,7 @@ If the client supplies a digest, the Client RG validates it.
 | `X-Client-Id`    | Client subsystem identifier                                    |
 | `X-Service-Id`   | Service identifier                                             |
 | `Content-Digest` | Request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:` |
-| `Authorization`  | Optional identity JWT                                          |
+| `Authorization`  | Client identity JWT                                            |
 | `Correlation-Id` | If passed, forwards it; otherwise, generates a new UUID        |
 
 **X-Edge-Token JWT:**
