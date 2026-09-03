@@ -5,17 +5,30 @@ title: "Connecting a Service"
 This page shows how to make a connection between your system
 and another on the Secure Data Exchange.
 
+SDX supports different authorization models, which are identified by a `policyVersion`
+when a connection request is submitted. The following policies are supported:
+
+| Policy      | Description                                                                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `SDX.R0.00` | Simple peer-to-peer connection policy. Requires a `requesterDetails` object (see below). Available only in the SDX Playground.        |
+| `SDX.R1.00` | Adds Common SSO, token-exchange and scopes support; requires additional requester and gateway resources and is not a drop-in default. |
+
+This guide focuses on the `SDX.R0.00` policy where it establishes a basic peer-to-peer connection.
+It is only available in the SDX Playground environment.
+
+Policy `SDX.R1.00` is part of a collaboration with Common SSO (CSS) where CSS integrations will
+be able to request API and scope access through their tool and have the connection request
+managed in SDX for approvals. SDX will send events to CSS when connections have
+been approved/revoked so that the appropriate scopes can be provisioned in Keycloak. For clients
+that call services across privacy zones, SDX will perform an exchange of the token so that
+the subject identifier properly identifies the user in the target privacy zone.
+
 The steps described in this page are performed by the following roles:
 
-| Role         | Function                                                                   |
-| ------------ | -------------------------------------------------------------------------- |
-| System Owner | Manage systems and service catalog entries for the particular organization |
-
-The steps described in this page are performed by users with the following permissions:
-
-| Permission        | Function                                       |
-| ----------------- | ---------------------------------------------- |
-| Connection.Manage | Review and approve/reject connection requests. |
+| Role           | Function                                                             |
+| -------------- | -------------------------------------------------------------------- |
+| Tech Lead      | For service clients, request/revoke connections to another service   |
+| Access Manager | For service providers, review and approve client connection requests |
 
 Use cases:
 
@@ -33,15 +46,6 @@ Use cases:
 - [Install Restish CLI](/reference/restish-cli.md)
 
 ## Request access (as consumer)
-
-`policyVersion` selects the connection policy that governs how the
-connection is provisioned:
-
-| Policy      | Description                                                                                                                   |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `SDX.R0.00` | Simple point-to-point connection policy. Requires a `requesterDetails` object (see below).                                    |
-| `SDX.R1.00` | Adds Common SSO and token-exchange support; requires additional requester and gateway resources and is not a drop-in default. |
-| `SDX.R1.01` | Adds scopes to token exchange and validation.                                                                                 |
 
 === "Restish CLI"
 
@@ -62,8 +66,8 @@ connection is provisioned:
       "requesterDetails: {}"
     ```
 
-<!-- prettier-ignore -->
 !!! note "requester details"
+
     Under `SDX.R0.00`, `requesterDetails` must be supplied together with
     `policyVersion` on this initial request — when both are present, the
     controller replaces `requesterDetails.requester` with the authenticated
@@ -109,7 +113,7 @@ connection is provisioned:
       my-org \
       clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
       serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
-      isApproved: true
+      isApproved: true, isActive: true
     ```
 
 ## Open a connection
@@ -127,13 +131,12 @@ routing rules for opening a channel between the two systems.
     restish sdx upsert-connection
     ```
 
-    Prepare a pattern input file (`pattern-input.json`) for the Consumer:
+    Prepare a pattern input file (`client-input.json`) for the Consumer:
 
     ```json
     {
       "gatewayPatterns": {
         "sdx-p2p-consumer.r1": {
-          "clientRuntimeOverride": "MIN.CITZ.pzgw",
           "upgrades": {
             "sign": {},
             "verify": {}
@@ -150,12 +153,12 @@ routing rules for opening a channel between the two systems.
       my-org \
       clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
       serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
-      clientResources: @pattern-input.json
+      clientResources: @client-input.json
 
     ```
 
 For details on configuring the `sdx-p2p-consumer.r1` pattern,
-go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
+go to [Connection Resources](/how-to/sdx-connection-resources.md).
 
 ### Provider side
 
@@ -167,13 +170,12 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
     restish sdx upsert-connection
     ```
 
-    Prepare a pattern input file (`pattern-input.json`) for the Provider:
+    Prepare a pattern input file (`service-input.json`) for the Provider:
 
     ```json
     {
       "gatewayPatterns": {
         "sdx-p2p-provider.r1": {
-          "upstreamUrl": "https://my-upstream-endpoint.domain",
           "upgrades": {
             "mtlsAuth": {},
             "sign": {},
@@ -191,11 +193,11 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
       my-org \
       clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
       serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
-      serviceResources: @pattern-input.json
+      serviceResources: @service-input.json
     ```
 
 For details on configuring the `sdx-p2p-provider.r1` pattern,
-go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
+go to [Connection Resources](/how-to/sdx-connection-resources.md).
 
 <!-- prettier-ignore -->
 !!! note "Associating an OAuth integration client with a connection"
@@ -220,33 +222,19 @@ go to [Connection Gateway Patterns](/how-to/sdx-connection-patterns.md).
 
 ## Connection management
 
-Deleting a connection request is the final cleanup step after the consumer and
-provider gateway configurations have been removed.
+### Deleting a connection
 
-Remove each side's gateway configuration by generating the same pattern
-configuration that was used to open the connection, but use `action=remove`.
+Deleting a connection request is two steps. First step is to make it inactive:
 
-| Side     | Gateway pattern       |
-| -------- | --------------------- |
-| Consumer | `sdx-p2p-consumer.r1` |
-| Provider | `sdx-p2p-provider.r1` |
+```sh
+restish sdx upsert-connection \
+  my-org \
+  clientId: MIN.MYORG.MY-NEW-SUBSYSTEM, \
+  serviceId: LAB.MIN.MYORG.EFV-ICBC.v0, \
+  isActive: false
+```
 
-=== "Restish CLI"
-
-    Prepare the same pattern input file used to open the connection side being
-    removed, then run:
-
-    ```sh
-    restish sdx provision-config-from-pattern \
-      ministry-of-citz \
-      --action remove \
-      --dry-run < pattern-input.json
-    ```
-
-### Delete a connection request
-
-After both sides have removed their gateway configuration, a System Owner for
-either organization associated with the connection request can delete it.
+Then the connection can be deleted using its unique identifier.
 
 === "Restish CLI"
 
@@ -260,8 +248,7 @@ either organization associated with the connection request can delete it.
 
     ```sh
     restish sdx delete-connection \
-      ministry-of-citz \
-      1
+      ministry-of-citz 2010
     ```
 
 === "Reference"

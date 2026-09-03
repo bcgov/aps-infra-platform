@@ -48,7 +48,7 @@ nav:
           - "how-to/sdx-subsystems.md"
           - "how-to/sdx-services.md"
           - "how-to/sdx-connections.md"
-          - "how-to/sdx-connection-patterns.md"
+          - "how-to/sdx-connection-resources.md"
           - "how-to/sdx-ape-event-mgmt.md"
           - "how-to/sdx-ape-policy-mgmt.md"
   - Concepts:
@@ -80,6 +80,8 @@ nav:
       - "reference/releases/index.md"
       - "reference/SSL.md"
       - "reference/presentations.md"
+      - "reference/sdx/data-access-protocol.md"
+      - "reference/sdx/environments.md"
   - Contribute:
       - "contribute/style-guide.md"
   - "external-resources.md"

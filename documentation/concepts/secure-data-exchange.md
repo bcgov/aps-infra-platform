@@ -22,23 +22,7 @@ The Edge Server is a forward proxy for the service consumer (IS client) and a re
 
 Edge Servers sit in an organization's DMZ, where they are able to communicate with other Edge Servers in a secure and auditable way.
 
-## Environments
-
-> **Playground:** Playground environment is for service providers to verify the
-> installation of SDX and test new functionality before moving it to production.
-> There is NO data or service quality in this environment!
->
-> **Production:** Production environment supports the Test data and Production
-> data SDX instances. Data and service quality is the same for both SDX instances.
-
-Links to the different services for each environment:
-
-| Service               | Playground                                                                     | Production                                                  |
-| --------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| SDX UI                | [UI](https://sdx-api-gov-bc-ca.test.api.gov.bc.ca)                             | [UI](https://sdx.gov.bc.ca)                                 |
-| SDX Member API        | [API](https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1/console)          | [API](https://api.gov.bc.ca/ds/api/sdx/v1/console)          |
-| OpenAPI Specification | [OpenAPI](https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) | [OpenAPI](https://api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) |
-| API Services Portal   | [APS Portal](https://api-gov-bc-ca.test.api.gov.bc.ca/login?identity=provider) | [APS Portal](https://api.gov.bc.ca/login?identity=provider) |
+For information about environments, visit [SDX Environments](/reference/sdx/environments.md).
 
 ## Roles
 

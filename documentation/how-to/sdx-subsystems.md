@@ -10,7 +10,7 @@ The steps described in this page are performed by the following roles:
 
 | Role         | Function                                                                   |
 | ------------ | -------------------------------------------------------------------------- |
-| System Owner | Manage systems and service catalog entries for the particular organization |
+| System Admin | Manage systems and service catalog entries for the particular organization |
 
 Use cases:
 
@@ -18,6 +18,7 @@ Use cases:
 - Assign your subsystem to a runtime group
 - Subsystem management
   - Administer subsystem RBAC
+  - Privacy zones and Common SSO
   - Delete a subsystem
 
 ## Prerequisites
@@ -56,7 +57,7 @@ Use cases:
 
 ## Assign your subsystem to a runtime group
 
-As a System Owner, you perform this task. Once complete, you can set up routing
+As a System Admin, you perform this task. Once complete, you can set up routing
 policies for connecting to other systems on SDX.
 
 === "Restish CLI"
@@ -162,11 +163,11 @@ organization.
 
 The supported roles are:
 
-| Role              | Function                                     |
-| ----------------- | -------------------------------------------- |
-| `subsystem-owner` | Overall accountable owner for the subsystem  |
-| `tech-lead`       | Technical point of contact for the subsystem |
-| `access-manager`  | Manages who has access to the subsystem      |
+| Role Name       | Role ID           | Functions                                     |
+| --------------- | ----------------- | --------------------------------------------- |
+| Subsystem Owner | `subsystem-owner` | Overall accountable owner for the subsystem   |
+| Tech Lead       | `tech-lead`       | Technical point of contact for the subsystem  |
+| Access Manager  | `access-manager`  | Manages which clients have access to services |
 
 <!-- prettier-ignore -->
 !!! warning "Updating access replaces the full member list"
@@ -206,7 +207,7 @@ The supported roles are:
       "members": [
         {
           "member": { "email": "janis@testmail.com" },
-          "roles": ["system-owner", "tech-lead", "access-manager"]
+          "roles": ["subsystem-owner", "tech-lead", "access-manager"]
         },
         {
           "member": { "email": "mark@gmail.com" },
@@ -224,44 +225,42 @@ The supported roles are:
       my-org SUBSYSTEM-NAME
     ```
 
-=== "Reference"
-
-    - **API** `GET /organizations/{org}/subsystems/{name}/access`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - `{name}=<subsystem-name>`
-
-    ```json title="Response Body"
-    [
-      {
-        "member": { "email": "janis@testmail.com" },
-        "roles": ["system-owner", "tech-lead", "access-manager"]
-      }
-    ]
-    ```
-
-    - **API** `PUT /organizations/{org}/subsystems/{name}/access`
-
-    Parameters:
-
-    - `{org}=<your-organization>`
-    - `{name}=<subsystem-name>`
-
-    ```json title="Request Body"
-    {
-      "members": [
-        {
-          "member": { "email": "<user-email>" },
-          "roles": ["system-owner", "tech-lead", "access-manager"]
-        }
-      ]
-    }
-    ```
-
-    Submitting a role name other than `system-owner`, `tech-lead`, or
+    Submitting a role name other than `subsystem-owner`, `tech-lead`, or
     `access-manager` returns a `4xx` naming the unsupported value.
+
+### CS Link - Service Provider Privacy Zone
+
+If the subsystem is going to be a Resource Server (RS) providing a service,
+the subsystem MUST set its privacy zone defined in the Authorization Party (AP)
+and be reviewed by the AP Owner before it can be connected to clients.
+
+For a non-exhaustive list, see [privacy zones](https://id.gov.bc.ca/oauth2/privacy-zones).
+
+=== "Restish CLI"
+
+    ```sh
+    restish sdx upsert-subsystem \
+      my-org \
+      name: MY-NEW-SUBSYSTEM, \
+      privacyZone: "urn:ca:bc:gov:buseco:prod"
+    ```
+
+### CS Link - Service Client Integration
+
+If the subsystem is going to be a Relying Party, the subsystem MUST set the
+Authorization Party (AP) Integration ID to identify which access requests
+this subsystem will accept from the AP.
+
+=== "Restish CLI"
+
+    Example setting the integration ID to `22308`.
+
+    ```sh
+    restish sdx upsert-subsystem \
+      my-org \
+      name: MY-NEW-SUBSYSTEM, \
+      'integrations: [{integrationClientId:"22308"}]'
+    ```
 
 ### Delete a subsystem
 
@@ -304,4 +303,4 @@ After a subsystem is deleted, the same subsystem name can be used again.
 
 ## Next steps
 
-- [Managing services](/how-to/sdx-services.md)
+- [Managing Services](/how-to/sdx-services.md)
