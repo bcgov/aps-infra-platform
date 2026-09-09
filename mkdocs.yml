@@ -80,6 +80,7 @@ nav:
       - "reference/releases/index.md"
       - "reference/SSL.md"
       - "reference/presentations.md"
+      - "reference/sdx/releases/index.md"
       - "reference/sdx/data-access-protocol.md"
       - "reference/sdx/environments.md"
   - Contribute:
