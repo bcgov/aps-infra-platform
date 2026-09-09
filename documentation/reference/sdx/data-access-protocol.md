@@ -86,6 +86,17 @@ from the `X-Edge-Token` to populate this token.
 | `digest`     | Request content digest (RFC 9530)                     | `sha-256=:<hash-base64>:`    |
 | `jwks_uri`   | Service Edge's JWK Set                                |                              |
 
+## Edge to IS Service (request)
+
+| Header Name      | Description                                                    |
+| ---------------- | -------------------------------------------------------------- |
+| `X-Edge-Token`   | JWT                                                            |
+| `X-Client-Id`    | Client subsystem identifier                                    |
+| `X-Service-Id`   | Service identifier                                             |
+| `Content-Digest` | Request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:` |
+| `Authorization`  | Client identity JWT                                            |
+| `Correlation-Id` | If passed, forwards it; otherwise, generates a new UUID        |
+
 ## IS Service to Edge (response)
 
 | Header Name      | Description                                                                |
