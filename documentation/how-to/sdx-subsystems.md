@@ -228,7 +228,7 @@ The supported roles are:
     Submitting a role name other than `subsystem-owner`, `tech-lead`, or
     `access-manager` returns a `4xx` naming the unsupported value.
 
-### CS Link - Service Provider Privacy Zone
+### Service Provider Privacy Zone
 
 If the subsystem is going to be a Resource Server (RS) providing a service,
 the subsystem MUST set its privacy zone defined in the Authorization Party (AP)
@@ -245,7 +245,7 @@ For a non-exhaustive list, see [privacy zones](https://id.gov.bc.ca/oauth2/priva
       privacyZone: "urn:ca:bc:gov:buseco:prod"
     ```
 
-### CS Link - Service Client Integration
+### Service Client Integration
 
 If the subsystem is going to be a Relying Party, the subsystem MUST set the
 Authorization Party (AP) Integration ID to identify which access requests

@@ -64,5 +64,3 @@ How-to guides
 - [Managing subsystems](/how-to/sdx-subsystems.md)
 - [Managing services](/how-to/sdx-services.md)
 - [Connecting a service](/how-to/sdx-connections.md)
-- [Event Mgmt (preview)](/how-to/sdx-ape-event-mgmt.md)
-- [Policy Mgmt (preview)](/how-to/sdx-ape-policy-mgmt.md)

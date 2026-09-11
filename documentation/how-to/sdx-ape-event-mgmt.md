@@ -99,7 +99,6 @@ details so that it can start to receive messages from the publisher.
     ```sh
     echo '
       {
-        "pattern": "events-webhook.r1",
         "parameters": {
           "connId": "42",
           "clientId": "LAB.MIN.CITZ.SDG-FE",

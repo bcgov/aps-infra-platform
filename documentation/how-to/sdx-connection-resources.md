@@ -29,8 +29,8 @@ they should be configured. This page describes all the parameters that are avail
 | ------------------ | ------- | ----------------------- |
 | `clientId`         | string  | required                |
 | `serviceId`        | string  | required                |
-| `isApproved`       | boolean | required; default=false |
-| `isActive`         | boolean | required; default=false |
+| `isApproved`       | boolean | optional; default=false |
+| `isActive`         | boolean | optional; default=false |
 | `requesterDetails` | object  | optional                |
 | `clientResources`  | object  | optional                |
 | `.gatewayPatterns` | object  | optional                |
