@@ -6,7 +6,7 @@ metadata:
   description: "A guide to the API Services Portal and API Directory"
   annotations:
     github.com/project-slug: bcgov/aps-infra-platform
-    backstage.io/techdocs-ref: dir:./documentation
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: documentation
   lifecycle: production
