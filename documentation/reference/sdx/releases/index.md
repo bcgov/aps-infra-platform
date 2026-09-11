@@ -4,4 +4,4 @@
 
 | Release Date | Release                                               |
 | ------------ | ----------------------------------------------------- |
-| 2026 Sep 10  | [SDX M1 Release](/reference/releases/sdx/2026-sep.md) |
+| 2026 Sep 14  | [SDX M1 Release](/reference/releases/sdx/2026-sep.md) |
