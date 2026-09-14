@@ -5,7 +5,7 @@ permissions:
 
 on:
   push:
-    branches: [ test, main ]
+    branches: [test, main]
     paths:
       - "documentation/**"
       - "mkdocs.yml"
@@ -13,7 +13,7 @@ on:
       - "scripts/**"
       - ".github/workflows/publish-techdocs.yaml"
   pull_request:
-    branches: [ test, main ]
+    branches: [test, main]
     paths:
       - "documentation/**"
       - "mkdocs.yml"
@@ -49,14 +49,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Set base URL
-        run: |
-          if [[ "$DEPLOY_ENV" == "prod" ]]; then
-            echo "DOCS_URL=https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs" >> "$GITHUB_ENV"
-          else
-            echo "DOCS_URL=https://dev.developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs" >> "$GITHUB_ENV"
-          fi
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -75,13 +67,13 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: bcgov/devhub-techdocs-publish@stable
         with:
-          publish: 'false'
+          publish: "false"
 
       - name: Build and publish TechDocs
         if: github.event_name != 'pull_request'
         uses: bcgov/devhub-techdocs-publish@stable
         with:
-          publish: 'true'
+          publish: "true"
           production: ${{ env.DEPLOY_ENV == 'prod' && 'true' || 'false' }}
           bucket_name: ${{ secrets.TECHDOCS_S3_BUCKET_NAME }}
           s3_access_key_id: ${{ secrets.TECHDOCS_AWS_ACCESS_KEY_ID }}
