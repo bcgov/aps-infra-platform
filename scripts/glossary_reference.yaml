@@ -18,7 +18,7 @@ terms:
   api-directory:
     name: API Directory
     def: Our API Directory is a centralized repository where API Providers can securely publish their APIs. API Consumers can find and request access to published APIs for integration in the API Directory.
-    url: {DOCS_URL}/concepts/api-directory
+    url: /concepts/api-directory.md
   api-gateway:
     name: API Gateway
     def: An API Gateway is a service that acts as a single entry point for multiple APIs, managing requests, routing, security, and other operations, simplifying and centralizing API management.
@@ -66,7 +66,7 @@ terms:
   gateway-service:
     name: Gateway Service
     def: A Gateway Service represents an external upstream API or microservice consisting of a URL, which listens for incoming requests.
-    url: {DOCS_URL}/concepts/services
+    url: /concepts/services.md
   gwa-command-line-interface:
     name: "`gwa` Command Line Interface"
     def: The `gwa` command line interface (CLI) is a tool for creating and publishing Gateway Services and other resources on the API Services Portal. Resources are defined in YAML configuration files. The `gwa` CLI helps support automated Gateway management through scripting.

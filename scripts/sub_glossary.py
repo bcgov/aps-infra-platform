@@ -3,8 +3,6 @@ import yaml
 import re
 import sys
 
-DOCS_URL = os.getenv('DOCS_URL', 'https://developer.gov.bc.ca/docs/default/component/aps-infra-platform-docs')
-
 """
 This script uses a central glossary reference YAML file to generate the glossary
 page and substitute tooltips for special glossary references 
@@ -26,9 +24,7 @@ DO NOT commit all substituted Markdown files, only the glossary page.
 def load_definitions(config_file):
     try:
         with open(config_file, 'r') as f:
-            config = f.read()
-            config = config.replace('{DOCS_URL}', DOCS_URL)
-            config = yaml.safe_load(config)
+            config = yaml.safe_load(f)
             return config.get("terms", {})
     except Exception as e:
         print("Error loading configuration file:", e)
@@ -48,7 +44,11 @@ def substitute_links(markdown_file, definitions):
                 term_text = match if match else term_data["name"]
 
                 if term_data["url"]:
-                    link_tag = f'<a href="{term_data["url"]}" title="{term_data["def"]}" target="_blank" style="text-decoration: none !important; color: inherit; border-bottom: 1px dotted;">{term_text}</a>'
+                    # Markdown link syntax rather than an <a> tag: MkDocs only
+                    # resolves root-relative paths on links it parses from
+                    # Markdown, and leaves raw HTML href values untouched.
+                    attrs = 'target="_blank" style="text-decoration: none !important; color: inherit; border-bottom: 1px dotted;"'
+                    link_tag = f'[{term_text}]({term_data["url"]} "{term_data["def"]}"){{ {attrs} }}'
                 else:
                     # If no url, just create tooltip
                     link_tag = f'<span title="{term_data["def"]}" style="border-bottom: 1px dotted;">{term_text}</span>'
@@ -76,9 +76,7 @@ def process_markdown_files(root_folder, definitions):
 
 def yaml_to_md_glossary(yaml_file):
     with open(yaml_file, 'r') as f:
-        data = f.read()
-        data = data.replace('{DOCS_URL}', DOCS_URL)
-        data = yaml.safe_load(data)
+        data = yaml.safe_load(f)
     
     # append a comment to the top of the file about the source of the glossary
     file_header = """---\ntitle: Glossary\n---\n
