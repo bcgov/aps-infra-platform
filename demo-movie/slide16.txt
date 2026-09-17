@@ -1,0 +1,13 @@
+Harley is new to SDX, so he receives an email welcoming him to SDX and receives a followup onboarding meeting with SDX Operations.
+
+Harley includes Lucy, the SDX System Administrator for Ministry of SDPR, to the meeting.
+
+If organization onboarding is required, Lucy will go through the same process that was done for Ministry of Health to onboard onto SDX.
+
+Lucy can now setup her first subsystem, specifying a short unique identifier within the organization, and a meaningful description.
+
+She registers the subsystem on the Shared Edge Runtime.
+
+For Identity Link, Lucy must link the Subsystem that the Integration belongs to.
+
+She assigns teams access to the subsystem.  This team will perform the day-to-day activities for the service.  Harley as the Tech Lead.  She may also want to specify the subsystem owner (product owner).

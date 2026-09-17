@@ -1,0 +1,4 @@
+To get started, Lucy meets with the SDX Operations team to establish the organization on SDX.  Lucy provides the name of the organization she is representing, and once verified, the SDX Operations team sets up the organization and assigns her as a system administrator.
+
+At the end of the organization setup, there is a public profile record on SDX for the organization.
+

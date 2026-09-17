@@ -1,0 +1,6 @@
+To help with this demo, we will use four personas.
+
+Lucy, a Technical Architect from an organization’s architecture division.
+Janis, a full-stack developer working in the Ministry of Health on the Provincial Client Registry Team.
+Mark, a Security Manager working in Operations, responsible for approving access.
+Then Harley, a full-stack developer working for the Ministry of SDPR My Self Serve team, who is responsible for building the My Self Serve application and to integrate with the PCR service.

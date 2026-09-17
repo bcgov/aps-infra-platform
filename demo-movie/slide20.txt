@@ -1,0 +1,10 @@
+Approving the request opens the channel between the My Self Serve client and the PCR Health Number Lookup service.
+
+Harley receives confirmation that the connection has been approved.  My Self Serve can now use the endpoint available to call the new service.
+
+What does the secure connection provide?
+
+1. Who the involved parties are
+2. Data integrity
+3. Correct user identifiers
+4. Scoped client access to user data

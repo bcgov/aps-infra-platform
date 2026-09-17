@@ -1,0 +1,11 @@
+Mark, the Access Manager for the Provincial Client Registry, is notified that there is a pending request for access.
+
+He logs in to the SDX UI and goes to the Connections Request page found under Member Console.
+
+The request shows him details about the Requester, the requesting subsystem, which service the requesting subsystem
+is wanting access to, and what specific scopes they are asking for.
+
+Mark may setup offline meetings to discuss the request for access with the requesting team.
+
+After Mark is satisfied with the client’s justification for the data and any specific conformance, security or privacy requirements
+have been addressed, he approves the request.

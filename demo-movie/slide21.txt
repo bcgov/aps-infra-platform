@@ -1,0 +1,6 @@
+We don’t have the real My Self Serve application, so we will demonstrate using a test harness that has BC Services Card login,
+ and an interface to call the API to get the PHN.
+
+Harley uses a test account to first login.
+
+He then calls the new API endpoint from the Provincial Client Registry to get the Patient Health Number.

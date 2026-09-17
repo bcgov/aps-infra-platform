@@ -1,0 +1,4 @@
+*.mp3
+*.mov
+.env
+*.key

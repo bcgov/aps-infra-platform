@@ -1,0 +1,11 @@
+Harley, a full-stack developer from the My Self Serve team, goes to the Common SSO tool to request access to the new Health Number Lookup API.
+He selects the Integration he has setup for My Self Serve, and following the configuration wizard, will find the Health Number Lookup API,
+select the Scope, and submit the update for the integration.
+
+Common SSO will automatically send this access request to SDX.
+
+If Harley has not onboarded the client onto SDX, he will receive an invitation to start the onboarding process.
+
+The onboarding process must be completed before requests are submitted for review by the access managers.
+
+If My Self Serve is onboarded, SDX will automatically generate the Connection Request and notify the respective access managers.

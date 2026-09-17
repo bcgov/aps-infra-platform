@@ -1,0 +1,16 @@
+With Lucy assigned the administration role on SDX, she is now able to manage the subsystem that
+will be representing the services offered by the Provincial Client Registry by the Ministry of Health.
+
+Setting up a subsystem requires two key decisions:
+
+1. the Edge Runtime that it will be operating on
+2. the Identity privacy zone that it will operated in
+
+Lucy makes a decision to use the Shared Edge Runtime provided by APS, so SDX Operations applies the permission to allow her organization to use the Edge Runtime “share0”.
+
+The Provincial Client Registry is an existing Health system, and currently operates in the Citizen Health privacy zone, so the subystem will be updated
+with the correct PZ.  The selected privacy zone is reviewed by the Identity Assurance team to ensure that the subsystem is correctly placed.
+
+The PCR subsystem has a team to support it - so Lucy will assign individuals to the roles: Subsystem Owner, Tech Lead and Access Manager.
+
+Lucy now has all the information required to setup the new subsystem for Provincial Client Registry.
