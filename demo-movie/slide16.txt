@@ -1,13 +1,14 @@
-Harley is new to SDX, so he receives an email welcoming him to SDX and receives a followup onboarding meeting with SDX Operations.
 
-Harley includes Lucy, the SDX System Administrator for Ministry of SDPR, to the meeting.
+My Self Serve is new to SDX, so Riley receives an email welcoming him to SDX and receives a followup onboarding meeting with SDX Operations.
 
-If organization onboarding is required, Lucy will go through the same process that was done for Ministry of Health to onboard onto SDX.
+Harley includes Michael, an Application Manager in the Ministry of SDPR, to the meeting.
 
-Lucy can now setup her first subsystem, specifying a short unique identifier within the organization, and a meaningful description.
+If organization onboarding is required, Michael will go through the same process that Riley went through for the Ministry of Health to onboard onto SDX.
 
-She registers the subsystem on the Shared Edge Runtime.
+Michael will be assigned the system administrator role.  He will setup My Self Serve as a subsystem, specifying a short unique identifier within the organization, and a meaningful description.
 
-For Identity Link, Lucy must link the Subsystem that the Integration belongs to.
+Like Riley, he also decides to use the shared Edge Runtime.
 
-She assigns teams access to the subsystem.  This team will perform the day-to-day activities for the service.  Harley as the Tech Lead.  She may also want to specify the subsystem owner (product owner).
+To complete subsystem setup, Michael must link the Common SSO Integration ID to the My Self Serve record in SDX.
+
+Michael completes team access by adding Harley as the Tech Lead.

@@ -1,0 +1,12 @@
+Thank you.
+
+To get started with the BC Government Secure Data Exchange, visit us at sdx.gov.bc.ca.
+
+Stay tuned for other topics we will cover in the future, such as:
+
+- Installing your own Edge Runtime
+- Organization signing
+- Real time metrics, monitoring and logs
+- Timestamping messages and transparency logging
+
+If there are other SDX related topics you are interested in, please reach out to APS.

@@ -1,6 +1,7 @@
 Now, Janis, the SDX Tech Lead for the Provincial Client Registry, is able to start the process of building and publishing the new service on SDX.
 
-The API is for a “Health Number Lookup” service, where it will return the Patient Health Number (PHN) for the user that is identified in an expected access token.
+The API is for a “Health Number Lookup” service, where it will return the Patient Health Number (PHN) for the user that is
+identified in an expected access token.
 
 Each service on SDX must be defined using an OpenAPI specification and conform to an API Style Guide.
 

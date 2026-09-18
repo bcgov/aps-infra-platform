@@ -1,13 +1,19 @@
-What is a scope? Scope is a mechanism that lets a client application request a limited set of permissions to access a user's account or protected resources.
+What is a scope? Scope is a mechanism that lets a client application request a limited set of 
+permissions to access a user's account or protected resources.
 
 How do scopes work?
 
-Permission Boundaries: Scopes act as labels or constraints attached to an access token. They tell the resource server (the API) exactly what actions the application is allowed to perform
+Permission Boundaries: Scopes act as labels or constraints attached to an access token. They 
+tell the resource server (the API) exactly what actions the application is allowed to perform
 
-User Consent: When an app requests authorization, the requested scopes appear on the user's consent screen. Users see what data or actions the app wants (e.g., reading emails versus posting updates) and can approve or deny them.
+User Consent: When an app requests authorization, the requested scopes appear on the user's consent 
+screen. Users see what data or actions the app wants (for example reading emails versus posting updates) 
+and can approve or deny them.
 
-What is a “Privacy Zone”?
+What is a “Privacy Zone” (PZ for short)?
 
-Information across distinct government databases (such as medical history, driving records, and tax files) is not linked or cross-accessible by different authorities through your login.
+Information across distinct government databases (such as medical history, driving records, 
+and tax files) is not linked or cross-accessible by different authorities through your login.
 
-This is accomplished by grouping related systems into privacy zones where the user’s identifier is different in each privacy zone.
+This is accomplished by grouping related systems into privacy zones where the user’s identifier 
+is different in each privacy zone.

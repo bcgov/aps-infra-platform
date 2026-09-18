@@ -1,12 +1,16 @@
-Lucy will be the system administrator for SDX.  She will need to know some important terms and to get access to tools to help her be successful.
+Both Riley for the service provider and Michael for the service consumer will be setup as system administrators on SDX.
+
+They will need to know some important terms and to get access to tools to help them be successful.
 
 First term is “subsystem” - 
 
-- A software subsystem is the highest level of abstraction in SDX and describes something that delivers value to its users, whether they are human or not.
-- Organizations tend to have their own terminology for describing the same thing, typically using terms such as “application”, “product”, “service”.
-- One way to think about it is that a software subsystem is something a single software development team is building, owns, has responsibility for, and can see the internal implementation details of.
+- Organizations tend to have their own terminology for describing the same thing, typically using terms such as “application”, “product”, or “service”.
+- In SDX, it is called a subsystem and is the highest level of abstraction in SDX, describing something that 
+delivers value to its users, whether they are human or not.
+- One way to think about it is that a software subsystem is something a single software development team is building, owns, 
+has responsibility for, and can see the internal implementation details of.
 
 Second term is an “Edge Runtime”
 
 - An Edge Runtime is a specialized security proxy and transport layer that participating members pass data through, both when data leaves the organization and when data is received from another organization.
-- It has flexible deployment options, providing peer-to-peer communication on organization’s own infrastructure or using a shared one provided by APS.
+- It has flexible deployment options, providing peer-to-peer communication on an organization’s own infrastructure or using a shared one provided by APS.

@@ -20,7 +20,32 @@ from pathlib import Path
 PAUSE_SECONDS = 1.5
 
 
-def make_silence(duration: float) -> Path:
+def probe_format(path: Path) -> tuple[int, int]:
+    """Return (sample_rate, channels) of an audio file's first stream."""
+    result = subprocess.run(
+        [
+            "ffprobe", "-v", "error",
+            "-select_streams", "a:0",
+            "-show_entries", "stream=sample_rate,channels",
+            "-of", "csv=p=0",
+            str(path),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        sys.exit(f"ffprobe failed on {path}:\n{result.stderr}")
+    sample_rate, channels = result.stdout.strip().split(",")
+    return int(sample_rate), int(channels)
+
+
+def make_silence(duration: float, sample_rate: int, channels: int) -> Path:
+    # Matching the narration's sample rate/channel layout avoids a mid-stream
+    # format change: mp3 has no single global header, so splicing in audio
+    # with different params breaks decoders that lock onto the first frame's
+    # format (many players stop playback there, even though ffmpeg itself
+    # tolerates it).
+    layout = "mono" if channels == 1 else "stereo"
     fd, path = tempfile.mkstemp(suffix=".mp3")
     os.close(fd)
     Path(path).unlink()
@@ -28,7 +53,7 @@ def make_silence(duration: float) -> Path:
     result = subprocess.run(
         [
             "ffmpeg", "-y",
-            "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
+            "-f", "lavfi", "-i", f"anullsrc=r={sample_rate}:cl={layout}",
             "-t", str(duration),
             "-q:a", "2",
             str(silence_path),
@@ -42,7 +67,8 @@ def make_silence(duration: float) -> Path:
 
 
 def merge(files: list[Path], output_path: Path) -> None:
-    silence_path = make_silence(PAUSE_SECONDS)
+    sample_rate, channels = probe_format(files[0])
+    silence_path = make_silence(PAUSE_SECONDS, sample_rate, channels)
 
     # ffmpeg's concat demuxer needs a list file; paths are escaped per
     # its "concat protocol" quoting rules (single quotes doubled).
@@ -58,34 +84,25 @@ def merge(files: list[Path], output_path: Path) -> None:
         list_path = Path(list_file.name)
 
     try:
+        # Always re-encode: the inserted silence clip's format may not match
+        # every input's sample rate/channel layout, and ffmpeg's concat
+        # demuxer will happily stream-copy (-c copy) mismatched formats
+        # together without erroring. The resulting file decodes fine in
+        # ffmpeg but many players lock onto the first frame's format and
+        # stop playback the moment it changes mid-stream.
         result = subprocess.run(
             [
                 "ffmpeg", "-y",
                 "-f", "concat", "-safe", "0",
                 "-i", str(list_path),
-                "-c", "copy",
+                "-c:a", "libmp3lame", "-q:a", "2",
                 str(output_path),
             ],
             capture_output=True,
             text=True,
         )
         if result.returncode != 0:
-            # -c copy can fail if inputs have mismatched formats; fall back
-            # to re-encoding, which normalizes everything.
-            print("Stream copy failed, re-encoding instead...")
-            result = subprocess.run(
-                [
-                    "ffmpeg", "-y",
-                    "-f", "concat", "-safe", "0",
-                    "-i", str(list_path),
-                    "-c:a", "libmp3lame", "-q:a", "2",
-                    str(output_path),
-                ],
-                capture_output=True,
-                text=True,
-            )
-            if result.returncode != 0:
-                sys.exit(f"ffmpeg failed:\n{result.stderr}")
+            sys.exit(f"ffmpeg failed:\n{result.stderr}")
     finally:
         list_path.unlink(missing_ok=True)
         silence_path.unlink(missing_ok=True)

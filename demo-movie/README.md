@@ -9,13 +9,14 @@ for file in slide*.txt; do
     python3 "tts_demo.py" "$file" --voice ash
 done
 
-python3 "tts_demo.py" slide13.txt--voice nova
+# python3 "tts_demo.py" slide13.txt --voice ash
 ```
 
 ## Combine voice tracks
 
 ```sh
-python merge_mp3.py *.mp3 -o full_demo.mp3
+rm full_demo.mp3
+python3 merge_mp3.py *.mp3 -o full_demo.mp3
 ```
 
 ## Recorded scenes

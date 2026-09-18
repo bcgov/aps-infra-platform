@@ -1,10 +1,11 @@
 Ok, so what have we seen.
 
-Lucy from both Ministry of SDPR and Ministry of Health, was able to onboard their Organization onto SDX, install an Edge Runtime,
-create a new subsystem with team access.
+Riley from the Ministry of Health and Michael from the Ministry of SDPR, 
+were able to onboard their Organizations onto SDX, install an Edge Runtime,
+and create a new subsystem with team access.
 
-Janis was able to use the tools provided by SDX to design an OpenAPI specification describing the new PCR service.
-She setup the new service record on SDX and deployed the service implementation, making it available on the SDX catalogue.
+Janis was able to use the tools provided by SDX to design an OpenAPI specification describing the new Health Number Lookup service.
+She setup the new service record on SDX and deployed the service implementation, making it available on the catalogue.
 
 Harley, the Full-Stack developer from My Self Serve, was able to review the data requirements for his application,
 and request specific services and scopes to access the data.

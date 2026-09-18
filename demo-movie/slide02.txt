@@ -1,4 +1,3 @@
-Welcome to API Programme Services.  Today I will be demonstrating our new product: Secure Data Exchange (SDX).
 I will be showing you how an organization becomes a member of SDX, how to setup a Service on SDX,
 different options to protect the Service and how to publish a Service so that it can be discovered.
 

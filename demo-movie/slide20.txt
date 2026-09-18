@@ -4,7 +4,8 @@ Harley receives confirmation that the connection has been approved.  My Self Ser
 
 What does the secure connection provide?
 
-1. Who the involved parties are
+1. Cryptographically verify who the involved parties are
 2. Data integrity
-3. Correct user identifiers
-4. Scoped client access to user data
+3. Access control between two organization systems
+4. Privacy-preserving user identifiers
+and 5. Scoped client access to user data

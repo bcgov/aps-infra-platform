@@ -72,6 +72,7 @@ def synthesize(
     voice: str,
     model: str,
     output_path: Path,
+    speed: float,
 ) -> None:
     chunks = chunk_text(text)
 
@@ -81,6 +82,7 @@ def synthesize(
             voice=voice,
             input=chunks[0],
             response_format="mp3",
+            speed=speed,
         ) as response:
             response.stream_to_file(output_path)
         return
@@ -94,6 +96,7 @@ def synthesize(
                 voice=voice,
                 input=chunk,
                 response_format="mp3",
+                speed=speed,
             ) as response:
                 out_file.write(response.read())
 
@@ -113,6 +116,10 @@ def main() -> None:
         "--model", default="gpt-4o-mini-tts",
         help="OpenAI TTS model (default: gpt-4o-mini-tts)",
     )
+    parser.add_argument(
+        "--speed", type=float, default=1.2,
+        help="Playback speed, 0.25 to 4.0 (default: 1.2)",
+    )
     args = parser.parse_args()
 
     if not args.input_file.exists():
@@ -126,8 +133,8 @@ def main() -> None:
 
     client = OpenAI()  # reads OPENAI_API_KEY from the environment
 
-    print(f"Generating speech with voice '{args.voice}'...")
-    synthesize(client, text, args.voice, args.model, output_path)
+    print(f"Generating speech with voice '{args.voice}' at {args.speed}x speed...")
+    synthesize(client, text, args.voice, args.model, output_path, args.speed)
     print(f"Saved audio to {output_path} (ready to import into iMovie)")
 
 

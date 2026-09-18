@@ -1,8 +1,10 @@
-Lucy will use the “restish” tool to login and setup the subsystem using SDX's Member API.
+Riley will use the “restish” tool to login and setup the subsystem using SDX's Member API.
 
 She first creates the subsystem, specifying a short unique identifier within the organization, a meaningful description,
 and the assigned privacy zone.
 
 She then registers the subsystem on the Shared Edge Runtime.
 
-And finally, she adds the teams members who will be managing the subsystem on SDX.  Mark as the Access Manager, and Janis as the Tech Lead.
+And finally, she adds the team members who will be managing the subsystem on SDX.
+
+Mark as the Access Manager, and Janis as the Tech Lead.

@@ -1,6 +1,11 @@
-To help with this demo, we will use four personas.
+To help with this demo, we will use five personas.
 
-Lucy, a Technical Architect from an organization’s architecture division.
+Riley, a Data Architect in the Ministry of Health responsible for ensuring that the technical structure, models, and system behavior underpinning a program dataset are sound, consistent, and aligned with enterprise architecture standards. 
+
 Janis, a full-stack developer working in the Ministry of Health on the Provincial Client Registry Team.
-Mark, a Security Manager working in Operations, responsible for approving access.
-Then Harley, a full-stack developer working for the Ministry of SDPR My Self Serve team, who is responsible for building the My Self Serve application and to integrate with the PCR service.
+
+Mark, a Security Manager working in Operations, responsible for approving access to the Provincial Client Registry.
+
+Michael, an Application Manager for the Ministry of SDPR, is responsible for the ongoing operation, support, and maintenance of systems that consume data from other ministries and programs.
+
+Finally, Harley, a full-stack developer working for the Ministry of SDPR My Self Serve team, who is responsible for building the My Self Serve application and to integrate with the PCR service.

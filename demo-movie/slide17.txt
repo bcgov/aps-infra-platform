@@ -1,3 +1,4 @@
-At the end of the subsystem setup, there will be a public profile record on SDX.
+At the end of the subsystem setup, there will be a public profile record on SDX for My Self Serve.
 
-Once onboarding is complete, the access request made through Common SSO is automatically submitted to SDX and Mark, the access manager, receives a notification.
+Once onboarding is complete, the access request made through Common SSO is automatically 
+submitted to SDX and Mark, the access manager, receives a notification.

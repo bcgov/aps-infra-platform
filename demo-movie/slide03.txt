@@ -1,3 +1,11 @@
-The scenario in this demo will be the ministry of Social Development and Poverty Reduction’s My Self Serve Program needs the Citizen’s Patient Health Number (PHN) for verifying eligibility during an application for assistance.  The Provincial Client Registry, operated by the Ministry of Health, is the authoritative data source for the PHN.
+The scenario in this demo centers around the BC Employment and Assistance program.
 
-My Self Serve will authenticate users with their BC Services Card and will use SDX to retrieve the PHN for the current user.
+Specifically a person applying for assistance using the My Self Serve application.
+For verifying eligibility during the application process, the Patient Health Number (PHN) is required.
+
+The Provincial Client Registry is the authoritative source for the PHN, so instead of requiring the user to search around for their PHN and
+enter it into the form, the My Self Serve application will use SDX to call the Client Registry and include the PHN in the application for
+assistance.
+
+The Provincial Client Registry is operated by the Ministry of Health, and My Self Serve is operated by the Ministry of Social Development and
+Poverty Reduction.
