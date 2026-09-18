@@ -38,7 +38,11 @@ Use cases for `client-hosted`:
 ## Prerequisites
 
 - [Install Restish CLI](/reference/restish-cli.md)
-- [Install Helm](https://helm.sh/docs/intro/install/) (if deploying the runtime group infrastructure)
+- [Install Helm](https://helm.sh/docs/intro/install/) if you are deploying the
+  runtime group infrastructure.
+- Install `kubectl` or the OpenShift CLI (`oc`) and obtain access to the
+  runtime group's namespace.
+- Install `jq` to extract certificate tokens from Restish responses.
 
 ## Establish a new runtime group
 
@@ -306,8 +310,9 @@ curl -v --resolve internal.${DOMAIN}:8000:127.0.0.1 \
 The public key will be used for other runtime groups to verify the integrity
 of the request.
 
-The helm deployment and bootstrap job will create the sdx-edge secret for the tls certificate
-pair. Save the `tls.crt` contents to a `tls.crt` file locally.
+The Helm deployment and bootstrap Job create the `sdx-edge` Secret containing
+the TLS certificate pair. Save the `tls.crt` contents to a `tls.crt` file
+locally. Do not extract or publish `tls.key`.
 
 Provisioning keys is done using the same `provision-config-from-pattern`
 operation/endpoint as the default Gateway routes and controls, but using the
@@ -331,12 +336,17 @@ The new public key is appended to the key set, and the key id (`kid`) is `{urn}:
     restish sdx provision-config-from-pattern \
       my-org sdx-keys.r1 \
       --action apply \
-      'parameters:{ certificatePem[0]: @tls.crt, runtimeGroupName: newrg, environment: lab }'
+      'parameters:{
+        certificatePem[0]: @tls.crt,
+        runtimeGroupName: newrg,
+        environment: lab
+      }'
     ```
 
 === "Reference"
 
-    - **API** `PUT /organizations/{org}/patterns/sdx-keys.r1?action={preview|diff|apply|delete}`
+    - **API** `PUT /organizations/{org}/patterns/sdx-keys.r1` with query
+      `action={preview|diff|apply|delete}`
 
     ```json
     {
@@ -350,9 +360,9 @@ The new public key is appended to the key set, and the key id (`kid`) is `{urn}:
     }
     ```
 
-    `certificatePem` is an array; `add`, `rotate`, and `replace` operations accept a
-    single public certificate in that array. The private key must remain
-    mounted in the runtime group's edge.
+    `certificatePem` is an array. The `add`, `rotate`, and `replace`
+    operations accept a single public certificate in that array. The private
+    key must remain mounted in the runtime group's edge.
 
 A successful `apply` or `diff` returns structured `changes` information:
 
@@ -419,94 +429,206 @@ existing key.
 
 !!! warning "Query parameter `action=delete` vs `operation=delete`"
 
-    Do not combine query parameter `action=delete` with body parameter `operation=delete`.
-    Query parameter `action=delete` removes the **entire** key qualifier (key set and all keys). Targeted deletion is `action=apply` with `operation=delete`.
+    Do not combine query parameter `action=delete` with body parameter
+    `operation=delete`. Query parameter `action=delete` removes the **entire**
+    key qualifier, including the key set and all keys. For targeted deletion,
+    use `action=apply` with `operation=delete`.
 
-Overlap rotation:
+Use sdx-edge chart version `0.3.7` or later. Set the following variables and
+select the Kubernetes or OpenShift namespace that contains the Helm release:
 
-1. Request a new one-time-use certificate signing token, as in
-   [Request a one-time-use certificate signing token](#request-a-one-time-use-certificate-signing-token).
-1. Stage a new runtime-group key and CSR **without restarting** Kong, then
-   sign the CSR with that token. On the sdx-edge chart,
-   `bootstrap.stageSecret=true` writes `{release}-client-next` and skips
-   the rollout restart.
-1. Publish the new public key with `operation=rotate` (below) while
-   retaining the old one. `rotate` of a public key that is already in the
-   set returns `422` — use `add` if you only need to republish existing
-   material.
-1. Confirm JWKS contains **both** kids: call the `endpoint` from the
-   apply response's `info` result (same check as after the initial add).
-   `changes.added` is the new `kid`; `changes.retained` are the previous
-   ones.
-1. Promote the staged secret to the live client/server secrets and rolling
-   restart Kong (`rotation.promote=true` on the sdx-edge chart). Signed
-   `X-Edge-Token` values should now carry the new `kid`.
-1. Wait through the verifier grace period (`iss_key_grace_period`, default
-   300 seconds).
-1. Remove the old `kid` with `operation=delete` (below).
+```sh
+export ORG="my-org"
+export EDGE_ID="newrg"
+export ENV="lab"
+export SDX_EDGE_CHART_VERSION="0.3.7"
+export EDGE_RESOURCE="sdx-edge-${EDGE_ID}"
+```
 
-=== "Restish CLI"
+Follow these steps for an overlap rotation:
 
-    Publish a replacement key and retain the current set:
+1. Request a one-time-use certificate signing token and save it to a
+   restricted local file:
 
-    ```sh
-    restish sdx provision-config-from-pattern \
-      my-org sdx-keys.r1 \
-      --action apply \
-      'parameters:{ operation: rotate, certificatePem[0]: @tls.crt, runtimeGroupName: newrg, environment: lab }'
-    ```
+   ```sh
+   umask 077
+   restish sdx generate-one-time-use-token \
+     "${ORG}" "${EDGE_ID}" "${ENV}" |
+     jq -r .token > rotation-token
+   ```
 
-    After the grace period, remove the outgoing `kid` (use the value from
-    `changes.retained`):
+1. Stage a new private key and signed certificate without restarting Kong.
+   The bootstrap Job writes `${EDGE_RESOURCE}-client-next`. It does not
+   change the live client or server Secrets:
 
-    ```sh
-    restish sdx provision-config-from-pattern \
-      my-org sdx-keys.r1 \
-      --action apply \
-      'parameters:{ operation: delete, targetKid: "urn:ca:bc:sdx:edge:newrg:lab:8875a149", runtimeGroupName: newrg, environment: lab }'
-    ```
+   ```sh
+   helm upgrade "${EDGE_ID}" \
+     "oci://ghcr.io/bcgov/aps-devops/sdx-edge:${SDX_EDGE_CHART_VERSION}" \
+     --reuse-values \
+     --wait --wait-for-jobs \
+     --set-string bootstrap.tls.token="$(cat rotation-token)" \
+     --set bootstrap.stageSecret=true \
+     --set rotation.promote=false
+   ```
 
-=== "Reference"
+1. Confirm the staged Secret exists, then extract only its public
+   certificate:
 
-    Publish a replacement key:
+   ```sh
+   kubectl get secret "${EDGE_RESOURCE}-client-next"
+   kubectl get secret "${EDGE_RESOURCE}-client-next" \
+     -o jsonpath='{.data.tls\.crt}' |
+     base64 -d > tls-next.crt
+   ```
 
-    ```json
-    {
-      "pattern": "sdx-keys.r1",
-      "parameters": {
-        "runtimeGroupName": "newrg",
-        "environment": "lab",
-        "operation": "rotate",
-        "certificatePem": ["<new-public-certificate-pem-format>"]
-      }
-    }
-    ```
+1. Publish the staged public certificate while retaining the existing keys:
 
-    Remove the outgoing `kid`:
+   ```sh
+   restish sdx provision-config-from-pattern \
+     "${ORG}" sdx-keys.r1 \
+     --action apply \
+     "parameters:{
+       operation: rotate,
+       certificatePem[0]: @tls-next.crt,
+       runtimeGroupName: ${EDGE_ID},
+       environment: ${ENV}
+     }"
+   ```
 
-    ```json
-    {
-      "pattern": "sdx-keys.r1",
-      "parameters": {
-        "runtimeGroupName": "newrg",
-        "environment": "lab",
-        "operation": "delete",
-        "targetKid": "urn:ca:bc:sdx:edge:newrg:lab:8875a149"
-      }
-    }
-    ```
+   `operation=rotate` returns `422` if the same public key is already in the
+   key set. Use `operation=add` to make a retry with already-published key
+   material idempotent.
+
+1. Record the new `kid` from `changes.added` and every outgoing `kid` from
+   `changes.retained`. Find the JWKS URL in the `details.endpoint` field of
+   the response's `info` result. Confirm that the JWKS contains both the new
+   and outgoing `kid` values:
+
+   ```sh
+   curl --fail --silent --show-error "<JWKS_URL>" |
+     jq -r '.keys[].kid'
+   ```
+
+1. Wait at least one verifier grace period after publishing the new key.
+   `trust-verify-signature` refreshes an old cached key set after a missing
+   `kid` only when the cache is older than `iss_key_grace_period`, which is
+   300 seconds in the SDX patterns. Waiting before promotion prevents a
+   verifier with a fresh, old-only cache from rejecting the new `kid`.
+
+1. Back up the live `${EDGE_RESOURCE}-client` and
+   `${EDGE_RESOURCE}-server` Secrets using your organization's secure secret
+   backup procedure. Promotion overwrites both Secrets, and the chart does
+   not create a copy of the previous private key.
+
+1. Promote the staged Secret and restart Kong. Clear the consumed bootstrap
+   token with an empty string, set `bootstrap.stageSecret=false`, and use a
+   unique nonce for the one-shot promote Job:
+
+   ```sh
+   helm upgrade "${EDGE_ID}" \
+     "oci://ghcr.io/bcgov/aps-devops/sdx-edge:${SDX_EDGE_CHART_VERSION}" \
+     --reuse-values \
+     --wait \
+     --set-string bootstrap.tls.token="" \
+     --set bootstrap.stageSecret=false \
+     --set rotation.promote=true \
+     --set-string rotation.nonce="$(date +%s)"
+   ```
+
+   !!! warning "Clear the bootstrap token with an empty string"
+
+       Do not use `--set bootstrap.tls.token=null`. Helm can restore the
+       previous token when coalescing reused values, leaving an immutable
+       completed Job in the release or recreating it with a spent token.
+
+1. Wait for the Kong rollout, then reset the one-shot promotion flag. If
+   `rotation.promote=true` remains in the release values, a later
+   `--reuse-values` upgrade can promote the staged Secret again:
+
+   ```sh
+   kubectl rollout status deployment "${EDGE_RESOURCE}"
+
+   helm upgrade "${EDGE_ID}" \
+     "oci://ghcr.io/bcgov/aps-devops/sdx-edge:${SDX_EDGE_CHART_VERSION}" \
+     --reuse-values \
+     --wait \
+     --set rotation.promote=false
+   ```
+
+1. Make a representative SDX connection request. Confirm that its signed
+   `X-Edge-Token` uses the new `kid` and that the peer verifies it
+   successfully.
+
+1. Wait through the verifier grace period after the rollout so requests
+   signed with the outgoing key can finish. Remove each outgoing `kid`,
+   keeping the new `kid`:
+
+   ```sh
+   restish sdx provision-config-from-pattern \
+     "${ORG}" sdx-keys.r1 \
+     --action apply \
+     "parameters:{
+       operation: delete,
+       targetKid: \"<OUTGOING_KID>\",
+       runtimeGroupName: ${EDGE_ID},
+       environment: ${ENV}
+     }"
+   ```
+
+1. Confirm that JWKS contains the new `kid` and no retired `kid`, then remove
+   the local token and public-certificate files:
+
+   ```sh
+   rm -f rotation-token tls-next.crt
+   ```
+
+The equivalent API request to publish the replacement certificate is:
+
+```json
+{
+  "pattern": "sdx-keys.r1",
+  "parameters": {
+    "runtimeGroupName": "newrg",
+    "environment": "lab",
+    "operation": "rotate",
+    "certificatePem": ["<new-public-certificate-pem-format>"]
+  }
+}
+```
+
+To remove an outgoing key, send `action=apply` with:
+
+```json
+{
+  "pattern": "sdx-keys.r1",
+  "parameters": {
+    "runtimeGroupName": "newrg",
+    "environment": "lab",
+    "operation": "delete",
+    "targetKid": "urn:ca:bc:sdx:edge:newrg:lab:8875a149"
+  }
+}
+```
 
 !!! note "Recovery"
 
     If rotate `apply` succeeds but restart has not happened, traffic still
     signs with the old private key and old `kid`. Both public keys are in
-    JWKS, so verification continues. If restart happens before the new
-    public key is published, republish with `operation=rotate` or `add`,
-    then retry the restart. To abandon a staged key before promote, delete
-    `{release}-client-next` and leave the live secret unchanged. After
-    promote, restore the previous TLS secret, restart, then
-    `operation=delete` (or `replace`) the new `kid` once verifiers no
-    longer see it.
+    JWKS, so verification continues.
+
+    If restart happens before the new public key is published, signing fails
+    closed because the mounted private key has no matching `kid`. Publish
+    the staged certificate with `operation=rotate` or idempotent
+    `operation=add`, wait for Gateway configuration to propagate, and test
+    signing again.
+
+    To abandon a staged key before promote, delete
+    `${EDGE_RESOURCE}-client-next`. If its public key was published, remove
+    that `kid` with `operation=delete`. Leave the live Secrets unchanged.
+
+    After promote, restore both live Secrets from the secure backup, restart
+    Kong, and confirm that signing uses the previous `kid`. Remove the new
+    `kid` only after verifiers no longer receive traffic signed with it.
 
 ### Decommission Runtime Group
 
