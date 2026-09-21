@@ -421,9 +421,11 @@ Follow these steps for an overlap rotation:
      }'
    ```
 
-   `operation=rotate` returns `422` if the same public key is already in the
-   key set. Use `operation=add` when you need to publish a key that is
-   already in the set.
+   `operation=rotate` is rejected when that public key is already in the
+   key set. The provisioner returns `422`. Restish shows this as HTTP `500`
+   with `upstream.message` `[422] undefined (Unprocessable entity)`. The key
+   set is unchanged. Use `operation=add` when you need to publish a key that
+   is already in the set.
 
 1. Record the new `kid` from `changes.added` and every outgoing `kid` from
    `changes.retained`. Find the JWKS URL in the `details.endpoint` field of
