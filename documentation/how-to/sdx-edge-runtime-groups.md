@@ -1,5 +1,5 @@
 ---
-title: Install an Edge Runtime Group
+title: "Install an Edge Runtime Group"
 ---
 
 This page shows how to install a runtime group for your organization on SDX.
@@ -105,10 +105,9 @@ default routing policies for this runtime group.
     failed or interrupted attempt), rerunning registration for the same name
     fails rather than repairing the existing namespace, and manually deleting
     the namespace can leave retained Kong catalog services/routes with no
-    corresponding live data-plane configuration. There is currently no
-    documented preflight or reconcile command for this state — verify with
-    the APS team before deleting an existing runtime namespace to retry
-    registration.
+    corresponding live data-plane configuration. There is no documented
+    preflight or reconcile command for this state. Verify with the APS team
+    before deleting an existing runtime namespace to retry registration.
 
 === "Restish CLI"
 
@@ -146,10 +145,10 @@ default routes and controls for this runtime group.
     Services Portal's **Administration Access** page (GraphQL API), which
     itself requires the requesting user to hold `Namespace.Manage` on that
     namespace. Do not attempt to grant access by creating an ordinary
-    Keycloak authorization permission directly — the platform expects a
+    Keycloak authorization permission directly. The platform expects a
     resource-owner-managed UMA permission ticket, and the two are not
-    interchangeable. A namespace with no `Namespace.Manage` holder currently
-    has no self-service recovery path; contact the APS team.
+    interchangeable. A namespace with no `Namespace.Manage` holder has no
+    self-service recovery path. Contact the APS team.
 
 ## Deploy runtime group infrastructure
 
@@ -210,16 +209,16 @@ export ENV=lab
 export DOMAIN="${EDGE_ID}.${ENV}.servers.sdx"
 
 helm upgrade --install ${EDGE_ID} \
-  --set bootstrap.tls.token=$(cat token) \
-  --set bootstrap.tls.cn=${DOMAIN} \
-  --set bootstrap.tls.ip=${IP} \
-  --set route.host=${DOMAIN} \
+  --set-string bootstrap.tls.token="$(cat token)" \
+  --set-string bootstrap.tls.cn="${DOMAIN}" \
+  --set-string bootstrap.tls.ip="${IP}" \
+  --set-string route.host="${DOMAIN}" \
   oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.7
 
 # If you want to upgrade to a newer helm chart version, you can run
 helm upgrade --install ${EDGE_ID} \
   --reset-then-reuse-values \
-  --set bootstrap.tls.token="" \
+  --set-string bootstrap.tls.token="" \
   oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.7
 ```
 
@@ -255,28 +254,25 @@ Actions available:
 !!! note "Required authorization scope"
 
     The generated help for `provision-config-from-pattern` lists
-    `System.Manage` as the required scope. The effective requirement is
-    actually `GatewayPattern.Publish`, resolved against the runtime's
-    namespace (for example `<namespace>:GatewayPattern.Publish`), and it is
-    granted automatically to the runtime's registering System Admin.
-    Authorization happens in two stages: `GatewayPattern.Publish` gates the
-    `preview`/`diff`/`apply`/`delete` endpoint itself for the human caller,
-    and a separate `GatewayConfig.Publish` scope, held by the internal
-    `sdx-provisioner` client rather than the caller's own token, gates the
-    downstream GWA namespace publish that `diff` and `apply` trigger.
-    `preview` returns generated configuration before that downstream request
-    and therefore only needs the outer `GatewayPattern.Publish` scope.
+    `System.Manage` as the required scope. The endpoint checks
+    `GatewayPattern.Publish` on the runtime namespace (for example
+    `<namespace>:GatewayPattern.Publish`). Registration grants that scope to
+    the System Admin who registered the runtime.
+
+    `GatewayPattern.Publish` allows the caller to run `preview`, `diff`,
+    `apply`, and `delete`. `diff` and `apply` also publish to GWA. That step
+    uses `GatewayConfig.Publish` on the internal `sdx-provisioner` client.
+    `preview` returns the generated configuration before that publish, so it
+    only needs `GatewayPattern.Publish`.
 
 !!! note "Reading `diff` results"
 
-    `diff` is a dry run, but its response reuses mutation-sounding fields —
-    a top-level `applied` count and a per-provider `status: applied` — even
-    when nothing was changed. Those fields describe successful **processing**
-    of the dry run, not the number of gateway changes committed. Do not treat
-    a `diff` response as evidence that Kong configuration changed; check the
-    nested `details.message` (for example `Dry-run. No changes applied.`) and
-    the Created/Updated/Deleted summary for the actual proposed changes, and
-    use `apply` to commit them.
+    `diff` is a dry run. The response still includes an `applied` count and a
+    per-provider `status: applied` when nothing changed. Those fields mean
+    the dry run was processed. They are not the number of gateway changes
+    committed. Check `details.message` (for example
+    `Dry-run. No changes applied.`) and the Created/Updated/Deleted summary
+    for the proposed changes. Use `apply` to commit them.
 
 ### Verification test
 
@@ -301,9 +297,9 @@ curl -v --resolve internal.${DOMAIN}:8000:127.0.0.1 \
     trust between peer runtime groups. Before relying on an active
     peer-to-peer connection, confirm that the calling edge's Kong trusts the
     peer edge's issuing CA (Kong returns `HTTP 502` with an upstream TLS
-    verification failure otherwise). Also note that the endpoint host
-    displayed by the portal may be normalized by GWA to the namespace's
-    permitted environment domain rather than shown verbatim.
+    verification failure otherwise). The endpoint host displayed by the
+    portal may be normalized by GWA to the namespace's permitted environment
+    domain.
 
 ### Add public key to the registry
 
@@ -394,12 +390,12 @@ The listed `kid`s should include the value from `changes.added`.
     mandatory prerequisite before enabling the `sign` upgrade on a consumer
     connection or the `verify` upgrade on a provider connection (see
     [Connecting a Service](/how-to/sdx-connections.md)). The `trust-sign`
-    plugin embeds the runtime's JWKS URI in the signature but does not create
-    or publish the key set itself — until `sdx-keys.r1` has been applied, the
-    JWKS URL will return `404 Key set not found` and traffic relying on
-    verification will fail.
+    plugin embeds the runtime's JWKS URI in the signature. It does not create
+    or publish the key set. Until `sdx-keys.r1` has been applied, the JWKS
+    URL returns `404 Key set not found` and traffic that requires verification
+    fails.
 
-## Runtime Group management
+## Runtime group management
 
 ### Rotate runtime group keys
 
@@ -410,7 +406,7 @@ until you retire the old one.
 
 Do not restart Kong with the new private key until the rotate `apply` has
 succeeded. If the edge starts signing with a key that is not yet in JWKS,
-verification fails closed and requests are denied.
+verification denies the requests.
 
 Query `action` is unchanged (`preview`, `diff`, `apply`, `delete`). Body
 parameter `operation` selects a targeted update:
@@ -424,7 +420,7 @@ parameter `operation` selects a targeted update:
 
 `targetKid` is required for `replace` and `delete`. `certificatePem` (one
 entry) or `publicKeyPem` is required for `add`, `rotate`, and `replace`.
-A caller may supply a full `urn:ca:bc:sdx:edge:…` `kid` to address an
+A caller may supply a full `urn:ca:bc:sdx:edge:...` `kid` to address an
 existing key.
 
 !!! warning "Query parameter `action=delete` vs `operation=delete`"
@@ -521,8 +517,8 @@ Follow these steps for an overlap rotation:
    not create a copy of the previous private key.
 
 1. Promote the staged Secret and restart Kong. Clear the consumed bootstrap
-   token with an empty string, set `bootstrap.stageSecret=false`, and use a
-   unique nonce for the one-shot promote Job:
+   token with an empty string, set `bootstrap.stageSecret=false`, and set a
+   new `rotation.nonce` so the promote Job runs once:
 
    ```sh
    helm upgrade "${EDGE_ID}" \
@@ -541,8 +537,8 @@ Follow these steps for an overlap rotation:
        previous token when coalescing reused values, leaving an immutable
        completed Job in the release or recreating it with a spent token.
 
-1. Wait for the Kong rollout, then reset the one-shot promotion flag. If
-   `rotation.promote=true` remains in the release values, a later
+1. Wait for the Kong rollout, then set `rotation.promote` back to `false`.
+   If `rotation.promote=true` remains in the release values, a later
    `--reuse-values` upgrade can promote the staged Secret again:
 
    ```sh
@@ -616,8 +612,8 @@ To remove an outgoing key, send `action=apply` with:
     signs with the old private key and old `kid`. Both public keys are in
     JWKS, so verification continues.
 
-    If restart happens before the new public key is published, signing fails
-    closed because the mounted private key has no matching `kid`. Publish
+    If restart happens before the new public key is published, signing is
+    denied because the mounted private key has no matching `kid`. Publish
     the staged certificate with `operation=rotate` or idempotent
     `operation=add`, wait for Gateway configuration to propagate, and test
     signing again.
@@ -630,7 +626,7 @@ To remove an outgoing key, send `action=apply` with:
     Kong, and confirm that signing uses the previous `kid`. Remove the new
     `kid` only after verifiers no longer receive traffic signed with it.
 
-### Decommission Runtime Group
+### Decommission runtime group
 
 > To be documented..
 
