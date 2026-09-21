@@ -14,9 +14,10 @@ Group and a service Edge Runtime Group, visit the
 
 The steps described in this page are performed by the following roles:
 
-| Role         | Function                                                               |
-| ------------ | ---------------------------------------------------------------------- |
-| System Admin | Request a new runtime group, and manage onboarding a new runtime group |
+| Role                   | Function                                                                                  |
+| ---------------------- | ----------------------------------------------------------------------------------------- |
+| System Admin           | Request a runtime group, publish its routes, and publish and retire its public keys      |
+| Runtime group operator | Deploy the edge, prepare a replacement certificate, and restart the edge                 |
 
 !!! note "Community Hosted"
 
@@ -38,11 +39,6 @@ Use cases for `client-hosted`:
 ## Prerequisites
 
 - [Install Restish CLI](/reference/restish-cli.md)
-- [Install Helm](https://helm.sh/docs/intro/install/) if you are deploying the
-  runtime group infrastructure.
-- Install `kubectl` or the OpenShift CLI (`oc`) and obtain access to the
-  runtime group's namespace.
-- Install `jq` to extract certificate tokens from Restish responses.
 
 ## Establish a new runtime group
 
@@ -175,10 +171,6 @@ This is performed by a System Admin to request a new cert signing token.
     restish sdx generate-one-time-use-token \
       my-org newrg lab
 
-    # Generate and save to "token"
-    restish sdx generate-one-time-use-token \
-      myo newrg lab | jq -r .token > token
-
     ```
 
 === "Reference"
@@ -191,36 +183,16 @@ This is performed by a System Admin to request a new cert signing token.
     - `{name}=<your-runtime-group-name>`
     - `{environment}=<target-environment>`
 
-It will return a token which can be extracted and stored in a local file
-for the next step.
+The response includes a one-time token. Send that token to the runtime group
+operator with the runtime group name and the IP address from `sdxEndpoint`.
+The operator uses it to deploy the edge. Do not reuse a token that has
+already been spent.
 
 ### Deploy the runtime group infrastructure
 
-We have a helm chart available for deploying a runtime group into a Kubernetes/Openshift environment.
-
-There has been some exploratory work for deploying infrastructure in Azure.
-
-Please reach out to the APS team to discuss your requirements if the helm chart is not sufficient.
-
-```sh
-export IP="<ip specified in the sdxEndpoint above>"
-export EDGE_ID="<name specified above>"
-export ENV=lab
-export DOMAIN="${EDGE_ID}.${ENV}.servers.sdx"
-
-helm upgrade --install ${EDGE_ID} \
-  --set-string bootstrap.tls.token="$(cat token)" \
-  --set-string bootstrap.tls.cn="${DOMAIN}" \
-  --set-string bootstrap.tls.ip="${IP}" \
-  --set-string route.host="${DOMAIN}" \
-  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.7
-
-# If you want to upgrade to a newer helm chart version, you can run
-helm upgrade --install ${EDGE_ID} \
-  --reset-then-reuse-values \
-  --set-string bootstrap.tls.token="" \
-  oci://ghcr.io/bcgov/aps-devops/sdx-edge:0.3.7
-```
+The runtime group operator deploys the edge after you send the certificate
+signing token. If that deployment is not possible in your infrastructure,
+contact the APS team.
 
 ### Provision default routes and controls
 
@@ -277,18 +249,12 @@ Actions available:
 ### Verification test
 
 Running the following should return `400 No required SSL certificate was sent`.
+Replace the host with the runtime group domain and the IP with the address
+from `sdxEndpoint`.
 
 ```sh
-curl -v -k --resolve ${DOMAIN}:443:${IP} \
-  https://${DOMAIN}
-```
-
-You can verify the consumer internal endpoint by opening a terminal on the
-runtime group Kong pod and running:
-
-```sh
-curl -v --resolve internal.${DOMAIN}:8000:127.0.0.1 \
-  http://internal.${DOMAIN}:8000/hello
+curl -v -k --resolve <runtime-group-host>:443:<ip> \
+  https://<runtime-group-host>
 ```
 
 !!! note "Peer TLS trust"
@@ -306,9 +272,9 @@ curl -v --resolve internal.${DOMAIN}:8000:127.0.0.1 \
 The public key will be used for other runtime groups to verify the integrity
 of the request.
 
-The Helm deployment and bootstrap Job create the `sdx-edge` Secret containing
-the TLS certificate pair. Save the `tls.crt` contents to a `tls.crt` file
-locally. Do not extract or publish `tls.key`.
+Ask the runtime group operator for the edge public certificate and save it
+as `tls.crt`. Publish only that public certificate. Do not publish the
+private key.
 
 Provisioning keys is done using the same `provision-config-from-pattern`
 operation/endpoint as the default Gateway routes and controls, but using the
@@ -404,9 +370,9 @@ dropping verification of in-flight signed traffic. `rotate` publishes the
 new public key and retains existing keys so both `kid`s appear in JWKS
 until you retire the old one.
 
-Do not restart Kong with the new private key until the rotate `apply` has
-succeeded. If the edge starts signing with a key that is not yet in JWKS,
-verification denies the requests.
+The runtime group operator must not restart the edge with the new private
+key until the rotate `apply` has succeeded. If the edge starts signing with
+a key that is not yet in JWKS, verification denies the requests.
 
 Query `action` is unchanged (`preview`, `diff`, `apply`, `delete`). Body
 parameter `operation` selects a targeted update:
@@ -430,153 +396,73 @@ existing key.
     key qualifier, including the key set and all keys. For targeted deletion,
     use `action=apply` with `operation=delete`.
 
-Use sdx-edge chart version `0.3.7` or later. Set the following variables and
-select the Kubernetes or OpenShift namespace that contains the Helm release:
-
-```sh
-export ORG="my-org"
-export EDGE_ID="newrg"
-export ENV="lab"
-export SDX_EDGE_CHART_VERSION="0.3.7"
-export EDGE_RESOURCE="sdx-edge-${EDGE_ID}"
-```
+The runtime group operator prepares the new edge certificate and restarts
+the edge. You publish and retire the public keys.
 
 Follow these steps for an overlap rotation:
 
-1. Request a one-time-use certificate signing token and save it to a
-   restricted local file:
+1. Request a new one-time certificate signing token, the same way as in
+   [Request a one-time-use certificate signing token](#request-a-one-time-use-certificate-signing-token).
+   Send the token to the runtime group operator. Ask the operator to prepare
+   the new certificate without restarting the edge, and to send you the new
+   public certificate. Save that certificate as `tls-next.crt`.
 
-   ```sh
-   umask 077
-   restish sdx generate-one-time-use-token \
-     "${ORG}" "${EDGE_ID}" "${ENV}" |
-     jq -r .token > rotation-token
-   ```
-
-1. Stage a new private key and signed certificate without restarting Kong.
-   The bootstrap Job writes `${EDGE_RESOURCE}-client-next`. It does not
-   change the live client or server Secrets:
-
-   ```sh
-   helm upgrade "${EDGE_ID}" \
-     "oci://ghcr.io/bcgov/aps-devops/sdx-edge:${SDX_EDGE_CHART_VERSION}" \
-     --reuse-values \
-     --wait --wait-for-jobs \
-     --set-string bootstrap.tls.token="$(cat rotation-token)" \
-     --set bootstrap.stageSecret=true \
-     --set rotation.promote=false
-   ```
-
-1. Confirm the staged Secret exists, then extract only its public
-   certificate:
-
-   ```sh
-   kubectl get secret "${EDGE_RESOURCE}-client-next"
-   kubectl get secret "${EDGE_RESOURCE}-client-next" \
-     -o jsonpath='{.data.tls\.crt}' |
-     base64 -d > tls-next.crt
-   ```
-
-1. Publish the staged public certificate while retaining the existing keys:
+1. Publish the new public certificate while retaining the existing keys:
 
    ```sh
    restish sdx provision-config-from-pattern \
-     "${ORG}" sdx-keys.r1 \
+     my-org sdx-keys.r1 \
      --action apply \
-     "parameters:{
+     'parameters:{
        operation: rotate,
        certificatePem[0]: @tls-next.crt,
-       runtimeGroupName: ${EDGE_ID},
-       environment: ${ENV}
-     }"
+       runtimeGroupName: newrg,
+       environment: lab
+     }'
    ```
 
    `operation=rotate` returns `422` if the same public key is already in the
-   key set. Use `operation=add` to make a retry with already-published key
-   material idempotent.
+   key set. Use `operation=add` when you need to publish a key that is
+   already in the set.
 
 1. Record the new `kid` from `changes.added` and every outgoing `kid` from
    `changes.retained`. Find the JWKS URL in the `details.endpoint` field of
    the response's `info` result. Confirm that the JWKS contains both the new
-   and outgoing `kid` values:
+   and outgoing `kid` values.
 
-   ```sh
-   curl --fail --silent --show-error "<JWKS_URL>" |
-     jq -r '.keys[].kid'
-   ```
+1. Wait at least 300 seconds after publishing the new key.
+   `trust-verify-signature` reloads a cached key set after a missing `kid`
+   only when that cache is older than `iss_key_grace_period`. In the SDX
+   patterns that period is 300 seconds. Waiting before the edge restarts
+   keeps a verifier that cached only the old key from rejecting the new
+   `kid`.
 
-1. Wait at least one verifier grace period after publishing the new key.
-   `trust-verify-signature` refreshes an old cached key set after a missing
-   `kid` only when the cache is older than `iss_key_grace_period`, which is
-   300 seconds in the SDX patterns. Waiting before promotion prevents a
-   verifier with a fresh, old-only cache from rejecting the new `kid`.
+1. Ask the runtime group operator to switch the edge to the new certificate
+   and restart it. The operator should do this only after the rotate `apply`
+   has succeeded and the wait above has elapsed.
 
-1. Back up the live `${EDGE_RESOURCE}-client` and
-   `${EDGE_RESOURCE}-server` Secrets using your organization's secure secret
-   backup procedure. Promotion overwrites both Secrets, and the chart does
-   not create a copy of the previous private key.
+1. Ask the runtime group operator to confirm that the edge certificate is
+   the public certificate you published. Make a representative SDX connection
+   request and confirm that the peer accepts it. The `kid` in a signed
+   `X-Edge-Token` is the new `kid` from `changes.added`.
 
-1. Promote the staged Secret and restart Kong. Clear the consumed bootstrap
-   token with an empty string, set `bootstrap.stageSecret=false`, and set a
-   new `rotation.nonce` so the promote Job runs once:
-
-   ```sh
-   helm upgrade "${EDGE_ID}" \
-     "oci://ghcr.io/bcgov/aps-devops/sdx-edge:${SDX_EDGE_CHART_VERSION}" \
-     --reuse-values \
-     --wait \
-     --set-string bootstrap.tls.token="" \
-     --set bootstrap.stageSecret=false \
-     --set rotation.promote=true \
-     --set-string rotation.nonce="$(date +%s)"
-   ```
-
-   !!! warning "Clear the bootstrap token with an empty string"
-
-       Do not use `--set bootstrap.tls.token=null`. Helm can restore the
-       previous token when coalescing reused values, leaving an immutable
-       completed Job in the release or recreating it with a spent token.
-
-1. Wait for the Kong rollout, then set `rotation.promote` back to `false`.
-   If `rotation.promote=true` remains in the release values, a later
-   `--reuse-values` upgrade can promote the staged Secret again:
-
-   ```sh
-   kubectl rollout status deployment "${EDGE_RESOURCE}"
-
-   helm upgrade "${EDGE_ID}" \
-     "oci://ghcr.io/bcgov/aps-devops/sdx-edge:${SDX_EDGE_CHART_VERSION}" \
-     --reuse-values \
-     --wait \
-     --set rotation.promote=false
-   ```
-
-1. Make a representative SDX connection request. Confirm that its signed
-   `X-Edge-Token` uses the new `kid` and that the peer verifies it
-   successfully.
-
-1. Wait through the verifier grace period after the rollout so requests
-   signed with the outgoing key can finish. Remove each outgoing `kid`,
-   keeping the new `kid`:
+1. Wait another 300 seconds so requests signed with the outgoing key can
+   finish. Remove each outgoing `kid`, keeping the new `kid`:
 
    ```sh
    restish sdx provision-config-from-pattern \
-     "${ORG}" sdx-keys.r1 \
+     my-org sdx-keys.r1 \
      --action apply \
-     "parameters:{
+     'parameters:{
        operation: delete,
-       targetKid: \"<OUTGOING_KID>\",
-       runtimeGroupName: ${EDGE_ID},
-       environment: ${ENV}
-     }"
+       targetKid: "urn:ca:bc:sdx:edge:newrg:lab:8875a149",
+       runtimeGroupName: newrg,
+       environment: lab
+     }'
    ```
 
-1. Confirm that JWKS contains the new `kid` and no retired `kid`, then remove
-   the local token and public-certificate files:
-
-   ```sh
-   rm -f rotation-token tls-next.crt
-   ```
+1. Confirm that JWKS contains the new `kid` and no retired `kid`. Delete the
+   local copy of the public certificate.
 
 The equivalent API request to publish the replacement certificate is:
 
@@ -608,23 +494,23 @@ To remove an outgoing key, send `action=apply` with:
 
 !!! note "Recovery"
 
-    If rotate `apply` succeeds but restart has not happened, traffic still
+    If rotate `apply` succeeds and the edge has not restarted, traffic still
     signs with the old private key and old `kid`. Both public keys are in
     JWKS, so verification continues.
 
-    If restart happens before the new public key is published, signing is
-    denied because the mounted private key has no matching `kid`. Publish
-    the staged certificate with `operation=rotate` or idempotent
-    `operation=add`, wait for Gateway configuration to propagate, and test
-    signing again.
+    If the edge restarts before the new public key is published, signing is
+    denied because the new private key has no matching `kid`. Publish the
+    new certificate with `operation=rotate`, or with `operation=add` if that
+    certificate is already in the set. Wait for the gateway configuration to
+    propagate, then test signing again.
 
-    To abandon a staged key before promote, delete
-    `${EDGE_RESOURCE}-client-next`. If its public key was published, remove
-    that `kid` with `operation=delete`. Leave the live Secrets unchanged.
+    To abandon a new certificate before the edge switches to it, ask the
+    runtime group operator to discard it. If you already published that
+    public key, remove its `kid` with `operation=delete`.
 
-    After promote, restore both live Secrets from the secure backup, restart
-    Kong, and confirm that signing uses the previous `kid`. Remove the new
-    `kid` only after verifiers no longer receive traffic signed with it.
+    After the edge has switched, ask the runtime group operator to restore
+    the previous certificate and restart. Remove the new `kid` only after
+    verifiers no longer receive traffic signed with it.
 
 ### Decommission runtime group
 
@@ -632,7 +518,7 @@ To remove an outgoing key, send `action=apply` with:
 
 Steps to decommission:
 
-- uninstall infrastructure
+- runtime group operator uninstalls the edge
 - remove default routes
 - remove keys (`sdx-keys.r1` with query `action=delete` and no `operation`
   removes the entire key qualifier)
