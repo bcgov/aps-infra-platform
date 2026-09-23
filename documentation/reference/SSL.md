@@ -4,7 +4,7 @@ title: SSL Certificates
 
 ## \*.api.gov.bc.ca
 
-| Issue Date  | Expires     | Deployed    | SHA1 Fingerprint (abbrev.)                      | Serial No.   |
+| Issue Date  | Expires     | Deployed    | SHA-256 Fingerprint (abbrev.)                   | Serial No.   |
 | ----------- | ----------- | ----------- | ----------------------------------------------- | ------------ |
 | Oct 6 2020  | Oct 16 2021 | Oct 6 2020  | 20:7D:15:9D:42:BE:CC:BC:FD:EF:DF:13:77:C7:25:A3 | 7876EB597E14 |
 | Feb 16 2021 | Oct 16 2021 | Feb 25 2021 | 4D:EA:CE:C4:0A:73:67:D3:B4:03:F6:63:C4:E1:67:2C | 3B5849D8A670 |
@@ -13,6 +13,7 @@ title: SSL Certificates
 | Oct 4 2023  | Oct 16 2024 | Oct 13 2023 | 52:78:CD:99:3C:00:4E:4F:57:CD:EF:71:B9:E2:53:08 | 74BC58EEA87E |
 | Oct 1 2024  | Oct 16 2025 | Oct 04 2024 | CF:52:11:01:AF:97:6C:A4:B8:31:CD:1C:A6:C2:8C:53 | 00A9EEDE0318 |
 | Sep 28 2025 | Oct 16 2026 | Oct 01 2025 | 20:4C:D5:79:D8:D3:75:42:26:54:09:F2:92:52:21:2D | B06689CC407B |
+| Sep 16 2026 | Apr 02 2027 | Sep 24 2026 | D2:11:9C:AF:D9:E2:13:23:68:AD:D1:18:88:9E:E3:96 | 597361027E8B |
 
 ## Verification
 
@@ -25,26 +26,4 @@ openssl s_client -showcerts -verify 5 -connect 142.34.194.118:443 \
 
 openssl x509 -in gw.crt -fingerprint -serial -dates -noout
 
-```
-
-You can run the above as one line:
-
-```
-A_HOST=httpbin-regression.api.gov.bc.ca; openssl s_client -showcerts -verify 5 -connect ${A_HOST}:443 -servername ${A_HOST} < /dev/null | awk '/BEGIN/,/END/{ if(/BEGIN/){a++}; print}' | openssl x509 -fingerprint -serial -dates -noout
-```
-
-## Internal Notes
-
-**Individual File Verification**
-
-```
-openssl x509 -in data-api-wildcard-2020.crt -fingerprint -serial -dates -noout
-openssl x509 -in data-api-wildcard-2021.crt -fingerprint -serial -dates -noout
-```
-
-**Cert/Key Verification**
-
-```
-openssl x509 -noout -modulus -in data-api-wildcard.crt | openssl md5
-openssl rsa -noout -modulus -in data-api-wildcard.key | openssl md5
 ```
