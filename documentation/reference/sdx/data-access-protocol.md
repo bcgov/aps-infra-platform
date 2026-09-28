@@ -28,6 +28,39 @@ The `Authorization` header MUST contain a token that is issued from an approved
 Identity and Authorization Provider. The `azp` claim maps to an SDX Subsystem
 and controls the client connection to the requested target service.
 
+### Privacy zone token exchange audiences
+
+When privacy zone token exchange is enabled, the original token must include
+the configured SDX exchange client in `aud`. Keycloak uses that audience to
+authorize SDX to exchange a token issued to another client. The requesting
+client does not need to know the target provider resource audience; that value
+is configured on the consumer `tokenExchange` upgrade.
+
+SDX constructs the exchange audience set as follows:
+
+1. Read `aud` from the JWT already verified by `jwt-keycloak`.
+2. Accept either a string or an array and compare values exactly.
+3. Require and remove the SDX exchange client ID.
+4. Start the result with the configured consumer audience.
+5. Append the remaining original audiences in their original order.
+6. Remove exact duplicates and send each value as a repeated RFC 8693
+   `audience` parameter.
+
+The configured consumer audience is required and is always requested. Other
+audiences in the original token are optional. They can be used when a
+downstream client needs the exchanged token as the subject of another
+permitted token exchange.
+
+| Token exchange | Original token requirements | Exchanged token audiences |
+| -------------- | --------------------------- | -------------------------- |
+| Enabled, no optional downstream audience | Includes the SDX exchange client | Configured consumer audience |
+| Enabled, optional downstream audiences | Includes the SDX exchange client and optional audiences | Configured consumer audience plus the optional audiences |
+| Disabled | Already includes the audience expected by the target resource | Original token is forwarded unchanged |
+
+If the original token does not authorize the SDX exchange client, SDX stops
+before calling Keycloak and returns a correlated HTTP 400 response. SDX does
+not expose the audience values in that response.
+
 ### Privacy zone token exchange scopes
 
 When privacy zone token exchange is configured, the Client Edge Runtime first

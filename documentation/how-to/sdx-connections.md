@@ -220,11 +220,40 @@ go to [Connection Resources](/how-to/sdx-connection-resources.md).
     `sdx-p2p-consumer-access.r1` exists, since enabling `consumerMatch`
     ahead of a matching consumer blocks legitimate traffic.
 
-## Troubleshooting token-exchange scopes
+## Troubleshooting token-exchange scopes and audiences
+
+### Original token does not authorize the SDX exchange client
+
+When token exchange is enabled, the verified original token's `aud` claim must
+contain the consumer `tokenExchange.clientId`. If the value is missing, the
+claim is malformed, or it is not a string or array of strings, SDX returns HTTP
+400 without calling the authorization server:
+
+```json
+{
+  "message": "The supplied token is not authorized for SDX token exchange. Refer to the SDX documentation and use request ID <request-id> when requesting support.",
+  "error": {
+    "code": "SDX_TOKEN_EXCHANGE_NOT_AUTHORIZED"
+  }
+}
+```
+
+The `<request-id>` in the message matches the `X-Kong-Request-Id` response
+header and the diagnostic SDX Kong log entry. The public response does not
+contain the original audiences, configured client ID, token, or authorization
+server details.
+
+The provider resource audience does not need to be present in the original
+token. SDX always adds the audience from the consumer
+`tokenExchange.audience` configuration. Any other original audiences are
+optional and are propagated after the SDX exchange client is removed.
+
+### SDX exchange client configuration
 
 The SDX token-exchange client must be permitted to request every scope in the
 verified incoming token. If the authorization server rejects the exchange with
-`invalid_scope`, SDX returns HTTP 500 with a generic response:
+`invalid_scope`, or cannot resolve a requested audience and returns
+`invalid_target`, SDX returns HTTP 500 with a generic response:
 
 ```json
 {
@@ -239,7 +268,7 @@ The `<request-id>` in the message matches the `X-Kong-Request-Id` response
 header. Provide that value to the SDX support team. SDX operators can use it to
 find the diagnostic entry in the Kong token-exchange plugin logs. That entry
 records the authorization server status and error code, requested scopes, and
-audience.
+audiences.
 
 The client response does not include the requested scopes, audience,
 authorization server response or error description, client assertion, or
