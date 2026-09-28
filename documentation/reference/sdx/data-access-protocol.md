@@ -28,6 +28,27 @@ The `Authorization` header MUST contain a token that is issued from an approved
 Identity and Authorization Provider. The `azp` claim maps to an SDX Subsystem
 and controls the client connection to the requested target service.
 
+### Privacy zone token exchange scopes
+
+When privacy zone token exchange is configured, the Client Edge Runtime first
+verifies the incoming token. It reads the space-delimited `scope` claim from
+that verified token, removes duplicate values, and sends those scopes in the
+token-exchange request. The configured SDX exchange client must be permitted to
+request every required scope.
+
+For a successful exchange, SDX handles the token endpoint's `scope` response
+according to
+[RFC 8693 section 2.2.1](https://www.rfc-editor.org/rfc/rfc8693.html#section-2.2.1):
+
+- an omitted `scope` value means the granted scopes match the requested scopes;
+- an explicit matching set is accepted regardless of order; and
+- an explicit different set is logged as a warning, and the exchange continues.
+
+This comparison uses the token response metadata. SDX does not decode,
+validate, or introspect the new access token as part of the exchange. The
+Service Edge Runtime and provider API remain responsible for validating and
+authorizing the exchanged token before serving the request.
+
 ## Message transport
 
 ### Client Edge to Service Edge (request)
