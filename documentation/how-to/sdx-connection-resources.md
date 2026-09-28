@@ -95,7 +95,7 @@ they should be configured. This page describes all the parameters that are avail
 | `.clientId`                    | string   | required            |
 | `.tokenEndpoint`               | string   | required, any value |
 | `.scopes`                      | string[] | optional fallback   |
-| `.audience`                    | string   | optional            |
+| `.audience`                    | string   | required for verified SDX token exchange |
 
 ### serviceResources.gatewayPatterns
 
@@ -172,6 +172,55 @@ the request, as defined by
 If the response declares a different scope set, SDX logs the requested and
 granted sets as a warning and continues with the exchanged token. SDX does not
 decode or introspect the exchanged token to perform this comparison.
+
+#### Token exchange audiences
+
+The consumer `tokenExchange` upgrade uses three audience inputs for different
+purposes:
+
+| Audience | Where it is supplied | Requirement and purpose |
+| -------- | -------------------- | ----------------------- |
+| Consumer endpoint audience | Original token `aud`; checked through `token.allowedAud` | The original token must satisfy the consumer endpoint's normal token validation. |
+| SDX exchange client | `tokenExchange.clientId` and original token `aud` | Required in the original token when token exchange is enabled. It authorizes this SDX client to exchange the token. |
+| Provider resource audience | `tokenExchange.audience` | Required consumer-side configuration. SDX always requests it for the exchanged token, so the requesting client does not need to know or request this audience. |
+| Optional downstream audiences | Original token `aud` | Optional. SDX preserves them when a downstream client needs to perform another permitted exchange. |
+
+SDX reads `aud` only from the token already verified by the `token` upgrade. It
+accepts a string or an array, requires an exact match for
+`tokenExchange.clientId`, and removes that client from the outgoing audience
+set. SDX then combines the configured `tokenExchange.audience` with all
+remaining original audiences and removes exact duplicates. The configured
+audience is sent first, and every value is encoded as a separate RFC 8693
+`audience` parameter.
+
+For example:
+
+```text
+Configured consumer audience:
+  provider-resource
+
+Original token aud:
+  [sdx-exchange-client, provider-resource, downstream-client]
+
+Token-exchange request:
+  audience=provider-resource
+  audience=downstream-client
+```
+
+The provider resource audience in the original token is redundant in this
+example and is sent only once. The optional downstream audience can allow that
+client to use the exchanged token in a later permitted exchange. When the
+original token contains no optional audience, SDX requests only the configured
+consumer audience.
+
+Without the `tokenExchange` upgrade, SDX does not replace the bearer token. The
+requesting client must then obtain an original token that already contains the
+audience expected by the target resource.
+
+Keycloak must be able to resolve every requested audience through the SDX
+exchange client's roles, client scopes, and audience mappers. Explicit
+`audience` parameters constrain the intended recipients; they do not make an
+otherwise unavailable audience resolvable.
 
 ### Service Provider
 
