@@ -220,6 +220,35 @@ go to [Connection Resources](/how-to/sdx-connection-resources.md).
     `sdx-p2p-consumer-access.r1` exists, since enabling `consumerMatch`
     ahead of a matching consumer blocks legitimate traffic.
 
+## Troubleshooting token-exchange scopes
+
+The SDX token-exchange client must be permitted to request every scope in the
+verified incoming token. If the authorization server rejects the exchange with
+`invalid_scope`, SDX returns HTTP 500 with a generic response:
+
+```json
+{
+  "message": "The SDX token-exchange client is not configured to complete this request. Refer to the SDX Kong token-exchange plugin logs using request ID <request-id> for details.",
+  "error": {
+    "code": "SDX_TOKEN_EXCHANGE_CONFIGURATION_ERROR"
+  }
+}
+```
+
+The `<request-id>` in the message matches the `X-Kong-Request-Id` response
+header. Provide that value to the SDX support team. SDX operators can use it to
+find the diagnostic entry in the Kong token-exchange plugin logs. That entry
+records the authorization server status and error code, requested scopes, and
+audience.
+
+The client response does not include the requested scopes, audience,
+authorization server response or error description, client assertion, or
+tokens.
+
+An explicit granted scope set that differs from the requested set is a warning,
+not an exchange failure. SDX continues with the successful exchanged token, and
+the provider's normal token validation and authorization rules apply.
+
 ## Connection management
 
 ### Deleting a connection

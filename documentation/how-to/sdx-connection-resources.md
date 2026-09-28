@@ -94,7 +94,7 @@ they should be configured. This page describes all the parameters that are avail
 | **tokenExchange**              | object   | optional            |
 | `.clientId`                    | string   | required            |
 | `.tokenEndpoint`               | string   | required, any value |
-| `.scopes`                      | string[] | optional            |
+| `.scopes`                      | string[] | optional fallback   |
 | `.audience`                    | string   | optional            |
 
 ### serviceResources.gatewayPatterns
@@ -150,6 +150,28 @@ The following upgrades to `sdx-p2p-consumer.r1` are required:
 | `sign`          | Standard Edge Runtime token added as an `X-Edge-Token` header                                 |
 | `verify`        | Verification of Edge Runtime token on response from Provider                                  |
 | `counterSign`   | Client organization transaction signature on request                                          |
+
+#### Token exchange scopes
+
+When the `token` and `tokenExchange` upgrades are used together, SDX obtains
+the requested scopes from the `scope` claim in the token already verified by
+the `token` upgrade. Duplicate values are removed, and the resulting list is
+sent to the authorization server in the token-exchange request. This prevents
+the exchange from defaulting to every scope available to the SDX exchange
+client.
+
+The `tokenExchange.scopes` setting is retained as a compatibility fallback for
+a route without verified-token context. It does not override the verified
+subject token's scopes. Normal `SDX.R1.00` connections should use the `token`
+upgrade before `tokenExchange` and should not rely on the fallback to change a
+caller's requested scopes.
+
+The successful token response may omit `scope` when the granted scopes match
+the request, as defined by
+[RFC 8693 section 2.2.1](https://www.rfc-editor.org/rfc/rfc8693.html#section-2.2.1).
+If the response declares a different scope set, SDX logs the requested and
+granted sets as a warning and continues with the exchanged token. SDX does not
+decode or introspect the exchanged token to perform this comparison.
 
 ### Service Provider
 
