@@ -163,3 +163,16 @@ The following upgrades to this pattern are required:
 | `sign`        | Standard Edge Runtime token added as an `X-Edge-Token` response header         |
 | `verify`      | Verification of Edge Runtime token on request from Client                      |
 | `counterSign` | Service organization transaction signature on response                         |
+
+### Provider request identity headers
+
+Every request delivered to a provider includes
+`X-SDX-Client-Subsystem-Id`, populated from the client subsystem in the
+provisioned connection. `X-Client-Id` currently carries the same value for
+compatibility and is deprecated for provider integrations.
+
+When the consumer Edge Runtime applies the `tokenExchange` upgrade, it also
+adds `X-SDX-Original-AZP`. This value comes from the `azp` claim of the token
+verified by the preceding `token` upgrade, before the exchanged token replaces
+the request authorization. Provider APIs can use this header when they need the
+original requesting OAuth client identifier.
