@@ -115,8 +115,9 @@ omits this header on requests where it cannot obtain a usable `azp` from the
 verified subject token. The header contains one client identifier; it is not an
 exchange history.
 
-`X-Client-Id` remains during migration and carries the same subsystem identifier
-as `X-SDX-Client-Subsystem-Id`. Provider APIs should use
+For backward compatibility with existing provider integrations, SDX continues
+to send `X-Client-Id` with the same subsystem identifier as
+`X-SDX-Client-Subsystem-Id`. Provider APIs should use
 `X-SDX-Client-Subsystem-Id` for new integrations.
 
 ## IS Service to Edge (response)
