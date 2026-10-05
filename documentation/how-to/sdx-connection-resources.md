@@ -94,7 +94,7 @@ they should be configured. This page describes all the parameters that are avail
 | **tokenExchange**              | object   | optional            |
 | `.clientId`                    | string   | required            |
 | `.tokenEndpoint`               | string   | required, any value |
-| `.scopes`                      | string[] | optional fallback   |
+| `.scopes`                      | string[] | configured mode only |
 | `.audience`                    | string   | optional            |
 
 ### serviceResources.gatewayPatterns
@@ -160,11 +160,15 @@ sent to the authorization server in the token-exchange request. This prevents
 the exchange from defaulting to every scope available to the SDX exchange
 client.
 
-The `tokenExchange.scopes` setting is retained as a compatibility fallback for
-a route without verified-token context. It does not override the verified
-subject token's scopes. Normal `SDX.R1.00` connections should use the `token`
-upgrade before `tokenExchange` and should not rely on the fallback to change a
-caller's requested scopes.
+`SDX.R1.00` provisioning configures token exchange to require verified-token
+context. If that context or its string `scope` claim is unavailable, the
+request fails rather than falling back to configured scopes. The paired
+`jwt-keycloak` plugin accepts the subject token only from the `Authorization`
+header; its JWT query parameter is disabled.
+
+The `tokenExchange.scopes` setting remains available only to plugin routes
+that explicitly use configured-scope mode. It is not an automatic fallback
+for an SDX scope-transfer route.
 
 The successful token response may omit `scope` when the granted scopes match
 the request, as defined by
