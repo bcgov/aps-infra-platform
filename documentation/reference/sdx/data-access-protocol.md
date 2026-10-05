@@ -19,7 +19,7 @@ token before passing the response to the calling client.
 
 | Header Name      | Description                                                               |
 | ---------------- | ------------------------------------------------------------------------- |
-| `X-Client-Id`    | Deprecated client subsystem identifier used to select the provisioned connection |
+| `X-Client-Id`    | Client subsystem identifier used to select the provisioned connection            |
 | `Authorization`  | Client identity JWT                                                       |
 | `Correlation-Id` | Optional                                                                  |
 | `Content-Digest` | Optional - request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:` |
@@ -44,7 +44,7 @@ If the client supplies a digest, the Client Edge Runtime validates it.
 | `X-Edge-Token`                    | JWT                                                                       |
 | `X-SDX-Client-Subsystem-Id`       | Client subsystem identifier set by SDX                                    |
 | `X-SDX-Original-AZP`              | Original verified JWT `azp`; present when SDX performs a token exchange   |
-| `X-Client-Id`                     | Deprecated alias of `X-SDX-Client-Subsystem-Id`                           |
+| `X-Client-Id`                     | Client subsystem identifier used for provisioned connection routing      |
 | `X-Service-Id`                    | Service identifier                                                        |
 | `Content-Digest`                  | Request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:`            |
 | `Authorization`                   | Client identity JWT                                                       |
@@ -95,7 +95,7 @@ from the `X-Edge-Token` to populate this token.
 | `X-Edge-Token`                    | JWT                                                                       |
 | `X-SDX-Client-Subsystem-Id`       | Client subsystem identifier set by SDX                                    |
 | `X-SDX-Original-AZP`              | Original verified JWT `azp`; present when SDX performs a token exchange   |
-| `X-Client-Id`                     | Deprecated alias of `X-SDX-Client-Subsystem-Id`                           |
+| `X-Client-Id`                     | Client subsystem identifier retained for routing and compatibility       |
 | `X-Service-Id`                    | Service identifier                                                        |
 | `Content-Digest`                  | Request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:`            |
 | `Authorization`                   | Client identity JWT                                                       |

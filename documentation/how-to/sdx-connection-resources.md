@@ -168,8 +168,9 @@ The following upgrades to this pattern are required:
 
 Every request delivered to a provider includes
 `X-SDX-Client-Subsystem-Id`, populated from the client subsystem in the
-provisioned connection. `X-Client-Id` currently carries the same value for
-compatibility and is deprecated for provider integrations.
+provisioned connection. `X-Client-Id` carries the same value because it remains
+part of the current connection-routing contract. Provider integrations should
+use `X-SDX-Client-Subsystem-Id` as the authoritative client identity.
 
 When the consumer Edge Runtime applies the `tokenExchange` upgrade, it also
 adds `X-SDX-Original-AZP`. This value comes from the `azp` claim of the token
