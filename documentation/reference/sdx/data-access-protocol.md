@@ -30,11 +30,17 @@ and controls the client connection to the requested target service.
 
 ### Privacy zone token exchange scopes
 
-When privacy zone token exchange is configured, the Client Edge Runtime first
-verifies the incoming token. It reads the space-delimited `scope` claim from
-that verified token, removes duplicate values, and sends those scopes in the
-token-exchange request. The configured SDX exchange client must be permitted to
-request every required scope.
+When privacy zone token exchange is configured together with the `token`
+upgrade for token verification, the Client Edge Runtime reads the
+space-delimited `scope` claim from the verified incoming token, removes
+duplicate values, and sends those scopes in the token-exchange request. The
+`tokenExchange` upgrade alone does not imply that incoming-token verification
+or verified-subject scope transfer occurs. The configured SDX exchange client
+must be permitted to request every required scope.
+
+APS-4931 transfers only the scopes already present in the verified subject
+token. APS-5006, which supplies the target privacy-zone scope, is a prerequisite
+for R1 activation.
 
 For a successful exchange, SDX handles the token endpoint's `scope` response
 according to

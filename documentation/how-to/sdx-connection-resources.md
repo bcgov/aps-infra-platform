@@ -153,18 +153,45 @@ The following upgrades to `sdx-p2p-consumer.r1` are required:
 
 #### Token exchange scopes
 
-When the `token` and `tokenExchange` upgrades are used together, SDX obtains
-the requested scopes from the `scope` claim in the token already verified by
-the `token` upgrade. Duplicate values are removed, and the resulting list is
-sent to the authorization server in the token-exchange request. This prevents
-the exchange from defaulting to every scope available to the SDX exchange
-client.
+When the `token` and `tokenExchange` upgrades are configured together, SDX
+obtains the requested scopes from the `scope` claim in the token already
+verified by the `token` upgrade. Duplicate values are removed, and the
+resulting list is sent to the authorization server in the token-exchange
+request. This prevents the exchange from defaulting to every scope available
+to the SDX exchange client.
+
+Kong determines execution order from plugin priority: `jwt-keycloak` (1005)
+runs before `token-exchange` (930), regardless of the order in which the
+upgrades appear in the connection.
+
+APS-4931 transfers only scopes already present in the verified subject token;
+it does not add or compose the target privacy-zone scope. APS-5006 must be
+completed before R1 activation so the required target privacy-zone scope is
+supplied.
 
 `SDX.R1.00` provisioning configures token exchange to require verified-token
-context. If that context or its string `scope` claim is unavailable, the
-request fails rather than falling back to configured scopes. The paired
-`jwt-keycloak` plugin accepts the subject token only from the `Authorization`
-header; its JWT query parameter is disabled.
+context. Scope derivation fails closed when:
+
+- the verified subject token context is unavailable;
+- the `scope` claim is missing or is not a string; or
+- the `scope` claim is empty or contains only whitespace.
+
+Each condition returns HTTP 500 without calling the token endpoint:
+
+```json
+{
+  "message": "Token exchange failed",
+  "error": { "code": "E4" }
+}
+```
+
+This E4 response does not include a request ID. Kong logs `Unable to derive
+token exchange scopes:` followed by the applicable diagnostic reason:
+`verified subject token is unavailable`, `verified subject token has no string
+scope claim`, or `verified subject token has an empty scope claim`.
+
+The paired `jwt-keycloak` plugin accepts the subject token only from the
+`Authorization` header; its JWT query parameter is disabled.
 
 The `tokenExchange.scopes` setting remains available only to plugin routes
 that explicitly use configured-scope mode. It is not an automatic fallback
