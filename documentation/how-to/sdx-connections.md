@@ -222,6 +222,27 @@ go to [Connection Resources](/how-to/sdx-connection-resources.md).
 
 ## Troubleshooting token-exchange scopes
 
+Verified-subject scope derivation fails before the token endpoint is called
+when the verified token is unavailable, its `scope` claim is missing or is not
+a string, or the claim is empty or contains only whitespace. Each condition
+returns HTTP 500:
+
+```json
+{
+  "message": "Token exchange failed",
+  "error": { "code": "E4" }
+}
+```
+
+This E4 response does not include a request ID. Kong logs `Unable to derive
+token exchange scopes:` followed by `verified subject token is unavailable`,
+`verified subject token has no string scope claim`, or `verified subject token
+has an empty scope claim`.
+
+This is distinct from an authorization-server `invalid_scope` response. In
+that case, the token endpoint was called and SDX returns
+`SDX_TOKEN_EXCHANGE_CONFIGURATION_ERROR` as described below.
+
 The SDX token-exchange client must be permitted to request every scope in the
 verified incoming token. If the authorization server rejects the exchange with
 `invalid_scope`, SDX returns HTTP 500 with a generic response:
