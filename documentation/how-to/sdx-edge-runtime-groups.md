@@ -342,11 +342,22 @@ A successful `apply` or `diff` returns structured `changes` information:
 }
 ```
 
-The same payload's `info` result includes `details.endpoint`, the JWKS URL for
-this key set.
+The `info` result includes `details.endpoint`. That address is inside the
+operator cluster and does not resolve from your workstation.
 
-Call `details.endpoint` from that `info` result and confirm the new `kid`
-is in the key set.
+Confirm the key set on the public JWKS URL for the environment. See
+[SDX Environments](/reference/sdx/environments.md). The path is:
+
+```text
+/keysets/sdx.edge.<runtime-group>.<environment>/.well-known/jwks.json
+```
+
+In APS Dev (`apsdev`) the host is
+`https://pzgw-api-gov-bc-ca.dev.api.gov.bc.ca`. For a runtime group `newrg`:
+
+```text
+https://pzgw-api-gov-bc-ca.dev.api.gov.bc.ca/keysets/sdx.edge.newrg.apsdev/.well-known/jwks.json
+```
 
 The listed `kid`s should include the value from `changes.added`.
 
@@ -421,16 +432,14 @@ Follow these steps for an overlap rotation:
      }'
    ```
 
-   `operation=rotate` is rejected when that public key is already in the
-   key set. The provisioner returns `422`. Restish shows this as HTTP `500`
-   with `upstream.message` `[422] undefined (Unprocessable entity)`. The key
-   set is unchanged. Use `operation=add` when you need to publish a key that
-   is already in the set.
+   `operation=rotate` is rejected (`422`) when that public key is already in
+   the key set. The key set is unchanged. Use `operation=add` when you need
+   to publish a key that is already in the set.
 
 1. Record the new `kid` from `changes.added` and every outgoing `kid` from
-   `changes.retained`. Find the JWKS URL in the `details.endpoint` field of
-   the response's `info` result. Confirm that the JWKS contains both the new
-   and outgoing `kid` values.
+   `changes.retained`. Confirm that the public JWKS URL contains both the
+   new and outgoing `kid` values. See
+   [Add public key to the registry](#add-public-key-to-the-registry).
 
 1. Wait at least 300 seconds after publishing the new key.
    `trust-verify-signature` reloads a cached key set after a missing `kid`
@@ -464,8 +473,8 @@ Follow these steps for an overlap rotation:
      }'
    ```
 
-1. Confirm that JWKS contains the new `kid` and no retired `kid`. Delete the
-   local copy of the public certificate.
+1. Confirm that the public JWKS URL contains the new `kid` and no retired
+   `kid`. Delete the local copy of the public certificate.
 
 The equivalent API request to publish the replacement certificate is:
 
