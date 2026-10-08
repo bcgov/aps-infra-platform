@@ -48,9 +48,12 @@ https://<public-sdx-host>/keysets/sdx.edge.<runtime-group>.<environment>/.well-k
 `info.details.endpoint` value returned by `sdx-keys.r1` is an address inside
 the operator cluster. Use the public URL instead.
 
-| SDX environment | Public host                                      |
-| --------------- | ------------------------------------------------ |
-| `apsdev`        | `https://pzgw-api-gov-bc-ca.dev.api.gov.bc.ca` |
+| SDX environment | Public host                                        |
+| --------------- | -------------------------------------------------- |
+| `apsdev`        | `https://pzgw-api-gov-bc-ca.dev.api.gov.bc.ca`   |
+| `apstst`        | `https://pzgw-api-gov-bc-ca.test.api.gov.bc.ca`  |
+| `bct`           | `https://pzgw.test.api.gov.bc.ca`                  |
+| `bc`            | `https://pzgw.api.gov.bc.ca`                       |
 
 ## Playground
 
