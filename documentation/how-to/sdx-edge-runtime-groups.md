@@ -449,7 +449,8 @@ Follow these steps for an overlap rotation:
    `X-Edge-Token` is the new `kid` from `changes.added`.
 
 1. Wait another 300 seconds so requests signed with the outgoing key can
-   finish. Remove each outgoing `kid`, keeping the new `kid`:
+   finish. Remove each outgoing `kid` from `changes.retained`. Keep the new
+   `kid` from `changes.added` (`8875a149` in the example above):
 
    ```sh
    restish sdx provision-config-from-pattern \
@@ -457,7 +458,7 @@ Follow these steps for an overlap rotation:
      --action apply \
      'parameters:{
        operation: delete,
-       targetKid: "urn:ca:bc:sdx:edge:newrg:lab:8875a149",
+       targetKid: "urn:ca:bc:sdx:edge:newrg:lab:3a91b0e2",
        runtimeGroupName: newrg,
        environment: lab
      }'
@@ -489,7 +490,7 @@ To remove an outgoing key, send `action=apply` with:
     "runtimeGroupName": "newrg",
     "environment": "lab",
     "operation": "delete",
-    "targetKid": "urn:ca:bc:sdx:edge:newrg:lab:8875a149"
+    "targetKid": "urn:ca:bc:sdx:edge:newrg:lab:3a91b0e2"
   }
 }
 ```
