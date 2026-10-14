@@ -245,8 +245,10 @@ server details.
 
 The provider resource audience does not need to be present in the original
 token. SDX always adds the audience from the consumer
-`tokenExchange.audience` configuration. Any other original audiences are
-optional and are propagated after the SDX exchange client is removed.
+`tokenExchange.audience` configuration. The SDX exchange client and any other
+original audiences are propagated with exact duplicates removed. Retaining the
+SDX exchange client allows the provider to use the exchanged token for a
+subsequent SDX call.
 
 ### SDX exchange client configuration
 
