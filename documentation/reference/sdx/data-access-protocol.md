@@ -40,21 +40,22 @@ SDX constructs the exchange audience set as follows:
 
 1. Read `aud` from the JWT already verified by `jwt-keycloak`.
 2. Accept either a string or an array and compare values exactly.
-3. Require and remove the SDX exchange client ID.
+3. Require and retain the SDX exchange client ID.
 4. Start the result with the configured consumer audience.
-5. Append the remaining original audiences in their original order.
+5. Append all original audiences in their original order.
 6. Remove exact duplicates and send each value as a repeated RFC 8693
    `audience` parameter.
 
-The configured consumer audience is required and is always requested. Other
-audiences in the original token are optional. They can be used when a
-downstream client needs the exchanged token as the subject of another
-permitted token exchange.
+The configured consumer audience and the SDX exchange client are always
+requested. Retaining the SDX exchange client allows the provider to use the
+exchanged token for a subsequent SDX call. Other audiences in the original
+token are optional. They can be used when another downstream client needs the
+exchanged token as the subject of a permitted token exchange.
 
 | Token exchange | Original token requirements | Exchanged token audiences |
 | -------------- | --------------------------- | -------------------------- |
-| Enabled, no optional downstream audience | Includes the SDX exchange client | Configured consumer audience |
-| Enabled, optional downstream audiences | Includes the SDX exchange client and optional audiences | Configured consumer audience plus the optional audiences |
+| Enabled, no optional downstream audience | Includes the SDX exchange client | Configured consumer audience plus the SDX exchange client |
+| Enabled, optional downstream audiences | Includes the SDX exchange client and optional audiences | Configured consumer audience, SDX exchange client, and optional audiences |
 | Disabled | Already includes the audience expected by the target resource | Original token is forwarded unchanged |
 
 If the original token does not authorize the SDX exchange client, SDX stops
