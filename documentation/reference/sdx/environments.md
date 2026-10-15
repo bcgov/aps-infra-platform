@@ -36,6 +36,25 @@ Links to the different services for each environment:
 | APS Prod        | `bct`           | SDX Non-Prod             |
 | APS Prod        | `bc`            | SDX Prod                 |
 
+## Public key sets
+
+A runtime group's public keys are published at:
+
+```text
+https://<public-sdx-host>/keysets/sdx.edge.<runtime-group>.<environment>/.well-known/jwks.json
+```
+
+`<environment>` is the SDX environment label in the table above. The
+`info.details.endpoint` value returned by `sdx-keys.r1` is an address inside
+the operator cluster. Use the public URL instead.
+
+| SDX environment | Public host                                        |
+| --------------- | -------------------------------------------------- |
+| `apsdev`        | `https://pzgw-api-gov-bc-ca.dev.api.gov.bc.ca`   |
+| `apstst`        | `https://pzgw-api-gov-bc-ca.test.api.gov.bc.ca`  |
+| `bct`           | `https://pzgw.test.api.gov.bc.ca`                  |
+| `bc`            | `https://pzgw.api.gov.bc.ca`                       |
+
 ## Playground
 
 ### SDX Playground
