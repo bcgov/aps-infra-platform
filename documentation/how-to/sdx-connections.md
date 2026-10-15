@@ -278,10 +278,10 @@ has an empty scope claim`.
 
 ### SDX exchange client cannot request a scope or audience
 
-The SDX token-exchange client must be permitted to request every scope in the
-verified incoming token. If the authorization server rejects the exchange with
-`invalid_scope`, or cannot resolve a requested audience and returns
-`invalid_target`, SDX returns HTTP 500 with a generic response:
+The SDX token-exchange client must be permitted to request every scope and
+audience sent in the exchange. If the authorization server rejects the exchange
+because a requested scope or audience is unavailable, SDX returns HTTP 500 with
+a generic response:
 
 ```json
 {
