@@ -243,12 +243,19 @@ header and the diagnostic SDX Kong log entry. The public response does not
 contain the original audiences, configured client ID, token, or authorization
 server details.
 
-The provider resource audience does not need to be present in the original
-token. SDX always adds the audience from the consumer
-`tokenExchange.audience` configuration. The SDX exchange client and any other
-original audiences are propagated with exact duplicates removed. Retaining the
-SDX exchange client allows the provider to use the exchanged token for a
-subsequent SDX call.
+The requesting client is responsible for requesting any audience required by
+the provider API or another downstream resource. SDX propagates those verified
+original audiences and removes exact duplicates. Retaining the SDX exchange
+client allows the provider to use the exchanged token for a subsequent SDX
+call. An original token containing only the SDX exchange client is valid when
+no target resource requires another audience.
+
+The optional plugin setting `tokenExchange.audience` adds one configured
+audience to the exchange request. When present, SDX merges it with the verified
+original audiences and removes duplicates. This supports both connections that
+use a configured audience and connections whose target audiences are already
+present in the original token. Current provisioning policies may continue to
+require or supply the configured value.
 
 ### SDX exchange client configuration
 
