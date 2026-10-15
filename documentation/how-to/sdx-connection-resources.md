@@ -95,7 +95,7 @@ they should be configured. This page describes all the parameters that are avail
 | `.clientId`                    | string   | required            |
 | `.tokenEndpoint`               | string   | required, any value |
 | `.scopes`                      | string[] | configured mode only |
-| `.audience`                    | string   | required for verified SDX token exchange |
+| `.audience`                    | string   | optional            |
 
 ### serviceResources.gatewayPatterns
 
@@ -213,39 +213,41 @@ purposes:
 | -------- | -------------------- | ----------------------- |
 | Consumer endpoint audience | Original token `aud`; checked through `token.allowedAud` | The original token must satisfy the consumer endpoint's normal token validation. |
 | SDX exchange client | `tokenExchange.clientId` and original token `aud` | Required in the original token when token exchange is enabled. It authorizes this SDX client to exchange the token and is retained so the exchanged token can be used for a subsequent SDX call. |
-| Provider resource audience | `tokenExchange.audience` | Required consumer-side configuration. SDX always requests it for the exchanged token, so the requesting client does not need to know or request this audience. |
-| Optional downstream audiences | Original token `aud` | Optional. SDX preserves them when a downstream client needs to perform another permitted exchange. |
+| Target resource audiences | Original token `aud` | The requesting client requests any audiences required by the provider API or another downstream resource. SDX preserves them during exchange. |
+| Configured audience | `tokenExchange.audience` | Optional. When set, SDX adds it to the requested audience set and removes duplicates. |
 
 SDX reads `aud` only from the token already verified by the `token` upgrade. It
 accepts a string or an array, requires an exact match for
-`tokenExchange.clientId`, and retains that client in the outgoing audience set.
-SDX combines the configured `tokenExchange.audience` with all original
-audiences and removes exact duplicates. The configured audience is sent first,
-followed by the original audiences in their original order, and every value is
-encoded as a separate RFC 8693 `audience` parameter.
+`tokenExchange.clientId`, retains that client, preserves the other original
+audiences, and removes exact duplicates. Every resulting value is encoded as
+a separate RFC 8693 `audience` parameter.
 
 For example:
 
 ```text
-Configured consumer audience:
-  provider-resource
-
 Original token aud:
   [sdx-exchange-client, provider-resource, downstream-client]
 
 Token-exchange request:
-  audience=provider-resource
   audience=sdx-exchange-client
+  audience=provider-resource
   audience=downstream-client
 ```
 
-The provider resource audience in the original token is redundant in this
-example and is sent only once. The retained SDX exchange client allows the
-provider to use the exchanged token for a subsequent SDX call. The optional
-downstream audience can also allow that client to use the exchanged token in a
-later permitted exchange. When the original token contains no optional
-audience, SDX requests the configured consumer audience and the SDX exchange
-client.
+The retained SDX exchange client allows the provider to use the exchanged
+token for a subsequent SDX call. The provider resource and downstream
+audiences are present because the requesting client requested them in the
+original token.
+
+`tokenExchange.audience` is optional. If it is set, SDX merges that value with
+the verified original audiences and removes duplicates. This supports both
+connections that use a configured audience and connections whose target
+audiences are already present in the original token. Some SDX provisioning
+policies may continue to require or populate the configured value.
+
+When no provider or downstream resource requires another audience, an original
+token containing only the SDX exchange client is valid and SDX requests only
+that client.
 
 Without the `tokenExchange` upgrade, SDX does not replace the bearer token. The
 requesting client must then obtain an original token that already contains the

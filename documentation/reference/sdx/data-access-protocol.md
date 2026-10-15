@@ -33,29 +33,38 @@ and controls the client connection to the requested target service.
 When privacy zone token exchange is enabled, the original token must include
 the configured SDX exchange client in `aud`. Keycloak uses that audience to
 authorize SDX to exchange a token issued to another client. The requesting
-client does not need to know the target provider resource audience; that value
-is configured on the consumer `tokenExchange` upgrade.
+client is also responsible for requesting any audience required by the
+provider API or another downstream resource, using the mechanism supported by
+its authorization server. SDX preserves those audiences during exchange.
 
 SDX constructs the exchange audience set as follows:
 
 1. Read `aud` from the JWT already verified by `jwt-keycloak`.
 2. Accept either a string or an array and compare values exactly.
 3. Require and retain the SDX exchange client ID.
-4. Start the result with the configured consumer audience.
-5. Append all original audiences in their original order.
-6. Remove exact duplicates and send each value as a repeated RFC 8693
+4. Preserve the other original audiences.
+5. Merge `tokenExchange.audience` when an optional configured value is present.
+6. Remove exact duplicates and send each resulting value as a repeated RFC 8693
    `audience` parameter.
 
-The configured consumer audience and the SDX exchange client are always
-requested. Retaining the SDX exchange client allows the provider to use the
-exchanged token for a subsequent SDX call. Other audiences in the original
-token are optional. They can be used when another downstream client needs the
-exchanged token as the subject of a permitted token exchange.
+The SDX exchange client is always requested. Other audiences are included when
+the original client requested them because the provider API requires a
+resource audience or another downstream client needs the exchanged token as
+the subject of a permitted token exchange. Retaining the SDX exchange client
+allows the provider to use the exchanged token for a subsequent SDX call.
+
+`tokenExchange.audience` is an optional plugin input. When configured, SDX
+merges it with the verified original audiences and removes duplicates. This
+supports both connections that use a configured audience and connections whose
+target audiences are already present in the original token. Existing SDX
+provisioning policies may continue to require or populate the configured
+value.
 
 | Token exchange | Original token requirements | Exchanged token audiences |
 | -------------- | --------------------------- | -------------------------- |
-| Enabled, no optional downstream audience | Includes the SDX exchange client | Configured consumer audience plus the SDX exchange client |
-| Enabled, optional downstream audiences | Includes the SDX exchange client and optional audiences | Configured consumer audience, SDX exchange client, and optional audiences |
+| Enabled, no target resource audience | Includes the SDX exchange client | SDX exchange client only |
+| Enabled, target resource audience required | Includes the SDX exchange client and target audience | SDX exchange client and target audience |
+| Enabled, configured audience | Includes the SDX exchange client; configuration supplies one additional audience | SDX exchange client and configured audience |
 | Disabled | Already includes the audience expected by the target resource | Original token is forwarded unchanged |
 
 If the original token does not authorize the SDX exchange client, SDX stops
