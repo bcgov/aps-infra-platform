@@ -257,7 +257,7 @@ use a configured audience and connections whose target audiences are already
 present in the original token. Current provisioning policies may continue to
 require or supply the configured value.
 
-### SDX exchange client configuration
+### Original token has no usable scope claim (E4)
 
 Verified-subject scope derivation fails before the token endpoint is called
 when the verified token is unavailable, its `scope` claim is missing or is not
@@ -276,9 +276,7 @@ token exchange scopes:` followed by `verified subject token is unavailable`,
 `verified subject token has no string scope claim`, or `verified subject token
 has an empty scope claim`.
 
-This is distinct from an authorization-server `invalid_scope` response. In
-that case, the token endpoint was called and SDX returns
-`SDX_TOKEN_EXCHANGE_CONFIGURATION_ERROR` as described below.
+### SDX exchange client cannot request a scope or audience
 
 The SDX token-exchange client must be permitted to request every scope in the
 verified incoming token. If the authorization server rejects the exchange with
