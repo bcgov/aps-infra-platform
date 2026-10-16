@@ -13,22 +13,24 @@ when a connection request is submitted. The following policies are supported:
 | `SDX.R0.00` | Simple peer-to-peer connection policy. Requires a `requesterDetails` object (see below). Available only in the SDX Playground.        |
 | `SDX.R1.00` | Adds Common SSO, token-exchange and scopes support; requires additional requester and gateway resources and is not a drop-in default. |
 
-This guide focuses on the `SDX.R0.00` policy where it establishes a basic peer-to-peer connection.
-It is only available in the SDX Playground environment.
+For the Common SSO consumer and Brochure UI Access Manager journey, follow
+[Request and manage access with SDX.R1.00](#request-and-manage-access-with-sdxr100).
+The Restish request and gateway-resource examples below use `SDX.R0.00` in the
+SDX Playground. Keep the policy and environment consistent throughout a journey.
 
-Policy `SDX.R1.00` is part of a collaboration with Common SSO (CSS) where CSS integrations will
-be able to request API and scope access through their tool and have the connection request
-managed in SDX for approvals. SDX will send events to CSS when connections have
-been approved/revoked so that the appropriate scopes can be provisioned in Keycloak. For clients
-that call services across privacy zones, SDX will perform an exchange of the token so that
-the subject identifier properly identifies the user in the target privacy zone.
+Policy `SDX.R1.00` connects Common SSO (CSS) integration access requests to SDX
+approval. Approval and revocation events allow CSS to update the integration's
+Keycloak scopes. For connections configured to cross privacy zones, SDX exchanges
+the token so the subject identifies the user in the target privacy zone. Approval,
+gateway provisioning and CSS scope synchronization are separate steps; check their
+results before treating a connection as ready.
 
 The steps described in this page are performed by the following roles:
 
 | Role           | Function                                                             |
 | -------------- | -------------------------------------------------------------------- |
 | Tech Lead      | For service clients, request/revoke connections to another service   |
-| Access Manager | For service providers, review and approve client connection requests |
+| Access Manager | For service providers, review, approve, reject and revoke client access |
 
 Use cases:
 
@@ -43,9 +45,109 @@ Use cases:
 
 ## Prerequisites
 
-- [Install Restish CLI](/reference/restish-cli.md)
+- Use the matching [SDX environment](/reference/sdx/environments.md) for the
+  consumer integration, provider service and catalogue.
+- For the R1 journey, have access to the consumer's Common SSO integration, a
+  registered consumer subsystem linked to its integration client, and a published
+  provider service with the requested scopes. See
+  [Register an SDX Subsystem](/how-to/sdx-subsystems.md) and
+  [Register a Service](/how-to/sdx-services.md).
+- To make provider decisions, sign in with the account assigned the **Access
+  Manager** role on the provider subsystem. Sign-in alone does not grant that role;
+  ask the organization's administrator if access is missing.
+- [Install Restish CLI](/reference/restish-cli.md) only if using the CLI alternatives.
+
+## Request and manage access with SDX.R1.00
+
+### Request access through Common SSO (consumer)
+
+1. Sign in to Common SSO and open the integration that will call the API. Use the
+   integration and environment linked to your SDX consumer subsystem.
+2. In that integration's SDX access-request flow, select the provider service and
+   the scopes your application needs. Review the service, target environment and
+   requested scopes before submitting.
+3. Submit the request and retain its submission identifier and the consumer and
+   service identifiers for follow-up with the provider's Access Manager.
+4. Wait for the provider's decision. A submitted request does not itself grant
+   access. After approval, confirm the integration has received the approved
+   scopes and the SDX connection is provisioned before testing a service call.
+
+The Common SSO flow supplies trusted integration and requester details for R1.
+Do not create a second request using the Playground R0 example below, or try to
+edit `requesterDetails` with Restish. If the integration does not offer the SDX
+request flow or the service/scopes are missing, contact the CSS/APS teams to
+confirm onboarding and environment availability.
+
+### Review a request in the Brochure UI (provider)
+
+1. Open the **SDX UI** link for your
+   [environment](/reference/sdx/environments.md) and sign in.
+2. Open **Member Console**, then **Connection Requests** (`/connections`). Select
+   the provider organization and the intended environment. Requests are grouped
+   by subsystem; locate the consumer-to-service pair for your service.
+3. For a pending request, select **Approve / Reject**. Check the policy is
+   `SDX.R1.00`, the environment, consumer and service identifiers, requester,
+   submission ID, integration/client ID and requested scopes. Compare them with
+   the consumer's request and your service's access requirements.
+4. If information is missing or unexpected, confirm it with the requester before
+   deciding. **Cancel** closes the review without making a decision.
+
+### Approve or reject in the Brochure UI (provider)
+
+In the review dialog, select **Approve** to approve the request or **Reject** to
+remove the pending request. Check the result message after returning to the list.
+If an error is displayed, the action has not been confirmed; review the error and
+refresh the list before retrying.
+
+After approval, expand **Connection details** to review the provisioner status
+and any diagnostic message. An **Approved** connection is not necessarily
+**Active**: activation and the required R1 gateway resources must also be ready.
+Coordinate outstanding provisioning with the subsystem's technical lead; see
+[SDX.R1.00 connection resources](/how-to/sdx-connection-resources.md#sdxr100-policy).
+The consumer should check CSS scope synchronization and test with an appropriate
+new token before relying on access. Approval is an alternative to the Restish
+approval call below; it does not replace technical gateway setup.
+
+To review existing access later, return to **Connection Requests**, select the
+same provider organization/environment, locate the connection and expand
+**Connection details**. Check its client/service pair, scopes, approval/active
+state and provisioner status before changing access.
+
+### Revoke access in the Brochure UI (Access Manager)
+
+Revocation removes an existing approved connection. To reject an unapproved
+request, use **Approve / Reject** instead.
+
+1. In **Member Console → Connection Requests**, select the provider organization
+   and environment, and find the approved consumer-to-service connection.
+   Confirm the consumer, service and scopes before proceeding.
+2. If the connection is active, select **Customize...**, clear **Active**, then
+   select **Save**. Coordinate this step with the subsystem's technical lead if
+   your account is not permitted to change activation. Wait for the provisioner
+   to remove the gateway configuration on both sides; review **Connection
+   details** for progress or errors.
+3. Select **Revoke access** and review the confirmation dialog. Confirm only when
+   you intend to remove that connection; this action deletes the connection,
+   rather than merely pausing it.
+4. Check the result message and refresh the list to confirm the connection is
+   gone. If deletion reports remaining gateway configuration, wait for cleanup
+   or ask the technical lead/APS team to resolve the provisioner error, then
+   retry. An error message is not confirmation that access was revoked.
+5. Coordinate with the consumer to confirm CSS has processed the revocation and
+   removed the corresponding integration access/scopes. Verify the service is
+   no longer accessible through the revoked connection; do not infer immediate
+   invalidation of already issued tokens from the UI message alone.
+
+The UI performs the connection deletion on your behalf, replacing the Restish
+commands in [Deleting a connection](#deleting-a-connection). Reinstating access
+after deletion requires a new request and approval. If a connection or action is
+missing, confirm the provider organization, environment and subsystem role with
+your administrator.
 
 ## Request access (as consumer)
+
+The following request example is for `SDX.R0.00` in the Playground. For an R1
+consumer integration, submit the request through Common SSO as described above.
 
 === "Restish CLI"
 
