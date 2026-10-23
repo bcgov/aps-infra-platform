@@ -24,9 +24,14 @@ token before passing the response to the calling client.
 | `Correlation-Id` | Optional                                                                  |
 | `Content-Digest` | Optional - request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:` |
 
+`X-Client-Id` selects the provisioned connection. The
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md) records the
+route keys, the headers SDX replaces, and which values a provider may trust.
+
 The `Authorization` header MUST contain a token that is issued from an approved
-Identity and Authorization Provider. The `azp` claim maps to an SDX Subsystem
-and controls the client connection to the requested target service.
+Identity and Authorization Provider. The `azp` claim is the integration client.
+On `SDX.R1.00`, the consumer edge allows the request when that client is
+allowed for the subsystem selected by `X-Client-Id`.
 
 ### Privacy zone token exchange audiences
 
@@ -165,7 +170,7 @@ from the `X-Edge-Token` to populate this token.
 | `X-Edge-Token`                    | JWT                                                                       |
 | `X-SDX-Client-Subsystem-Id`       | Client subsystem identifier set by SDX                                    |
 | `X-SDX-Original-AZP`              | Original verified JWT `azp`; present when SDX performs a token exchange   |
-| `X-Client-Id`                     | Client subsystem identifier retained for routing and compatibility       |
+| `X-Client-Id`                     | Compatibility copy of the subsystem id for existing provider integrations |
 | `X-Service-Id`                    | Service identifier                                                        |
 | `Content-Digest`                  | Request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:`            |
 | `Authorization`                   | Client identity JWT                                                       |
@@ -188,7 +193,9 @@ exchange history.
 For backward compatibility with existing provider integrations, SDX continues
 to send `X-Client-Id` with the same subsystem identifier as
 `X-SDX-Client-Subsystem-Id`. Provider APIs should use
-`X-SDX-Client-Subsystem-Id` for new integrations.
+`X-SDX-Client-Subsystem-Id` for new integrations. Route selection and the
+trust rule for each header are in the
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md).
 
 ## IS Service to Edge (response)
 

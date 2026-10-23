@@ -284,3 +284,7 @@ adds `X-SDX-Original-AZP`. This value comes from the `azp` claim of the token
 verified by the preceding `token` upgrade, before the exchanged token replaces
 the request authorization. Provider APIs can use this header when they need the
 original requesting OAuth client identifier.
+
+Which of these headers select a route, which ones SDX overwrites, and the
+later pattern that moves consumer selection off `X-Client-Id` are recorded in
+the [P2P routing contract](/reference/sdx/p2p-routing-contract.md).
