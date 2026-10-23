@@ -80,6 +80,7 @@ nav:
       - "reference/presentations.md"
       - "reference/sdx/releases/index.md"
       - "reference/sdx/data-access-protocol.md"
+      - "reference/sdx/p2p-routing-contract.md"
       - "reference/sdx/environments.md"
   - Contribute:
       - "contribute/style-guide.md"
