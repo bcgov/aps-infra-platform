@@ -12,6 +12,7 @@ The steps described in this page are performed by users with the following roles
 | --------------- | ------------------------------------------------------------ |
 | System Admin    | Organization-level role for managing subsystems and services |
 | Subsystem Owner | Subsystem-level role for managing services for a subsystem   |
+| Access Manager  | Subsystem-level role for reviewing and approving consumer access |
 
 Use cases:
 
@@ -58,7 +59,9 @@ Use this checklist before **Register a service** below.
 4. **Agree the protection contract.** The R1 provider connection uses the
    `sdx-p2p-provider.r1` pattern. Review the [R1 connection resources](/how-to/sdx-connection-resources.md#sdxr100-policy)
    with the operator, including token validation, Edge request verification,
-   response signing and organization transaction signatures. Confirm the exact
+   response signing and organization transaction signatures. The required provider
+   upgrades are `token`, `sign`, `verify` and `counterSign`; the minimal
+   connection example is not a complete R1 protection configuration. Confirm the exact
    deployed policy resources and upstream responsibility for scope/operation
    enforcement; OpenAPI security declarations alone do not enforce access.
 5. **Prepare a verification case.** Choose one safe operation, synthetic data,
@@ -126,6 +129,31 @@ For details about valid `environment` values, visit [Environment labels](/refere
     authorized party. Treat declared OAS scopes as descriptive metadata
     until per-operation enforcement is explicitly configured.
 
+### Register in the Playground
+
+The [Restish configuration](/reference/restish-cli.md#configure-the-api) names
+its Playground management API alias `sdxstg` and its production alias `sdx`.
+Confirm the configured base URL before running a command: the `--environment`
+value selects the service environment; it does not change the management API
+host. If you use different alias names, substitute your verified Playground
+alias throughout registration, catalogue lookup, connection management and deletion.
+
+With the documented `sdxstg` alias pointing to the Playground Member API:
+
+```sh
+restish sdxstg upsert-oas-service \
+  my-org \
+  --subsystem MY-NEW-SUBSYSTEM \
+  --environment apstst \
+  --upstream-url "https://your-playground-upstream-endpoint" \
+  --rsh-header "Content-Type: application/yaml" \
+  < openapi.yaml
+```
+
+Replace the organization, subsystem, upstream and OpenAPI file with your
+prepared inputs. The generic `sdx` / `lab` example above is retained for the
+existing workflow; use the verified Playground alias and `apstst` for this R1 walkthrough.
+
 ### Troubleshooting service registration
 
 An `upsert-oas-service` request can return `HTTP 503`,
@@ -154,7 +182,8 @@ This is the current manual verification approach, not a scalable test harness
 or an automated readiness certification. Use synthetic data only: Playground
 has no data or service quality guarantees.
 
-1. Complete the preparation checklist and register the service for `apstst`.
+1. Complete the preparation checklist and register the service for `apstst`
+   using the verified Playground management API alias above.
    Use **View API service catalog** below to confirm its identity and retrieve
    the stored OpenAPI description; check version, operations and scopes against
    the implementation. Registration success alone is not an end-to-end test.
