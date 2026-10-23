@@ -24,9 +24,14 @@ token before passing the response to the calling client.
 | `Correlation-Id` | Optional                                                                  |
 | `Content-Digest` | Optional - request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:` |
 
+`X-Client-Id` selects the provisioned connection. The
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md) records the
+route keys, the headers SDX replaces, and which values a provider may trust.
+
 The `Authorization` header MUST contain a token that is issued from an approved
-Identity and Authorization Provider. The `azp` claim maps to an SDX Subsystem
-and controls the client connection to the requested target service.
+Identity and Authorization Provider. The `azp` claim is the integration client.
+On `SDX.R1.00`, the consumer edge allows the request when that client is
+allowed for the subsystem selected by `X-Client-Id`.
 
 ### Privacy zone token exchange audiences
 
@@ -192,7 +197,9 @@ exchange history.
 
 Provider APIs MUST use `X-SDX-Client-Subsystem-Id` for the SDX client subsystem
 identity. They MUST NOT depend on `X-Client-Id` or `X-Service-Id`; those headers
-are reserved for internal Edge-to-Edge routing.
+are reserved for internal Edge-to-Edge routing. How those internal headers
+select a connection is recorded in the
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md).
 
 ## IS Service to Edge (response)
 
