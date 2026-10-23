@@ -77,7 +77,8 @@ Before requesting access:
 - Identify the provider service/version, required operations and minimum scopes
   from the service catalogue/OpenAPI description. Agree the consumer privacy
   zone and required target resource audiences with the provider and APS team.
-- Confirm both participating runtime groups and gateways are ready. R1 uses
+- Confirm both participating [runtime groups and gateways](/how-to/sdx-edge-runtime-groups.md)
+  are ready. R1 uses
   `sdx-p2p-consumer-access.r1` and `sdx-p2p-consumer.r1` on the consumer side,
   and `sdx-p2p-provider.r1` on the provider side; see
   [Connection Resources](/how-to/sdx-connection-resources.md#sdxr100-policy).
@@ -132,8 +133,9 @@ it for the target privacy-zone identity. The resulting token is forwarded throug
 SDX to the provider. Exchange is an identity translation step, not a grant of
 additional service access or broader scopes.
 
-The verified token supplies the scope and audience context. The SDX exchange
-client must be an allowed audience in the original token and be permitted to
+The verified token supplies the scope and audience context. The original token must satisfy the consumer endpoint's configured issuer and
+audience checks before exchange. The SDX exchange client must also be an allowed
+audience in the original token and be permitted to
 request the required scopes/audiences. Confirm privacy-zone scope configuration
 and activation dependencies with APS/Common SSO; the documented APS-4931 scope
 transfer does not itself compose the target privacy-zone scope. Do not assume
@@ -144,6 +146,26 @@ See the authoritative [scope and audience behavior](/how-to/sdx-connection-resou
 and [troubleshooting](/how-to/sdx-connections.md#troubleshooting-token-exchange-scopes-and-audiences).
 For a same-zone route without token exchange, the original token must already
 satisfy the target's trust and authorization requirements.
+
+### Playground walkthrough record
+
+Use this record with the consumer, provider and APS/Common SSO teams before
+accepting the draft. Record the date, deployed version and sanitized identifiers;
+mark a check as pending when the deployed workflow cannot support it yet.
+Do not record token contents or personal subject identifiers.
+
+| Check | Evidence to record |
+| --- | --- |
+| Request | Environment, CSS integration ID, OAuth client ID, consumer subsystem, provider service/version and requested scopes. |
+| Approval and provisioning | Approved scope set, provider approval, CSS synchronization result and operator confirmation that both sides are active. |
+| Allowed call | Actual consumer endpoint and documented operation, timestamp, expected response and observed result using synthetic data. |
+| Denied call | Provider-agreed missing/invalid-token and unapproved-access cases, expected denial and observed result. |
+| Cross-zone identity, when applicable | Operator confirmation of exchange and provider confirmation of the intended target-zone identity and authorization, without copying identity values. |
+| Revocation and cleanup | CSS grant removal, denied access after revocation, and operator confirmation of disposable connection cleanup. |
+
+If scopes, audiences or identity differ from the agreed values, retain the failed
+check and its sanitized support/request ID. Resolve it with the responsible team
+before treating the walkthrough as passed.
 
 ### Verify, change and retire access
 
