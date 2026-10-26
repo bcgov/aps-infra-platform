@@ -106,9 +106,12 @@ The Client Edge Runtime prepares an `X-Edge-Token` JWT signed with its
 private key and adds it to the request headers. The Service Edge Runtime validates
 the JWT using the specified `jwks_uri` and checks it is in a defined allow list.
 
-The Client Edge Runtime preserves a content digest supplied by the client. If
-the client does not supply one, the Client Edge Runtime creates one when the
-request body is available.
+The Client Edge Runtime preserves a content digest supplied by the client and
+signs that value as-is in the `X-Edge-Token`; it does not compare the supplied
+digest with the request body. If the client does not supply a digest, the Client
+Edge creates one when the raw request body is available, including for an empty
+body. When no raw request body is available, the digest header and token claim
+remain unset.
 
 | Header Name                       | Description                                                               |
 | --------------------------------- | ------------------------------------------------------------------------- |
