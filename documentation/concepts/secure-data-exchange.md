@@ -55,8 +55,9 @@ provider's organization `hostedOrganizations`.
 PZGW is one public host, so the consumer subsystem is selected from the
 request. The
 [P2P routing contract](/reference/sdx/p2p-routing-contract.md) records how a
-connection is selected today, which headers a provider may trust, and the
-request interface for a shared Edge Runtime and a dedicated Edge Runtime.
+connection is selected today. Which headers a provider may trust are recorded
+in the
+[SDX Data Access Protocol](/reference/sdx/data-access-protocol.md#header-trust).
 
 ## Next steps
 
