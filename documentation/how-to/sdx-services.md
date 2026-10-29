@@ -8,21 +8,44 @@ This page shows how to manage services on the Secure Data Exchange.
 
 The steps described in this page are performed by users with the following roles:
 
-| Role            | Function                                                     |
-| --------------- | ------------------------------------------------------------ |
-| System Admin    | Organization-level role for managing subsystems and services |
-| Subsystem Owner | Subsystem-level role for managing services for a subsystem   |
+| Role            | Function                                                   |
+| --------------- | ---------------------------------------------------------- |
+| Subsystem Owner | Subsystem-level role for managing services for a subsystem |
 
 Use cases:
 
+- Designing a service API
 - Register a service
 - View API service catalog
+- Verification testing
 - Subsystem management
   - Delete a service
 
 ## Prerequisites
 
 - [Install Restish CLI](/reference/restish-cli.md)
+
+## Designing a service API
+
+### OpenAPI Specification
+
+An OpenAPI specification must be created following the [SDX API standard](https://developer.gov.bc.ca/docs/default/component/sdx-api-standards-techdocs).
+
+### Resource Scopes
+
+Scopes will use the following structure (described in BCNF):
+
+```text
+scope           = namespace ":" resource { ":" resource } ":" action ;
+namespace       = identifier ;
+resource        = identifier ;
+action          = identifier ;
+identifier      = letter { letter | digit | "-" | "_" } ;
+letter          = "a"…"z" ;
+digit           = "0"…"9" ;
+```
+
+The `namespace` will be organization-based - refer to the [BC Gov Org Structure](https://dir.gov.bc.ca/internal/gtds.cgi?Index=ByUnitHier) for organization codes.
 
 ## Register a service
 
@@ -134,6 +157,11 @@ implementation-specific until this is reconciled with the SDX API Standard.
 
 An interactive Swagger UI is not currently provided through SDX for a
 registered service; only the OAD retrieval operations above are available.
+
+## Verification testing
+
+Perform the steps found in the [Connecting a Service](/how-to/sdx-connections.md)
+documentation.
 
 ## Service management
 
