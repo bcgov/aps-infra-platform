@@ -17,6 +17,7 @@ Use cases:
 - Designing a service API
 - Register a service
 - View API service catalog
+- Verification testing
 - Subsystem management
   - Delete a service
 
@@ -156,6 +157,11 @@ implementation-specific until this is reconciled with the SDX API Standard.
 
 An interactive Swagger UI is not currently provided through SDX for a
 registered service; only the OAD retrieval operations above are available.
+
+## Verification testing
+
+Perform the steps found in the [Connecting a Service](/how-to/sdx-connections.md)
+documentation.
 
 ## Service management
 
