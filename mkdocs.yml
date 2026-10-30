@@ -48,6 +48,7 @@ nav:
           - "how-to/sdx-subsystems.md"
           - "how-to/sdx-services.md"
           - "how-to/sdx-connections.md"
+          - "how-to/sdx-connections-r0-policy.md"
           - "how-to/sdx-connection-resources.md"
   - Concepts:
       - "concepts/api-directory.md"

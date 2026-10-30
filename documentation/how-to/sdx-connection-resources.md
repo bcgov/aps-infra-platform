@@ -145,7 +145,7 @@ The `SDX.R1.00` policy adds Common SSO tokens for client authentication,
 token-exchange for crossing privacy zones, and resource scopes.
 
 For the consumer and Access Manager steps, see
-[Request and manage access with SDX.R1.00](/how-to/sdx-connections.md#request-and-manage-access-with-sdxr100),
+[Request and manage access with SDX.R1.00](/how-to/sdx-connections.md#request-access-through-common-sso-consumer),
 including Common SSO requests and Brochure UI review, approval and revocation.
 The resource settings below support that journey and are configured by the
 subsystem technical leads.
