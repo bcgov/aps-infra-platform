@@ -14,7 +14,9 @@ they should be configured. This page describes all the parameters that are avail
     `clientResources.gatewayPatterns` (consumer side) and
     `serviceResources.gatewayPatterns` (provider side) on a connection via
     `upsert-connection`, as shown in
-    [Connecting a Service](/how-to/sdx-connections.md). The provisioner
+    [the R0 guide](/how-to/sdx-connections-r0-policy.md#open-a-connection)
+    or [the R1 guide](/how-to/sdx-connections.md#prerequisites).
+    The provisioner
     evaluates them automatically whenever the connection's `isActive` state
     changes — there is no separate preview/publish/delete step for these
     patterns, and deleting a peer-to-peer configuration is done by setting
@@ -70,32 +72,32 @@ they should be configured. This page describes all the parameters that are avail
 
 #### sdx-p2p-consumer upgrades
 
-| Parameter                      | Type     | Rule                |
-| ------------------------------ | -------- | ------------------- |
-| **sign**                       | object   | optional            |
-|                                |          |                     |
-| **verify**                     | object   | optional            |
-|                                |          |                     |
-| **counterSign**                | object   | optional            |
-|                                |          |                     |
-| **dpop**                       | object   | optional            |
-|                                |          |                     |
-| **token**                      | object   | optional            |
-| `.allowedAud`                  | string   | optional            |
-| `.allowedIss`                  | string[] | required            |
-| `.scope`                       | string   | optional            |
-| `.consumerMatch`               | boolean  | optional            |
-| `.consumerMatchClaim`          | string   | optional            |
-| `.consumerMatchClaimCustomId`  | boolean  | optional            |
-| `.consumerMatchIgnoreNotFound` | boolean  | optional            |
-|                                |          |                     |
-| **acl**                        | object   | optional            |
-|                                |          |                     |
-| **tokenExchange**              | object   | optional            |
-| `.clientId`                    | string   | required            |
-| `.tokenEndpoint`               | string   | required, any value |
+| Parameter                      | Type     | Rule                 |
+| ------------------------------ | -------- | -------------------- |
+| **sign**                       | object   | optional             |
+|                                |          |                      |
+| **verify**                     | object   | optional             |
+|                                |          |                      |
+| **counterSign**                | object   | optional             |
+|                                |          |                      |
+| **dpop**                       | object   | optional             |
+|                                |          |                      |
+| **token**                      | object   | optional             |
+| `.allowedAud`                  | string   | optional             |
+| `.allowedIss`                  | string[] | required             |
+| `.scope`                       | string   | optional             |
+| `.consumerMatch`               | boolean  | optional             |
+| `.consumerMatchClaim`          | string   | optional             |
+| `.consumerMatchClaimCustomId`  | boolean  | optional             |
+| `.consumerMatchIgnoreNotFound` | boolean  | optional             |
+|                                |          |                      |
+| **acl**                        | object   | optional             |
+|                                |          |                      |
+| **tokenExchange**              | object   | optional             |
+| `.clientId`                    | string   | required             |
+| `.tokenEndpoint`               | string   | required, any value  |
 | `.scopes`                      | string[] | configured mode only |
-| `.audience`                    | string   | optional            |
+| `.audience`                    | string   | optional             |
 
 ### serviceResources.gatewayPatterns
 
@@ -130,10 +132,23 @@ they should be configured. This page describes all the parameters that are avail
 |                                |          |          |
 | **acl**                        | object   | optional |
 
+## SDX.R0.00 Policy
+
+The `SDX.R0.00` policy provides full flexibility on configuring the connections between client
+and service. It is used in non-production environments for troubleshooting or testing new features.
+
+Go to [Connecting a Service - SDX.R0 policy](/how-to/sdx-connections-r0-policy.md) for further details.
+
 ## SDX.R1.00 Policy
 
 The `SDX.R1.00` policy adds Common SSO tokens for client authentication,
 token-exchange for crossing privacy zones, and resource scopes.
+
+For the consumer and Access Manager steps, see
+[Request and manage access with SDX.R1.00](/how-to/sdx-connections.md#request-access-through-common-sso-consumer),
+including Common SSO requests and Brochure UI review, approval and revocation.
+The resource settings below support that journey and are configured by the
+subsystem technical leads.
 
 ### Service Client
 
@@ -209,12 +224,12 @@ decode or introspect the exchanged token to perform this comparison.
 The consumer `tokenExchange` upgrade uses four audience roles for different
 purposes:
 
-| Audience | Where it is supplied | Requirement and purpose |
-| -------- | -------------------- | ----------------------- |
-| Consumer endpoint audience | Original token `aud`; checked through `token.allowedAud` | The original token must satisfy the consumer endpoint's normal token validation. |
-| SDX exchange client | `tokenExchange.clientId` and original token `aud` | Required in the original token when token exchange is enabled. It authorizes this SDX client to exchange the token and is retained so the exchanged token can be used for a subsequent SDX call. |
-| Target resource audiences | Original token `aud` | The requesting client requests any audiences required by the provider API or another downstream resource. SDX preserves them during exchange. |
-| Configured audience | `tokenExchange.audience` | Optional. When set, SDX adds it to the requested audience set and removes duplicates. |
+| Audience                   | Where it is supplied                                     | Requirement and purpose                                                                                                                                                                          |
+| -------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Consumer endpoint audience | Original token `aud`; checked through `token.allowedAud` | The original token must satisfy the consumer endpoint's normal token validation.                                                                                                                 |
+| SDX exchange client        | `tokenExchange.clientId` and original token `aud`        | Required in the original token when token exchange is enabled. It authorizes this SDX client to exchange the token and is retained so the exchanged token can be used for a subsequent SDX call. |
+| Target resource audiences  | Original token `aud`                                     | The requesting client requests any audiences required by the provider API or another downstream resource. SDX preserves them during exchange.                                                    |
+| Configured audience        | `tokenExchange.audience`                                 | Optional. When set, SDX adds it to the requested audience set and removes duplicates.                                                                                                            |
 
 SDX reads `aud` only from the token already verified by the `token` upgrade. It
 accepts a string or an array, requires an exact match for
