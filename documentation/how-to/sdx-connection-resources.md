@@ -275,12 +275,18 @@ The following upgrades to this pattern are required:
 
 Every request delivered to a provider includes
 `X-SDX-Client-Subsystem-Id`, populated from the client subsystem in the
-provisioned connection. `X-Client-Id` carries the same value because it remains
-part of the current connection-routing contract. Provider integrations should
-use `X-SDX-Client-Subsystem-Id` as the authoritative client identity.
+provisioned connection. Provider APIs use that header for the client subsystem
+identity. `X-Client-Id` and `X-Service-Id` are internal routing headers.
+Provider APIs must not depend on them.
 
 When the consumer Edge Runtime applies the `tokenExchange` upgrade, it also
 adds `X-SDX-Original-AZP`. This value comes from the `azp` claim of the token
 verified by the preceding `token` upgrade, before the exchanged token replaces
-the request authorization. Provider APIs can use this header when they need the
-original requesting OAuth client identifier.
+the request authorization. SDX replaces a caller-supplied value and omits the
+header when it cannot obtain a usable `azp`.
+
+Which of these headers select a route, and which ones SDX overwrites, are
+recorded in the
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md). Which values a
+provider may trust are recorded in the
+[SDX Data Access Protocol](/reference/sdx/data-access-protocol.md#header-trust).

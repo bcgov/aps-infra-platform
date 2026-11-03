@@ -24,9 +24,15 @@ token before passing the response to the calling client.
 | `Correlation-Id` | Optional                                                                  |
 | `Content-Digest` | Optional - request content digest (RFC 9530)<br>`sha-256=:<hash-base64>:` |
 
+`X-Client-Id` selects the provisioned connection. The
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md) records the
+route keys and the headers SDX replaces. Which values a provider may trust
+is recorded below.
+
 The `Authorization` header MUST contain a token that is issued from an approved
-Identity and Authorization Provider. The `azp` claim maps to an SDX Subsystem
-and controls the client connection to the requested target service.
+Identity and Authorization Provider. The `azp` claim is the integration client.
+On `SDX.R1.00`, the consumer edge allows the request when that client is
+allowed for the subsystem selected by `X-Client-Id`.
 
 ### Privacy zone token exchange audiences
 
@@ -192,7 +198,38 @@ exchange history.
 
 Provider APIs MUST use `X-SDX-Client-Subsystem-Id` for the SDX client subsystem
 identity. They MUST NOT depend on `X-Client-Id` or `X-Service-Id`; those headers
-are reserved for internal Edge-to-Edge routing.
+are reserved for internal Edge-to-Edge routing. How those internal headers
+select a connection is recorded in the
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md).
+
+### Header trust
+
+These rules describe the current patterns. They stay true if a later pattern
+changes how the caller names the connection.
+
+The provider edge matches `X-Client-Id` and `X-Service-Id` as internal routing
+headers. It does not rewrite `X-SDX-Client-Subsystem-Id`. It accepts the
+subsystem id the consumer edge wrote. `SDX.R0.00` and `SDX.R1.00` defaults
+include `mtlsAuth`, `mtlsAcl`, and edge-token `verify`. `mtlsAcl` compares
+the client certificate CN with the client runtime `host`, not the runtime
+group `name`. When `clientRuntimeOverride` is set, the allow list uses that
+runtime's `host`. `SDX.R1.00` requires the provider `token` upgrade and does
+not require `mtlsAuth`, `mtlsAcl`, or `verify`. A provider can treat
+`X-SDX-Client-Subsystem-Id` as written by SDX when those inter-edge checks
+accepted the request.
+
+| Value | Supplied by | Replaced by | Who may trust it |
+| ----- | ----------- | ----------- | ---------------- |
+| Request path `/sdx/0/{serviceId}` | Calling application | The consumer edge leaves the prefix in place when `stripPath` is false. The provider edge removes it before the API. | Both edges, as the service route key. The provider API sees its own path. |
+| Host | Calling application, as the consumer runtime host | The consumer edge sets `Host` to the service runtime host. The request goes to `sdxEndpoint`. | The provider edge, as its own runtime host. The host is not the client subsystem. |
+| `X-Client-Id` | Calling application. The consumer route requires the connection subsystem id. | The consumer edge removes the caller value and sets the provisioned subsystem id. | The edges, as an internal route selector. It is not part of the provider API contract. |
+| `X-Service-Id` | Calling application may send it. The consumer route selects the service from the path. | The consumer edge removes the caller value and sets the provisioned service id. | The provider edge, with `X-Client-Id`, as an internal route key. It is not part of the provider API contract. |
+| `X-SDX-Client-Subsystem-Id` | SDX, from the connection subsystem id. It is not a route key today. | The consumer edge removes a caller value, then sets the provisioned subsystem id. | The provider API. This is the client subsystem identity. |
+| `X-Edge-Token` | SDX, on the request from the consumer edge and on the response from the provider edge, when `sign` is enabled. | The sending edge replaces a caller-supplied value. | The receiving edge, after it verifies the signature. It is not part of the provider API contract. |
+| `Authorization` | Calling application, as the client identity JWT. | SDX replaces it when `tokenExchange` is enabled. The replacement token's `azp` is the SDX exchange client. Otherwise the original token is forwarded. | The consumer edge, before exchange, for the `azp` and subsystem checks. The provider API still validates the token it receives. It is not a route key. |
+
+`Content-Digest` and `Correlation-Id` are message fields. They do not select
+a route.
 
 ## IS Service to Edge (response)
 
