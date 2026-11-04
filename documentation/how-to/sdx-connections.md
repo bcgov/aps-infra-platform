@@ -142,8 +142,8 @@ connection or action is missing, confirm the provider organization, environment
 and subsystem role with your administrator.
 
 <!-- prettier-ignore -->
-??? note "Associating an OAuth integration client with a connection"
-    `requesterDetails.client.clientId` (used above for
+!!! note "Associating an OAuth integration client with a connection"
+    `requesterDetails.client.clientId` (used for
     `sdx-p2p-consumer-access.r1`/ACL and, when configured, `consumerMatch`) is
     provisioner-managed. It cannot be written directly through the SDX
     management API — attempting a direct `upsert-connection` update of

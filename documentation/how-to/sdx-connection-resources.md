@@ -14,8 +14,9 @@ they should be configured. This page describes all the parameters that are avail
     `clientResources.gatewayPatterns` (consumer side) and
     `serviceResources.gatewayPatterns` (provider side) on a connection via
     `upsert-connection`, as shown in
-    [the R0 guide](/how-to/sdx-connections-r0-policy.md#open-a-connection)
-    or [the R1 guide](/how-to/sdx-connections.md#prerequisites).
+    [the R0 guide](/how-to/sdx-connections-r0-policy.md#open-a-connection).
+    For R1 configuration requirements, see
+    [SDX.R1.00 Policy](/how-to/sdx-connection-resources.md#sdxr100-policy).
     The provisioner
     evaluates them automatically whenever the connection's `isActive` state
     changes — there is no separate preview/publish/delete step for these
@@ -146,7 +147,7 @@ token-exchange for crossing privacy zones, and resource scopes.
 
 For the consumer and Access Manager steps, see
 [Request and manage access with SDX.R1.00](/how-to/sdx-connections.md#request-access-through-common-sso-consumer),
-including Common SSO requests and Brochure UI review, approval and revocation.
+including Common SSO requests and SDX UI review, approval and revocation.
 The resource settings below support that journey and are configured by the
 subsystem technical leads.
 
