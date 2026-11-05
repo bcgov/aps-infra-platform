@@ -1,7 +1,18 @@
 # Kong Upstream JWT
 
-The `kong-upstream-jwt` plugin adds a signed JWT into the HTTP Header `JWT` of
-proxied requests through the Kong Gateway.
+The `kong-upstream-jwt` plugin adds a signed JWT to each request the Gateway
+proxies to your upstream service. Your service validates the token to confirm
+that the request came through the APS Gateway for your Gateway Service, and that
+the request body wasn't changed on the way.
+
+The token is in the `JWT` header by default (set `header` to change it). APS
+signs it with an RS256 key, and it expires one minute after it's issued. Validate
+it against the [JWKS](#jwks) for your environment, and check the
+[token claims](#token-claims), including that `aud` matches your Gateway Service
+name.
+
+For how this compares with mTLS and IP restrictions, see
+[Set Up an Upstream Service](/how-to/upstream-services.md#public-cloud-and-on-premise).
 
 ## Configuration reference
 
@@ -20,6 +31,26 @@ plugins:
       header: GW-JWT
       include_credential_type: false
 ```
+
+Use a dedicated header such as `GW-JWT` if your service also needs the
+consumer's own `Authorization` header.
+
+## Token claims
+
+The token contains these claims:
+
+- `aud`: the name of your Gateway Service.
+- `exp`: when the token expires, one minute after the Gateway issued it.
+- `jti`: a unique ID for the request.
+- `consumername` and `consumerid`: the consumer that called your API.
+- `payloadhash`: a SHA-256 hash of the request body. Compare it with your own
+  hash of the body to confirm nothing changed after the request left the Gateway.
+
+!!! warning "Check the audience as well as the signature"
+    All Gateways in an APS environment share the same signing keys. A valid
+    signature proves the request came through _an_ APS Gateway, not _your_
+    Gateway. Your service must also check that `aud` matches your Gateway
+    Service name, and reject every other value.
 
 ## JWKS
 

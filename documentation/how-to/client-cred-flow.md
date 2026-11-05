@@ -306,6 +306,9 @@ Options:
   from other tenants. This might be acceptable based on the type of data
   delivered by or to the Upstream Service.
 
+For details on each option, see
+[Set Up an Upstream Service](/how-to/upstream-services.md#public-cloud-and-on-premise).
+
 ## Variations
 
 ### Signed JWT
