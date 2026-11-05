@@ -19,12 +19,13 @@ title: "SDX Environments"
 
 Links to the different services for each environment:
 
-| Service               | Playground                                                                     | Production                                                  |
-| --------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------- |
-| SDX UI                | [UI](https://sdx-api-gov-bc-ca.test.api.gov.bc.ca)                             | [UI](https://sdx.gov.bc.ca)                                 |
-| SDX Member API        | [API](https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1/console)          | [API](https://api.gov.bc.ca/ds/api/sdx/v1/console)          |
-| OpenAPI Specification | [OpenAPI](https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) | [OpenAPI](https://api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) |
-| API Services Portal   | [APS Portal](https://api-gov-bc-ca.test.api.gov.bc.ca/login?identity=provider) | [APS Portal](https://api.gov.bc.ca/login?identity=provider) |
+| Service               | Playground                                                                     | Production                                                     |
+| --------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------- |
+| SDX UI                | [UI](https://sdx-api-gov-bc-ca.test.api.gov.bc.ca)                             | [UI](https://sdx.gov.bc.ca)                                    |
+| SDX Member API        | [API](https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1/console)          | [API](https://api.gov.bc.ca/ds/api/sdx/v1/console)             |
+| OpenAPI Specification | [OpenAPI](https://api-gov-bc-ca.test.api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml) | [OpenAPI](https://api.gov.bc.ca/ds/api/sdx/v1/openapi.yaml)    |
+| API Services Portal   | [APS Portal](https://api-gov-bc-ca.test.api.gov.bc.ca/login?identity=provider) | [APS Portal](https://api.gov.bc.ca/login?identity=provider)    |
+| Common SSO            | [Common SSO](https://sso-requests-sandbox.apps.gold.devops.gov.bc.ca)          | [Common SSO](https://sso-requests.apps.gold.devops.gov.bc.ca/) |
 
 ## Environment labels
 
@@ -35,6 +36,25 @@ Links to the different services for each environment:
 | APS Prod        | `stg`           | SDX Staging              |
 | APS Prod        | `bct`           | SDX Non-Prod             |
 | APS Prod        | `bc`            | SDX Prod                 |
+
+## Public key sets
+
+A runtime group's public keys are published at:
+
+```text
+https://<public-sdx-host>/keysets/sdx.edge.<runtime-group>.<environment>/.well-known/jwks.json
+```
+
+`<environment>` is the SDX environment label in the table above. The
+`info.details.endpoint` value returned by `sdx-keys.r1` is an address inside
+the operator cluster. Use the public URL instead.
+
+| SDX environment | Public host                                     |
+| --------------- | ----------------------------------------------- |
+| `apsdev`        | `https://pzgw-api-gov-bc-ca.dev.api.gov.bc.ca`  |
+| `apstst`        | `https://pzgw-api-gov-bc-ca.test.api.gov.bc.ca` |
+| `bct`           | `https://pzgw.test.api.gov.bc.ca`               |
+| `bc`            | `https://pzgw.api.gov.bc.ca`                    |
 
 ## Playground
 
