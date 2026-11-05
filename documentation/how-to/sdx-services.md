@@ -10,7 +10,7 @@ The steps described in this page are performed by users with the following roles
 
 | Role            | Function                                                   |
 | --------------- | ---------------------------------------------------------- |
-| Subsystem Owner | Subsystem-level role for managing services for a subsystem |
+| Tech Lead       | Subsystem-level role for managing services for a subsystem |
 
 Use cases:
 
