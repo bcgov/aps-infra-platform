@@ -57,7 +57,7 @@ terms:
     url: 
   environment:
     name: Environment
-    def: An environment in software development is the collection of hardware and software a system uses to run applications and services. These include development, testing, and production environments.
+    def: An environment in software development is the collection of hardware and software a system uses to run applications and services. These include development, testing, and production environments. In the API Services Portal, a Product has one or more Product Environments.
     url: 
   gateway:
     name: Gateway
@@ -86,6 +86,14 @@ terms:
   organization-administrator:
     name: Organization Administrator
     def: An Organization Administrator (Org Admin) is the user responsible for monitoring and managing all APIs for a specific organization on the API Services Portal. The Org Admin’s primary responsibility is to allow an API provider to publish an API to the API Directory.
+    url: 
+  product:
+    name: Product
+    def: A Product bundles one or more Gateway Services into an API that API Consumers can find in the API Directory and request access to. A Product has one or more Product Environments, such as dev, test, and prod.
+    url: 
+  product-environment:
+    name: Product Environment
+    def: A Product Environment is one environment of a Product, such as dev, test, or prod. Each Product Environment has its own Gateway Services, protection flow (for example, Kong API Key with ACL or OAuth 2.0 Client Credentials), approval setting, and unique appId. API Consumers request access to a Product Environment, not to the whole Product.
     url: 
   publish:
     name: Publish

@@ -216,4 +216,4 @@ Configure Consumer-specific plugins, including
   controls, revoke)
 - [Generate a Service Account](/how-to/generate-service-account.md)
 - [Client Credential Protection](/how-to/client-cred-flow.md)
-- [Kong API Key](/how-to/kong-api-key.md)
+- [Kong API Key + ACL](/how-to/kong-api-key.md)
