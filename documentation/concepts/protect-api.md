@@ -8,7 +8,7 @@ and how it works in conjunction with supported plugins.
 ## Compare protection methods
 
 The API Services Portal supports these ways to protect a Gateway Service. Each
-Product Environment uses one of them, set as the Environment's flow.
+{{ glossary_tooltip term_id="product-environment" }} uses one of them, set as the Environment's flow.
 
 | Method | What the Gateway confirms | What you set up | Choose it when |
 | ------ | ------------------------- | --------------- | -------------- |

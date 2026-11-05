@@ -5,8 +5,8 @@ title: Kong API Key + ACL
 <!-- overview -->
 
 This guide explains how to protect your Gateway Service with a Kong API key and
-an Access Control List (ACL), so that only consumers you approve for your Product
-Environment can call it. This is the `kong-api-key-acl` flow, and it is the
+an Access Control List (ACL), so that only consumers you approve for your
+{{ glossary_tooltip term_id="product-environment" }} can call it. This is the `kong-api-key-acl` flow, and it is the
 typical choice when you protect an API with API keys.
 
 You can read more about the API key flows and how they differ on the
