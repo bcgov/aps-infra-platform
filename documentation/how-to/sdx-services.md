@@ -14,7 +14,7 @@ The steps described in this page are performed by users with the following roles
 
 Use cases:
 
-- Designing a service API
+- Building a service API
 - Register a service
 - View API service catalog
 - Verification testing
@@ -25,7 +25,7 @@ Use cases:
 
 - [Install Restish CLI](/reference/restish-cli.md)
 
-## Designing a service API
+## Building a service API
 
 ### OpenAPI Specification
 
@@ -47,7 +47,39 @@ digit           = "0"…"9" ;
 
 The `namespace` will be organization-based - refer to the [BC Gov Org Structure](https://dir.gov.bc.ca/internal/gtds.cgi?Index=ByUnitHier) for organization codes.
 
+### P2P Emulator
+
+!!! note "Placeholder — provider testing guidance"
+
+    This section introduces the development emulator. A complete provider
+    walkthrough and environment-specific trust configuration will be added
+    after validation with the APS team.
+
+The P2P Emulator generates signed subject tokens, P2P Edge Runtime tokens and
+request headers to help test a provider API with sample identities and resource
+scopes. It returns the tokens and headers; it does not call your API for you.
+
+[Request access to the P2P Emulator through the API Directory](https://api.gov.bc.ca/devportal/api-directory/4443).
+Once access has been granted:
+
+1. Open the [P2P Emulator development app](https://sdx-p2p-emu-api-gov-bc-ca.dev.api.gov.bc.ca/).
+2. Select **Authorize** and enter the Client ID and Client Secret supplied for
+   emulator API access.
+3. Enter a test **Subject identifier**, **Initial AZP**, **Client Subsystem**
+   and the resource scopes to exercise, then select **Generate access token**.
+   A saved profile is optional.
+4. Use the returned headers when calling your test API. The OAuth token used
+   to access the emulator is separate from the generated subject token sent
+   to your API.
+
+Use synthetic identities and test data. Confirm the emulator's subject-token
+and Edge Runtime signing-key trust with your operator before testing; emulator
+results do not establish that a live SDX connection is approved or provisioned.
+
 ## Register a service
+
+Once the development and testing phase is complete and your service is built and ready
+to go to production, you can setup the service on SDX.
 
 To register a service, you need to identify the `environment` you are deploying the service
 to, the `upstream URL` for routing to where your service is running,
@@ -69,7 +101,7 @@ For details about valid `environment` values, visit [Environment labels](/refere
     restish sdx upsert-oas-service \
       my-org \
       --subsystem MY-NEW-SUBSYSTEM \
-      --environment lab \
+      --environment bct \
       --upstream-url "https://your-upstream-endpoint" \
       --rsh-header "Content-Type: application/yaml" \
       < openapi.yaml
