@@ -11,10 +11,11 @@ for a list of parameters and protocol compatibility notes.
 
 ## Common usage example
 
-Typically this is used when your Environment configuration uses the flow
-`kong-api-key-acl` or `kong-acl-only` where the `allow` group is a special group
-defined for the Environment so that Access Managers can grant/revoke access to
-the Service from the API Services Portal.
+Typically this is used with the `kong-api-key-acl` flow, where the `allow`
+group is the Product Environment's `appId`. Access Managers can then grant or
+revoke access to the Service from the API Services Portal. See
+[Kong API Key + ACL](/how-to/kong-api-key.md) for how to get the `appId` and
+configure the `key-auth` and `acl` plugins together.
 
 To restrict access using ACL groups, add this section to your GatewayService
 configuration file:
@@ -27,10 +28,11 @@ plugins:
   tags: [ ns.<gatewayId> ]
   config:
     allow:
-    - pir-dev
+    - <environment appId>
     deny: null
     hide_groups_header: true
 ```
 
-Replace <SERVICE_NAME> with the name of the service that this plugin
-configuration will target.
+Replace `<SERVICE_NAME>` with the name of the service that this plugin
+configuration will target, and `<environment appId>` with the `appId` of the
+Product Environment.

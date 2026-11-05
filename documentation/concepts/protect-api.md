@@ -5,6 +5,17 @@ title: Protect an API
 This article explains the basics of adding protection to your Gateway Service,
 and how it works in conjunction with supported plugins.
 
+## Compare protection methods
+
+The API Services Portal supports these ways to protect a Gateway Service. Each
+Product Environment uses one of them, set as the Environment's flow.
+
+| Method | What the Gateway confirms | What you set up | Choose it when |
+| ------ | ------------------------- | --------------- | -------------- |
+| [Kong API key + ACL](#kong-api-key-flows) (`kong-api-key-acl`) | The request has a valid API key from a consumer you approved for the Product Environment | Two plugins on your Gateway Service. Consumers send a long-lived key in a header | You want the simplest setup that limits access to approved consumers. A key works until it is revoked, so a leaked key stays usable until you or the consumer act |
+| [OAuth 2.0 Client Credentials](#oauth-20-client-credential-flow) (`client-credentials`) | The request has a valid, short-lived access token from an identity provider and, depending on the plugin configuration, the scopes or roles you granted | An Authorization Profile and a plugin. Consumers get a token from the identity provider before they call your API | You need scopes or roles, short-lived tokens, or a standard OAuth 2.0 flow your consumers already use. There is more to set up for you and your consumers |
+| [Kong API key only](#kong-api-key-flows) (`kong-api-key-only`) | The request has a valid API key issued by any Gateway on the platform | One plugin on your Gateway Service | Your API is public. You get per-consumer identity and rate limits, but no control over who can call your API |
+
 Protecting your API is crucial for several reasons:
 
 1. Security: Unprotected APIs are vulnerable to various security threats such as
@@ -53,8 +64,7 @@ service. Here's how it typically works:
 
 3. Authentication: When the API Gateway receives a request, it checks the
    included API key to verify the identity of the client or application. If the
-   key is valid and authorized to access the your API, the API Gateway processes
-   the request; otherwise, it denies access.
+   key is not valid, the API Gateway denies access.
 
 4. Key Management: API keys can be managed by you, the provider, allowing you to
    revoke or regenerate keys as needed. This provides a level of control over
@@ -65,8 +75,38 @@ Key-based authentication is simple to implement and widely used across various
 APIs and services. However, it's important to handle API keys securely to
 prevent unauthorized access or misuse.
 
-See the how-to on [Kong API Key](/how-to/kong-api-key.md) to protect your API
-with key-based authentication.
+### Kong API key flows
+
+The API Services Portal supports two API key flows. Set the flow as the
+**Authorization** on your Product Environment.
+
+| Flow | Plugins | What the Gateway checks | Use for |
+| ---- | ------- | ----------------------- | ------- |
+| `kong-api-key-acl` (Kong API Key with ACL) | `key-auth` and `acl` | The API key is valid, **and** the consumer has been approved for your Product Environment | Most APIs protected with API keys |
+| `kong-api-key-only` | `key-auth` | The API key is valid (for all Gateways on the platform) | Public APIs only |
+
+With `kong-api-key-acl`, the Portal adds each approved consumer to an ACL group
+named after the Product Environment's `appId`. Your `acl` plugin allows only
+that group, so only consumers approved for your Environment can call your API.
+
+With `kong-api-key-only`, approving an access request does not change what the
+Gateway accepts. All Gateways on the platform share one Kong instance, and
+consumers and their API keys are not scoped to a Gateway. A service protected by
+the `key-auth` plugin alone accepts any valid API key issued by any Gateway on the
+platform, not only keys issued for your API. The key still identifies the
+consumer for rate limiting and lets you revoke access, and it keeps out
+anonymous callers. It does not control which consumers can call your API.
+
+!!! warning "Only use Kong API Key Only for public APIs"
+    Use `kong-api-key-only` only when anyone could be allowed to call your API.
+    For any API that should be limited to consumers you approve, use
+    `kong-api-key-acl`.
+
+    If your API is public and you want to give a higher rate limit to consumers
+    who request one, see [Two-tiered access](/how-to/COMMON-CONFIG.md#two-tiered-access).
+
+See the how-to on [Kong API Key + ACL](/how-to/kong-api-key.md) to protect your
+API with an API key and ACL.
 
 ## OAuth 2.0 Client Credential Flow
 
@@ -81,5 +121,5 @@ protect your API with OAuth 2.0 Client Credentials Flow.
 
 ## Next steps
 
-- [Kong API Key](/how-to/kong-api-key.md)
+- [Kong API Key + ACL](/how-to/kong-api-key.md)
 - [Client Credential Protection](/how-to/client-cred-flow.md)
