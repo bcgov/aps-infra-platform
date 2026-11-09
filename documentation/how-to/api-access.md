@@ -14,7 +14,7 @@ Before you begin, ensure you:
 
 - [Create a Gateway](/how-to/create-gateway.md)
 - [Create a Gateway Service](/how-to/create-gateway-service.md)
-- Configure a protected Gateway Service with [API Key](/how-to/kong-api-key.md)
+- Configure a protected Gateway Service with [Kong API Key + ACL](/how-to/kong-api-key.md)
 or [Client Credential](/tutorials/protect-client-cred.md)
 - [Share an API](/how-to/api-discovery.md)
 

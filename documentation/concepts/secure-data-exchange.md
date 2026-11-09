@@ -52,6 +52,13 @@ host its own runtime group (`client-hosted` or another `community-hosted`
 runtime group), and that runtime — not PZGW — must appear in the
 provider's organization `hostedOrganizations`.
 
+PZGW is one public host, so the consumer subsystem is selected from the
+request. The
+[P2P routing contract](/reference/sdx/p2p-routing-contract.md) records how a
+connection is selected today. Which headers a provider may trust are recorded
+in the
+[SDX Data Access Protocol](/reference/sdx/data-access-protocol.md#header-trust).
+
 ## Next steps
 
 If you would like to dive deeper or start implementing services on SDX, check out the
@@ -64,3 +71,7 @@ How-to guides
 - [Managing subsystems](/how-to/sdx-subsystems.md)
 - [Managing services](/how-to/sdx-services.md)
 - [Connecting a service](/how-to/sdx-connections.md)
+
+Reference
+
+- [P2P routing contract](/reference/sdx/p2p-routing-contract.md)
