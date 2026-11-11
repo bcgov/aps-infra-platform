@@ -57,7 +57,12 @@ confirm delivery and provisioning rather than assuming approval completed them.
       isApproved: true, isActive: true
     ```
 
-## Open a connection
+## Open an R0 connection
+
+The signing and verification examples below apply to `SDX.R0.00`. For R1,
+follow the [CSS and SDX UI journey](/how-to/sdx-connections.md) and the
+[R1 gateway configuration](/how-to/sdx-connection-resources.md#sdxr100-policy);
+R0 patterns alone do not configure R1 token validation, ACL or token exchange.
 
 Once the connection request has been approved, both sides are able to publish the
 routing rules for opening a channel between the two systems.

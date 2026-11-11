@@ -44,6 +44,10 @@ Before requesting access:
 
 ### Request access
 
+For the current CSS request and provider SDX UI steps, follow
+[Connecting a Service](/how-to/sdx-connections.md#request-access-through-common-sso-consumer).
+The setup checklist below remains a draft for review.
+
 1. Open the intended CSS integration's SDX access workflow with the required
    integration permissions. Discover the target service and environment, select
    the service version and only the scopes needed by the application. Confirm
@@ -217,4 +221,3 @@ tokens.
 An explicit granted scope set that differs from the requested set is a warning,
 not an exchange failure. SDX continues with the successful exchanged token, and
 the provider's normal token validation and authorization rules apply.
-

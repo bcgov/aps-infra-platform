@@ -4,6 +4,7 @@
 
 | Release Date | Release                                                         |
 | ------------ | --------------------------------------------------------------- |
+| 2026 Oct 27  | [3.0.15 Minor Release](/reference/releases/2026-oct-3.0.15.md)  |
 | 2026 Sept 14 | [3.0.13 Minor Release](/reference/releases/2026-sept-3.0.13.md) |
 | 2026 May 12  | [GWA-CLI 3.1.1 Update](/reference/releases/2026-may.md)         |
 | 2026 Mar 31  | [Keycloak 26 Upgrade](/reference/releases/2026-mar-31-3.0.8.md) |
