@@ -312,11 +312,11 @@ Always use HTTPS (`protocol: https`) between the Gateway and your upstream
 service so the traffic is encrypted. Then use one or more of these methods to
 confirm that requests came from the Gateway:
 
-| Method                                                                         | What your service can confirm                                                                                      | What you set up                                                     |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| [Gateway-signed JWT](#verify-requests-with-a-gateway-signed-jwt) (recommended) | The request passed through the APS Gateway for your Gateway Service, in the last minute, and the body is unchanged | A plugin on your Gateway Service, and token validation in your code |
-| [mTLS](#verify-upstream-services-with-mtls)                                    | The connection came from the Gateway, using a client certificate that only your Gateway has                        | A client certificate you create and renew, and a root CA from APS   |
-| [IP restrictions](#restrict-by-ip-address)                                     | The request came from APS Gateway infrastructure, which other teams share                                          | Firewall rules on your network                                      |
+| Method                                                                         | What your service can confirm                                                                                             | What you set up                                                     |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| [Gateway-signed JWT](#verify-requests-with-a-gateway-signed-jwt) (recommended) | The request came through an APS Gateway in the last minute, and was meant for your Gateway Service (when you check `aud`) | A plugin on your Gateway Service, and token validation in your code |
+| [mTLS](#verify-upstream-services-with-mtls)                                    | The connection came from the Gateway, using a client certificate that only your Gateway has                               | A client certificate you create and renew, and a root CA from APS   |
+| [IP restrictions](#restrict-by-ip-address)                                     | The request came from APS Gateway infrastructure, which other teams share                                                 | Firewall rules on your network                                      |
 
 You can combine these methods. For example, IP restrictions block most unwanted
 traffic before it reaches your service, and a Gateway-signed JWT confirms each
@@ -333,8 +333,9 @@ How it works:
    short-lived token (JWT) to a request header.
 2. The Gateway signs the token with a private key that only APS holds.
 3. Your service checks the signature with APS's public keys, which are published
-   at a JWKS URL. If the token is missing, expired, or the signature doesn't
-   match, your service rejects the request.
+   at a JWKS URL, and checks that the token's `aud` claim is your Gateway
+   Service name. If the token is missing or expired, the signature doesn't
+   match, or `aud` is any other value, your service rejects the request.
 
 Your service only needs the public JWKS URL. You don't share secrets with APS or
 manage certificates, and the plugin also works for services on OpenShift as an
@@ -346,9 +347,14 @@ To set up the plugin and validate the token in your service, see the
 ### Verify upstream services with mTLS
 
 With mutual TLS (mTLS), the Gateway and your upstream service each check the
-other's certificate. The Gateway checks your service's server certificate
-against your root CA, and your service accepts only connections where the
-Gateway presents your client certificate.
+other's certificate:
+
+- **The Gateway checks your service's server certificate** against your root
+  CA. The Gateway Service configuration below sets this up, and also makes the
+  Gateway present your client certificate when it connects.
+- **Your service checks the Gateway's client certificate.** You set this up on
+  your upstream service: configure it to require a client certificate, and to
+  trust only your client certificate or the CA that issued it.
 
 To support mTLS between the API Gateway and your upstream service, you will need
 to provide client certificate and Root CA details along with your Gateway
@@ -379,7 +385,7 @@ certificates:
 
 Where:
 
-- `services[n].tls_verify` is set to `true` to enable mTLS.
+- `services[n].tls_verify` is set to `true` so the Gateway verifies your upstream service's server certificate.
 - `services[n].ca_certificates` contains the UUID of the Root CA for the certificate chain.
 
   Root CAs must be installed by the APS team -

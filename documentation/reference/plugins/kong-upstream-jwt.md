@@ -1,9 +1,9 @@
 # Kong Upstream JWT
 
 The `kong-upstream-jwt` plugin adds a signed JWT to each request the Gateway
-proxies to your upstream service. Your service validates the token to confirm
-that the request came through the APS Gateway for your Gateway Service, and that
-the request body wasn't changed on the way.
+proxies to your upstream service. Your service validates the token's signature
+to confirm that the request came through an APS Gateway, and checks the `aud`
+claim to confirm that the request was meant for your Gateway Service.
 
 The token is in the `JWT` header by default (set `header` to change it). APS
 signs it with an RS256 key, and it expires one minute after it's issued. Validate
@@ -39,12 +39,22 @@ consumer's own `Authorization` header.
 
 The token contains these claims:
 
+- `iss`: the issuer, which is your environment's [JWKS](#jwks) URL without
+  `/certs`.
 - `aud`: the name of your Gateway Service.
-- `exp`: when the token expires, one minute after the Gateway issued it.
+- `iat`: when the Gateway issued the token.
+- `exp`: when the token expires, 60 seconds after `iat`.
 - `jti`: a unique ID for the request.
-- `consumername` and `consumerid`: the consumer that called your API.
-- `payloadhash`: a SHA-256 hash of the request body. Compare it with your own
-  hash of the body to confirm nothing changed after the request left the Gateway.
+- `consumerid`: the ID of the consumer that called your API. Only included
+  when the route identifies a consumer.
+- `consumername`: the consumer's username. Only included when the route
+  identifies a consumer that has a username.
+- `payloadhash`: a lowercase hex SHA-256 hash of the raw request body. It
+  doesn't cover the path, query string, or headers. It's an empty string (`""`)
+  when the Gateway doesn't hold the body in memory: for requests with no body
+  (such as `GET`), and for larger bodies (for example, over 8 KB on the Gold
+  cluster). Because of this, don't rely on `payloadhash` to prove the body
+  wasn't changed.
 
 !!! warning "Check the audience as well as the signature"
     All Gateways in an APS environment share the same signing keys. A valid
