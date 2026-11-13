@@ -82,6 +82,9 @@ Where:
   python3 -c 'import uuid; print(uuid.uuid4())'
   ```
 
+  Generate these IDs once and keep them. You will reuse them when you
+  [renew your certificate](#renew-your-certificate).
+
 !!! warning "Gateway configuration formats"
     There are [two formats for Gateway configuration](/concepts/gateway-config.md#gateway-configuration-formats).
     To include SSL certificates in your Gateway Service configuration, you must use the **Kong format**, as shown above.   
@@ -138,6 +141,43 @@ API by visiting the URL of your Gateway Service.
 You can expect to see upstream API responses in the browser, or if you used the
 placeholder `httpbin.org` in the Gateway Service configuration, you will see the
 contents of the httpbin.org homepage.
+
+## Renew your certificate
+
+API Program Services does not renew or monitor certificates for custom domains.
+Track your certificate's expiry date and renew it before it expires. Maximum
+certificate lifetimes are shrinking, to 100 days from March 2027 and 47 days
+from March 2029, so plan to renew often.
+
+To renew:
+
+1. Obtain the renewed certificate and key from your certificate authority.
+2. In your Gateway configuration, replace the `cert` and `key` values. Keep the
+   existing `certificates[n].id` and `certificates[n].snis.id`.
+3. Publish the configuration:
+
+    ```shell linenums="0"
+    gwa pg gw-config.yaml
+    ```
+
+The Gateway starts serving the new certificate within about 30 seconds, with no
+interruption to traffic.
+
+### Automate renewal
+
+Because renewal is a certificate swap followed by `gwa pg`, you can run it as a
+scheduled job. Have the job obtain the new certificate, write it into your
+Gateway configuration, and publish it using a
+[Service Account](/how-to/generate-service-account.md):
+
+```shell linenums="0"
+gwa login --client-id <CLIENT_ID> --client-secret <CLIENT_SECRET>
+gwa config set gateway <gatewayId>
+gwa pg gw-config.yaml
+```
+
+See [Add CI/CD Integration](/how-to/cicd-integration.md) for a sample GitHub Actions
+workflow.
 
 <!-- whatsnext -->
 
