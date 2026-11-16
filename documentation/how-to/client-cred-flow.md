@@ -290,7 +290,8 @@ Options:
 - `Network Policy` : If the Services are co-located on the same Cluster as the
   Gateway's Data Plane, then native network policies can be used to protect the
   channel between the Gateway and the Upstream Service. This approach is used
-  for Services running on the OpenShift Silver cluster.
+  for Services running on the OpenShift Silver, Gold, and Emerald clusters. See
+  [Upstream Services on OpenShift](/how-to/upstream-services.md#upstream-services-on-openshift).
 
 - `Kong Upstream JWT`: This plugin adds a signed JWT to the request headers so
   that the Upstream Service can verify that the request came specifically from
@@ -305,6 +306,10 @@ Options:
   Planes are typically on shared infrastructure, this would still allow traffic
   from other tenants. This might be acceptable based on the type of data
   delivered by or to the Upstream Service.
+
+For details on the Kong Upstream JWT, client certificate, and IP restriction
+options, see
+[Public cloud and on-premise](/how-to/upstream-services.md#public-cloud-and-on-premise).
 
 ## Variations
 
