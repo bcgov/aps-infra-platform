@@ -151,7 +151,7 @@ from March 2029, so plan to renew often.
 
 To renew:
 
-1. Obtain the renewed certificate and key from your certificate authority.
+1. Generate a new private key and CSR, and obtain the renewed certificate from your certificate authority.
 2. In your Gateway configuration, replace the `cert` and `key` values. Keep the
    existing `certificates[n].id` and `certificates[n].snis.id`.
 3. Publish the configuration:
