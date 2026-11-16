@@ -1,5 +1,10 @@
 name: 'Send review reminders'
 on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: 'Throwaway PR number to probe'
+        required: true
   schedule:
     - cron: '30 13 * * 1,2,3,4,5' # Scheduled to run at 5:30 AM PST, weekdays
 
@@ -10,12 +15,37 @@ jobs:
   remind:
     runs-on: ubuntu-latest
     permissions:
-      # Lists open PRs and reviewers, then comments on and labels PRs. The comment and
-      # label calls go through /issues/{n}/..., which accepts pull-requests: write for a PR.
       pull-requests: write
     steps:
       - name: Run PR reviewer reminder
         uses: bcgov/aps-devops/pr-reminder@dev
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          dry_run: "false"
+          dry_run: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
+
+  # TEMPORARY probes: the same two calls the reminder makes, on a throwaway PR.
+  probe-pr-write:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ inputs.pr }}
+        run: |
+          if gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -f body='Permission probe (pull-requests: write only). Safe to ignore.'; then echo "RESULT comment: allowed"; else echo "RESULT comment: denied"; fi
+          if gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$PR/labels" -f 'labels[]=reminded' > /dev/null; then echo "RESULT label: allowed"; else echo "RESULT label: denied"; fi
+
+  probe-pr-read:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ inputs.pr }}
+        run: |
+          if gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -f body='Permission probe (read only). This should have been denied.'; then echo "RESULT comment: allowed"; else echo "RESULT comment: denied"; fi
+          if gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$PR/labels" -f 'labels[]=reminded' > /dev/null; then echo "RESULT label: allowed"; else echo "RESULT label: denied"; fi
