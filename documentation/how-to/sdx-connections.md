@@ -13,6 +13,17 @@ synchronization and gateway provisioning before calling the service. Where
 configured, SDX exchanges the user token across privacy zones so the subject
 identifies the user in the target zone.
 
+## Choose your consumer journey
+
+| Policy | Consumer requesting experience |
+| --- | --- |
+| [SDX.R0.00 — Request access](/how-to/sdx-connections-r0-policy.md) | A consumer Tech Lead submits a peer-to-peer request through Restish with requester details. Available only in the SDX Playground. |
+| SDX.R1.00 — Request access through Common SSO | Follow the CSS request, SDX UI approval and testing steps below. The [draft R1 setup guide](/how-to/sdx-connections-r1-policy.md) provides roles, token setup and cross-privacy-zone considerations for review. |
+
+Use the [connection walkthrough record](/how-to/sdx-connection-approval.md#playground-walkthrough-record)
+with the provider and APS/Common SSO teams to record provisioning, scope
+synchronization, allowed and denied calls, and cleanup evidence.
+
 ## Prerequisites
 
 - Complete [organization onboarding](/how-to/sdx-org-onboarding.md) and
