@@ -58,5 +58,39 @@ Report**  to generate an Excel report for your Gateways, including data on:
 - Gateway access (user and service account permissions)
 - Gateway metrics (total requests in the last 30 days)
 - Gateway controls (plugin configuration)
-- Consumer requests (requestor, application, status)
-- Consumer access, metrics, and controls
+- Consumer requests (requestor and requestor email, application, status)
+- Consumer access (application owner and owner email), metrics, and controls
+
+## Get consumer contact details via API
+
+Use the gateway report endpoints to get your consumers' contact details as
+JSON, for example to notify them about API changes, deprecations, or
+when a job they submitted has finished.
+
+| Report            | Method | Path                                                       |
+| ----------------- | ------ | ---------------------------------------------------------- |
+| Consumer access   | `GET`  | `/ds/api/v3/gateways/{gatewayId}/report/consumer-access`   |
+| Consumer requests | `GET`  | `/ds/api/v3/gateways/{gatewayId}/report/consumer-requests` |
+
+- **Consumer access** returns one row per consumer and Product Environment, with
+  the application name and the application owner's name (`app_owner_name`) and
+  email (`app_owner_email`). These are the same rows as the **Consumer Access
+  (Products)** sheet in the gateway report.
+- **Consumer requests** returns the access requests made for the Gateway's
+  Products, with the requestor's name (`requestor`) and email
+  (`requestor_email`) and the request result. These are the same rows as the
+  **Consumer Requests** sheet in the gateway report.
+
+To call these endpoints, use a user token or a
+[Service Account](/how-to/generate-service-account.md) with the
+`Namespace.View` or `Access.Manage` scope on the Gateway:
+
+```http
+GET /ds/api/v3/gateways/{gatewayId}/report/consumer-access
+Authorization: Bearer <token>
+```
+
+For interactive API reference, open the
+[Directory API OpenAPI console](https://api.gov.bc.ca/ds/api/v3/console) and look
+under **Gateways** for the `gateway-report-consumer-access` and
+`gateway-report-consumer-requests` operations.
