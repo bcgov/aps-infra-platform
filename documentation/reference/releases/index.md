@@ -4,6 +4,7 @@
 
 | Release Date | Release                                                         |
 | ------------ | --------------------------------------------------------------- |
+| 2026 Nov 19  | [3.1.0 Minor Release](/reference/releases/2026-nov-3.1.0.md)    |
 | 2026 Oct 27  | [3.0.15 Minor Release](/reference/releases/2026-oct-3.0.15.md)  |
 | 2026 Sept 14 | [3.0.13 Minor Release](/reference/releases/2026-sept-3.0.13.md) |
 | 2026 May 12  | [GWA-CLI 3.1.1 Update](/reference/releases/2026-may.md)         |

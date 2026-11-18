@@ -1,7 +1,18 @@
 # Kong Upstream JWT
 
-The `kong-upstream-jwt` plugin adds a signed JWT into the HTTP Header `JWT` of
-proxied requests through the Kong Gateway.
+The `kong-upstream-jwt` plugin adds a signed JWT to each request the Gateway
+proxies to your upstream service. Your service validates the token's signature
+to confirm that the request came through an APS Gateway, and checks the `aud`
+claim to confirm that the request was meant for your Gateway Service.
+
+The token is in the `JWT` header by default (set `header` to change it). APS
+signs it with an RS256 key, and it expires one minute after it's issued. Validate
+it against the [JWKS](#jwks) for your environment, and check the
+[token claims](#token-claims), including that `aud` matches your Gateway Service
+name.
+
+For how this compares with mTLS and IP restrictions, see
+[Set Up an Upstream Service](/how-to/upstream-services.md#public-cloud-and-on-premise).
 
 ## Configuration reference
 
@@ -20,6 +31,36 @@ plugins:
       header: GW-JWT
       include_credential_type: false
 ```
+
+Use a dedicated header such as `GW-JWT` if your service also needs the
+consumer's own `Authorization` header.
+
+## Token claims
+
+The token contains these claims:
+
+- `iss`: the issuer, which is your environment's [JWKS](#jwks) URL without
+  `/certs`.
+- `aud`: the name of your Gateway Service.
+- `iat`: when the Gateway issued the token.
+- `exp`: when the token expires, 60 seconds after `iat`.
+- `jti`: a unique ID for the request.
+- `consumerid`: the ID of the consumer that called your API. Only included
+  when the route identifies a consumer.
+- `consumername`: the consumer's username. Only included when the route
+  identifies a consumer that has a username.
+- `payloadhash`: a lowercase hex SHA-256 hash of the raw request body. It
+  doesn't cover the path, query string, or headers. It's an empty string (`""`)
+  when the Gateway doesn't hold the body in memory: for requests with no body
+  (such as `GET`), and for larger bodies (for example, over 8 KB on the Gold
+  cluster). Because of this, don't rely on `payloadhash` to prove the body
+  wasn't changed.
+
+!!! warning "Check the audience as well as the signature"
+    All Gateways in an APS environment share the same signing keys. A valid
+    signature proves the request came through _an_ APS Gateway, not _your_
+    Gateway. Your service must also check that `aud` matches your Gateway
+    Service name, and reject every other value.
 
 ## JWKS
 

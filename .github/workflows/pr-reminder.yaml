@@ -3,9 +3,16 @@ on:
   schedule:
     - cron: '30 13 * * 1,2,3,4,5' # Scheduled to run at 5:30 AM PST, weekdays
 
+permissions:
+  contents: read
+
 jobs:
   remind:
     runs-on: ubuntu-latest
+    permissions:
+      # Lists open PRs and reviewers, then comments on and labels PRs. The comment and
+      # label calls go through /issues/{n}/..., which accepts pull-requests: write for a PR.
+      pull-requests: write
     steps:
       - name: Run PR reviewer reminder
         uses: bcgov/aps-devops/pr-reminder@dev
